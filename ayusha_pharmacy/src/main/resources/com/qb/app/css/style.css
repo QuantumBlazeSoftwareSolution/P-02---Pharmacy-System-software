@@ -1,0 +1,271 @@
+.primary-gradient{
+    -fx-background-color: linear-gradient(to top, #000428, #004E92);
+}
+
+.primary-gradient-toLeft{
+    -fx-background-color: linear-gradient(to left, #000428, #004E92);
+}
+
+.black-gradient{
+    -fx-background-color: linear-gradient(to bottom, #434343, #000000);
+}
+
+.green-gradient{
+    -fx-text-fill: linear-gradient(to bottom, #237A57, #093028);
+}
+
+.primary-gradient-50{
+    -fx-background-color: linear-gradient(to top, hsba(220, 100%, 16%, 0.5), hsba(204, 100%, 57%, 0.5));
+}
+
+.buttonHover{
+    -fx-text-fill: #004E92;
+    -fx-background-color: hsba(208, 100%, 57%, 0.2);
+    -fx-background-radius: 15px;
+}
+
+.buttonHover:hover{
+    -fx-background-color: #fff;
+    -fx-border-color: #004E92;
+    -fx-border-width: 1px;
+    -fx-border-style: solid;
+    -fx-text-fill: #004E92;
+    -fx-border-radius: 50px;
+}
+
+.primary-text{
+    -fx-text-fill: #004E92;
+}
+
+.textFieldColor{
+    -fx-text-fill: #1068b5;
+}
+
+.primary-border{
+    -fx-border-color: #004E92;
+    -fx-border-width: 0.5px;
+    -fx-border-style: solid;
+    -fx-border-radius: 4px;
+}
+
+.primary-border-dash{
+    -fx-border-color: #004E92;
+    -fx-border-width: 1px;
+    -fx-border-style: dashed;
+    -fx-border-radius: 4px;
+}
+
+.system-login-left-panel{
+    -fx-background-radius: 0px 10px 10px 0px;
+}
+
+.primary-white{
+    -fx-text-fill: #f1f1f1;
+}
+
+.primary-white-bg{
+    -fx-background-color: #f1f1f1;
+}
+
+.primary-white-50{
+    -fx-text-fill: rgba(241, 241, 241, 0.5);
+}
+
+.bg-white{
+    -fx-background-color: #fff;
+}
+
+.bg-primary{
+    -fx-background-color: #004E92;
+}
+
+.bg-primary-20{
+    -fx-background-color: hsba(208, 100%, 57%, 0.2);
+}
+
+.invoiceActionButton:hover{
+    -fx-background-color: hsba(208, 100%, 57%, 0.3);
+}
+
+.bg-primary-5{
+    -fx-background-color: hsba(208, 100%, 57%, 0.05);
+}
+
+.full-width-button {
+    -fx-max-width: infinity;
+}
+
+.button-gradient {
+    -fx-background-color: linear-gradient(to left, #000428, #004E92);
+}
+
+.button-transparent{
+    -fx-background-color: transparent;
+}
+
+.bg-primary-white-10{
+    -fx-background-color: rgba(241, 241, 241, 0.1);
+}
+
+.bg-primary-white-10:hover{
+    -fx-background-color: rgba(241, 241, 241, 0.2);
+}
+
+.btn-white-hover:hover{
+    -fx-background-color: #E4E4E4;
+}
+
+.outline-icon{
+    -fx-fill: none;
+}
+
+.titleBarIcon:hover{
+    -fx-background-color: rgba(255,255,255,0.5);
+}
+
+.invoiceItemHover:hover{
+    -fx-background-color: hsba(208, 100%, 57%, 0.08);
+}
+
+/* styles.css */
+.scroll-pane .scroll-bar:vertical,
+.scroll-bar:vertical{
+    -fx-pref-width: 20px; /* Set the width of the vertical scroll bar */
+}
+
+.scroll-pane .scroll-bar:vertical .thumb,
+.scroll-bar:vertical .thumb{
+    -fx-background-color: #004E92;
+    /*-fx-background-radius: 10px;*/
+}
+
+.scroll-pane .scroll-bar:vertical .track,
+.scroll-bar:vertical .track{
+    /*-fx-background-color: #f0f0f0;  Color of the scroll bar track */
+}
+
+.border-radius{
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+}
+
+/* DatePicker Styles with Blue Theme */
+.date-picker {
+    -fx-background-color: hsba(208, 100%, 57%, 0.2); /* White background */
+    /*-fx-border-color: #004E92;  Blue border */
+    -fx-border-width: 1px;
+    -fx-border-radius: 4px;
+    -fx-padding: 5px;
+}
+
+/* DatePicker's arrow button */
+.date-picker .arrow-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0 4px 4px 0; /* Rounded corners on the right */
+    -fx-padding: 10px;
+    -fx-fill: #ffffff;
+}
+
+.date-picker .arrow-button:hover {
+    -fx-background-color: hsba(208, 100%, 57%, 0.2); /* Light blue on hover */
+    -fx-cursor: hand;
+}
+
+/* DatePicker's text field */
+.date-picker .text-field {
+    -fx-background-color: transparent; /* White background */
+    /*-fx-border-color: #004E92;  Blue border */
+    /*-fx-border-radius: 4px 0 0 4px;  Rounded corners on the left */
+    -fx-padding: 5px;
+}
+
+/* DatePicker's popup content */
+.date-picker-popup {
+    -fx-background-color: #ffffff; /* White background */
+    -fx-border-color: #004E92; /* Blue border */
+    -fx-border-radius: 4px;
+}
+
+/* DatePicker's calendar header (month and year) */
+.date-picker-popup .month-year-pane {
+    -fx-background-color: #004E92; /* Blue background */
+}
+
+.date-picker-popup .month-year-pane .label {
+    -fx-text-fill: #f1f1f1; /* White text */
+}
+
+/* DatePicker's calendar days */
+.date-picker-popup .day-cell {
+    -fx-background-color: #ffffff; /* White background */
+    -fx-text-fill: #004E92; /* Blue text */
+    -fx-border-color: transparent;
+}
+
+.date-picker-popup .day-cell:hover {
+    -fx-background-color: hsba(208, 100%, 57%, 0.2); /* Light blue on hover */
+}
+
+.date-picker-popup .day-cell:selected {
+    -fx-background-color: #004E92; /* Blue background for selected date */
+    -fx-text-fill: #f1f1f1; /* White text for selected date */
+}
+
+/* DatePicker's week number cells */
+.date-picker-popup .week-number-cell {
+    -fx-text-fill: #004E92; /* Blue text */
+}
+
+/* DatePicker's today cell */
+.date-picker-popup .today {
+    -fx-background-color: hsba(208, 100%, 57%, 0.05); /* Light blue background for today */
+    -fx-text-fill: #004E92; /* Blue text */
+}
+
+.date-picker-popup .today:selected {
+    -fx-background-color: #004E92; /* Blue background for selected today */
+    -fx-text-fill: #f1f1f1; /* White text for selected today */
+}
+
+.transparent-scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.transparent-scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.transparent-scroll-pane .scroll-bar:vertical,
+.transparent-scroll-pane .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+}
+
+.transparent-scroll-pane .scroll-bar:vertical .track,
+.transparent-scroll-pane .scroll-bar:horizontal .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+}
+
+.transparent-scroll-pane .scroll-bar:vertical .thumb,
+.transparent-scroll-pane .scroll-bar:horizontal .thumb {
+    -fx-background-color: rgba(0, 0, 0, 0.2);
+    -fx-background-insets: 2, 0, 0;
+    -fx-background-radius: 2em;
+}
+
+.subMenuHover:hover{
+    -fx-text-fill: #0095FF;
+}
+
+.custom-alert {
+    -fx-background-color: #f8f9fa;
+}
+.custom-alert .header-panel {
+    -fx-background-color: #4a6fa5;
+}
+.custom-alert .content.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+}

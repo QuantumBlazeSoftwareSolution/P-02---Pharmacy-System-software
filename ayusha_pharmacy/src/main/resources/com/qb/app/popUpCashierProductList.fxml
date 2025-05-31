@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1000.0" styleClass="primary-gradient" stylesheets="@css/adminStyle.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="com.qb.app.controllers.PopUpCashierProductListController">
+   <children>
+      <BorderPane layoutX="210.0" layoutY="243.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <HBox prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Group fx:id="pageIcon" />
+                  <Label styleClass="primary-white" stylesheets="@css/style.css" text="Product List">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Pane HBox.hgrow="ALWAYS" />
+                  <BorderPane prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 5px;" styleClass="close" stylesheets="@css/r.css">
+                     <center>
+                        <Group fx:id="closeIcon" BorderPane.alignment="CENTER" />
+                     </center>
+                  </BorderPane>
+               </children>
+            </HBox>
+         </top>
+         <center>
+            <VBox prefHeight="200.0" prefWidth="100.0" styleClass="primary-gradient" stylesheets="@css/adminStyle.css" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox prefWidth="200.0">
+                     <children>
+                        <VBox>
+                           <children>
+                              <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Search">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="300.0" />
+                           </children>
+                        </VBox>
+                        <Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                        <VBox>
+                           <children>
+                              <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Filter By">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="300.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" right="20.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" minHeight="-Infinity" vbarPolicy="NEVER">
+                                 <content>
+                                    <HBox maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="200.0">
+                                       <children>
+                                          <BorderPane minWidth="-Infinity" prefWidth="60.0" style="-fx-border-radius: 6px 0 0 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                             <left>
+                                                <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="ID" BorderPane.alignment="CENTER">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                             </left>
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                          </BorderPane>
+                                          <BorderPane minWidth="-Infinity" prefWidth="175.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                             <left>
+                                                <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Product" BorderPane.alignment="CENTER">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                             </left>
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                          </BorderPane>
+                                          <BorderPane minWidth="-Infinity" prefWidth="100.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                             <left>
+                                                <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Brand" BorderPane.alignment="CENTER">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                             </left>
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                          </BorderPane>
+                                          <BorderPane layoutX="310.0" layoutY="10.0" minWidth="-Infinity" prefWidth="100.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                             <left>
+                                                <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Sale Price" BorderPane.alignment="CENTER">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                             </left>
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                          </BorderPane>
+                                          <BorderPane layoutX="430.0" layoutY="10.0" minWidth="-Infinity" prefWidth="100.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                             <left>
+                                                <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Cost Price" BorderPane.alignment="CENTER">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                             </left>
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                          </BorderPane>
+                                          <BorderPane minWidth="-Infinity" prefWidth="70.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                             <left>
+                                                <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Unit" BorderPane.alignment="CENTER">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                             </left>
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                          </BorderPane>
+                                          <BorderPane layoutX="550.0" layoutY="10.0" minWidth="-Infinity" prefWidth="100.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                             <left>
+                                                <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Measure" BorderPane.alignment="CENTER">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                             </left>
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                          </BorderPane>
+                                          <BorderPane layoutX="430.0" layoutY="10.0" minWidth="-Infinity" prefWidth="60.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                             <left>
+                                                <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Discount" wrapText="true" BorderPane.alignment="CENTER">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                             </left>
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                          </BorderPane>
+                                          <BorderPane prefWidth="100.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0 6px  0 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                             <left>
+                                                <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Bar code" BorderPane.alignment="CENTER">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                             </left>
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                          </BorderPane>
+                                       </children>
+                                    </HBox>
+                                 </content>
+                              </ScrollPane>
+                              <ScrollPane fx:id="TableScrollContainer" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" stylesheets="@css/adminStyle.css" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+                                 <content>
+                                    <VBox fx:id="TableBody" prefWidth="100.0" />
+                                 </content>
+                              </ScrollPane>
+                           </children>
+                        </VBox>
+                        <ScrollBar fx:id="TableScroller" orientation="VERTICAL" styleClass="transparent-scroll-pane" stylesheets="@css/style.css" visibleAmount="20.0">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ScrollBar>
+                     </children>
+                  </HBox>
+               </children>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+               <padding>
+                  <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
+               </padding>
+            </VBox>
+         </center>
+      </BorderPane>
+   </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</AnchorPane>

@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="800.0" styleClass="primary-gradient" stylesheets="@css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.Inventory_location_returnController">
+   <children>
+      <BorderPane layoutX="186.0" layoutY="178.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <VBox prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox spacing="10.0">
+                     <children>
+                        <Group fx:id="locationReturnIcon" />
+                        <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Location Return">
+                           <font>
+                              <Font name="Aptos" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox prefWidth="200.0" spacing="20.0">
+                     <children>
+                        <VBox spacing="6.0">
+                           <children>
+                              <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Location Type">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font></Label>
+                              <RadioButton mnemonicParsing="false" selected="true" styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Primary">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="location_type_toggle" />
+                                 </toggleGroup>
+                              </RadioButton>
+                              <RadioButton layoutX="10.0" layoutY="36.0" mnemonicParsing="false" styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Secondary" toggleGroup="$location_type_toggle">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </RadioButton>
+                           </children>
+                        </VBox>
+                        <VBox spacing="12.0">
+                           <children>
+                              <Label alignment="TOP_LEFT" styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Location">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font></Label>
+                              <ComboBox prefHeight="40.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="10.0" layoutY="10.0" spacing="6.0">
+                           <children>
+                              <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Return Type">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font></Label>
+                              <RadioButton mnemonicParsing="false" selected="true" styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Default">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="return_type_toggle" />
+                                 </toggleGroup>
+                              </RadioButton>
+                              <RadioButton layoutX="10.0" layoutY="94.0" mnemonicParsing="false" styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Damage" toggleGroup="$return_type_toggle">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </RadioButton>
+                           </children>
+                        </VBox>
+                        <Pane HBox.hgrow="ALWAYS" />
+                        <VBox layoutX="110.0" layoutY="10.0" spacing="6.0">
+                           <children>
+                              <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Return ID">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font></Label>
+                              <TextField prefHeight="40.0" prefWidth="200.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                                 <VBox.margin>
+                                    <Insets right="20.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="Aptos" size="12.0" />
+                                 </font>
+                              </TextField>
+                              <VBox prefWidth="200.0">
+                                 <children>
+                                    <Label styleClass="admin-primary-blue" stylesheets="@css/adminStyle.css" text="Enter - View Return List ">
+                                       <font>
+                                          <Font name="Aptos" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Label styleClass="admin-primary-blue" stylesheets="@css/adminStyle.css" text="Enter - Load Previous Return">
+                                       <font>
+                                          <Font name="Aptos" size="12.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="BOTTOM_LEFT" prefWidth="200.0" spacing="5.0">
+                     <children>
+                        <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label minWidth="-Infinity" styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Product ID">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField prefHeight="40.0" prefWidth="100.0" styleClass="primary-white" stylesheets="@css/adminStyle.css" VBox.vgrow="ALWAYS">
+                                 <font>
+                                    <Font name="Aptos" size="12.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </TextField>
+                           </children>
+                        </VBox>
+                        <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label minWidth="-Infinity" styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Product Name">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField prefHeight="40.0" prefWidth="200.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                                 <font>
+                                    <Font name="Aptos" size="12.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </TextField>
+                           </children>
+                        </VBox>
+                        <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label minWidth="-Infinity" styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Unit Price">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField prefHeight="40.0" prefWidth="120.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                                 <font>
+                                    <Font name="Aptos" size="12.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </TextField>
+                           </children>
+                        </VBox>
+                        <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label minWidth="-Infinity" styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Qty">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField prefHeight="40.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                                 <font>
+                                    <Font name="Aptos" size="12.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </TextField>
+                           </children>
+                        </VBox>
+                        <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label minWidth="-Infinity" styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Amount">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField prefHeight="40.0" prefWidth="200.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                                 <font>
+                                    <Font name="Aptos" size="12.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </TextField>
+                           </children>
+                        </VBox>
+                        <Pane HBox.hgrow="ALWAYS" />
+                        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Add">
+                           <font>
+                              <Font name="Aptos" size="14.0" />
+                           </font>
+                           <styleClass>
+                              <String fx:value="button-primary" />
+                              <String fx:value="primary-white" />
+                           </styleClass>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </VBox>
+         </top>
+         <bottom>
+            <HBox alignment="BOTTOM_RIGHT" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox prefWidth="100.0" spacing="4.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Reason">
+                           <font>
+                              <Font name="Aptos" size="14.0" />
+                           </font></Label>
+                        <TextField prefHeight="40.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                           <font>
+                              <Font name="Aptos" size="12.0" />
+                           </font></TextField>
+                     </children>
+                  </VBox>
+                  <Pane />
+                  <VBox layoutX="10.0" layoutY="10.0" prefWidth="200.0" spacing="4.0">
+                     <children>
+                        <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Total">
+                           <font>
+                              <Font name="Aptos" size="14.0" />
+                           </font></Label>
+                        <TextField prefHeight="40.0" prefWidth="200.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                           <font>
+                              <Font name="Aptos" size="12.0" />
+                           </font></TextField>
+                     </children>
+                  </VBox>
+                  <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Return">
+                     <styleClass>
+                        <String fx:value="button-primary" />
+                        <String fx:value="primary-white" />
+                     </styleClass>
+                     <font>
+                        <Font name="Aptos" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+               </children>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </HBox>
+         </bottom>
+         <center>
+            <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" minHeight="-Infinity" vbarPolicy="NEVER">
+                           <content>
+                              <HBox maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="200.0">
+                                 <children>
+                                    <BorderPane maxWidth="120.0" minWidth="-Infinity" prefWidth="100.0" style="-fx-border-radius: 6px 0 0 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                       <center>
+                                          <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="ID" BorderPane.alignment="CENTER">
+                                             <font>
+                                                <Font name="Aptos" size="14.0" />
+                                             </font>
+                                          </Label>
+                                       </center>
+                                    </BorderPane>
+                                    <BorderPane minWidth="-Infinity" prefWidth="200.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                       <center>
+                                          <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Product" BorderPane.alignment="CENTER">
+                                             <font>
+                                                <Font name="Aptos" size="14.0" />
+                                             </font>
+                                          </Label>
+                                       </center>
+                                    </BorderPane>
+                                    <BorderPane maxWidth="220.0" minWidth="-Infinity" prefWidth="120.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                       <center>
+                                          <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Cost Price" BorderPane.alignment="CENTER">
+                                             <font>
+                                                <Font name="Aptos" size="14.0" />
+                                             </font>
+                                          </Label>
+                                       </center>
+                                    </BorderPane>
+                                    <BorderPane maxWidth="180.0" minWidth="-Infinity" prefWidth="100.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                       <center>
+                                          <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Qty" BorderPane.alignment="CENTER">
+                                             <font>
+                                                <Font name="Aptos" size="14.0" />
+                                             </font>
+                                          </Label>
+                                       </center>
+                                    </BorderPane>
+                                    <BorderPane maxWidth="350.0" prefWidth="200.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0 6px  0 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                       <center>
+                                          <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Amount" BorderPane.alignment="CENTER">
+                                             <font>
+                                                <Font name="Aptos" size="14.0" />
+                                             </font>
+                                          </Label>
+                                       </center>
+                                    </BorderPane>
+                                 </children>
+                              </HBox>
+                           </content>
+                        </ScrollPane>
+                        <ScrollPane fx:id="locationReturnTableScrollContainer" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" stylesheets="@css/adminStyle.css" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+                           <content>
+                              <VBox fx:id="locationReturnTableBody" prefWidth="100.0" style="-fx-border-radius: 0 0 4 4;" styleClass="primary-border" stylesheets="@css/adminStyle.css" />
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </VBox>
+                  <ScrollBar fx:id="locationReturnTableScroller" orientation="VERTICAL" styleClass="transparent-scroll-pane" stylesheets="@css/style.css" visibleAmount="20.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ScrollBar>
+               </children>
+            </HBox>
+         </center>
+      </BorderPane>
+   </children>
+   <padding>
+      <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+   </padding>
+</AnchorPane>

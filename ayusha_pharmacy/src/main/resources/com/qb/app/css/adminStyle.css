@@ -1,0 +1,186 @@
+.primary-gradient{
+    -fx-background-color: linear-gradient(to bottom, #243B55, #141E30);
+}
+
+.primary-white{
+    -fx-text-fill: #f1f1f1;
+}
+
+.admin-primary-blue{
+    -fx-text-fill: #2F54FE;
+}
+
+.text-field-label{
+    -fx-text-fill: #2C58A6;
+}
+
+.tooltip {
+    -fx-background-color: #3278fa;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.sub-menu-item{
+    -fx-background-radius: 4px 4px 4px 4px;
+}
+
+.sub-menu-item:hover{
+    -fx-background-color: rgba(241, 241, 241, 0.1);
+}
+
+.primary-border{
+    -fx-border-color: #2C58A6;
+    -fx-border-width: 0.5px;
+    -fx-border-style: solid;
+    -fx-border-radius: 4px;
+}
+
+.bg-transparent{
+    -fx-background-color: transparent;
+}
+
+.text-field,
+.combo-box{
+    -fx-border-color: #2C58A6;
+    -fx-border-width: 0.5px;
+    -fx-border-style: solid;
+    -fx-border-radius: 4px;
+    -fx-text-fill: #f1f1f1;
+    -fx-background-color: transparent;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: #2C58A6;
+}
+
+.button-primary{
+    -fx-background-color: #2C58A6;
+}
+
+.button-primary-outline{
+    -fx-background-color: transparent;
+    -fx-text-fill: #2C58A6;
+    -fx-border-color: #2C58A6;
+    -fx-border-width: 0.5px;
+    -fx-border-style: solid;
+    -fx-border-radius: 4px;
+}
+
+.full-width-button {
+    -fx-max-width: infinity;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-pane .content {
+    -fx-padding: 0;
+}
+
+.primary-text-green{
+    -fx-text-fill: #0D9F00;
+}
+
+.primary-text-red{
+    -fx-text-fill: #FF3333;
+}
+
+.hover-white-bg:hover{
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+}
+
+.separator .line {
+    -fx-border-color: red;
+    -fx-border-width: 1;
+}
+
+/* For a horizontal separator */
+.separator:horizontal .line {
+    -fx-border-color: #2C58A6;
+    -fx-border-width: 1;
+}
+
+/* For a vertical separator */
+.separator:vertical .line {
+    -fx-border-color: #2C58A6;
+    -fx-border-width: 1;
+}
+
+.date-picker {
+    -fx-border-color: #2C58A6;
+    -fx-border-width: 0.5px;
+    -fx-border-style: solid;
+    -fx-border-radius: 4px;
+    -fx-background-color: transparent;
+}
+
+.date-picker .text-field {
+    -fx-text-fill: #f1f1f1;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.date-picker .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.date-picker .arrow-button .arrow {
+    -fx-background-color: #f1f1f1;
+}
+
+/* Style for the popup content */
+.date-picker-popup {
+    -fx-background-color: #ffffff; /* White background */
+    -fx-border-color: #004E92; /* Blue border */
+    -fx-border-radius: 4px;
+}
+
+/* DatePicker's calendar header (month and year) */
+.date-picker-popup .month-year-pane {
+    -fx-background-color: #004E92; /* Blue background */
+}
+
+.date-picker-popup .month-year-pane .label {
+    -fx-text-fill: #f1f1f1; /* White text */
+}
+
+/* DatePicker's calendar days */
+.date-picker-popup .day-cell {
+    -fx-background-color: #ffffff; /* White background */
+    -fx-text-fill: #004E92; /* Blue text */
+    -fx-border-color: transparent;
+}
+
+.date-picker-popup .day-cell:hover {
+    -fx-background-color: hsba(208, 100%, 57%, 0.2); /* Light blue on hover */
+}
+
+.date-picker-popup .day-cell:selected {
+    -fx-background-color: #004E92; /* Blue background for selected date */
+    -fx-text-fill: #f1f1f1; /* White text for selected date */
+}
+
+/* DatePicker's week number cells */
+.date-picker-popup .week-number-cell {
+    -fx-text-fill: #004E92; /* Blue text */
+}
+
+/* DatePicker's today cell */
+.date-picker-popup .today {
+    -fx-background-color: hsba(208, 100%, 57%, 0.05); /* Light blue background for today */
+    -fx-text-fill: #004E92; /* Blue text */
+}
+
+.date-picker-popup .today:selected {
+    -fx-background-color: #004E92; /* Blue background for selected today */
+    -fx-text-fill: #f1f1f1; /* White text for selected today */
+}

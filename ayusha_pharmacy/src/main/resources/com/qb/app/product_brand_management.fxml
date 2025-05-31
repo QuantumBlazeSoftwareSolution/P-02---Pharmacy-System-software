@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXToggleButton?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="720.0" prefWidth="800.0" styleClass="primary-gradient" stylesheets="@css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.Product_brand_managementController">
+   <children>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <HBox alignment="CENTER_LEFT" spacing="10.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Group fx:id="iconPage" />
+                  <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Brand Management">
+                     <font>
+                        <Font name="Aptos" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </top>
+         <padding>
+            <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+         </padding>
+         <center>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="12.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox maxHeight="-Infinity" spacing="12.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Brand Registration">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <VBox prefWidth="100.0">
+                                 <children>
+                                    <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Brand Name">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="tfPrimaryBrandName" prefHeight="45.0" styleClass="text-field" stylesheets="@css/adminStyle.css">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                              </VBox>
+                              <HBox spacing="10.0">
+                                 <children>
+                                    <Button fx:id="btnPrimaryClear" minHeight="-Infinity" mnemonicParsing="false" onAction="#handleActionEvent" prefHeight="45.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Clear">
+                                       <styleClass>
+                                          <String fx:value="button-primary-outline" />
+                                          <String fx:value="primary-white" />
+                                          <String fx:value="full-width-button" />
+                                       </styleClass>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font>
+                                    </Button>
+                                    <Button fx:id="btnPrimaryRegister" minHeight="-Infinity" mnemonicParsing="false" onAction="#handleActionEvent" prefHeight="45.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Register">
+                                       <styleClass>
+                                          <String fx:value="button-primary" />
+                                          <String fx:value="primary-white" />
+                                          <String fx:value="full-width-button" />
+                                       </styleClass>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <Separator orientation="VERTICAL" prefHeight="200.0" />
+                        <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Brand Update">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <HBox spacing="10.0">
+                                 <children>
+                                    <VBox prefWidth="100.0">
+                                       <children>
+                                          <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Brand ID">
+                                             <font>
+                                                <Font name="Aptos" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField prefHeight="45.0" styleClass="text-field" stylesheets="@css/adminStyle.css">
+                                             <font>
+                                                <Font name="Aptos" size="14.0" />
+                                             </font>
+                                          </TextField>
+                                       </children>
+                                    </VBox>
+                                    <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Brand Name">
+                                             <font>
+                                                <Font name="Aptos" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField prefHeight="45.0" styleClass="text-field" stylesheets="@css/adminStyle.css">
+                                             <font>
+                                                <Font name="Aptos" size="14.0" />
+                                             </font>
+                                          </TextField>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Label styleClass="admin-primary-blue" stylesheets="@css/adminStyle.css" text="Enter - View Brand List" />
+                              <VBox prefWidth="100.0">
+                                 <children>
+                                    <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Brand Status">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <JFXToggleButton selected="true" styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Active">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </JFXToggleButton>
+                                 </children>
+                              </VBox>
+                              <HBox spacing="10.0">
+                                 <children>
+                                    <Button minHeight="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Clear">
+                                       <styleClass>
+                                          <String fx:value="button-primary-outline" />
+                                          <String fx:value="primary-white" />
+                                          <String fx:value="full-width-button" />
+                                       </styleClass>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font>
+                                    </Button>
+                                    <Button minHeight="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Update Changes">
+                                       <styleClass>
+                                          <String fx:value="button-primary" />
+                                          <String fx:value="primary-white" />
+                                          <String fx:value="full-width-button" />
+                                       </styleClass>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets left="50.0" right="50.0" />
+               </padding>
+               <BorderPane.margin>
+                  <Insets top="20.0" />
+               </BorderPane.margin>
+            </VBox>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

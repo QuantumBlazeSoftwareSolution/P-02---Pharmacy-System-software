@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="800.0" styleClass="primary-gradient" stylesheets="@css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.Supply_company_managementController">
+   <children>
+      <VBox layoutX="125.0" layoutY="239.0" prefWidth="610.0" spacing="15.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="40.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+               <children>
+                  <Group fx:id="iconSupplyCompanyManagementTopic" />
+                  <Label text="Supply Company Management" textFill="WHITE">
+                     <font>
+                        <Font name="Aptos" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox spacing="40.0">
+               <children>
+                  <VBox spacing="20.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label text="Company Registration" textFill="WHITE">
+                           <font>
+                              <Font name="Aptos" size="14.0" />
+                           </font>
+                        </Label>
+                        <HBox alignment="BOTTOM_LEFT" spacing="10.0">
+                           <children>
+                              <VBox HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Name">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField prefHeight="40.0" stylesheets="@css/adminStyle.css">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font></TextField>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox alignment="BOTTOM_LEFT" spacing="10.0">
+                           <children>
+                              <VBox HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Address">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField prefHeight="40.0" stylesheets="@css/adminStyle.css">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font></TextField>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox spacing="10.0">
+                           <children>
+                              <VBox HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Telephone 1">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField prefHeight="40.0" stylesheets="@css/adminStyle.css">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font></TextField>
+                                 </children>
+                              </VBox>
+                              <VBox HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Telephone 2">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField prefHeight="40.0" stylesheets="@css/adminStyle.css">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font></TextField>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox maxWidth="1.7976931348623157E308" spacing="10.0">
+                           <children>
+                              <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" styleClass="button-primary-outline" stylesheets="@css/adminStyle.css" text="Clear" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></Button>
+                              <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" stylesheets="@css/adminStyle.css" text="Add Company" HBox.hgrow="ALWAYS">
+                                 <styleClass>
+                                    <String fx:value="button-primary" />
+                                    <String fx:value="primary-white" />
+                                 </styleClass>
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="480.0" prefWidth="349.0" spacing="20.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label text="Company Management" textFill="WHITE">
+                           <font>
+                              <Font name="Aptos" size="14.0" />
+                           </font>
+                        </Label>
+                        <HBox spacing="10.0">
+                           <children>
+                              <VBox prefWidth="80.0">
+                                 <children>
+                                    <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="ID">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField prefHeight="40.0" stylesheets="@css/adminStyle.css">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font></TextField>
+                                 </children>
+                              </VBox>
+                              <VBox HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Name">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField prefHeight="40.0" stylesheets="@css/adminStyle.css" VBox.vgrow="ALWAYS">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font></TextField>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <Label styleClass="admin-primary-blue" stylesheets="@css/adminStyle.css" text="Enter - View Company list">
+                           <font>
+                              <Font name="Aptos" size="12.0" />
+                           </font>
+                        </Label>
+                        <VBox>
+                           <children>
+                              <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Address">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField prefHeight="40.0" stylesheets="@css/adminStyle.css" VBox.vgrow="ALWAYS">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font></TextField>
+                           </children>
+                        </VBox>
+                        <HBox spacing="10.0">
+                           <children>
+                              <VBox HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Telephone">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField prefHeight="40.0" stylesheets="@css/adminStyle.css">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font></TextField>
+                                 </children>
+                              </VBox>
+                              <VBox HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Telephone 2">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField prefHeight="40.0" stylesheets="@css/adminStyle.css">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font></TextField>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox spacing="10.0">
+                           <children>
+                              <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" styleClass="button-primary-outline" stylesheets="@css/adminStyle.css" text="Clear" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></Button>
+                              <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" stylesheets="@css/adminStyle.css" text="Update Changes" HBox.hgrow="ALWAYS">
+                                 <styleClass>
+                                    <String fx:value="button-primary" />
+                                    <String fx:value="primary-white" />
+                                 </styleClass>
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

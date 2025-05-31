@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="50.0" prefWidth="552.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox layoutX="110.0" layoutY="10.0" prefHeight="200.0" prefWidth="50.0" HBox.hgrow="ALWAYS">
+         <children>
+            <BorderPane prefHeight="200.0" style="-fx-border-radius: 0px; -fx-border-width: 0 1 1 1;" stylesheets="@../css/style.css">
+               <styleClass>
+                  <String fx:value="bg-primary-5" />
+                  <String fx:value="primary-border" />
+               </styleClass>
+               <center>
+                  <Label styleClass="primary-text" stylesheets="@../css/style.css" text="Item Code" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font name="Segoe UI" size="14.0" />
+                     </font>
+                  </Label>
+               </center>
+            </BorderPane>
+         </children>
+      </VBox>
+      <VBox layoutX="210.0" layoutY="10.0" prefHeight="200.0" prefWidth="160.0" HBox.hgrow="ALWAYS">
+         <children>
+            <BorderPane prefHeight="200.0" style="-fx-border-radius: 0px; -fx-border-width: 0 1 1 0;" stylesheets="@../css/style.css">
+               <styleClass>
+                  <String fx:value="bg-primary-5" />
+                  <String fx:value="primary-border" />
+               </styleClass>
+               <center>
+                  <Label styleClass="primary-text" stylesheets="@../css/style.css" text="Item Name" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font name="Segoe UI" size="14.0" />
+                     </font>
+                  </Label>
+               </center>
+            </BorderPane>
+         </children>
+      </VBox>
+      <VBox layoutX="310.0" layoutY="10.0" prefHeight="200.0" prefWidth="60.0" HBox.hgrow="ALWAYS">
+         <children>
+            <BorderPane prefHeight="200.0" style="-fx-border-radius: 0px; -fx-border-width: 0 1 1 0;" stylesheets="@../css/style.css">
+               <styleClass>
+                  <String fx:value="bg-primary-5" />
+                  <String fx:value="primary-border" />
+               </styleClass>
+               <center>
+                  <Label styleClass="primary-text" stylesheets="@../css/style.css" text="Unit Price" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font name="Segoe UI" size="14.0" />
+                     </font>
+                  </Label>
+               </center>
+            </BorderPane>
+         </children>
+      </VBox>
+      <VBox layoutX="410.0" layoutY="10.0" prefHeight="200.0" prefWidth="40.0" HBox.hgrow="ALWAYS">
+         <children>
+            <BorderPane prefHeight="200.0" style="-fx-border-radius: 0px; -fx-border-width: 0 1 1 0;" stylesheets="@../css/style.css">
+               <styleClass>
+                  <String fx:value="bg-primary-5" />
+                  <String fx:value="primary-border" />
+               </styleClass>
+               <center>
+                  <Label styleClass="primary-text" stylesheets="@../css/style.css" text="Qty" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font name="Segoe UI" size="14.0" />
+                     </font>
+                  </Label>
+               </center>
+            </BorderPane>
+         </children>
+      </VBox>
+      <VBox layoutX="510.0" layoutY="10.0" prefHeight="200.0" prefWidth="60.0" HBox.hgrow="ALWAYS">
+         <children>
+            <BorderPane prefHeight="200.0" style="-fx-border-radius: 0px; -fx-border-width: 0 1 1 0;" stylesheets="@../css/style.css">
+               <styleClass>
+                  <String fx:value="bg-primary-5" />
+                  <String fx:value="primary-border" />
+               </styleClass>
+               <center>
+                  <Label styleClass="primary-text" stylesheets="@../css/style.css" text="Amount" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font name="Segoe UI" size="14.0" />
+                     </font>
+                  </Label>
+               </center>
+            </BorderPane>
+         </children>
+      </VBox>
+   </children>
+</HBox>

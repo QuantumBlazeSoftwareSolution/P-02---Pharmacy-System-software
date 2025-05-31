@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="800.0" styleClass="primary-gradient" stylesheets="@css/developerStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.DeveloperOwnerShipManagementController">
+   <padding>
+      <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+   </padding>
+   <children>
+      <BorderPane layoutX="265.0" layoutY="220.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <right>
+            <VBox prefWidth="300.0" spacing="10.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox>
+                     <children>
+                        <Label styleClass="primary-white" stylesheets="@css/developerStyle.css" text="Personal Details">
+                           <font>
+                              <Font name="Aptos" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <VBox>
+                     <children>
+                        <Label styleClass="text-primary" stylesheets="@css/developerStyle.css" text="Name">
+                           <font>
+                              <Font name="Aptos" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField prefHeight="40.0" prefWidth="275.0">
+                           <font>
+                              <Font name="Aptos" size="12.0" />
+                           </font></TextField>
+                     </children>
+                  </VBox>
+                  <HBox prefWidth="200.0">
+                     <children>
+                        <Label styleClass="primary-white" stylesheets="@css/developerStyle.css" text="System Credentials">
+                           <font>
+                              <Font name="Aptos" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <VBox layoutX="10.0" layoutY="46.0">
+                     <children>
+                        <Label styleClass="text-primary" stylesheets="@css/developerStyle.css" text="Username">
+                           <font>
+                              <Font name="Aptos" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField prefHeight="40.0" prefWidth="275.0">
+                           <font>
+                              <Font name="Aptos" size="12.0" />
+                           </font></TextField>
+                     </children>
+                  </VBox>
+                  <VBox layoutX="10.0" layoutY="152.0">
+                     <children>
+                        <Label styleClass="text-primary" stylesheets="@css/developerStyle.css" text="Password">
+                           <font>
+                              <Font name="Aptos" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField prefHeight="40.0" prefWidth="275.0">
+                           <font>
+                              <Font name="Aptos" size="12.0" />
+                           </font></TextField>
+                     </children>
+                  </VBox>
+                  <VBox layoutX="10.0" layoutY="152.0">
+                     <children>
+                        <Label styleClass="text-primary" stylesheets="@css/developerStyle.css" text="PIN Number">
+                           <font>
+                              <Font name="Aptos" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField prefHeight="40.0" prefWidth="275.0">
+                           <font>
+                              <Font name="Aptos" size="12.0" />
+                           </font></TextField>
+                     </children>
+                  </VBox>
+                  <VBox>
+                     <children>
+                        <Button maxWidth="1.7976931348623157E308" minWidth="200.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="button-primary-outline" stylesheets="@css/developerStyle.css" text="Clear">
+                           <font>
+                              <Font name="Aptos" size="14.0" />
+                           </font></Button>
+                     </children>
+                  </VBox>
+                  <HBox>
+                     <children>
+                        <Button maxWidth="1.7976931348623157E308" minWidth="200.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" styleClass="button-primary" stylesheets="@css/developerStyle.css" text="Make a Owner" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font name="Aptos" size="14.0" />
+                           </font></Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </right>
+         <center>
+            <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" minHeight="-Infinity" vbarPolicy="NEVER">
+                           <content>
+                              <HBox maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="200.0">
+                                 <children>
+                                    <BorderPane maxWidth="120.0" minWidth="-Infinity" style="-fx-border-radius: 6px 0 0 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                       <center>
+                                          <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="#" BorderPane.alignment="CENTER">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Label>
+                                       </center>
+                                    </BorderPane>
+                                    <BorderPane minWidth="-Infinity" prefWidth="200.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                       <center>
+                                          <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Owner" BorderPane.alignment="CENTER">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Label>
+                                       </center>
+                                    </BorderPane>
+                                    <BorderPane maxWidth="220.0" minWidth="-Infinity" prefWidth="120.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                       <center>
+                                          <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Username" BorderPane.alignment="CENTER">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Label>
+                                       </center>
+                                    </BorderPane>
+                                    <BorderPane maxWidth="180.0" minWidth="-Infinity" prefWidth="100.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0 6px 0 0;" styleClass="button-primary-outline" stylesheets="@css/developerStyle.css" HBox.hgrow="ALWAYS">
+                                       <center>
+                                          <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Password" BorderPane.alignment="CENTER">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Label>
+                                       </center>
+                                    </BorderPane>
+                                 </children>
+                              </HBox>
+                           </content>
+                        </ScrollPane>
+                        <ScrollPane fx:id="damageItemTableScrollContainer" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" stylesheets="@css/adminStyle.css" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+                           <content>
+                              <VBox fx:id="damageItemTableBody" prefWidth="100.0" />
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets right="20.0" />
+               </padding>
+            </HBox>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

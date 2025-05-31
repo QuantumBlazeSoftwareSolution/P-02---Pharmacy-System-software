@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <BorderPane prefWidth="100.0" style="-fx-border-radius: 0 0 0 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css">
+         <left>
+            <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="ID" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </left>
+         <padding>
+            <Insets left="10.0" right="10.0" />
+         </padding>
+      </BorderPane>
+      <BorderPane maxWidth="1.7976931348623157E308" prefWidth="250.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
+         <left>
+            <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Name" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </left>
+         <padding>
+            <Insets left="10.0" right="10.0" />
+         </padding>
+      </BorderPane>
+      <BorderPane maxWidth="1.7976931348623157E308" prefWidth="200.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
+         <left>
+            <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Mobile" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </left>
+         <padding>
+            <Insets left="10.0" right="10.0" />
+         </padding>
+      </BorderPane>
+      <BorderPane maxWidth="1.7976931348623157E308" prefWidth="150.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0 0  0 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
+         <left>
+            <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Credit Amount" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </left>
+         <padding>
+            <Insets left="10.0" right="10.0" />
+         </padding>
+      </BorderPane>
+   </children>
+</HBox>

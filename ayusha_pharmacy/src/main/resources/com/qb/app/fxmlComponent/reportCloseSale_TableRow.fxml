@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <BorderPane maxWidth="80.0" minWidth="60.0" prefWidth="60.0" style="-fx-border-radius: 0 0 0 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
+         <center>
+            <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="#" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </center>
+      </BorderPane>
+      <BorderPane minWidth="120.0" style="-fx-border-radius: 0px; -fx-border-width: 0.5px 0.5px 0.5px 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
+         <center>
+            <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Date &amp; Time" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </center>
+      </BorderPane>
+      <BorderPane maxWidth="200.0" prefWidth="80.0" style="-fx-border-radius: 0px; -fx-border-width: 0.5px 0.5px 0.5px 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css">
+         <center>
+            <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="X 5000" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </center>
+      </BorderPane>
+      <BorderPane maxWidth="200.0" prefWidth="80.0" style="-fx-border-radius: 0px; -fx-border-width: 0.5px 0.5px 0.5px 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css">
+         <center>
+            <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="X 1000" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </center>
+      </BorderPane>
+      <BorderPane maxWidth="200.0" prefWidth="80.0" style="-fx-border-radius: 0px; -fx-border-width: 0.5px 0.5px 0.5px 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css">
+         <center>
+            <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="X 500" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </center>
+      </BorderPane>
+      <BorderPane maxWidth="200.0" prefWidth="80.0" style="-fx-border-radius: 0px; -fx-border-width: 0.5px 0.5px 0.5px 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css">
+         <center>
+            <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="X 100" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </center>
+      </BorderPane>
+      <BorderPane maxWidth="200.0" prefWidth="80.0" style="-fx-border-radius: 0px; -fx-border-width: 0.5px 0.5px 0.5px 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css">
+         <center>
+            <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="X 50" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </center>
+      </BorderPane>
+      <BorderPane maxWidth="200.0" prefWidth="80.0" style="-fx-border-radius: 0px; -fx-border-width: 0.5px 0.5px 0.5px 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css">
+         <center>
+            <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="X 20" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </center>
+      </BorderPane>
+      <BorderPane maxWidth="200.0" prefWidth="80.0" style="-fx-border-radius: 0px; -fx-border-width: 0.5px 0.5px 0.5px 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css">
+         <center>
+            <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="X 10" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </center>
+      </BorderPane>
+      <BorderPane maxWidth="200.0" prefWidth="80.0" style="-fx-border-radius: 0px; -fx-border-width: 0.5px 0.5px 0.5px 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css">
+         <center>
+            <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="X 5" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </center>
+      </BorderPane>
+      <BorderPane maxWidth="150.0" minWidth="120.0" prefWidth="100.0" style="-fx-border-radius: 0 0 0 0; -fx-border-width: 0.5px 0.5px 0.5px 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
+         <center>
+            <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Collection" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </center>
+      </BorderPane>
+   </children>
+</HBox>

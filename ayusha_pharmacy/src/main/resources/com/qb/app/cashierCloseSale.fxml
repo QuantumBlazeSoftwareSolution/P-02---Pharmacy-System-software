@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="800.0" prefWidth="992.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.CashierCloseSaleController">
+   <children>
+      <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" styleClass="primary-white-bg" stylesheets="@css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Region prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+            <Label styleClass="primary-text" stylesheets="@css/style.css" text="Close Sale">
+               <font>
+                  <Font name="Aptos ExtraBold" size="36.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="10.0" top="10.0" />
+               </padding>
+            </Label>
+            <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+            <AnchorPane id="AnchorPane" stylesheets="@css/style.css">
+               <children>
+                  <VBox alignment="CENTER" prefWidth="400.0" spacing="12.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
+                     <children>
+                        <HBox alignment="BOTTOM_LEFT" spacing="10.0">
+                           <children>
+                              <VBox spacing="6.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="Username">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font></Label>
+                                    <TextField fx:id="tfUsername" prefHeight="40.0" stylesheets="@css/style.css">
+                                       <styleClass>
+                                          <String fx:value="bg-white" />
+                                          <String fx:value="primary-border" />
+                                          <String fx:value="textFieldColor" />
+                                       </styleClass>
+                                    </TextField>
+                                 </children>
+                              </VBox>
+                              <VBox spacing="6.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="Password">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font></Label>
+                                    <PasswordField fx:id="tfPassword" prefHeight="40.0" stylesheets="@css/style.css">
+                                       <styleClass>
+                                          <String fx:value="bg-white" />
+                                          <String fx:value="primary-border" />
+                                          <String fx:value="textFieldColor" />
+                                       </styleClass>
+                                    </PasswordField>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox alignment="BOTTOM_LEFT" spacing="10.0">
+                           <children>
+                              <VBox spacing="6.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="Cashier">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font></Label>
+                                    <TextField fx:id="tfCashier" editable="false" prefHeight="40.0" stylesheets="@css/style.css" VBox.vgrow="ALWAYS">
+                                       <styleClass>
+                                          <String fx:value="bg-white" />
+                                          <String fx:value="primary-border" />
+                                          <String fx:value="textFieldColor" />
+                                       </styleClass>
+                                       <cursor>
+                                          <Cursor fx:constant="DEFAULT" />
+                                       </cursor>
+                                    </TextField>
+                                 </children>
+                              </VBox>
+                              <VBox spacing="6.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="DAY IN">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font></Label>
+                                    <TextField fx:id="tfDayIn" editable="false" prefHeight="40.0" stylesheets="@css/style.css" VBox.vgrow="ALWAYS">
+                                       <styleClass>
+                                          <String fx:value="bg-white" />
+                                          <String fx:value="primary-border" />
+                                          <String fx:value="textFieldColor" />
+                                       </styleClass>
+                                       <cursor>
+                                          <Cursor fx:constant="DEFAULT" />
+                                       </cursor>
+                                    </TextField>
+                                 </children>
+                              </VBox>
+                              <VBox spacing="6.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="DAY OFF">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font></Label>
+                                    <TextField fx:id="tfDayOff" editable="false" prefHeight="40.0" stylesheets="@css/style.css" VBox.vgrow="ALWAYS">
+                                       <styleClass>
+                                          <String fx:value="bg-white" />
+                                          <String fx:value="primary-border" />
+                                          <String fx:value="textFieldColor" />
+                                       </styleClass>
+                                       <cursor>
+                                          <Cursor fx:constant="DEFAULT" />
+                                       </cursor>
+                                    </TextField>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <Separator prefWidth="200.0" />
+                        <VBox alignment="CENTER_RIGHT" maxWidth="-Infinity" spacing="1.0">
+                           <children>
+                              <HBox alignment="CENTER" maxWidth="-Infinity" spacing="10.0">
+                                 <children>
+                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="5000">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font></Label>
+                                    <TextField fx:id="tf5000Qty" onKeyReleased="#handleKeyEvent" prefHeight="40.0" prefWidth="40.0" stylesheets="@css/style.css">
+                                       <styleClass>
+                                          <String fx:value="bg-white" />
+                                          <String fx:value="primary-border" />
+                                          <String fx:value="textFieldColor" />
+                                       </styleClass>
+                                    </TextField>
+                                    <TextField fx:id="tf5000Value" editable="false" prefHeight="40.0" stylesheets="@css/style.css">
+                                       <styleClass>
+                                          <String fx:value="bg-white" />
+                                          <String fx:value="primary-border" />
+                                          <String fx:value="textFieldColor" />
+                                       </styleClass>
+                                       <cursor>
+                                          <Cursor fx:constant="DEFAULT" />
+                                       </cursor>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" maxWidth="-Infinity" spacing="10.0">
+                                 <children>
+                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="1000">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font></Label>
+                                    <TextField fx:id="tf1000Qty" onKeyReleased="#handleKeyEvent" prefHeight="40.0" prefWidth="40.0" stylesheets="@css/style.css">
+                                       <styleClass>
+                                          <String fx:value="bg-white" />
+                                          <String fx:value="primary-border" />
+                                          <String fx:value="textFieldColor" />
+                                       </styleClass>
+                                    </TextField>
+                                    <TextField fx:id="tf1000Value" editable="false" prefHeight="40.0" stylesheets="@css/style.css">
+                                       <styleClass>
+                                          <String fx:value="bg-white" />
+                                          <String fx:value="primary-border" />
+                                          <String fx:value="textFieldColor" />
+                                       </styleClass>
+                                       <cursor>
+                                          <Cursor fx:constant="DEFAULT" />
+                                       </cursor>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" maxWidth="-Infinity" spacing="10.0">
+                                 <children>
+                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="500">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font></Label>
+                                    <TextField fx:id="tf500Qty" onKeyReleased="#handleKeyEvent" prefHeight="40.0" prefWidth="40.0" stylesheets="@css/style.css">
+                                       <styleClass>
+                                          <String fx:value="bg-white" />
+                                          <String fx:value="primary-border" />
+                                          <String fx:value="textFieldColor" />
+                                       </styleClass>
+                                    </TextField>
+                                    <TextField fx:id="tf500Value" editable="false" prefHeight="40.0" stylesheets="@css/style.css">
+                                       <styleClass>
+                                          <String fx:value="bg-white" />
+                                          <String fx:value="primary-border" />
+                                          <String fx:value="textFieldColor" />
+                                       </styleClass>
+                                       <cursor>
+                                          <Cursor fx:constant="DEFAULT" />
+                                       </cursor>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" maxWidth="-Infinity" spacing="10.0">
+                                 <children>
+                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="100">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font></Label>
+                                    <TextField fx:id="tf100Qty" onKeyReleased="#handleKeyEvent" prefHeight="40.0" prefWidth="40.0" stylesheets="@css/style.css">
+                                       <styleClass>
+                                          <String fx:value="bg-white" />
+                                          <String fx:value="primary-border" />
+                                          <String fx:value="textFieldColor" />
+                                       </styleClass>
+                                    </TextField>
+                                    <TextField fx:id="tf100Value" editable="false" prefHeight="40.0" stylesheets="@css/style.css">
+                                       <styleClass>
+                                          <String fx:value="bg-white" />
+                                          <String fx:value="primary-border" />
+                                          <String fx:value="textFieldColor" />
+                                       </styleClass>
+                                       <cursor>
+                                          <Cursor fx:constant="DEFAULT" />
+                                       </cursor>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" maxWidth="-Infinity" spacing="10.0">
+                                 <children>
+                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="50">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font></Label>
+                                    <TextField fx:id="tf50Qty" onKeyReleased="#handleKeyEvent" prefHeight="40.0" prefWidth="40.0" stylesheets="@css/style.css">
+                                       <styleClass>
+                                          <String fx:value="bg-white" />
+                                          <String fx:value="primary-border" />
+                                          <String fx:value="textFieldColor" />
+                                       </styleClass>
+                                    </TextField>
+                                    <TextField fx:id="tf50Value" editable="false" prefHeight="40.0" stylesheets="@css/style.css">
+                                       <styleClass>
+                                          <String fx:value="bg-white" />
+                                          <String fx:value="primary-border" />
+                                          <String fx:value="textFieldColor" />
+                                       </styleClass>
+                                       <cursor>
+                                          <Cursor fx:constant="DEFAULT" />
+                                       </cursor>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" maxWidth="-Infinity" spacing="10.0">
+                                 <children>
+                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="20">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font></Label>
+                                    <TextField fx:id="tf20Qty" onKeyReleased="#handleKeyEvent" prefHeight="40.0" prefWidth="40.0" stylesheets="@css/style.css">
+                                       <styleClass>
+                                          <String fx:value="bg-white" />
+                                          <String fx:value="primary-border" />
+                                          <String fx:value="textFieldColor" />
+                                       </styleClass>
+                                    </TextField>
+                                    <TextField fx:id="tf20Value" editable="false" prefHeight="40.0" stylesheets="@css/style.css">
+                                       <styleClass>
+                                          <String fx:value="bg-white" />
+                                          <String fx:value="primary-border" />
+                                          <String fx:value="textFieldColor" />
+                                       </styleClass>
+                                       <cursor>
+                                          <Cursor fx:constant="DEFAULT" />
+                                       </cursor>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" maxWidth="-Infinity" spacing="10.0">
+                                 <children>
+                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="10">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font></Label>
+                                    <TextField fx:id="tf10Qty" onKeyReleased="#handleKeyEvent" prefHeight="40.0" prefWidth="40.0" stylesheets="@css/style.css">
+                                       <styleClass>
+                                          <String fx:value="bg-white" />
+                                          <String fx:value="primary-border" />
+                                          <String fx:value="textFieldColor" />
+                                       </styleClass>
+                                    </TextField>
+                                    <TextField fx:id="tf10Value" editable="false" prefHeight="40.0" stylesheets="@css/style.css">
+                                       <styleClass>
+                                          <String fx:value="bg-white" />
+                                          <String fx:value="primary-border" />
+                                          <String fx:value="textFieldColor" />
+                                       </styleClass>
+                                       <cursor>
+                                          <Cursor fx:constant="DEFAULT" />
+                                       </cursor>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" maxWidth="-Infinity" spacing="10.0">
+                                 <children>
+                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="5">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font></Label>
+                                    <TextField fx:id="tf5Qty" onKeyReleased="#handleKeyEvent" prefHeight="40.0" prefWidth="40.0" stylesheets="@css/style.css">
+                                       <styleClass>
+                                          <String fx:value="bg-white" />
+                                          <String fx:value="primary-border" />
+                                          <String fx:value="textFieldColor" />
+                                       </styleClass>
+                                    </TextField>
+                                    <TextField fx:id="tf5Value" editable="false" prefHeight="40.0" stylesheets="@css/style.css">
+                                       <styleClass>
+                                          <String fx:value="bg-white" />
+                                          <String fx:value="primary-border" />
+                                          <String fx:value="textFieldColor" />
+                                       </styleClass>
+                                       <cursor>
+                                          <Cursor fx:constant="DEFAULT" />
+                                       </cursor>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" maxWidth="-Infinity" spacing="10.0">
+                                 <children>
+                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="Collection">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font></Label>
+                                    <TextField fx:id="tfCollection" editable="false" prefHeight="40.0" stylesheets="@css/style.css">
+                                       <styleClass>
+                                          <String fx:value="bg-white" />
+                                          <String fx:value="primary-border" />
+                                          <String fx:value="textFieldColor" />
+                                       </styleClass>
+                                       <cursor>
+                                          <Cursor fx:constant="DEFAULT" />
+                                       </cursor>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <Button fx:id="btnAction" mnemonicParsing="false" onAction="#ActionEvent" prefHeight="40.0" stylesheets="@css/style.css" text="Close">
+                           <styleClass>
+                              <String fx:value="full-width-button" />
+                              <String fx:value="bg-primary" />
+                              <String fx:value="primary-white" />
+                           </styleClass>
+                           <font>
+                              <Font name="Aptos" size="14.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+            <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+            <VBox alignment="CENTER" prefWidth="100.0">
+               <children>
+                  <Label styleClass="primary-text" stylesheets="@css/style.css" text="Developed by Quantum Blaze software solution">
+                     <font>
+                        <Font name="Aptos" size="16.0" />
+                     </font></Label>
+                  <Label styleClass="primary-text" stylesheets="@css/style.css" text="Contact: +94712345678 | Email: quantumblaze@gmail.com">
+                     <font>
+                        <Font name="Aptos" size="14.0" />
+                     </font></Label>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" top="10.0" />
+               </padding>
+            </VBox>
+            <Region prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

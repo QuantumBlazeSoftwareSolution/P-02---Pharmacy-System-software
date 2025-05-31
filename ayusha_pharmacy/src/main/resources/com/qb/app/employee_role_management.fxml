@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="800.0" styleClass="primary-gradient" stylesheets="@css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.Employee_role_managementController">
+   <children>
+      <VBox layoutX="105.0" layoutY="219.0" spacing="15.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+               <children>
+                  <Group fx:id="IconEmployeeRoleManagement" />
+                  <Label text="Employee Role Management" textFill="WHITE">
+                     <font>
+                        <Font name="Aptos" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox spacing="20.0">
+               <children>
+                  <VBox spacing="20.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label text="Role Registration" textFill="WHITE">
+                           <font>
+                              <Font name="Aptos" size="14.0" />
+                           </font>
+                        </Label>
+                        <VBox>
+                           <children>
+                              <TextField prefHeight="40.0" promptText="Role Name" styleClass="admin-primary-blue" stylesheets="@css/adminStyle.css">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font></TextField>
+                           </children>
+                        </VBox>
+                        <HBox alignment="BOTTOM_LEFT" spacing="10.0">
+                           <children>
+                              <VBox HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label stylesheets="@css/adminStyle.css" text="Interface" textFill="WHITE">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <ComboBox maxWidth="1.7976931348623157E308" prefHeight="40.0" styleClass="custom-combobox" stylesheets="@css/adminStyle.css" VBox.vgrow="ALWAYS" />
+                                 </children>
+                              </VBox>
+                              <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" stylesheets="@css/adminStyle.css" text="Assign">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                                 <styleClass>
+                                    <String fx:value="button-primary" />
+                                    <String fx:value="primary-white" />
+                                 </styleClass>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <HBox spacing="10.0">
+                           <children>
+                              <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" prefWidth="350.0" stylesheets="@css/adminStyle.css" text="Register" HBox.hgrow="ALWAYS">
+                                 <styleClass>
+                                    <String fx:value="button-primary" />
+                                    <String fx:value="primary-white" />
+                                 </styleClass>
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font></Button>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="300.0" prefWidth="200.0" stylesheets="@css/style.css" VBox.vgrow="ALWAYS">
+                           <children>
+                              <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" minHeight="-Infinity" vbarPolicy="NEVER">
+                                       <content>
+                                          <HBox maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="200.0">
+                                             <children>
+                                                <BorderPane maxWidth="100.0" minWidth="-Infinity" prefWidth="80.0" style="-fx-border-radius: 6px 0 0 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                                   <center>
+                                                      <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="ID" BorderPane.alignment="CENTER">
+                                                         <font>
+                                                            <Font name="Aptos" size="14.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </center>
+                                                </BorderPane>
+                                                <BorderPane style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0 6px 0 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                                   <center>
+                                                      <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Interface" BorderPane.alignment="CENTER">
+                                                         <font>
+                                                            <Font name="Aptos" size="14.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </center>
+                                                </BorderPane>
+                                             </children>
+                                          </HBox>
+                                       </content>
+                                    </ScrollPane>
+                                    <ScrollPane fx:id="tableScrollContainer" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" stylesheets="@css/adminStyle.css" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+                                       <content>
+                                          <VBox fx:id="tableBody" prefWidth="100.0" style="-fx-border-radius: 0 0 4 4;" styleClass="primary-border" stylesheets="@css/adminStyle.css" />
+                                       </content>
+                                    </ScrollPane>
+                                 </children>
+                              </VBox>
+                              <ScrollBar fx:id="tableScroller" orientation="VERTICAL" styleClass="transparent-scroll-pane" stylesheets="@css/style.css" visibleAmount="20.0">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </ScrollBar>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <Separator maxWidth="1.0" minWidth="1.0" orientation="VERTICAL" prefHeight="480.0" prefWidth="1.0" styleClass="line" stylesheets="@css/adminStyle.css" />
+                  <VBox spacing="20.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label text="Role Management" textFill="WHITE">
+                           <font>
+                              <Font name="Aptos" size="14.0" />
+                           </font>
+                        </Label>
+                        <HBox spacing="10.0">
+                           <children>
+                              <TextField maxWidth="350.0" prefHeight="40.0" prefWidth="100.0" promptText="Role ID" stylesheets="@css/adminStyle.css">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font></TextField>
+                              <TextField maxWidth="350.0" prefHeight="40.0" prefWidth="200.0" promptText="Role Name" stylesheets="@css/adminStyle.css">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font></TextField>
+                              <VBox alignment="CENTER_LEFT">
+                                 <children>
+                                    <Label minWidth="-Infinity" styleClass="admin-primary-blue" stylesheets="@css/adminStyle.css" text="Enter - View role list" VBox.vgrow="ALWAYS" />
+                                    <Label minWidth="-Infinity" styleClass="admin-primary-blue" stylesheets="@css/adminStyle.css" text="Del - Delete interface" VBox.vgrow="ALWAYS" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox alignment="BOTTOM_LEFT">
+                           <children>
+                              <VBox HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label stylesheets="@css/adminStyle.css" text="Interface" textFill="WHITE">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <ComboBox maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="350.0" styleClass="combo-box" stylesheets="@css/adminStyle.css" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox prefWidth="350.0" spacing="10.0">
+                           <children>
+                              <VBox HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="300.0" styleClass="button-primary-outline" stylesheets="@css/adminStyle.css" text="Remove">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                              <VBox HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="300.0" stylesheets="@css/adminStyle.css" text="Assign">
+                                       <styleClass>
+                                          <String fx:value="button-primary" />
+                                          <String fx:value="primary-white" />
+                                       </styleClass>
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="300.0" prefWidth="200.0" stylesheets="@css/style.css">
+                           <children>
+                              <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" minHeight="-Infinity" vbarPolicy="NEVER">
+                                       <content>
+                                          <HBox maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="200.0">
+                                             <children>
+                                                <BorderPane maxWidth="100.0" minWidth="-Infinity" prefWidth="80.0" style="-fx-border-radius: 6px 0 0 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                                   <center>
+                                                      <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="ID" BorderPane.alignment="CENTER">
+                                                         <font>
+                                                            <Font name="Aptos" size="14.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </center>
+                                                </BorderPane>
+                                                <BorderPane minWidth="-Infinity" prefWidth="150.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0 0 0 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                                   <center>
+                                                      <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Role" BorderPane.alignment="CENTER">
+                                                         <font>
+                                                            <Font name="Aptos" size="14.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </center>
+                                                </BorderPane>
+                                                <BorderPane style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0 6px 0 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                                   <center>
+                                                      <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Interface" BorderPane.alignment="CENTER">
+                                                         <font>
+                                                            <Font name="Aptos" size="14.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </center>
+                                                </BorderPane>
+                                             </children>
+                                          </HBox>
+                                       </content>
+                                    </ScrollPane>
+                                    <ScrollPane fx:id="tableScrollContainer1" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" stylesheets="@css/adminStyle.css" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+                                       <content>
+                                          <VBox fx:id="tableBody1" prefWidth="100.0" style="-fx-border-radius: 0 0 4 4;" styleClass="primary-border" stylesheets="@css/adminStyle.css" />
+                                       </content>
+                                    </ScrollPane>
+                                 </children>
+                              </VBox>
+                              <ScrollBar fx:id="tableScroller1" orientation="VERTICAL" styleClass="transparent-scroll-pane" stylesheets="@css/style.css" visibleAmount="20.0">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </ScrollBar>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

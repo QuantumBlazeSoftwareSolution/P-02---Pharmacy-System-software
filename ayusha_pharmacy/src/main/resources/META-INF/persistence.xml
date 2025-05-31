@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="3.1" xmlns="https://jakarta.ee/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
+  <persistence-unit name="quantumRetailDBUnit" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+    <class>com.qb.app.model.entity.LocationReturnType</class>
+    <class>com.qb.app.model.entity.Grn</class>
+    <class>com.qb.app.model.entity.Damage</class>
+    <class>com.qb.app.model.entity.Product</class>
+    <class>com.qb.app.model.entity.RefundItem</class>
+    <class>com.qb.app.model.entity.Company</class>
+    <class>com.qb.app.model.entity.EmployeeStatus</class>
+    <class>com.qb.app.model.entity.LocationReturnItem</class>
+    <class>com.qb.app.model.entity.Customer</class>
+    <class>com.qb.app.model.entity.LocationReturn</class>
+    <class>com.qb.app.model.entity.CustomerHasInvoice</class>
+    <class>com.qb.app.model.entity.CloseSale</class>
+    <class>com.qb.app.model.entity.EmployeeRole</class>
+    <class>com.qb.app.model.entity.Ctrl</class>
+    <class>com.qb.app.model.entity.License</class>
+    <class>com.qb.app.model.entity.SupplierDamageReturn</class>
+    <class>com.qb.app.model.entity.Location</class>
+    <class>com.qb.app.model.entity.Store</class>
+    <class>com.qb.app.model.entity.InvoiceItem</class>
+    <class>com.qb.app.model.entity.ProductDistribute</class>
+    <class>com.qb.app.model.entity.Brand</class>
+    <class>com.qb.app.model.entity.InvoiceItemType</class>
+    <class>com.qb.app.model.entity.SupplyDamageReturnStatus</class>
+    <class>com.qb.app.model.entity.DiscountType</class>
+    <class>com.qb.app.model.entity.ProductUnit</class>
+    <class>com.qb.app.model.entity.ProductDistributeItem</class>
+    <class>com.qb.app.model.entity.Costing</class>
+    <class>com.qb.app.model.entity.SupplierDamageReturnItem</class>
+    <class>com.qb.app.model.entity.System</class>
+    <class>com.qb.app.model.entity.SupplierOrder</class>
+    <class>com.qb.app.model.entity.PaymentMethod</class>
+    <class>com.qb.app.model.entity.SupplierOrderItem</class>
+    <class>com.qb.app.model.entity.GrnItem</class>
+    <class>com.qb.app.model.entity.EmployeeRoleHasInterface</class>
+    <class>com.qb.app.model.entity.ProductDistributeHasLocation</class>
+    <class>com.qb.app.model.entity.Supplier</class>
+    <class>com.qb.app.model.entity.DistributeType</class>
+    <class>com.qb.app.model.entity.ProductType</class>
+    <class>com.qb.app.model.entity.ProductStatus</class>
+    <class>com.qb.app.model.entity.Session</class>
+    <class>com.qb.app.model.entity.SupplierStatus</class>
+    <class>com.qb.app.model.entity.Refund</class>
+    <class>com.qb.app.model.entity.Invoice</class>
+    <class>com.qb.app.model.entity.DamageItem</class>
+    <class>com.qb.app.model.entity.CashWithdrawal</class>
+    <class>com.qb.app.model.entity.StockAdjustmentItem</class>
+    <class>com.qb.app.model.entity.StockAdjustment</class>
+    <class>com.qb.app.model.entity.RefundStatus</class>
+    <class>com.qb.app.model.entity.Employee</class>
+    <class>com.qb.app.model.entity.EmployeeRoleType</class>
+    <class>com.qb.app.model.entity.Stock</class>
+    <class>com.qb.app.model.entity.Ctrl_1</class>
+    <class>com.qb.app.model.entity.ProductHasProductType</class>
+    <properties>
+      <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/quantum_retail_pro?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
+      <property name="jakarta.persistence.jdbc.user" value="root"/>
+      <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+      <property name="jakarta.persistence.jdbc.password" value="Vheshan37@37"/>
+      <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
+    </properties>
+  </persistence-unit>
+</persistence>

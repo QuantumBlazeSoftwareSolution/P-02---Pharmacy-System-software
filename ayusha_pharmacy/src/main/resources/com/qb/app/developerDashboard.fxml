@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="800.0" styleClass="primary-gradient" stylesheets="@css/developerStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.DeveloperDashboardController">
+   <children>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <padding>
+            <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+         </padding>
+         <center>
+            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label styleClass="primary-white" stylesheets="@css/developerStyle.css" text="System Usage">
+                     <font>
+                        <Font name="Aptos" size="16.0" />
+                     </font>
+                  </Label>
+                  <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <PieChart fx:id="pieChart" stylesheets="@css/developerPanelCharts.css" HBox.hgrow="ALWAYS" />
+                        <VBox maxWidth="500.0" prefHeight="200.0" prefWidth="100.0" spacing="30.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" minHeight="60.0" minWidth="350.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-radius: 10px;" styleClass="dashboard-item-hover" stylesheets="@css/developerStyle.css">
+                                 <children>
+                                    <Label styleClass="text-primary" stylesheets="@css/developerStyle.css" text="System Accessibility">
+                                       <font>
+                                          <Font name="Aptos Bold" size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <Label styleClass="text-primary" stylesheets="@css/developerStyle.css" text="75%">
+                                       <font>
+                                          <Font name="Aptos Black Italic" size="24.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                                 </padding>
+                                 <effect>
+                                    <DropShadow offsetX="4.0" offsetY="4.0">
+                                       <color>
+                                          <Color red="0.2978266775608063" green="0.2632000148296356" blue="0.5600000023841858" opacity="0.5" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" minHeight="60.0" minWidth="350.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-radius: 10px;" styleClass="dashboard-item-hover" stylesheets="@css/developerStyle.css">
+                                 <padding>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                 </padding>
+                                 <children>
+                                    <Label styleClass="text-primary" stylesheets="@css/developerStyle.css" text="Reports Accessibility">
+                                       <font>
+                                          <Font name="Aptos Bold" size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <Label styleClass="text-primary" stylesheets="@css/developerStyle.css" text="75%">
+                                       <font>
+                                          <Font name="Aptos Black Italic" size="24.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <effect>
+                                    <DropShadow offsetX="4.0" offsetY="4.0">
+                                       <color>
+                                          <Color red="0.2978266775608063" green="0.2632000148296356" blue="0.5600000023841858" opacity="0.5" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" minHeight="60.0" minWidth="350.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-radius: 10px;" styleClass="dashboard-item-hover" stylesheets="@css/developerStyle.css">
+                                 <padding>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                 </padding>
+                                 <children>
+                                    <Label styleClass="text-primary" stylesheets="@css/developerStyle.css" text="System License">
+                                       <font>
+                                          <Font name="Aptos Bold" size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <VBox alignment="CENTER">
+                                       <children>
+                                          <Label styleClass="text-primary" stylesheets="@css/developerStyle.css" text="Temporary License">
+                                             <font>
+                                                <Font name="Aptos Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label styleClass="text-primary" stylesheets="@css/developerStyle.css" text="2 months">
+                                             <font>
+                                                <Font name="Aptos Bold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                                 <effect>
+                                    <DropShadow offsetX="4.0" offsetY="4.0">
+                                       <color>
+                                          <Color red="0.2978266775608063" green="0.2632000148296356" blue="0.5600000023841858" opacity="0.5" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" minHeight="60.0" minWidth="350.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-radius: 10px;" styleClass="dashboard-item-hover" stylesheets="@css/developerStyle.css">
+                                 <padding>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                 </padding>
+                                 <children>
+                                    <Label styleClass="text-primary" stylesheets="@css/developerStyle.css" text="System Accessibility">
+                                       <font>
+                                          <Font name="Aptos Bold" size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <Label styleClass="text-primary" stylesheets="@css/developerStyle.css" text="2 Adjustment per month">
+                                       <font>
+                                          <Font name="Aptos Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <effect>
+                                    <DropShadow offsetX="4.0" offsetY="4.0">
+                                       <color>
+                                          <Color red="0.2980392277240753" green="0.26274511218070984" blue="0.5647059082984924" opacity="0.5" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <VBox VBox.vgrow="ALWAYS">
+                     <children>
+                        <Label styleClass="primary-white" stylesheets="@css/developerStyle.css" text="Entity List">
+                           <font>
+                              <Font name="Aptos" size="16.0" />
+                           </font>
+                        </Label>
+                        <BarChart fx:id="barChart" stylesheets="@css/developerPanelCharts.css" VBox.vgrow="ALWAYS">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </BarChart>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

@@ -1,5 +1,5 @@
 .primary-gradient{
-    -fx-background-color: linear-gradient(to bottom, #243B55, #141E30);
+    -fx-background-color: linear-gradient(to bottom, #00899B, #002F35);
 }
 
 .primary-white{
@@ -7,11 +7,14 @@
 }
 
 .admin-primary-blue{
-    -fx-text-fill: #2F54FE;
+    -fx-text-fill: #66E1B4;
 }
 
 .text-field-label{
-    -fx-text-fill: #2C58A6;
+    -fx-text-fill: #BDE1D3;
+}
+.bg-white{
+    -fx-background-color: #fff;
 }
 
 .tooltip {
@@ -30,10 +33,14 @@
 }
 
 .primary-border{
-    -fx-border-color: #2C58A6;
+    -fx-border-color: #00796F;
     -fx-border-width: 0.5px;
     -fx-border-style: solid;
     -fx-border-radius: 4px;
+}
+
+.primary-text{
+    -fx-text-fill: #00796F;
 }
 
 .bg-transparent{
@@ -42,7 +49,7 @@
 
 .text-field,
 .combo-box{
-    -fx-border-color: #2C58A6;
+    -fx-border-color: #BDE1D3;
     -fx-border-width: 0.5px;
     -fx-border-style: solid;
     -fx-border-radius: 4px;
@@ -51,17 +58,20 @@
 }
 
 .combo-box .list-cell {
-    -fx-text-fill: #2C58A6;
+    -fx-text-fill:#BDE1D3;
 }
 
 .button-primary{
-    -fx-background-color: #2C58A6;
+    -fx-background-color: #00796F;
+}
+.button-gradient {
+    -fx-background-color: linear-gradient(to left, #00899B, #002F35);
 }
 
 .button-primary-outline{
     -fx-background-color: transparent;
-    -fx-text-fill: #2C58A6;
-    -fx-border-color: #2C58A6;
+    -fx-text-fill: #BDE1D3;
+    -fx-border-color: #BDE1D3;
     -fx-border-width: 0.5px;
     -fx-border-style: solid;
     -fx-border-radius: 4px;
@@ -105,18 +115,18 @@
 
 /* For a horizontal separator */
 .separator:horizontal .line {
-    -fx-border-color: #2C58A6;
+    -fx-border-color: #00796F;
     -fx-border-width: 1;
 }
 
 /* For a vertical separator */
 .separator:vertical .line {
-    -fx-border-color: #2C58A6;
+    -fx-border-color: #00796F;
     -fx-border-width: 1;
 }
 
 .date-picker {
-    -fx-border-color: #2C58A6;
+    -fx-border-color: #00796F;
     -fx-border-width: 0.5px;
     -fx-border-style: solid;
     -fx-border-radius: 4px;
@@ -184,3 +194,4 @@
     -fx-background-color: #004E92; /* Blue background for selected today */
     -fx-text-fill: #f1f1f1; /* White text for selected today */
 }
+

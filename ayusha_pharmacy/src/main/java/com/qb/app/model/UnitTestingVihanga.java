@@ -24,8 +24,8 @@ public class UnitTestingVihanga {
 //        getSessionDetails();
 //        loadComboBoxData();
 //        testRun();
-//        passwordTest();
-        testDatabaseResults();
+        passwordTest();
+//        testDatabaseResults();
     }
 
     private static void testJPA() {
@@ -128,9 +128,10 @@ public class UnitTestingVihanga {
     }
 
     private static void passwordTest() {
-        System.out.println(PasswordEncryption.hashPassword("ASD123"));
-        if (PasswordEncryption.verifyPassword("$argon2i$v=19$m=65536,t=10,p=4$eazGlsy3aWcg9pCFadMIzw$w162xY1rop7uRn5fFqCdrSLmviESEO3PXKUr9QgmBow", "asd321")) {
-        }
+//        System.out.println(PasswordEncryption.hashPassword("ASD123"));
+//        if (PasswordEncryption.verifyPassword("$argon2i$v=19$m=65536,t=10,p=4$eazGlsy3aWcg9pCFadMIzw$w162xY1rop7uRn5fFqCdrSLmviESEO3PXKUr9QgmBow", "asd321")) {
+//        }
+        System.out.println("Your password is: "+PasswordEncryption.hashPassword("asd321"));
     }
 
     private static void testDatabaseResults() {

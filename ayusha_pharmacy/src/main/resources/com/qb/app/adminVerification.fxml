@@ -52,12 +52,12 @@
             </Pane>
             <BorderPane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                <center>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="bg-white" stylesheets="@css/style.css" BorderPane.alignment="CENTER">
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="bg-white" stylesheets="@css/adminStyle.css" BorderPane.alignment="CENTER">
                      <children>
                         <VBox alignment="CENTER" prefWidth="100.0" spacing="10.0">
                            <children>
                               <Group fx:id="iconAdmin" />
-                              <Label styleClass="primary-text" stylesheets="@css/style.css" text="Admin Verification">
+                              <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Admin Verification">
                                  <font>
                                     <Font name="Aptos Black" size="16.0" />
                                  </font>

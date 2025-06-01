@@ -25,7 +25,7 @@
                         <VBox alignment="CENTER" spacing="12.0">
                             <children>
                         <Circle fx:id="quantumBlazeIcon" fill="DODGERBLUE" radius="80.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-                                <Label styleClass="primary-white" stylesheets="@css/style.css" text="Welcome to Quantum Retail Pro">
+                                <Label styleClass="primary-white" stylesheets="@css/style.css" text="Welcome to Ayusha Pharmacy">
                                     <font>
                                         <Font name="Aptos Bold" size="16.0" />
                                     </font>

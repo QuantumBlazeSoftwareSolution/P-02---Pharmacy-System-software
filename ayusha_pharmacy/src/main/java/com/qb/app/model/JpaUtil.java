@@ -17,8 +17,6 @@ public class JpaUtil {
             // Get credentials from system environment variables
             String dbUser = System.getenv("DB_USER");
             String dbPassword = System.getenv("DB_PASSWORD");
-            System.out.println(dbUser);
-            System.out.println(dbPassword);
             
             // Validate and add credentials to properties
             if (dbUser != null && !dbUser.isEmpty()) {

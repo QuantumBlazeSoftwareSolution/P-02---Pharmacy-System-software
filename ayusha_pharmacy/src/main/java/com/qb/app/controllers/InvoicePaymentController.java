@@ -10,9 +10,13 @@ import com.qb.app.model.entity.Invoice;
 import com.qb.app.model.entity.InvoiceItem;
 import com.qb.app.model.entity.InvoiceItemType;
 import com.qb.app.session.ApplicationSession;
+import com.qb.app.session.CompanyInfo;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.Date;
 import java.util.HashMap;
@@ -188,6 +192,8 @@ public class InvoicePaymentController implements Initializable {
         tfCreditAmount.textProperty().addListener(paymentFieldListener);
     }
 
+    int invoiceID = 0;
+
     private void createInvoice() {
         JPATransaction.runInTransaction((em) -> {
 
@@ -213,6 +219,9 @@ public class InvoicePaymentController implements Initializable {
             invoice.setSessionId(ApplicationSession.getSession());
             em.persist(invoice);
 
+            em.flush();
+            invoiceID = invoice.getId();
+
             CriteriaBuilder cb = em.getCriteriaBuilder();
             CriteriaQuery<InvoiceItemType> cq = cb.createQuery(InvoiceItemType.class);
             Root<InvoiceItemType> invoiceItemTypeRoot = cq.from(InvoiceItemType.class);
@@ -234,12 +243,12 @@ public class InvoicePaymentController implements Initializable {
             InterfaceAction.closeWindow(root);
         });
 
-        Map<String, Object> params = getJRParams();
+        Map<String, Object> params = getJRParams(invoiceID);
         Vector<InvoiceItemBean> collection = getBeanCollection();
 
         try {
             JasperReport jasperReport = (JasperReport) JRLoader.loadObject(
-                    getClass().getResourceAsStream("/com/qb/app/reports/QBCashierInvoice.jasper"));
+                    getClass().getResourceAsStream("/com/qb/app/reports/PharmacyInvoice.jasper"));
 
             JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(collection);
 
@@ -253,7 +262,17 @@ public class InvoicePaymentController implements Initializable {
         controller.removeAll();
     }
 
-    private Map<String, Object> getJRParams() {
+    private byte[] inputStreamToByteArray(InputStream inputStream) throws IOException {
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        int nRead;
+        byte[] data = new byte[16384]; // 16KB buffer
+        while ((nRead = inputStream.read(data, 0, data.length)) != -1) {
+            buffer.write(data, 0, nRead);
+        }
+        return buffer.toByteArray();
+    }
+
+    private Map<String, Object> getJRParams(int id) {
         double subTotal = 0;
         double discount = 0;
         double paidAmount = 0;
@@ -280,17 +299,33 @@ public class InvoicePaymentController implements Initializable {
         total += subTotal - discount;
 
         Map<String, Object> params = new HashMap<>();
-        params.put("ID", "2237");
-        params.put("CompanyName", "Quantum Retail Pro");
-        params.put("Cashier", "Vihanga Heshan");
+
+        try (InputStream is = getClass().getResourceAsStream("/com/qb/app/assets/images/final logo.png")) {
+            if (is != null) {
+                byte[] imageData = inputStreamToByteArray(is);
+                params.put("Logo", imageData);
+            } else {
+                System.out.println("Image not found");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (id != 0) {
+            params.put("ID", String.valueOf(id));
+        } else {
+            params.put("ID", "000000");
+        }
+        params.put("CompanyName", CompanyInfo.applicationName);
+        params.put("Cashier", ApplicationSession.getEmployee().getName());
         params.put("SubTotal", String.format("Rs. %, .2f", subTotal));
         params.put("Discount", String.format("Rs. %, .2f", discount));
         params.put("TotalAmount", String.format("Rs. %, .2f", total));
         params.put("PaidAmount", String.format("Rs. %, .2f", paidAmount));
         params.put("CreditAmount", String.format("Rs. %, .2f", creditAmount));
         params.put("Balance", String.format("Rs. %, .2f", ((paidAmount + creditAmount) - total)));
-        params.put("Address", "No: 231/D, Deenapamunuwa, Urapola. 1st Street.");
-        params.put("Contact", "Contact: 0719892932/0788056838, Email: vihangaheshan37@gmail.com");
+        params.put("Address", CompanyInfo.address);
+        params.put("Contact", CompanyInfo.mobile);
         return params;
     }
 

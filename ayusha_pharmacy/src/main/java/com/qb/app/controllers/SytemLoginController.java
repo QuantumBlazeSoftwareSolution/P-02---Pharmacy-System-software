@@ -56,7 +56,7 @@ public class SytemLoginController implements Initializable {
     @FXML
     private AnchorPane root;
     @FXML
-    private Circle quantumBlazeIcon;
+    private Rectangle quantumBlazeIcon;
     @FXML
     private Group iconUser;
     //    </editor-fold>
@@ -163,7 +163,7 @@ public class SytemLoginController implements Initializable {
     }
 
     private void setQBImage() {
-        Image image = new Image(getClass().getResource("/com/qb/app/assets/images/QB_LOGO.png").toExternalForm());
+        Image image = new Image(getClass().getResource("/com/qb/app/assets/images/final logo.png").toExternalForm());
         quantumBlazeIcon.setFill(new ImagePattern(image));
     }
 

@@ -3,6 +3,7 @@ package com.qb.app.model;
 import com.qb.app.model.entity.Brand;
 import com.qb.app.model.entity.Employee;
 import com.qb.app.model.entity.Session;
+import com.qb.app.session.CompanyInfo;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.NoResultException;
@@ -25,7 +26,7 @@ public class UnitTestingVihanga {
 //        loadComboBoxData();
 //        testRun();
         passwordTest();
-//        testDatabaseResults();
+        //        testDatabaseResults();
     }
 
     private static void testJPA() {
@@ -131,7 +132,7 @@ public class UnitTestingVihanga {
 //        System.out.println(PasswordEncryption.hashPassword("ASD123"));
 //        if (PasswordEncryption.verifyPassword("$argon2i$v=19$m=65536,t=10,p=4$eazGlsy3aWcg9pCFadMIzw$w162xY1rop7uRn5fFqCdrSLmviESEO3PXKUr9QgmBow", "asd321")) {
 //        }
-        System.out.println("Your password is: "+PasswordEncryption.hashPassword("asd321"));
+        System.out.println("Your password is: " + PasswordEncryption.hashPassword("asd321"));
     }
 
     private static void testDatabaseResults() {

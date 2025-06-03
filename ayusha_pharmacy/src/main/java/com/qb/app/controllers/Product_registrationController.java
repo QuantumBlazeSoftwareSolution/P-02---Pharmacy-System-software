@@ -90,11 +90,15 @@ public class Product_registrationController implements Initializable {
     private Button btnRegister;
     @FXML
     private Label registrationMessage;
+    @FXML
+    private AnchorPane root;
+    @FXML
+    private TextField tfGenericName;
+    @FXML
+    private TextField tfInitializeQuantity;
 //    </editor-fold>
 
     private File selectedImageFile; // Stores the selected image file temporarily
-    @FXML
-    private AnchorPane root;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -130,39 +134,39 @@ public class Product_registrationController implements Initializable {
         }
     }
 
-    private String saveToResources(File sourceFile) throws IOException {
-        // Define target directory in resources
-        String resourcesDir = "src/main/resources/com/qb/app/assets/images/product/";
-
-        // Create directory if it doesn't exist
-        Path dirPath = Paths.get(resourcesDir);
-        if (!Files.exists(dirPath)) {
-            Files.createDirectories(dirPath);
-        }
-
-        // Generate unique filename to avoid overwrites
-        String fileName = "product_" + System.currentTimeMillis()
-                + getFileExtension(sourceFile.getName());
-        Path destination = Paths.get(resourcesDir + fileName);
-
-        // Copy file to resources
-        Files.copy(sourceFile.toPath(), destination, StandardCopyOption.REPLACE_EXISTING);
-        return destination.toString();
-    }
-
-    private void displayImage(String imagePath) {
-        try {
-            // For development (using file system path)
-            Image image = new Image(new File(imagePath).toURI().toString());
-
-            // For production (when packaged in JAR)
-            // Image image = new Image(getClass().getResourceAsStream(
-            //     "/com/qb/app/assets/images/product/" + Paths.get(imagePath).getFileName()));
-            productImage.setImage(image);
-        } catch (Exception e) {
-            CustomAlert.showStyledAlert(root, e.getMessage(), "Error loading image", Alert.AlertType.ERROR);
-        }
-    }
+//    private String saveToResources(File sourceFile) throws IOException {
+//        // Define target directory in resources
+//        String resourcesDir = "src/main/resources/com/qb/app/assets/images/product/";
+//
+//        // Create directory if it doesn't exist
+//        Path dirPath = Paths.get(resourcesDir);
+//        if (!Files.exists(dirPath)) {
+//            Files.createDirectories(dirPath);
+//        }
+//
+//        // Generate unique filename to avoid overwrites
+//        String fileName = "product_" + System.currentTimeMillis()
+//                + getFileExtension(sourceFile.getName());
+//        Path destination = Paths.get(resourcesDir + fileName);
+//
+//        // Copy file to resources
+//        Files.copy(sourceFile.toPath(), destination, StandardCopyOption.REPLACE_EXISTING);
+//        return destination.toString();
+//    }
+//
+//    private void displayImage(String imagePath) {
+//        try {
+//            // For development (using file system path)
+//            Image image = new Image(new File(imagePath).toURI().toString());
+//
+//            // For production (when packaged in JAR)
+//            // Image image = new Image(getClass().getResourceAsStream(
+//            //     "/com/qb/app/assets/images/product/" + Paths.get(imagePath).getFileName()));
+//            productImage.setImage(image);
+//        } catch (Exception e) {
+//            CustomAlert.showStyledAlert(root, e.getMessage(), "Error loading image", Alert.AlertType.ERROR);
+//        }
+//    }
 
     private String getFileExtension(String fileName) {
         int dotIndex = fileName.lastIndexOf('.');
@@ -422,10 +426,15 @@ public class Product_registrationController implements Initializable {
                 product.setDiscount(tfDiscount.getText().isEmpty() ? 0.0
                         : Double.parseDouble(tfDiscount.getText()));
                 product.setMeasure(Float.parseFloat(tfMeasure.getText()));
-                product.setBarCode(tfBarCode.getText());
+                if (!tfBarCode.getText().isEmpty()) {
+                    product.setBarCode(tfBarCode.getText());
+                }
                 product.setProductUnitId(cbUnit.getValue());
                 product.setBrandId(cbBrand.getValue());
                 product.setProductStatusId(getProductStatus());
+                if (!tfGenericName.getText().isEmpty()) {
+                    product.setGenericName(tfGenericName.getText());
+                }
                 em.persist(product);
 
                 // save new product's product_has_product_type

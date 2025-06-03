@@ -262,16 +262,6 @@ public class InvoicePaymentController implements Initializable {
         controller.removeAll();
     }
 
-    private byte[] inputStreamToByteArray(InputStream inputStream) throws IOException {
-        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-        int nRead;
-        byte[] data = new byte[16384]; // 16KB buffer
-        while ((nRead = inputStream.read(data, 0, data.length)) != -1) {
-            buffer.write(data, 0, nRead);
-        }
-        return buffer.toByteArray();
-    }
-
     private Map<String, Object> getJRParams(int id) {
         double subTotal = 0;
         double discount = 0;
@@ -300,23 +290,19 @@ public class InvoicePaymentController implements Initializable {
 
         Map<String, Object> params = new HashMap<>();
 
-        try (InputStream is = getClass().getResourceAsStream("/com/qb/app/assets/images/final logo.png")) {
-            if (is != null) {
-                byte[] imageData = inputStreamToByteArray(is);
-                params.put("Logo", imageData);
-            } else {
-                System.out.println("Image not found");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         if (id != 0) {
             params.put("ID", String.valueOf(id));
         } else {
             params.put("ID", "000000");
         }
-        params.put("ItemCount", invoiceItemList.size());
+        
+        try {
+            URL imageUrl = getClass().getResource("/com/qb/app/assets/images/logo.png");
+            params.put("Logo", imageUrl);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        params.put("ItemCount", String.valueOf(invoiceItemList.size()));
         params.put("CompanyName", CompanyInfo.applicationName);
         params.put("Cashier", ApplicationSession.getEmployee().getName());
         params.put("SubTotal", String.format("Rs. %, .2f", subTotal));

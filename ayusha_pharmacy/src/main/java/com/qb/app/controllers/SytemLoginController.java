@@ -163,7 +163,7 @@ public class SytemLoginController implements Initializable {
     }
 
     private void setQBImage() {
-        Image image = new Image(getClass().getResource("/com/qb/app/assets/images/final logo.png").toExternalForm());
+        Image image = new Image(getClass().getResource("/com/qb/app/assets/images/logo.png").toExternalForm());
         quantumBlazeIcon.setFill(new ImagePattern(image));
     }
 

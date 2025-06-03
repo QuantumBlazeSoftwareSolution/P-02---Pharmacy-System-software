@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="800.0" styleClass="primary-gradient-50" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.CashierDashboardController">
+<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="800.0" styleClass="bg-primary-5" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.CashierDashboardController">
    <children>
       <VBox alignment="CENTER" layoutX="225.0" layoutY="128.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -68,11 +68,11 @@
             <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
             <VBox alignment="CENTER" prefWidth="100.0">
                <children>
-                  <Label styleClass="primary-white" stylesheets="@css/style.css" text="Developed by Quantum Blaze software solution">
+                  <Label styleClass="primary-text" stylesheets="@css/style.css" text="Developed by Quantum Blaze software solution">
                      <font>
                         <Font name="Aptos" size="16.0" />
                      </font></Label>
-                  <Label styleClass="primary-white" stylesheets="@css/style.css" text="Contact: +94712345678 | Email: quantumblaze@gmail.com">
+                  <Label styleClass="primary-text" stylesheets="@css/style.css" text="Contact: +94712345678 | Email: quantumblaze@gmail.com">
                      <font>
                         <Font name="Aptos" size="14.0" />
                      </font></Label>

@@ -187,7 +187,7 @@
             </HBox>
          </center>
          <bottom>
-            <HBox alignment="CENTER" maxHeight="-Infinity" prefWidth="200.0" spacing="40.0" style="-fx-background-color: #081E30;" styleClass="border-radius" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER" maxHeight="-Infinity" prefWidth="200.0" spacing="40.0" style="-fx-background-color: #00534C;" styleClass="border-radius" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="btnInvoiceAmount" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" stylesheets="@../css/style.css" text="Rs. 0.00">
                      <HBox.margin>
@@ -292,15 +292,15 @@
                               </Label>
                            </children>
                         </HBox>
-                        <HBox maxHeight="-Infinity" minWidth="350.0" style="-fx-background-color: #0A2A44; -fx-border-radius: 6px;">
+                        <HBox maxHeight="-Infinity" minWidth="350.0" style="-fx-background-color: #00796F; -fx-border-radius: 6px;">
                            <children>
-                              <Label minWidth="-Infinity" style="-fx-text-fill: #827410;" text="Balance">
+                              <Label minWidth="-Infinity" styleClass="primary-white" stylesheets="@../css/style.css" text="Balance">
                                  <font>
                                     <Font name="Segoe UI Bold" size="18.0" />
                                  </font>
                               </Label>
                               <Region prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                              <Label fx:id="invoiceBalance" minWidth="-Infinity" style="-fx-text-fill: #827410;" text="Rs. 0.00">
+                              <Label fx:id="invoiceBalance" minWidth="-Infinity" styleClass="primary-white" stylesheets="@../css/style.css" text="Rs. 0.00">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>

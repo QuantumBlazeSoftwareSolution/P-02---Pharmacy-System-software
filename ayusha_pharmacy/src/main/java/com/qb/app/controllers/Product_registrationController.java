@@ -167,7 +167,6 @@ public class Product_registrationController implements Initializable {
 //            CustomAlert.showStyledAlert(root, e.getMessage(), "Error loading image", Alert.AlertType.ERROR);
 //        }
 //    }
-
     private String getFileExtension(String fileName) {
         int dotIndex = fileName.lastIndexOf('.');
         return (dotIndex == -1) ? "" : fileName.substring(dotIndex);
@@ -209,12 +208,11 @@ public class Product_registrationController implements Initializable {
             return false;
         }
 
-        if (tfBarCode.getText().isEmpty()) {
-            displayRegistrationMessage("Barcode is required.", false);
-            tfBarCode.requestFocus();
-            return false;
-        }
-
+//        if (tfBarCode.getText().isEmpty()) {
+//            displayRegistrationMessage("Barcode is required.", false);
+//            tfBarCode.requestFocus();
+//            return false;
+//        }
         if (tfSalePrice.getText().isEmpty()) {
             displayRegistrationMessage("Sale price is required.", false);
             tfSalePrice.requestFocus();
@@ -316,6 +314,10 @@ public class Product_registrationController implements Initializable {
                     .filter(type -> "Parent".equals(type.getType()))
                     .findFirst()
                     .ifPresent(parentType -> cbType.getSelectionModel().select(parentType));
+            cbUnit.getItems().stream()
+                    .filter(unit -> "item".equals(unit.getUnit()))
+                    .findFirst()
+                    .ifPresent(unitType -> cbUnit.getSelectionModel().select(unitType));
         });
     }
 
@@ -455,16 +457,24 @@ public class Product_registrationController implements Initializable {
                     saveProductImage(selectedImageFile, imageName);
                 }
 
+                int qty;
+
+                if (!tfInitializeQuantity.getText().isEmpty()) {
+                    qty = Integer.parseInt(tfInitializeQuantity.getText());
+                } else {
+                    qty = 0;
+                }
+
                 // save this product in the store
                 Store store = new Store();
                 store.setProductId(product);
-                store.setQty(0);
+                store.setQty(qty);
                 em.persist(store);
 
                 // save this product in the stock
                 Stock stock = new Stock();
                 stock.setProductId(product);
-                stock.setQty(0);
+                stock.setQty(qty);
                 em.persist(stock);
 
                 displayRegistrationMessage("Product successfully added to inventory.", true);

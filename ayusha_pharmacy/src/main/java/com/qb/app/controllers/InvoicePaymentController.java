@@ -316,6 +316,7 @@ public class InvoicePaymentController implements Initializable {
         } else {
             params.put("ID", "000000");
         }
+        params.put("ItemCount", invoiceItemList.size());
         params.put("CompanyName", CompanyInfo.applicationName);
         params.put("Cashier", ApplicationSession.getEmployee().getName());
         params.put("SubTotal", String.format("Rs. %, .2f", subTotal));

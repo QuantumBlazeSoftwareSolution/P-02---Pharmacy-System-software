@@ -33,6 +33,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
 public class CashierSessionController implements Initializable, ControllerClose {
@@ -99,18 +101,6 @@ public class CashierSessionController implements Initializable, ControllerClose 
         });
     }
 
-//    private void showStyledAlert(String message, Alert.AlertType type) {
-//
-//        Alert alert = new Alert(type);
-//        alert.setTitle("System Notification");
-//        alert.setHeaderText(null);
-//        alert.setContentText(message);
-//
-//        // Add custom style class
-//        // DialogPane dialogPane = alert.getDialogPane();
-//        // dialogPane.getStyleClass().add("custom-alert");
-//        alert.show();
-//    }
     @FXML
     private void handleActionEvent(ActionEvent event) {
         if (event.getSource() == btnSignIn) {
@@ -139,6 +129,7 @@ public class CashierSessionController implements Initializable, ControllerClose 
                         signInMessage.setText("Successfuly sign in for today.");
                         signOffMessage.setText("Waiting for sign off.");
                         MessageTransition("Sign in completed.", signInMessage);
+                        cleanSignIn();
                     } else {
                         signInMessage.setText("Session active: You cannot sign in multiple times per day.");
                         MessageTransition("You're already signed in for today", signInMessage);
@@ -152,7 +143,6 @@ public class CashierSessionController implements Initializable, ControllerClose 
         } else {
             CustomAlert.showStyledAlert(root, "You're already signed in for today", Alert.AlertType.WARNING);
         }
-        cleanSignIn();
     }
 
     private void sessionSignOff() {
@@ -175,6 +165,7 @@ public class CashierSessionController implements Initializable, ControllerClose 
                                     signInMessage.setText("Day completed.");
                                     signOffMessage.setText("Day completed.");
                                     CustomAlert.showStyledAlert(root, "Successfuly Sign Off for today.", Alert.AlertType.INFORMATION);
+                                    cleanSignOff();
 
                                     PauseTransition delay = new PauseTransition(Duration.seconds(2));
                                     delay.setOnFinished(event -> {
@@ -200,7 +191,6 @@ public class CashierSessionController implements Initializable, ControllerClose 
         } else {
             CustomAlert.showStyledAlert(root, "You're not signed in for today, Please sign in to activate sign off option", Alert.AlertType.WARNING);
         }
-        cleanSignOff();
     }
 
     private void MessageTransition(String text, Button btn) {
@@ -322,6 +312,20 @@ public class CashierSessionController implements Initializable, ControllerClose 
                 // Preserve interrupt status
                 Thread.currentThread().interrupt();
             }
+        }
+    }
+
+    @FXML
+    private void handleKeyReleasedSignIn(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            sessionSignIn();
+        }
+    }
+
+    @FXML
+    private void handleKeyReleasedSignOff(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            sessionSignOff();
         }
     }
 

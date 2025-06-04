@@ -17,7 +17,7 @@
 
 <AnchorPane id="AnchorPane" fx:id="root" prefHeight="800.0" prefWidth="992.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.CashierSessionController">
    <children>
-      <VBox alignment="CENTER" layoutX="20.0" layoutY="20.0" prefHeight="200.0" prefWidth="100.0" styleClass="primary-white-bg" stylesheets="@css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="CENTER" layoutX="20.0" layoutY="20.0" prefHeight="200.0" prefWidth="100.0" styleClass="bg-white" stylesheets="@css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Region prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
             <Label styleClass="primary-text" stylesheets="@css/style.css" text="Working Session">
@@ -98,7 +98,7 @@
                                              <font>
                                                 <Font name="Aptos" size="14.0" />
                                              </font></Label>
-                                          <TextField fx:id="tfSignInUsername" prefHeight="40.0" stylesheets="@css/style.css">
+                                          <TextField fx:id="tfSignInUsername" onKeyReleased="#handleKeyReleasedSignIn" prefHeight="40.0" stylesheets="@css/style.css">
                                              <styleClass>
                                                 <String fx:value="bg-white" />
                                                 <String fx:value="primary-border" />
@@ -113,7 +113,7 @@
                                              <font>
                                                 <Font name="Aptos" size="14.0" />
                                              </font></Label>
-                                          <PasswordField fx:id="tfSignInPassword" prefHeight="40.0" stylesheets="@css/style.css">
+                                          <PasswordField fx:id="tfSignInPassword" onKeyReleased="#handleKeyReleasedSignIn" prefHeight="40.0" stylesheets="@css/style.css">
                                              <styleClass>
                                                 <String fx:value="bg-white" />
                                                 <String fx:value="primary-border" />
@@ -128,7 +128,7 @@
                                              <font>
                                                 <Font name="Aptos" size="14.0" />
                                              </font></Label>
-                                          <TextField fx:id="tfSignInPettyCash" prefHeight="40.0" stylesheets="@css/style.css">
+                                          <TextField fx:id="tfSignInPettyCash" onKeyReleased="#handleKeyReleasedSignIn" prefHeight="40.0" stylesheets="@css/style.css">
                                              <styleClass>
                                                 <String fx:value="bg-white" />
                                                 <String fx:value="primary-border" />
@@ -172,7 +172,7 @@
                                              <font>
                                                 <Font name="Aptos" size="14.0" />
                                              </font></Label>
-                                          <TextField fx:id="tfSignOffUsername" prefHeight="40.0" stylesheets="@css/style.css">
+                                          <TextField fx:id="tfSignOffUsername" onKeyReleased="#handleKeyReleasedSignOff" prefHeight="40.0" stylesheets="@css/style.css">
                                              <styleClass>
                                                 <String fx:value="bg-white" />
                                                 <String fx:value="primary-border" />
@@ -187,7 +187,7 @@
                                              <font>
                                                 <Font name="Aptos" size="14.0" />
                                              </font></Label>
-                                          <PasswordField fx:id="tfSignOffPassword" prefHeight="40.0" stylesheets="@css/style.css">
+                                          <PasswordField fx:id="tfSignOffPassword" onKeyReleased="#handleKeyReleasedSignOff" prefHeight="40.0" stylesheets="@css/style.css">
                                              <styleClass>
                                                 <String fx:value="bg-white" />
                                                 <String fx:value="primary-border" />
@@ -202,7 +202,7 @@
                                              <font>
                                                 <Font name="Aptos" size="14.0" />
                                              </font></Label>
-                                          <TextField fx:id="tfSignOffCollection" prefHeight="40.0" stylesheets="@css/style.css">
+                                          <TextField fx:id="tfSignOffCollection" onKeyReleased="#handleKeyReleasedSignOff" prefHeight="40.0" stylesheets="@css/style.css">
                                              <styleClass>
                                                 <String fx:value="bg-white" />
                                                 <String fx:value="primary-border" />

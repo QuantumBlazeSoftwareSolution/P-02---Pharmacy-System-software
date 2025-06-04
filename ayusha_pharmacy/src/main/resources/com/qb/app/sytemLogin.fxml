@@ -8,13 +8,11 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
@@ -82,14 +80,11 @@
                                                 <Font name="Aptos" size="14.0" />
                                             </font>
                                         </Label>
-                                        <TextField fx:id="tfUsername" onKeyPressed="#handleKeyPressed" prefHeight="40.0" promptText="Ex: John Doe" style="-fx-background-color: #D3FFEE;">
-                                 <effect>
-                                    <InnerShadow>
-                                       <color>
-                                          <Color opacity="0.25" />
-                                       </color>
-                                    </InnerShadow>
-                                 </effect></TextField>
+                                        <TextField fx:id="tfUsername" onKeyPressed="#handleKeyPressed" prefHeight="40.0" promptText="Ex: John Doe" stylesheets="@css/style.css">
+                                 <styleClass>
+                                    <String fx:value="bg-white" />
+                                    <String fx:value="primary-border" />
+                                 </styleClass></TextField>
                                     </children>
                                 </VBox>
                                 <VBox alignment="CENTER_LEFT" prefWidth="100.0" spacing="4.0">
@@ -99,14 +94,11 @@
                                                 <Font name="Aptos" size="14.0" />
                                             </font>
                                         </Label>
-                                        <PasswordField fx:id="tfPassword" onKeyPressed="#handleKeyPressed" prefHeight="40.0" promptText="Ex: Aa12@#" style="-fx-background-color: #D3FFEE;" stylesheets="@css/style.css">
-                                 <effect>
-                                    <InnerShadow>
-                                       <color>
-                                          <Color opacity="0.25" />
-                                       </color>
-                                    </InnerShadow>
-                                 </effect></PasswordField>
+                                        <PasswordField fx:id="tfPassword" onKeyPressed="#handleKeyPressed" prefHeight="40.0" promptText="Ex: Aa12@#" stylesheets="@css/style.css">
+                                 <styleClass>
+                                    <String fx:value="bg-white" />
+                                    <String fx:value="primary-border" />
+                                 </styleClass></PasswordField>
                                     </children>
                                 </VBox>
                                 <VBox alignment="CENTER_LEFT" prefWidth="100.0" spacing="4.0">
@@ -123,13 +115,6 @@
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
-                                 <effect>
-                                    <InnerShadow>
-                                       <color>
-                                          <Color opacity="0.25" />
-                                       </color>
-                                    </InnerShadow>
-                                 </effect>
                                         </Button>
                                         <Button fx:id="btnExit" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleSystemLogin" prefHeight="36.0" stylesheets="@css/style.css" text="Exit">
                                             <font>

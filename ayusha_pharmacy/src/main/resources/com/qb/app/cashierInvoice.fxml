@@ -39,7 +39,7 @@
                                              <center>
                                                 <Label styleClass="primary-text" stylesheets="@css/style.css" text="Item Code" BorderPane.alignment="CENTER">
                                                    <font>
-                                                      <Font name="Aptos" size="14.0" />
+                                                      <Font name="Aptos SemiBold" size="14.0" />
                                                    </font>
                                                 </Label>
                                              </center>
@@ -56,7 +56,7 @@
                                              <center>
                                                 <Label styleClass="primary-text" stylesheets="@css/style.css" text="Product" BorderPane.alignment="CENTER">
                                                    <font>
-                                                      <Font name="Aptos" size="14.0" />
+                                                      <Font name="Aptos SemiBold" size="14.0" />
                                                    </font>
                                                 </Label>
                                              </center>
@@ -73,7 +73,7 @@
                                              <center>
                                                 <Label styleClass="primary-text" stylesheets="@css/style.css" text="Item Name" BorderPane.alignment="CENTER">
                                                    <font>
-                                                      <Font name="Aptos" size="14.0" />
+                                                      <Font name="Aptos SemiBold" size="14.0" />
                                                    </font>
                                                 </Label>
                                              </center>
@@ -90,7 +90,7 @@
                                              <center>
                                                 <Label styleClass="primary-text" stylesheets="@css/style.css" text="Unit Price" BorderPane.alignment="CENTER">
                                                    <font>
-                                                      <Font name="Aptos" size="14.0" />
+                                                      <Font name="Aptos SemiBold" size="14.0" />
                                                    </font>
                                                 </Label>
                                              </center>
@@ -107,7 +107,7 @@
                                              <center>
                                                 <Label styleClass="primary-text" stylesheets="@css/style.css" text="Qty" BorderPane.alignment="CENTER">
                                                    <font>
-                                                      <Font name="Aptos" size="14.0" />
+                                                      <Font name="Aptos SemiBold" size="14.0" />
                                                    </font>
                                                 </Label>
                                              </center>
@@ -124,7 +124,7 @@
                                              <center>
                                                 <Label styleClass="primary-text" stylesheets="@css/style.css" text="Amount" BorderPane.alignment="CENTER">
                                                    <font>
-                                                      <Font name="Aptos" size="14.0" />
+                                                      <Font name="Aptos SemiBold" size="14.0" />
                                                    </font>
                                                 </Label>
                                              </center>
@@ -141,7 +141,7 @@
                                              <center>
                                                 <Label styleClass="primary-text" stylesheets="@css/style.css" text="Action" BorderPane.alignment="CENTER">
                                                    <font>
-                                                      <Font name="Aptos" size="14.0" />
+                                                      <Font name="Aptos SemiBold" size="14.0" />
                                                    </font>
                                                 </Label>
                                              </center>

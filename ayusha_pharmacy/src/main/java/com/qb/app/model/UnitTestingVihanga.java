@@ -1,5 +1,6 @@
 package com.qb.app.model;
 
+import com.qb.app.controllers.report.beans.InvoiceItemBean;
 import com.qb.app.model.entity.Brand;
 import com.qb.app.model.entity.Employee;
 import com.qb.app.model.entity.Session;
@@ -12,10 +13,22 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Vector;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 import org.hibernate.HibernateException;
 
 public class UnitTestingVihanga {
@@ -25,8 +38,9 @@ public class UnitTestingVihanga {
 //        getSessionDetails();
 //        loadComboBoxData();
 //        testRun();
-        passwordTest();
-        //        testDatabaseResults();
+//        passwordTest();
+//        testDatabaseResults();
+        testSubReport();
     }
 
     private static void testJPA() {
@@ -149,6 +163,38 @@ public class UnitTestingVihanga {
                 System.out.println("Employee Name: " + emp.getName());
             });
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void testSubReport() {
+
+        List<TestProduct> brand1Products = new ArrayList<>();
+        brand1Products.add(new TestProduct("Product 1"));
+        brand1Products.add(new TestProduct("Product 2"));
+
+        List<TestProduct> brand2Products = new ArrayList<>();
+        brand2Products.add(new TestProduct("Product 3"));
+
+        List<TestBrand> brandList = new ArrayList<>();
+        brandList.add(new TestBrand("Brand 1", brand1Products));
+        brandList.add(new TestBrand("Brand 2", brand2Products));
+
+        Map<String, Object> params = new HashMap<>();
+        try {
+            JasperReport subReport = (JasperReport) JRLoader.loadObject(
+                    UnitTestingVihanga.class.getResourceAsStream("/com/qb/app/reports/PharmacyStockBalanceSubReport.jasper"));
+            params.put("SUB_REPORT_PATH", subReport);
+            params.put("BrandList", brandList);
+
+            JasperReport mainReport = (JasperReport) JRLoader.loadObject(
+                    UnitTestingVihanga.class.getResourceAsStream("/com/qb/app/reports/PharmacyStockBalance.jasper"));
+
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(brandList);
+
+            JasperPrint report = JasperFillManager.fillReport(mainReport, params, dataSource);
+            JasperViewer.viewReport(report, false);
+        } catch (JRException e) {
             e.printStackTrace();
         }
     }

@@ -466,10 +466,10 @@ public class Product_registrationController implements Initializable {
                 }
 
                 // save this product in the store
-                Store store = new Store();
-                store.setProductId(product);
-                store.setQty(qty);
-                em.persist(store);
+//                Store store = new Store();
+//                store.setProductId(product);
+//                store.setQty(qty);
+//                em.persist(store);
 
                 // save this product in the stock
                 Stock stock = new Stock();

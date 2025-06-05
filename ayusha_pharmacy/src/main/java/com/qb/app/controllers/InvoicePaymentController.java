@@ -47,6 +47,7 @@ import net.sf.jasperreports.view.JasperViewer;
 
 public class InvoicePaymentController implements Initializable {
 
+    // <editor-fold desc="FXML init component" defaultstate="collapsed">
     @FXML
     private Group closeIcon;
     @FXML
@@ -71,11 +72,12 @@ public class InvoicePaymentController implements Initializable {
     private TextField tfCreditAmount;
     @FXML
     private Button btnAction;
+    @FXML
+    private AnchorPane root;
+    // </editor-fold>
 
     private CashierInvoiceController controller;
     private boolean isPaymentActive;
-    @FXML
-    private AnchorPane root;
     private double invoiceAmount;
     private List<InvoiceItemController> invoiceItemList;
 

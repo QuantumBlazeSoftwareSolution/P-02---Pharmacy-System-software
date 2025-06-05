@@ -128,7 +128,7 @@
                            </children>
                         </HBox>
                         <Separator prefWidth="200.0" />
-                        <VBox alignment="CENTER_RIGHT" maxWidth="-Infinity" spacing="1.0">
+                        <VBox alignment="CENTER_RIGHT" maxWidth="-Infinity" spacing="2.0">
                            <children>
                               <HBox alignment="CENTER" maxWidth="-Infinity" spacing="10.0">
                                  <children>

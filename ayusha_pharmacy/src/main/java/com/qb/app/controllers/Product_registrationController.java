@@ -308,6 +308,8 @@ public class Product_registrationController implements Initializable {
         ComboBoxUtils.loadComboBoxValues(cbUnit, ProductUnit.class, "unit", ProductUnit::getUnit);
         ComboBoxUtils.loadComboBoxValues(cbType, ProductType.class, "type", ProductType::getType);
 
+        Brand selectedBrand = cbBrand.getValue();
+
         // Set default selection to "Parent" after loading
         Platform.runLater(() -> {
             cbType.getItems().stream()
@@ -470,7 +472,6 @@ public class Product_registrationController implements Initializable {
 //                store.setProductId(product);
 //                store.setQty(qty);
 //                em.persist(store);
-
                 // save this product in the stock
                 Stock stock = new Stock();
                 stock.setProductId(product);

@@ -201,6 +201,11 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                             isProductLoaded = false;
                         }
                     }
+                    case DIVIDE -> {
+                        if (!invoiceItemList.isEmpty()) {
+                            openPaymentPanel();
+                        }
+                    }
                     case F5 -> {
                         clearLoadProduct();
                     }

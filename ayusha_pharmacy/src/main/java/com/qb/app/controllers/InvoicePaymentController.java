@@ -14,9 +14,6 @@ import com.qb.app.session.CompanyInfo;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.Date;
 import java.util.HashMap;
@@ -40,6 +37,7 @@ import javafx.scene.layout.AnchorPane;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
@@ -85,6 +83,8 @@ public class InvoicePaymentController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         setupTextFields();
         closeIcon.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/close-icon.svg"));
+        tfCashAmount.requestFocus();
+        System.out.println("Requested");
     }
 
     @FXML
@@ -237,6 +237,7 @@ public class InvoicePaymentController implements Initializable {
                 invoiceItem.setProductId(item.getProduct());
                 invoiceItem.setQty(item.getProductQty());
                 invoiceItem.setSalePrice(item.getProduct().getSalePrice());
+                invoiceItem.setDiscount(item.getProduct().getDiscount());
                 invoiceItem.setCostPrice(item.getProduct().getCostPrice());
                 invoiceItem.setInvoiceId(invoice);
                 invoiceItem.setInvoiceItemTypeId(sellItemType);
@@ -293,11 +294,11 @@ public class InvoicePaymentController implements Initializable {
         Map<String, Object> params = new HashMap<>();
 
         if (id != 0) {
-            params.put("ID", String.valueOf(id));
+            params.put("ID", String.format("%08d", id));
         } else {
-            params.put("ID", "000000");
+            params.put("ID", "00000000");
         }
-        
+
         try {
             URL imageUrl = getClass().getResource("/com/qb/app/assets/images/logo.png");
             params.put("Logo", imageUrl);

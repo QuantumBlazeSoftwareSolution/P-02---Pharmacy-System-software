@@ -170,8 +170,8 @@ public class CashierSessionController implements Initializable, ControllerClose 
                                     PauseTransition delay = new PauseTransition(Duration.seconds(2));
                                     delay.setOnFinished(event -> {
                                         ApplicationControllers.getPanelCashierController().changePanel(
-                                                "/com/qb/app/cashierDashboard.fxml",
-                                                "Dashboard"
+                                                "/com/qb/app/cashierCloseSale.fxml",
+                                                "Close Sale"
                                         );
                                     });
                                     delay.play();

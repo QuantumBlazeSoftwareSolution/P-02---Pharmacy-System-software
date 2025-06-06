@@ -18,7 +18,10 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
@@ -27,6 +30,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -84,7 +88,10 @@ public class Inventory_grnController implements Initializable {
     private AnchorPane root;
     @FXML
     private Label displayMessage;
+
     private Product loadedProduct;
+    private boolean readyItemToAdd;
+    private int itemQty;
 
     /**
      * Initializes the controller class.
@@ -257,18 +264,80 @@ public class Inventory_grnController implements Initializable {
 
     private void calculateLoadedItemAmount() {
         int qty = Integer.parseInt(tfQty.getText());
-        
+        this.itemQty = qty;
+        double productAmount = loadedProduct.getCostPrice() * qty;
+        tfAmount.setText(String.format("Rs. %,.2f", productAmount));
+        this.readyItemToAdd = true;
     }
 
     @FXML
     private void qtyListener(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
-            if (tfQty.getText().isEmpty()) {
-                displayWarningMessage("To proceed, please enter the quantity for this product.", false);
+            if (this.readyItemToAdd) {
+                addItemToList();
             } else {
-                calculateLoadedItemAmount();
+                String qty = tfQty.getText();
+                if (qty.isEmpty() || Integer.parseInt(qty) <= 0) {
+                    displayWarningMessage("To proceed, please enter the quantity for this product.", false);
+                    this.readyItemToAdd = false;
+                } else {
+                    calculateLoadedItemAmount();
+                }
             }
+        } else {
+            this.readyItemToAdd = true;
         }
+    }
+
+    List<InventoryGRN_TableRowController> grnItemList = new ArrayList<>();
+
+    private void addItemToList() {
+        try {
+            boolean itemExists = false;
+
+            for (InventoryGRN_TableRowController item : grnItemList) {
+                if (item.getProductID() == loadedProduct.getId()) {
+                    item.setProductQty(item.getQty() + itemQty);
+                    itemExists = true;
+                    break;
+                }
+            }
+
+            if (!itemExists) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/qb/app/fxmlComponent/InventoryGRN_TableRow.fxml"));
+                Node grnItem = loader.load();
+                InventoryGRN_TableRowController controller = loader.getController();
+                controller.setData(loadedProduct.getId(), loadedProduct.getProduct(), loadedProduct.getCostPrice(), itemQty);
+
+                grnItemList.add(controller);
+                grnTableBody.getChildren().add(grnItem);
+            }
+
+            clearLoadedTextFields();
+            resetFields();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+//    private Product loadedProduct;
+//    private boolean readyItemToAdd;
+//    private int itemQty;
+    private void resetFields() {
+        this.loadedProduct = null;
+        this.readyItemToAdd = false;
+        this.itemQty = 0;
+    }
+
+    private void clearLoadedTextFields() {
+        tfProductID.setText("");
+        tfProductName.setText("");
+        tfGenericName.setText("");
+        tfCostPrice.setText("");
+        tfQty.setText("");
+        tfAmount.setText("");
+
+        tfProductID.requestFocus();
     }
 
 }

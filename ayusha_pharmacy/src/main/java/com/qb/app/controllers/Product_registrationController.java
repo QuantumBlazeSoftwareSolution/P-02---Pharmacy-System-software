@@ -134,39 +134,6 @@ public class Product_registrationController implements Initializable {
         }
     }
 
-//    private String saveToResources(File sourceFile) throws IOException {
-//        // Define target directory in resources
-//        String resourcesDir = "src/main/resources/com/qb/app/assets/images/product/";
-//
-//        // Create directory if it doesn't exist
-//        Path dirPath = Paths.get(resourcesDir);
-//        if (!Files.exists(dirPath)) {
-//            Files.createDirectories(dirPath);
-//        }
-//
-//        // Generate unique filename to avoid overwrites
-//        String fileName = "product_" + System.currentTimeMillis()
-//                + getFileExtension(sourceFile.getName());
-//        Path destination = Paths.get(resourcesDir + fileName);
-//
-//        // Copy file to resources
-//        Files.copy(sourceFile.toPath(), destination, StandardCopyOption.REPLACE_EXISTING);
-//        return destination.toString();
-//    }
-//
-//    private void displayImage(String imagePath) {
-//        try {
-//            // For development (using file system path)
-//            Image image = new Image(new File(imagePath).toURI().toString());
-//
-//            // For production (when packaged in JAR)
-//            // Image image = new Image(getClass().getResourceAsStream(
-//            //     "/com/qb/app/assets/images/product/" + Paths.get(imagePath).getFileName()));
-//            productImage.setImage(image);
-//        } catch (Exception e) {
-//            CustomAlert.showStyledAlert(root, e.getMessage(), "Error loading image", Alert.AlertType.ERROR);
-//        }
-//    }
     private String getFileExtension(String fileName) {
         int dotIndex = fileName.lastIndexOf('.');
         return (dotIndex == -1) ? "" : fileName.substring(dotIndex);

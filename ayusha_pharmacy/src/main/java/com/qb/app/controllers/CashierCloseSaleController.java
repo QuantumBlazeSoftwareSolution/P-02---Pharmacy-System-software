@@ -391,7 +391,7 @@ public class CashierCloseSaleController implements Initializable, ControllerClos
     }
 
     private double getCashVariance() {
-        return this.physicalBalance - this.systemBalance;
+        return this.physicalBalance - (this.systemBalance + ApplicationSession.getSession().getPettyCash());
     }
 
     private int getTotalDiscount() {

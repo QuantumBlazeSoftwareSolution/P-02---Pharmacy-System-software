@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="800.0" styleClass="primary-gradient" stylesheets="@css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.Inventory_grnController">
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="640.0" prefWidth="800.0" styleClass="primary-gradient" stylesheets="@css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.Inventory_grnController">
    <children>
       <BorderPane layoutX="50.0" layoutY="113.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -41,7 +41,7 @@
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font></Label>
-                              <ComboBox prefHeight="40.0" prefWidth="230.0" stylesheets="@css/adminStyle.css">
+                              <ComboBox fx:id="cbCompany" prefHeight="40.0" prefWidth="230.0" stylesheets="@css/adminStyle.css">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
@@ -54,7 +54,7 @@
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font></Label>
-                              <ComboBox prefHeight="40.0" prefWidth="230.0" stylesheets="@css/adminStyle.css">
+                              <ComboBox fx:id="cbSupplier" prefHeight="40.0" prefWidth="230.0" stylesheets="@css/adminStyle.css">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
@@ -71,7 +71,7 @@
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font></Label>
-                              <TextField prefHeight="40.0" prefWidth="200.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                              <TextField fx:id="tfGRNID" prefHeight="40.0" prefWidth="200.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
                                  <VBox.margin>
                                     <Insets top="6.0" />
                                  </VBox.margin>
@@ -108,11 +108,11 @@
                      <children>
                         <VBox spacing="4.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label minWidth="-Infinity" styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Product ID">
+                              <Label minWidth="-Infinity" styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="ID">
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font></Label>
-                              <TextField prefHeight="40.0" prefWidth="100.0" styleClass="primary-white" stylesheets="@css/adminStyle.css" VBox.vgrow="ALWAYS">
+                              <TextField fx:id="tfProductID" onKeyPressed="#handlePopUpProductView" prefHeight="40.0" prefWidth="100.0" styleClass="primary-white" stylesheets="@css/adminStyle.css" VBox.vgrow="ALWAYS">
                                  <font>
                                     <Font name="Aptos" size="12.0" />
                                  </font>
@@ -128,7 +128,7 @@
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font></Label>
-                              <TextField prefHeight="40.0" prefWidth="200.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                              <TextField fx:id="tfProductName" prefHeight="40.0" prefWidth="200.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
                                  <font>
                                     <Font name="Aptos" size="12.0" />
                                  </font>
@@ -138,13 +138,30 @@
                               </TextField>
                            </children>
                         </VBox>
-                        <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                        <VBox spacing="4.0">
+                           <children>
+                              <Label minWidth="-Infinity" styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Generic Name">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="tfGenericName" prefHeight="40.0" prefWidth="200.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                                 <font>
+                                    <Font name="Aptos" size="12.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </TextField>
+                           </children>
+                        </VBox>
+                        <VBox maxWidth="120.0" minWidth="120.0" prefWidth="120.0" spacing="4.0" HBox.hgrow="ALWAYS">
                            <children>
                               <Label minWidth="-Infinity" styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Cost Price">
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font></Label>
-                              <TextField prefHeight="40.0" prefWidth="120.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                              <TextField fx:id="tfCostPrice" prefHeight="40.0" prefWidth="120.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
                                  <font>
                                     <Font name="Aptos" size="12.0" />
                                  </font>
@@ -154,13 +171,13 @@
                               </TextField>
                            </children>
                         </VBox>
-                        <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                        <VBox maxWidth="80.0" minWidth="80.0" prefWidth="80.0" spacing="4.0" HBox.hgrow="ALWAYS">
                            <children>
                               <Label minWidth="-Infinity" styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Qty">
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font></Label>
-                              <TextField prefHeight="40.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                              <TextField fx:id="tfQty" onKeyPressed="#qtyListener" prefHeight="40.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
                                  <font>
                                     <Font name="Aptos" size="12.0" />
                                  </font>
@@ -170,13 +187,13 @@
                               </TextField>
                            </children>
                         </VBox>
-                        <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                        <VBox maxWidth="120.0" minWidth="120.0" prefWidth="120.0" spacing="4.0" HBox.hgrow="ALWAYS">
                            <children>
                               <Label minWidth="-Infinity" styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Amount">
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font></Label>
-                              <TextField prefHeight="40.0" prefWidth="200.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                              <TextField fx:id="tfAmount" prefHeight="40.0" prefWidth="200.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
                                  <font>
                                     <Font name="Aptos" size="12.0" />
                                  </font>
@@ -187,17 +204,6 @@
                            </children>
                         </VBox>
                         <Pane HBox.hgrow="ALWAYS" />
-                        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Add">
-                           <font>
-                              <Font name="Aptos" size="14.0" />
-                           </font>
-                           <styleClass>
-                              <String fx:value="button-primary" />
-                              <String fx:value="primary-white" />
-                           </styleClass>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor></Button>
                      </children>
                      <VBox.margin>
                         <Insets right="20.0" />
@@ -210,44 +216,48 @@
             </VBox>
          </top>
          <bottom>
-            <HBox alignment="BOTTOM_LEFT" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
+            <VBox alignment="BOTTOM_RIGHT" spacing="10.0" BorderPane.alignment="CENTER">
                <children>
-                  <Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                  <VBox prefWidth="200.0" spacing="4.0">
+                  <HBox alignment="BOTTOM_RIGHT" spacing="10.0">
                      <children>
-                        <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Total">
+                        <Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                        <VBox prefWidth="200.0" spacing="4.0">
+                           <children>
+                              <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Total">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="tfTotal" prefHeight="40.0" prefWidth="200.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                                 <font>
+                                    <Font name="Aptos" size="12.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </TextField>
+                           </children>
+                        </VBox>
+                        <Button fx:id="btnAction" alignment="CENTER" mnemonicParsing="false" onAction="#actionEvent" prefHeight="40.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Apply">
                            <font>
                               <Font name="Aptos" size="14.0" />
-                           </font></Label>
-                        <TextField prefHeight="40.0" prefWidth="200.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
-                           <font>
-                              <Font name="Aptos" size="12.0" />
                            </font>
+                           <styleClass>
+                              <String fx:value="button-primary" />
+                              <String fx:value="primary-white" />
+                           </styleClass>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
-                        </TextField>
+                        </Button>
                      </children>
-                  </VBox>
-                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Apply">
-                     <font>
-                        <Font name="Aptos" size="14.0" />
-                     </font>
-                     <styleClass>
-                        <String fx:value="button-primary" />
-                        <String fx:value="primary-white" />
-                     </styleClass>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <HBox.margin>
-                        <Insets right="20.0" />
-                     </HBox.margin></Button>
+                  </HBox>
+                  <Label fx:id="displayMessage" styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Label" />
                </children>
                <padding>
                   <Insets top="10.0" />
                </padding>
-            </HBox>
+            </VBox>
          </bottom>
          <center>
             <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">

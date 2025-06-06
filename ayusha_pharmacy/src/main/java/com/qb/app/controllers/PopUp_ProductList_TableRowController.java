@@ -88,7 +88,15 @@ public class PopUp_ProductList_TableRowController implements Initializable {
     private void handleMouseClick(MouseEvent event) {
         if (event.getClickCount() == 2) {
             popUpProductListController.closeWindow();
-            popUpProductListController.productRegistrationController.setParentID(itemID.getText());
+            switch (PopUpProductListController.callingController) {
+                case Product_registrationController controller ->
+                    controller.setParentID(itemID.getText());
+                case Inventory_grnController controller ->
+                    controller.setParentID(itemID.getText()); // Example method
+                default -> {
+                    
+                }
+            }
         }
     }
 

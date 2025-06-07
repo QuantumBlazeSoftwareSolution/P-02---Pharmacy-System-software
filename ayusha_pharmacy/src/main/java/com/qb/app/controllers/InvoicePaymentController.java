@@ -9,7 +9,9 @@ import com.qb.app.model.SVGIconGroup;
 import com.qb.app.model.entity.Invoice;
 import com.qb.app.model.entity.InvoiceItem;
 import com.qb.app.model.entity.InvoiceItemType;
+import com.qb.app.model.entity.Stock;
 import com.qb.app.session.ApplicationSession;
+import com.qb.app.session.CompanyInfo;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
@@ -36,6 +38,7 @@ import javafx.scene.layout.AnchorPane;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
@@ -43,6 +46,7 @@ import net.sf.jasperreports.view.JasperViewer;
 
 public class InvoicePaymentController implements Initializable {
 
+    // <editor-fold desc="FXML init component" defaultstate="collapsed">
     @FXML
     private Group closeIcon;
     @FXML
@@ -67,11 +71,12 @@ public class InvoicePaymentController implements Initializable {
     private TextField tfCreditAmount;
     @FXML
     private Button btnAction;
+    @FXML
+    private AnchorPane root;
+    // </editor-fold>
 
     private CashierInvoiceController controller;
     private boolean isPaymentActive;
-    @FXML
-    private AnchorPane root;
     private double invoiceAmount;
     private List<InvoiceItemController> invoiceItemList;
 
@@ -79,6 +84,8 @@ public class InvoicePaymentController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         setupTextFields();
         closeIcon.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/close-icon.svg"));
+        tfCashAmount.requestFocus();
+        System.out.println("Requested");
     }
 
     @FXML
@@ -188,6 +195,8 @@ public class InvoicePaymentController implements Initializable {
         tfCreditAmount.textProperty().addListener(paymentFieldListener);
     }
 
+    int invoiceID = 0;
+
     private void createInvoice() {
         JPATransaction.runInTransaction((em) -> {
 
@@ -213,6 +222,9 @@ public class InvoicePaymentController implements Initializable {
             invoice.setSessionId(ApplicationSession.getSession());
             em.persist(invoice);
 
+            em.flush();
+            invoiceID = invoice.getId();
+
             CriteriaBuilder cb = em.getCriteriaBuilder();
             CriteriaQuery<InvoiceItemType> cq = cb.createQuery(InvoiceItemType.class);
             Root<InvoiceItemType> invoiceItemTypeRoot = cq.from(InvoiceItemType.class);
@@ -226,20 +238,23 @@ public class InvoicePaymentController implements Initializable {
                 invoiceItem.setProductId(item.getProduct());
                 invoiceItem.setQty(item.getProductQty());
                 invoiceItem.setSalePrice(item.getProduct().getSalePrice());
+                invoiceItem.setDiscount(item.getProduct().getDiscount());
                 invoiceItem.setCostPrice(item.getProduct().getCostPrice());
                 invoiceItem.setInvoiceId(invoice);
                 invoiceItem.setInvoiceItemTypeId(sellItemType);
                 em.persist(invoiceItem);
+
+                manageStock(item);
             }
             InterfaceAction.closeWindow(root);
         });
 
-        Map<String, Object> params = getJRParams();
+        Map<String, Object> params = getJRParams(invoiceID);
         Vector<InvoiceItemBean> collection = getBeanCollection();
 
         try {
             JasperReport jasperReport = (JasperReport) JRLoader.loadObject(
-                    getClass().getResourceAsStream("/com/qb/app/reports/QBCashierInvoice.jasper"));
+                    getClass().getResourceAsStream("/com/qb/app/reports/PharmacyInvoice.jasper"));
 
             JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(collection);
 
@@ -253,7 +268,7 @@ public class InvoicePaymentController implements Initializable {
         controller.removeAll();
     }
 
-    private Map<String, Object> getJRParams() {
+    private Map<String, Object> getJRParams(int id) {
         double subTotal = 0;
         double discount = 0;
         double paidAmount = 0;
@@ -280,17 +295,30 @@ public class InvoicePaymentController implements Initializable {
         total += subTotal - discount;
 
         Map<String, Object> params = new HashMap<>();
-        params.put("ID", "2237");
-        params.put("CompanyName", "Quantum Retail Pro");
-        params.put("Cashier", "Vihanga Heshan");
+
+        if (id != 0) {
+            params.put("ID", String.format("%08d", id));
+        } else {
+            params.put("ID", "00000000");
+        }
+
+        try {
+            URL imageUrl = getClass().getResource("/com/qb/app/assets/images/logo.png");
+            params.put("Logo", imageUrl);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        params.put("ItemCount", String.valueOf(invoiceItemList.size()));
+        params.put("CompanyName", CompanyInfo.applicationName);
+        params.put("Cashier", ApplicationSession.getEmployee().getName());
         params.put("SubTotal", String.format("Rs. %, .2f", subTotal));
         params.put("Discount", String.format("Rs. %, .2f", discount));
         params.put("TotalAmount", String.format("Rs. %, .2f", total));
         params.put("PaidAmount", String.format("Rs. %, .2f", paidAmount));
         params.put("CreditAmount", String.format("Rs. %, .2f", creditAmount));
         params.put("Balance", String.format("Rs. %, .2f", ((paidAmount + creditAmount) - total)));
-        params.put("Address", "No: 231/D, Deenapamunuwa, Urapola. 1st Street.");
-        params.put("Contact", "Contact: 0719892932/0788056838, Email: vihangaheshan37@gmail.com");
+        params.put("Address", CompanyInfo.address);
+        params.put("Contact", CompanyInfo.mobile);
         return params;
     }
 
@@ -313,6 +341,19 @@ public class InvoicePaymentController implements Initializable {
         if (event.getCode() == KeyCode.ENTER) {
             makeInvoice();
         }
+    }
+
+    private void manageStock(InvoiceItemController item) {
+        JPATransaction.runInTransaction((em) -> {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Stock> cq = cb.createQuery(Stock.class);
+            Root<Stock> stockTable = cq.from(Stock.class);
+            cq.where(cb.equal(stockTable.get("productId"), item.getProduct()));
+
+            Stock stock = em.createQuery(cq).getSingleResult();
+            stock.setQty(stock.getQty() - (item.getProductQty() * item.getProduct().getMeasure()));
+            em.persist(stock);
+        });
     }
 
 }

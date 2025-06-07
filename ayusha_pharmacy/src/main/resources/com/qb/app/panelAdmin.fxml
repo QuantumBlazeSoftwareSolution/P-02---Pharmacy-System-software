@@ -36,7 +36,7 @@
                         <Insets top="10.0" />
                      </BorderPane.margin>
                      <children>
-                        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="transparent-scroll-pane" stylesheets="@css/style.css" vvalue="0.03" VBox.vgrow="ALWAYS">
+                        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="transparent-scroll-pane" stylesheets="@css/style.css" vvalue="1.0" VBox.vgrow="ALWAYS">
                            <content>
                               <VBox prefHeight="200.0" prefWidth="100.0" spacing="6.0">
                                  <children>
@@ -55,105 +55,6 @@
                                           <Group fx:id="iconDashboard" />
                                        </graphic>
                                     </Button>
-                                    <Button fx:id="btnEmployee" alignment="BASELINE_LEFT" graphicTextGap="10.0" minHeight="40.0" mnemonicParsing="false" onAction="#handleActionButtons" prefHeight="40.0" stylesheets="@css/style.css" text="Employee" textFill="#f1f1f1">
-                                       <font>
-                                          <Font name="Roboto" size="14.0" />
-                                       </font>
-                                       <styleClass>
-                                          <String fx:value="full-width-button" />
-                                          <String fx:value="bg-primary-white-10" />
-                                       </styleClass>
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                       <graphic>
-                                          <Group fx:id="iconEmployee" />
-                                       </graphic>
-                                    </Button>
-                                    <VBox fx:id="subMenuEmployee" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0" spacing="4.0">
-                                       <children>
-                                          <HBox fx:id="btnEmpOverview" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
-                                             <children>
-                                                <Group fx:id="iconEmpOverview" />
-                                                <Label stylesheets="@css/adminStyle.css" text="Employee Overview">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                   <styleClass>
-                                                      <String fx:value="primary-white" />
-                                                      <String fx:value="subMenuHover" />
-                                                   </styleClass>
-                                                </Label>
-                                             </children>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                             <padding>
-                                                <Insets left="40.0" />
-                                             </padding>
-                                          </HBox>
-                                          <HBox fx:id="btnEmpRegistration" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item">
-                                             <children>
-                                                <Group fx:id="iconEmpRegistration" />
-                                                <Label stylesheets="@css/adminStyle.css" text="Employee Registration">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                   <styleClass>
-                                                      <String fx:value="primary-white" />
-                                                      <String fx:value="subMenuHover" />
-                                                   </styleClass>
-                                                </Label>
-                                             </children>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                             <padding>
-                                                <Insets left="40.0" />
-                                             </padding>
-                                          </HBox>
-                                          <HBox fx:id="btnEmpManagement" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item">
-                                             <children>
-                                                <Group fx:id="iconEmpManagement" />
-                                                <Label stylesheets="@css/adminStyle.css" text="Employee Management">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                   <styleClass>
-                                                      <String fx:value="primary-white" />
-                                                      <String fx:value="subMenuHover" />
-                                                   </styleClass>
-                                                </Label>
-                                             </children>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                             <padding>
-                                                <Insets left="40.0" />
-                                             </padding>
-                                          </HBox>
-                                          <HBox fx:id="btnEmpRoleManagement" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item">
-                                             <children>
-                                                <Group fx:id="iconEmpRoleManagement" />
-                                                <Label stylesheets="@css/adminStyle.css" text="Role Management">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                   <styleClass>
-                                                      <String fx:value="primary-white" />
-                                                      <String fx:value="subMenuHover" />
-                                                   </styleClass>
-                                                </Label>
-                                             </children>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                             <padding>
-                                                <Insets left="40.0" />
-                                             </padding>
-                                          </HBox>
-                                       </children>
-                                    </VBox>
                                     <Button fx:id="btnProduct" alignment="BASELINE_LEFT" graphicTextGap="10.0" minHeight="40.0" mnemonicParsing="false" onAction="#handleActionButtons" prefHeight="40.0" stylesheets="@css/style.css" text="Product" textFill="#f1f1f1">
                                        <font>
                                           <Font name="Roboto" size="14.0" />
@@ -171,46 +72,6 @@
                                     </Button>
                                     <VBox fx:id="subMenuProduct" layoutX="10.0" layoutY="82.0" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0" spacing="4.0">
                                        <children>
-                                          <HBox fx:id="btnProductOverview" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
-                                             <children>
-                                                <Group fx:id="iconProductOverview" />
-                                                <Label stylesheets="@css/adminStyle.css" text="Product Overview">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                   <styleClass>
-                                                      <String fx:value="primary-white" />
-                                                      <String fx:value="subMenuHover" />
-                                                   </styleClass>
-                                                </Label>
-                                             </children>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                             <padding>
-                                                <Insets left="40.0" />
-                                             </padding>
-                                          </HBox>
-                                          <HBox fx:id="btnProductAnalytics" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
-                                             <children>
-                                                <Group fx:id="iconProductAnalytics" />
-                                                <Label stylesheets="@css/adminStyle.css" text="Product Analytics">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                   <styleClass>
-                                                      <String fx:value="primary-white" />
-                                                      <String fx:value="subMenuHover" />
-                                                   </styleClass>
-                                                </Label>
-                                             </children>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                             <padding>
-                                                <Insets left="40.0" />
-                                             </padding>
-                                          </HBox>
                                           <HBox fx:id="btnProductRegistration" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconProductRegistration" />
@@ -325,106 +186,6 @@
                                                 <Insets left="40.0" />
                                              </padding>
                                           </HBox>
-                                          <HBox fx:id="btnInventoryDistribute" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
-                                             <children>
-                                                <Group fx:id="iconInventoryDistribute" />
-                                                <Label stylesheets="@css/adminStyle.css" text="Distribute">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                   <styleClass>
-                                                      <String fx:value="primary-white" />
-                                                      <String fx:value="subMenuHover" />
-                                                   </styleClass>
-                                                </Label>
-                                             </children>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                             <padding>
-                                                <Insets left="40.0" />
-                                             </padding>
-                                          </HBox>
-                                          <HBox fx:id="btnInventoryDamageItem" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
-                                             <children>
-                                                <Group fx:id="iconInventoryDamageReturn" />
-                                                <Label stylesheets="@css/adminStyle.css" text="Damage Items">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                   <styleClass>
-                                                      <String fx:value="primary-white" />
-                                                      <String fx:value="subMenuHover" />
-                                                   </styleClass>
-                                                </Label>
-                                             </children>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                             <padding>
-                                                <Insets left="40.0" />
-                                             </padding>
-                                          </HBox>
-                                          <HBox fx:id="btnInventoryLocationReturn" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
-                                             <children>
-                                                <Group fx:id="iconInventoryLocationReturn" />
-                                                <Label stylesheets="@css/adminStyle.css" text="Location Return">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                   <styleClass>
-                                                      <String fx:value="primary-white" />
-                                                      <String fx:value="subMenuHover" />
-                                                   </styleClass>
-                                                </Label>
-                                             </children>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                             <padding>
-                                                <Insets left="40.0" />
-                                             </padding>
-                                          </HBox>
-                                          <HBox fx:id="btnInventoryStockAdjustment" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
-                                             <children>
-                                                <Group fx:id="iconInventoryStockAdjustment" />
-                                                <Label stylesheets="@css/adminStyle.css" text="Stock Adjustment">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                   <styleClass>
-                                                      <String fx:value="primary-white" />
-                                                      <String fx:value="subMenuHover" />
-                                                   </styleClass>
-                                                </Label>
-                                             </children>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                             <padding>
-                                                <Insets left="40.0" />
-                                             </padding>
-                                          </HBox>
-                                          <HBox fx:id="btnInventoryLocationManagement" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
-                                             <children>
-                                                <Group fx:id="iconInventoryLocationManagement" />
-                                                <Label stylesheets="@css/adminStyle.css" text="Location Management">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                   <styleClass>
-                                                      <String fx:value="primary-white" />
-                                                      <String fx:value="subMenuHover" />
-                                                   </styleClass>
-                                                </Label>
-                                             </children>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                             <padding>
-                                                <Insets left="40.0" />
-                                             </padding>
-                                          </HBox>
                                        </children>
                                     </VBox>
                                     <Button fx:id="btnSupplyManagement" alignment="BASELINE_LEFT" graphicTextGap="10.0" minHeight="40.0" mnemonicParsing="false" onAction="#handleActionButtons" prefHeight="40.0" stylesheets="@css/style.css" text="Supply Management" textFill="#f1f1f1">
@@ -444,29 +205,6 @@
                                     </Button>
                                     <VBox fx:id="subMenuSupply" layoutX="10.0" layoutY="516.0" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0" spacing="4.0">
                                        <children>
-                                          <HBox fx:id="btnSupplyCompanyOverview" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
-                                             <children>
-                                                <Group fx:id="iconCompanyOverview" />
-                                                <Label stylesheets="@css/adminStyle.css" text="Company Overview">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                   <styleClass>
-                                                      <String fx:value="primary-white" />
-                                                      <String fx:value="subMenuHover" />
-                                                   </styleClass>
-                                                </Label>
-                                             </children>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                             <padding>
-                                                <Insets left="40.0" />
-                                             </padding>
-                                          </HBox>
                                           <HBox fx:id="btnSupplyCompanyManagement" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconCompanyManagement" />
@@ -513,69 +251,8 @@
                                                 <Insets left="40.0" />
                                              </padding>
                                           </HBox>
-                                          <HBox fx:id="btnSupplyOrder" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
-                                             <children>
-                                                <Group fx:id="iconSupplyOrder" />
-                                                <Label stylesheets="@css/adminStyle.css" text="Supply Order">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                   <styleClass>
-                                                      <String fx:value="primary-white" />
-                                                      <String fx:value="subMenuHover" />
-                                                   </styleClass>
-                                                </Label>
-                                             </children>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                             <padding>
-                                                <Insets left="40.0" />
-                                             </padding>
-                                          </HBox>
-                                          <HBox fx:id="btnSupplyDamageReturn" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
-                                             <children>
-                                                <Group fx:id="iconSupplyDamage" />
-                                                <Label stylesheets="@css/adminStyle.css" text="Supply Damage Return">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                   <styleClass>
-                                                      <String fx:value="primary-white" />
-                                                      <String fx:value="subMenuHover" />
-                                                   </styleClass>
-                                                </Label>
-                                             </children>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                             <padding>
-                                                <Insets left="40.0" />
-                                             </padding>
-                                          </HBox>
                                        </children>
                                     </VBox>
-                                    <Button fx:id="btnCustomer" alignment="BASELINE_LEFT" graphicTextGap="10.0" minHeight="40.0" mnemonicParsing="false" onAction="#handleActionButtons" prefHeight="40.0" stylesheets="@css/style.css" text="Customer" textFill="#f1f1f1">
-                                       <font>
-                                          <Font name="Roboto" size="14.0" />
-                                       </font>
-                                       <styleClass>
-                                          <String fx:value="full-width-button" />
-                                          <String fx:value="bg-primary-white-10" />
-                                       </styleClass>
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                       <graphic>
-                                          <Group fx:id="iconCustomer" />
-                                       </graphic>
-                                    </Button>
                                     <Button fx:id="btnReports" alignment="BASELINE_LEFT" graphicTextGap="10.0" minHeight="40.0" mnemonicParsing="false" onAction="#handleActionButtons" prefHeight="40.0" stylesheets="@css/style.css" text="Reports" textFill="#f1f1f1">
                                        <font>
                                           <Font name="Roboto" size="14.0" />
@@ -593,46 +270,6 @@
                                     </Button>
                                     <VBox fx:id="subMenuReport" layoutX="10.0" layoutY="748.0" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="100.0" spacing="4.0">
                                        <children>
-                                          <HBox fx:id="btnReportBIN" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
-                                             <children>
-                                                <Group fx:id="iconReportBIN" />
-                                                <Label stylesheets="@css/adminStyle.css" text="BIN Card Report">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                   <styleClass>
-                                                      <String fx:value="primary-white" />
-                                                      <String fx:value="subMenuHover" />
-                                                   </styleClass>
-                                                </Label>
-                                             </children>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                             <padding>
-                                                <Insets left="40.0" />
-                                             </padding>
-                                          </HBox>
-                                          <HBox fx:id="btnReportCashWithdrawal" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
-                                             <children>
-                                                <Group fx:id="iconReportCashWithdrawal" />
-                                                <Label stylesheets="@css/adminStyle.css" text="Cash Withdrawal">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                   <styleClass>
-                                                      <String fx:value="primary-white" />
-                                                      <String fx:value="subMenuHover" />
-                                                   </styleClass>
-                                                </Label>
-                                             </children>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                             <padding>
-                                                <Insets left="40.0" />
-                                             </padding>
-                                          </HBox>
                                           <HBox fx:id="btnReportCloseSale" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconReportCloseSale" />
@@ -653,110 +290,10 @@
                                                 <Insets left="40.0" />
                                              </padding>
                                           </HBox>
-                                          <HBox fx:id="btnReportCustomer" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
-                                             <children>
-                                                <Group fx:id="iconReportCustomer" />
-                                                <Label stylesheets="@css/adminStyle.css" text="Customer Report (Creditor)">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                   <styleClass>
-                                                      <String fx:value="primary-white" />
-                                                      <String fx:value="subMenuHover" />
-                                                   </styleClass>
-                                                </Label>
-                                             </children>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                             <padding>
-                                                <Insets left="40.0" />
-                                             </padding>
-                                          </HBox>
-                                          <HBox fx:id="btnReportDamage" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
-                                             <children>
-                                                <Group fx:id="iconReportDamage" />
-                                                <Label stylesheets="@css/adminStyle.css" text="Damage Report">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                   <styleClass>
-                                                      <String fx:value="primary-white" />
-                                                      <String fx:value="subMenuHover" />
-                                                   </styleClass>
-                                                </Label>
-                                             </children>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                             <padding>
-                                                <Insets left="40.0" />
-                                             </padding>
-                                          </HBox>
                                           <HBox fx:id="btnReportDetailSale" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                              <children>
                                                 <Group fx:id="iconReportSale1" />
-                                                <Label stylesheets="@css/adminStyle.css" text="Sale Report (Detailed)">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                   <styleClass>
-                                                      <String fx:value="primary-white" />
-                                                      <String fx:value="subMenuHover" />
-                                                   </styleClass>
-                                                </Label>
-                                             </children>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                             <padding>
-                                                <Insets left="40.0" />
-                                             </padding>
-                                          </HBox>
-                                          <HBox fx:id="btnReportSummarySale" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
-                                             <children>
-                                                <Group fx:id="iconReportSale2" />
-                                                <Label stylesheets="@css/adminStyle.css" text="Sale Report (Summary)">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                   <styleClass>
-                                                      <String fx:value="primary-white" />
-                                                      <String fx:value="subMenuHover" />
-                                                   </styleClass>
-                                                </Label>
-                                             </children>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                             <padding>
-                                                <Insets left="40.0" />
-                                             </padding>
-                                          </HBox>
-                                          <HBox fx:id="btnReportProductSale" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
-                                             <children>
-                                                <Group fx:id="iconReportSale3" />
-                                                <Label stylesheets="@css/adminStyle.css" text="Sale Report (Product Wise)">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                   <styleClass>
-                                                      <String fx:value="primary-white" />
-                                                      <String fx:value="subMenuHover" />
-                                                   </styleClass>
-                                                </Label>
-                                             </children>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                             <padding>
-                                                <Insets left="40.0" />
-                                             </padding>
-                                          </HBox>
-                                          <HBox fx:id="btnReportDistribute" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
-                                             <children>
-                                                <Group fx:id="iconReportDistribute" />
-                                                <Label stylesheets="@css/adminStyle.css" text="Distribute Report">
+                                                <Label stylesheets="@css/adminStyle.css" text="Sale Report">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
@@ -777,86 +314,6 @@
                                              <children>
                                                 <Group fx:id="iconReportGRN" />
                                                 <Label stylesheets="@css/adminStyle.css" text="GRN Report">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                   <styleClass>
-                                                      <String fx:value="primary-white" />
-                                                      <String fx:value="subMenuHover" />
-                                                   </styleClass>
-                                                </Label>
-                                             </children>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                             <padding>
-                                                <Insets left="40.0" />
-                                             </padding>
-                                          </HBox>
-                                          <HBox fx:id="btnReportLocationReturn" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
-                                             <children>
-                                                <Group fx:id="iconReportLocationReturn" />
-                                                <Label stylesheets="@css/adminStyle.css" text="Location Return Report">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                   <styleClass>
-                                                      <String fx:value="primary-white" />
-                                                      <String fx:value="subMenuHover" />
-                                                   </styleClass>
-                                                </Label>
-                                             </children>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                             <padding>
-                                                <Insets left="40.0" />
-                                             </padding>
-                                          </HBox>
-                                          <HBox fx:id="btnReportProductList" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
-                                             <children>
-                                                <Group fx:id="iconReportProductList" />
-                                                <Label stylesheets="@css/adminStyle.css" text="Product List Report">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                   <styleClass>
-                                                      <String fx:value="primary-white" />
-                                                      <String fx:value="subMenuHover" />
-                                                   </styleClass>
-                                                </Label>
-                                             </children>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                             <padding>
-                                                <Insets left="40.0" />
-                                             </padding>
-                                          </HBox>
-                                          <HBox fx:id="btnReportProfit" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
-                                             <children>
-                                                <Group fx:id="iconReportProfit" />
-                                                <Label stylesheets="@css/adminStyle.css" text="Profit Report">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                   <styleClass>
-                                                      <String fx:value="primary-white" />
-                                                      <String fx:value="subMenuHover" />
-                                                   </styleClass>
-                                                </Label>
-                                             </children>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                             <padding>
-                                                <Insets left="40.0" />
-                                             </padding>
-                                          </HBox>
-                                          <HBox fx:id="btnReportSession" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
-                                             <children>
-                                                <Group fx:id="iconReportSession" />
-                                                <Label stylesheets="@css/adminStyle.css" text="Session (Attendance) Report">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>

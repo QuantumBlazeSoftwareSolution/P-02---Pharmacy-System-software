@@ -11,12 +11,15 @@ import javafx.animation.ParallelTransition;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -24,6 +27,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class PanelAdminController implements Initializable {
@@ -46,8 +50,6 @@ public class PanelAdminController implements Initializable {
     @FXML
     private Group iconDashboard;
     @FXML
-    private Group iconEmployee;
-    @FXML
     private Group iconProduct;
     @FXML
     private Group iconDiscount;
@@ -56,13 +58,9 @@ public class PanelAdminController implements Initializable {
     @FXML
     private Group iconSupplyManagement;
     @FXML
-    private Group iconCustomer;
-    @FXML
     private Group iconReport;
     @FXML
     private BorderPane contentBorder;
-    @FXML
-    private Button btnEmployee;
     @FXML
     private Button btnProduct;
     @FXML
@@ -72,11 +70,7 @@ public class PanelAdminController implements Initializable {
     @FXML
     private Button btnSupplyManagement;
     @FXML
-    private Button btnCustomer;
-    @FXML
     private Button btnReports;
-    @FXML
-    private VBox subMenuEmployee;
     @FXML
     private VBox subMenuProduct;
     @FXML
@@ -86,18 +80,6 @@ public class PanelAdminController implements Initializable {
     @FXML
     private VBox subMenuReport;
     @FXML
-    private Group iconEmpRegistration;
-    @FXML
-    private Group iconEmpManagement;
-    @FXML
-    private Group iconEmpRoleManagement;
-    @FXML
-    private Group iconEmpOverview;
-    @FXML
-    private Group iconProductOverview;
-    @FXML
-    private Group iconProductAnalytics;
-    @FXML
     private Group iconProductRegistration;
     @FXML
     private Group iconProductManagement;
@@ -106,67 +88,17 @@ public class PanelAdminController implements Initializable {
     @FXML
     private Group iconInventoryGrn;
     @FXML
-    private Group iconInventoryDistribute;
-    @FXML
-    private Group iconInventoryDamageReturn;
-    @FXML
-    private Group iconInventoryLocationReturn;
-    @FXML
-    private Group iconInventoryStockAdjustment;
-    @FXML
-    private Group iconInventoryLocationManagement;
-    @FXML
-    private Group iconCompanyOverview;
-    @FXML
     private Group iconCompanyManagement;
-    @FXML
-    private Group iconSupplyOrder;
-    @FXML
-    private Group iconSupplyDamage;
     @FXML
     private Group iconSupplierManagement;
     @FXML
-    private Group iconReportBIN;
-    @FXML
-    private Group iconReportCashWithdrawal;
-    @FXML
     private Group iconReportCloseSale;
-    @FXML
-    private Group iconReportCustomer;
-    @FXML
-    private Group iconReportDamage;
     @FXML
     private Group iconReportSale1;
     @FXML
-    private Group iconReportSale3;
-    @FXML
-    private Group iconReportDistribute;
-    @FXML
     private Group iconReportGRN;
     @FXML
-    private Group iconReportLocationReturn;
-    @FXML
-    private Group iconReportProductList;
-    @FXML
-    private Group iconReportProfit;
-    @FXML
-    private Group iconReportSession;
-    @FXML
     private Group iconReportStockBalance;
-    @FXML
-    private Group iconReportSale2;
-    @FXML
-    private HBox btnEmpOverview;
-    @FXML
-    private HBox btnEmpRegistration;
-    @FXML
-    private HBox btnEmpManagement;
-    @FXML
-    private HBox btnEmpRoleManagement;
-    @FXML
-    private HBox btnProductOverview;
-    @FXML
-    private HBox btnProductAnalytics;
     @FXML
     private HBox btnProductRegistration;
     @FXML
@@ -176,61 +108,23 @@ public class PanelAdminController implements Initializable {
     @FXML
     private HBox btnInventoryGRN;
     @FXML
-    private HBox btnInventoryDistribute;
-    @FXML
-    private HBox btnInventoryDamageItem;
-    @FXML
-    private HBox btnInventoryLocationReturn;
-    @FXML
-    private HBox btnInventoryStockAdjustment;
-    @FXML
-    private HBox btnInventoryLocationManagement;
-    @FXML
-    private HBox btnSupplyCompanyOverview;
-    @FXML
     private HBox btnSupplyCompanyManagement;
     @FXML
-    private HBox btnSupplyOrder;
-    @FXML
-    private HBox btnSupplyDamageReturn;
-    @FXML
     private HBox btnSupplySupplierManagement;
+    @FXML
+    private HBox btnReportCloseSale;
+    @FXML
+    private HBox btnReportDetailSale;
+    @FXML
+    private HBox btnReportGRN;
+    @FXML
+    private HBox btnReportStockBalance;
     // </editor-fold>
 
     // <editor-fold desc="Initial Variables" defaultstate="collapsed">
     private boolean isMenuCollapsed = false;
     private Admin_top_panelController controller;
     // </editor-fold>
-    @FXML
-    private HBox btnReportBIN;
-    @FXML
-    private HBox btnReportCashWithdrawal;
-    @FXML
-    private HBox btnReportCloseSale;
-    @FXML
-    private HBox btnReportCustomer;
-    @FXML
-    private HBox btnReportDamage;
-    @FXML
-    private HBox btnReportDetailSale;
-    @FXML
-    private HBox btnReportSummarySale;
-    @FXML
-    private HBox btnReportProductSale;
-    @FXML
-    private HBox btnReportDistribute;
-    @FXML
-    private HBox btnReportGRN;
-    @FXML
-    private HBox btnReportLocationReturn;
-    @FXML
-    private HBox btnReportProductList;
-    @FXML
-    private HBox btnReportProfit;
-    @FXML
-    private HBox btnReportSession;
-    @FXML
-    private HBox btnReportStockBalance;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -238,6 +132,7 @@ public class PanelAdminController implements Initializable {
         setInitialState();
         setSystemLogo();
         setSubMenuState();
+        setEventFilter();
     }
 
     private void subMenuToggle(VBox subMenu) {
@@ -247,10 +142,7 @@ public class PanelAdminController implements Initializable {
 
     @FXML
     private void handleActionButtons(ActionEvent event) {
-        if (event.getSource() == btnEmployee) {
-            subMenuToggle(subMenuEmployee);
-            setSubMenuState(subMenuEmployee);
-        } else if (event.getSource() == btnProduct) {
+        if (event.getSource() == btnProduct) {
             subMenuToggle(subMenuProduct);
             setSubMenuState(subMenuProduct);
         } else if (event.getSource() == btnInventory) {
@@ -269,60 +161,30 @@ public class PanelAdminController implements Initializable {
             loadCenterPanel("discount");
         } else if (event.getSource() == btnDashboard) {
             loadCenterPanel("adminDashboard");
-        } else if (event.getSource() == btnCustomer) {
-            loadCenterPanel("customer");
         }
     }
 
     private void setIcons() {
-        iconCustomer.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/admin-customer.svg"));
         iconDashboard.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/dashboard-solid.svg"));
         iconDiscount.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/admin-discount.svg"));
-        iconEmployee.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/admin-employee.svg"));
         iconExit.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/cashier-exit-solid.svg"));
         iconInventory.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/admin-inventory.svg"));
         iconProduct.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/admin-product.svg"));
         iconReport.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/admin-report.svg"));
         iconSupplyManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/admin-supply-management.svg"));
 
-        iconEmpOverview.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/employee-overview.svg"));
-        iconEmpRegistration.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/employee-registration.svg"));
-        iconEmpManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/employee-management.svg"));
-        iconEmpRoleManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/employee-role-management.svg"));
-
-        iconProductOverview.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/product-overview.svg"));
-        iconProductAnalytics.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/product-analytics.svg"));
         iconProductRegistration.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/product-registration.svg"));
         iconProductManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/product-management.svg"));
         iconBrandManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/brand-management.svg"));
 
         iconInventoryGrn.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/inventory-grn.svg"));
-        iconInventoryDistribute.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/inventory-distribute.svg"));
-        iconInventoryDamageReturn.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/inventory-damage-item.svg"));
-        iconInventoryLocationReturn.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/inventory-location-return.svg"));
-        iconInventoryStockAdjustment.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/inventory-stock-adjustment.svg"));
-        iconInventoryLocationManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/inventory-location-management.svg"));
 
-        iconCompanyOverview.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/companyOverview.svg"));
         iconCompanyManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/companyManagement.svg"));
         iconSupplierManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/supplierManagement.svg"));
-        iconSupplyOrder.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/supplyOrder.svg"));
-        iconSupplyDamage.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/supplyDamageReturn.svg"));
 
-        iconReportBIN.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
-        iconReportCashWithdrawal.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
         iconReportCloseSale.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
-        iconReportCustomer.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
-        iconReportDamage.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
-        iconReportDistribute.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
         iconReportGRN.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
-        iconReportLocationReturn.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
-        iconReportProductList.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
-        iconReportProfit.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
         iconReportSale1.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
-        iconReportSale2.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
-        iconReportSale3.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
-        iconReportSession.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
         iconReportStockBalance.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
     }
 
@@ -420,7 +282,7 @@ public class PanelAdminController implements Initializable {
     }
 
     private VBox[] getMenu() {
-        VBox[] subMenus = {subMenuEmployee, subMenuProduct, subMenuInventory, subMenuSupply, subMenuReport};
+        VBox[] subMenus = {subMenuProduct, subMenuInventory, subMenuSupply, subMenuReport};
         return subMenus;
     }
 
@@ -435,64 +297,22 @@ public class PanelAdminController implements Initializable {
 
     @FXML
     private void handleSubMenuItems(MouseEvent event) {
-        if (event.getSource() == btnEmpOverview) {
-            loadCenterPanel("employee_overview");
-        } else if (event.getSource() == btnEmpRegistration) {
-            loadCenterPanel("employee_registration");
-        } else if (event.getSource() == btnEmpManagement) {
-            loadCenterPanel("employee_management");
-        } else if (event.getSource() == btnEmpRoleManagement) {
-            loadCenterPanel("employee_role_management");
-        } else if (event.getSource() == btnProductAnalytics) {
-            loadCenterPanel("product_analytics");
-        } else if (event.getSource() == btnProductBrandManagement) {
+        if (event.getSource() == btnProductBrandManagement) {
             loadCenterPanel("product_brand_management");
         } else if (event.getSource() == btnProductManagement) {
             loadCenterPanel("product_management");
-        } else if (event.getSource() == btnProductOverview) {
-            loadCenterPanel("product_overview");
         } else if (event.getSource() == btnProductRegistration) {
             loadCenterPanel("product_registration");
-        } else if (event.getSource() == btnInventoryDamageItem) {
-            loadCenterPanel("inventory_damage_item");
-        } else if (event.getSource() == btnInventoryDistribute) {
-            loadCenterPanel("inventory_distribute");
         } else if (event.getSource() == btnInventoryGRN) {
             loadCenterPanel("inventory_grn");
-        } else if (event.getSource() == btnInventoryLocationManagement) {
-            loadCenterPanel("inventory_location_management");
-        } else if (event.getSource() == btnInventoryLocationReturn) {
-            loadCenterPanel("inventory_location_return");
-        } else if (event.getSource() == btnInventoryStockAdjustment) {
-            loadCenterPanel("inventory_stock_adjustment");
         } else if (event.getSource() == btnSupplyCompanyManagement) {
             loadCenterPanel("supply_company_management");
-        } else if (event.getSource() == btnSupplyCompanyOverview) {
-            loadCenterPanel("supply_company_overview");
-        } else if (event.getSource() == btnSupplyDamageReturn) {
-            loadCenterPanel("supply_damage_return");
         } else if (event.getSource() == btnSupplySupplierManagement) {
             loadCenterPanel("supply_supplier_management");
-        } else if (event.getSource() == btnSupplyOrder) {
-            loadCenterPanel("supply_order");
-        } else if (event.getSource() == btnReportBIN) {
-            loadCenterPanel("reportFXML/reportBIN");
-        } else if (event.getSource() == btnReportCashWithdrawal) {
-            loadCenterPanel("reportFXML/reportCashWithdrawal");
-        } else if (event.getSource() == btnReportDistribute) {
-            loadCenterPanel("reportFXML/reportDistribute");
         } else if (event.getSource() == btnReportGRN) {
             loadCenterPanel("reportFXML/reportGRN");
-        } else if (event.getSource() == btnReportLocationReturn) {
-            loadCenterPanel("reportFXML/reportLocationReturn");
-        } else if (event.getSource() == btnReportProfit) {
-            loadCenterPanel("reportFXML/reportProfit");
         } else if (event.getSource() == btnReportDetailSale) {
             loadCenterPanel("reportFXML/reportSaleDetail");
-        } else if (event.getSource() == btnReportProductSale) {
-            loadCenterPanel("reportFXML/reportSaleProduct");
-        } else if (event.getSource() == btnReportSummarySale) {
-            loadCenterPanel("reportFXML/reportSaleSummary");
         } else if (event.getSource() == btnReportStockBalance) {
             loadCenterPanel("reportFXML/reportStockBalance");
         }
@@ -505,5 +325,15 @@ public class PanelAdminController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void setEventFilter() {
+        root.addEventFilter(KeyEvent.KEY_PRESSED, (event) -> {
+            if (event.getCode() == KeyCode.F11) {
+                Stage stage = (Stage) root.getScene().getWindow();
+                stage.setFullScreen(!stage.isFullScreen());
+                event.consume();
+            }
+        });
     }
 }

@@ -30,6 +30,7 @@ import java.util.Collection;
     @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p"),
     @NamedQuery(name = "Product.findById", query = "SELECT p FROM Product p WHERE p.id = :id"),
     @NamedQuery(name = "Product.findByProduct", query = "SELECT p FROM Product p WHERE p.product = :product"),
+    @NamedQuery(name = "Product.findByGenericName", query = "SELECT p FROM Product p WHERE p.genericName = :genericName"),
     @NamedQuery(name = "Product.findBySalePrice", query = "SELECT p FROM Product p WHERE p.salePrice = :salePrice"),
     @NamedQuery(name = "Product.findByCostPrice", query = "SELECT p FROM Product p WHERE p.costPrice = :costPrice"),
     @NamedQuery(name = "Product.findByDiscount", query = "SELECT p FROM Product p WHERE p.discount = :discount"),
@@ -46,6 +47,8 @@ public class Product implements Serializable {
     @Basic(optional = false)
     @Column(name = "product")
     private String product;
+    @Column(name = "generic_name")
+    private String genericName;
     @Basic(optional = false)
     @Column(name = "sale_price")
     private double salePrice;
@@ -58,7 +61,6 @@ public class Product implements Serializable {
     @Basic(optional = false)
     @Column(name = "measure")
     private float measure;
-    @Basic(optional = false)
     @Column(name = "bar_code")
     private String barCode;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
@@ -67,9 +69,9 @@ public class Product implements Serializable {
     private Collection<StockAdjustmentItem> stockAdjustmentItemCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
     private Collection<RefundItem> refundItemCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "parentProduct")
-    private Collection<Costing> costingCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "childProduct")
+    private Collection<Costing> costingCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "parentProduct")
     private Collection<Costing> costingCollection1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
     private Collection<SupplierDamageReturnItem> supplierDamageReturnItemCollection;
@@ -108,14 +110,13 @@ public class Product implements Serializable {
         this.id = id;
     }
 
-    public Product(Integer id, String product, double salePrice, double costPrice, double discount, float measure, String barCode) {
+    public Product(Integer id, String product, double salePrice, double costPrice, double discount, float measure) {
         this.id = id;
         this.product = product;
         this.salePrice = salePrice;
         this.costPrice = costPrice;
         this.discount = discount;
         this.measure = measure;
-        this.barCode = barCode;
     }
 
     public Integer getId() {
@@ -132,6 +133,14 @@ public class Product implements Serializable {
 
     public void setProduct(String product) {
         this.product = product;
+    }
+
+    public String getGenericName() {
+        return genericName;
+    }
+
+    public void setGenericName(String genericName) {
+        this.genericName = genericName;
     }
 
     public double getSalePrice() {

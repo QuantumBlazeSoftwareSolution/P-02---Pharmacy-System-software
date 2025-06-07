@@ -4,7 +4,11 @@ import com.qb.app.App;
 import com.qb.app.model.ControllerClose;
 import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.JPATransaction;
+import com.qb.app.model.entity.Invoice;
 import com.qb.app.model.entity.Product;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -88,6 +92,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
     private double itemQty = 1;
     private boolean isProductLoaded;
     private Product product;
+    private int nextInvoiceNumber;
 
     public double getUnitPrice() {
         return unitPrice;
@@ -110,6 +115,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         DefaultAPI.bindTableScroll(invoiceScroller, invoiceScrollContainer, invoiceItemContainer);
         tfItemCode.setTextFormatter(DefaultAPI.createNumericTextFormatter());
         setEventListener();
+        findNextInvoiceID();
     }
 
     @Override
@@ -199,6 +205,11 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                         if (isProductLoaded) {
                             addInvoiceItem();
                             isProductLoaded = false;
+                        }
+                    }
+                    case DIVIDE -> {
+                        if (!invoiceItemList.isEmpty()) {
+                            openPaymentPanel();
                         }
                     }
                     case F5 -> {
@@ -344,6 +355,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         invoiceItemList.clear();
         invoiceItemContainer.getChildren().clear();
         calculateInvoiceSummary();
+        setNextInvoiceID();
     }
 
     @FXML
@@ -393,5 +405,29 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void findNextInvoiceID() {
+        JPATransaction.runInTransaction((em) -> {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Invoice> cq = cb.createQuery(Invoice.class);
+            Root<Invoice> invoiceTable = cq.from(Invoice.class);
+
+            cq.orderBy(cb.desc(invoiceTable.get("dateTime")));
+
+            List<Invoice> invoiceList = em.createQuery(cq).setMaxResults(1).getResultList();
+
+            if (invoiceList.isEmpty()) {
+                invoiceNumber.setText("#000001");
+            } else {
+                Invoice invoice = invoiceList.get(0);
+                this.nextInvoiceNumber = invoice.getId();
+                setNextInvoiceID();
+            }
+        });
+    }
+
+    private void setNextInvoiceID() {
+        invoiceNumber.setText(String.format("#%06d", nextInvoiceNumber + 1));
     }
 }

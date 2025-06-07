@@ -28,6 +28,7 @@ import java.io.Serializable;
     @NamedQuery(name = "InvoiceItem.findById", query = "SELECT i FROM InvoiceItem i WHERE i.id = :id"),
     @NamedQuery(name = "InvoiceItem.findByQty", query = "SELECT i FROM InvoiceItem i WHERE i.qty = :qty"),
     @NamedQuery(name = "InvoiceItem.findBySalePrice", query = "SELECT i FROM InvoiceItem i WHERE i.salePrice = :salePrice"),
+    @NamedQuery(name = "InvoiceItem.findByDiscount", query = "SELECT i FROM InvoiceItem i WHERE i.discount = :discount"),
     @NamedQuery(name = "InvoiceItem.findByCostPrice", query = "SELECT i FROM InvoiceItem i WHERE i.costPrice = :costPrice")})
 public class InvoiceItem implements Serializable {
 
@@ -43,6 +44,9 @@ public class InvoiceItem implements Serializable {
     @Basic(optional = false)
     @Column(name = "sale_price")
     private double salePrice;
+    @Basic(optional = false)
+    @Column(name = "discount")
+    private double discount;
     @Basic(optional = false)
     @Column(name = "cost_price")
     private double costPrice;
@@ -63,10 +67,11 @@ public class InvoiceItem implements Serializable {
         this.id = id;
     }
 
-    public InvoiceItem(Integer id, double qty, double salePrice, double costPrice) {
+    public InvoiceItem(Integer id, double qty, double salePrice, double discount, double costPrice) {
         this.id = id;
         this.qty = qty;
         this.salePrice = salePrice;
+        this.discount = discount;
         this.costPrice = costPrice;
     }
 
@@ -92,6 +97,14 @@ public class InvoiceItem implements Serializable {
 
     public void setSalePrice(double salePrice) {
         this.salePrice = salePrice;
+    }
+
+    public double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(double discount) {
+        this.discount = discount;
     }
 
     public double getCostPrice() {

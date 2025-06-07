@@ -18,17 +18,6 @@ public class InvoiceItemController implements Initializable {
 
     @FXML
     private Button btnDelete;
-    private CashierInvoiceController invoiceController;
-    private Node rootNode; // Add this field
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
     @FXML
     private Label itemCode;
     @FXML
@@ -47,15 +36,25 @@ public class InvoiceItemController implements Initializable {
     private Group invoiceItemAddIcon;
     @FXML
     private Group invoiceItemDeleteIcon;
-
-    private int productID;
-    private double productQty;
-    private double productPrice;
     @FXML
     private Button btnDecrease;
     @FXML
     private Button btnIncrease;
+
+    private CashierInvoiceController invoiceController;
+    private Node rootNode; // Add this field
+    private int productID;
+    private double productQty;
+    private double productPrice;
     private Product product;
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
     public int getProductID() {
         return productID;

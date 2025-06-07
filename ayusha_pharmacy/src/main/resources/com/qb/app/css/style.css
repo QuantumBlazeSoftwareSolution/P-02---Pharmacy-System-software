@@ -1,9 +1,9 @@
 .primary-gradient{
-    -fx-background-color: linear-gradient(to top, #000428, #004E92);
+    -fx-background-color: linear-gradient(to top, #00796F, #009589);
 }
 
 .primary-gradient-toLeft{
-    -fx-background-color: linear-gradient(to left, #000428, #004E92);
+    -fx-background-color: linear-gradient(to left, #00796F, #009589);
 }
 
 .black-gradient{
@@ -15,12 +15,12 @@
 }
 
 .primary-gradient-50{
-    -fx-background-color: linear-gradient(to top, hsba(220, 100%, 16%, 0.5), hsba(204, 100%, 57%, 0.5));
+    -fx-background-color: linear-gradient(to top, hsba(175, 100%, 47%, 0.5), hsba(175, 100%, 58%, 0.5));
 }
 
 .buttonHover{
-    -fx-text-fill: #004E92;
-    -fx-background-color: hsba(208, 100%, 57%, 0.2);
+    -fx-text-fill: #00796F;
+    -fx-background-color: hsba(175, 100%, 47%, 0.2);
     -fx-background-radius: 15px;
 }
 
@@ -34,15 +34,15 @@
 }
 
 .primary-text{
-    -fx-text-fill: #004E92;
+    -fx-text-fill: #00796F;
 }
 
 .textFieldColor{
-    -fx-text-fill: #1068b5;
+    -fx-text-fill: #00796F;
 }
 
 .primary-border{
-    -fx-border-color: #004E92;
+    -fx-border-color: #00796F;
     -fx-border-width: 0.5px;
     -fx-border-style: solid;
     -fx-border-radius: 4px;
@@ -60,35 +60,35 @@
 }
 
 .primary-white{
-    -fx-text-fill: #f1f1f1;
+    -fx-text-fill: #BDE1D3;
 }
 
 .primary-white-bg{
-    -fx-background-color: #f1f1f1;
+    -fx-background-color: #E5FFF5;
 }
 
 .primary-white-50{
-    -fx-text-fill: rgba(241, 241, 241, 0.5);
+    -fx-text-fill: rgba(189, 225, 211, 0.5);
 }
 
 .bg-white{
-    -fx-background-color: #fff;
+    -fx-background-color: #F5FFFB;
 }
 
 .bg-primary{
-    -fx-background-color: #004E92;
+    -fx-background-color: #00796F;
 }
 
 .bg-primary-20{
-    -fx-background-color: hsba(208, 100%, 57%, 0.2);
+    -fx-background-color: hsba(175, 100%, 47%, 0.2);
 }
 
 .invoiceActionButton:hover{
-    -fx-background-color: hsba(208, 100%, 57%, 0.3);
+    -fx-background-color: hsba(175, 100%, 47%, 0.2);
 }
 
 .bg-primary-5{
-    -fx-background-color: hsba(208, 100%, 57%, 0.05);
+    -fx-background-color: hsba(175, 100%, 47%, 0.05);
 }
 
 .full-width-button {
@@ -96,7 +96,7 @@
 }
 
 .button-gradient {
-    -fx-background-color: linear-gradient(to left, #000428, #004E92);
+    -fx-background-color: linear-gradient(to left, #00796F, #009589);
 }
 
 .button-transparent{
@@ -113,6 +113,7 @@
 
 .btn-white-hover:hover{
     -fx-background-color: #E4E4E4;
+    -fx-background-color: hsba(175, 100%, 47%, 0.1);
 }
 
 .outline-icon{
@@ -135,7 +136,7 @@
 
 .scroll-pane .scroll-bar:vertical .thumb,
 .scroll-bar:vertical .thumb{
-    -fx-background-color: #004E92;
+    -fx-background-color: #00796F;
     /*-fx-background-radius: 10px;*/
 }
 

@@ -16,7 +16,7 @@
 
 <AnchorPane id="AnchorPane" fx:id="root" prefHeight="800.0" prefWidth="992.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.CashierCloseSaleController">
    <children>
-      <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" styleClass="primary-white-bg" stylesheets="@css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" styleClass="bg-white" stylesheets="@css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Region prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
             <Label styleClass="primary-text" stylesheets="@css/style.css" text="Close Sale">
@@ -128,7 +128,7 @@
                            </children>
                         </HBox>
                         <Separator prefWidth="200.0" />
-                        <VBox alignment="CENTER_RIGHT" maxWidth="-Infinity" spacing="1.0">
+                        <VBox alignment="CENTER_RIGHT" maxWidth="-Infinity" spacing="2.0">
                            <children>
                               <HBox alignment="CENTER" maxWidth="-Infinity" spacing="10.0">
                                  <children>

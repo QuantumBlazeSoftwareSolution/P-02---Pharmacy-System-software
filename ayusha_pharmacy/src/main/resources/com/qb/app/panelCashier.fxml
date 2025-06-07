@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" fx:id="root" prefHeight="640.0" prefWidth="1024.0" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.PanelCashierController">
@@ -23,7 +23,7 @@
                         <Insets bottom="10.0" top="10.0" />
                      </BorderPane.margin>
                      <children>
-                        <Circle fx:id="systemLogo" fill="DODGERBLUE" radius="64.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Rectangle fx:id="systemLogo" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="128.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="128.0" />
                      </children>
                   </VBox>
                </top>
@@ -93,51 +93,6 @@
                            </cursor>
                            <graphic>
                               <Group fx:id="iconCloseSale" />
-                           </graphic>
-                        </Button>
-                        <Button fx:id="btnWithdrawal" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleActionButtons" prefHeight="40.0" stylesheets="@css/style.css" text="Withdrawal" textFill="#f1f1f1">
-                           <font>
-                              <Font name="Aptos" size="14.0" />
-                           </font>
-                           <styleClass>
-                              <String fx:value="full-width-button" />
-                              <String fx:value="bg-primary-white-10" />
-                           </styleClass>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <graphic>
-                              <Group fx:id="iconWithdrawal" />
-                           </graphic>
-                        </Button>
-                        <Button fx:id="btnRefund" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleActionButtons" prefHeight="40.0" stylesheets="@css/style.css" text="Refund" textFill="#f1f1f1">
-                           <font>
-                              <Font name="Aptos" size="14.0" />
-                           </font>
-                           <styleClass>
-                              <String fx:value="full-width-button" />
-                              <String fx:value="bg-primary-white-10" />
-                           </styleClass>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <graphic>
-                              <Group fx:id="iconRefund" />
-                           </graphic>
-                        </Button>
-                        <Button fx:id="BtnRePrint" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleActionButtons" prefHeight="40.0" stylesheets="@css/style.css" text="Re-Print" textFill="#f1f1f1">
-                           <font>
-                              <Font name="Aptos" size="14.0" />
-                           </font>
-                           <styleClass>
-                              <String fx:value="full-width-button" />
-                              <String fx:value="bg-primary-white-10" />
-                           </styleClass>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <graphic>
-                              <Group fx:id="iconRePrint" />
                            </graphic>
                         </Button>
                      </children>

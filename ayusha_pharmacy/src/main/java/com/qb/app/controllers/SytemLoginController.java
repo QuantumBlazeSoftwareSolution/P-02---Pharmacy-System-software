@@ -27,14 +27,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import static com.qb.app.model.JPATransaction.runInTransaction;
 import com.qb.app.model.entity.Session;
 import java.time.LocalDate;
 import java.util.Date;
 import javafx.animation.PauseTransition;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -56,7 +54,7 @@ public class SytemLoginController implements Initializable {
     @FXML
     private AnchorPane root;
     @FXML
-    private Circle quantumBlazeIcon;
+    private Rectangle quantumBlazeIcon;
     @FXML
     private Group iconUser;
     //    </editor-fold>
@@ -163,7 +161,7 @@ public class SytemLoginController implements Initializable {
     }
 
     private void setQBImage() {
-        Image image = new Image(getClass().getResource("/com/qb/app/assets/images/QB_LOGO.png").toExternalForm());
+        Image image = new Image(getClass().getResource("/com/qb/app/assets/images/logo.png").toExternalForm());
         quantumBlazeIcon.setFill(new ImagePattern(image));
     }
 

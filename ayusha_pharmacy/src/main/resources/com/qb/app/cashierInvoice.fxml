@@ -39,7 +39,7 @@
                                              <center>
                                                 <Label styleClass="primary-text" stylesheets="@css/style.css" text="Item Code" BorderPane.alignment="CENTER">
                                                    <font>
-                                                      <Font name="Aptos" size="14.0" />
+                                                      <Font name="Aptos SemiBold" size="14.0" />
                                                    </font>
                                                 </Label>
                                              </center>
@@ -56,7 +56,7 @@
                                              <center>
                                                 <Label styleClass="primary-text" stylesheets="@css/style.css" text="Product" BorderPane.alignment="CENTER">
                                                    <font>
-                                                      <Font name="Aptos" size="14.0" />
+                                                      <Font name="Aptos SemiBold" size="14.0" />
                                                    </font>
                                                 </Label>
                                              </center>
@@ -73,7 +73,7 @@
                                              <center>
                                                 <Label styleClass="primary-text" stylesheets="@css/style.css" text="Item Name" BorderPane.alignment="CENTER">
                                                    <font>
-                                                      <Font name="Aptos" size="14.0" />
+                                                      <Font name="Aptos SemiBold" size="14.0" />
                                                    </font>
                                                 </Label>
                                              </center>
@@ -90,7 +90,7 @@
                                              <center>
                                                 <Label styleClass="primary-text" stylesheets="@css/style.css" text="Unit Price" BorderPane.alignment="CENTER">
                                                    <font>
-                                                      <Font name="Aptos" size="14.0" />
+                                                      <Font name="Aptos SemiBold" size="14.0" />
                                                    </font>
                                                 </Label>
                                              </center>
@@ -107,7 +107,7 @@
                                              <center>
                                                 <Label styleClass="primary-text" stylesheets="@css/style.css" text="Qty" BorderPane.alignment="CENTER">
                                                    <font>
-                                                      <Font name="Aptos" size="14.0" />
+                                                      <Font name="Aptos SemiBold" size="14.0" />
                                                    </font>
                                                 </Label>
                                              </center>
@@ -124,7 +124,7 @@
                                              <center>
                                                 <Label styleClass="primary-text" stylesheets="@css/style.css" text="Amount" BorderPane.alignment="CENTER">
                                                    <font>
-                                                      <Font name="Aptos" size="14.0" />
+                                                      <Font name="Aptos SemiBold" size="14.0" />
                                                    </font>
                                                 </Label>
                                              </center>
@@ -141,7 +141,7 @@
                                              <center>
                                                 <Label styleClass="primary-text" stylesheets="@css/style.css" text="Action" BorderPane.alignment="CENTER">
                                                    <font>
-                                                      <Font name="Aptos" size="14.0" />
+                                                      <Font name="Aptos SemiBold" size="14.0" />
                                                    </font>
                                                 </Label>
                                              </center>
@@ -358,7 +358,7 @@
          <bottom>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox alignment="CENTER" layoutX="102.0" layoutY="50.0" maxHeight="-Infinity" prefWidth="200.0" spacing="40.0" style="-fx-background-color: #081E30;" styleClass="border-radius" stylesheets="@css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <HBox alignment="CENTER" layoutX="102.0" layoutY="50.0" maxHeight="-Infinity" prefWidth="200.0" spacing="40.0" style="-fx-background-color: #002F35;" styleClass="border-radius" stylesheets="@css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Label minWidth="-Infinity" styleClass="primary-white" stylesheets="@css/style.css" text="Invoice">
                            <font>
@@ -412,7 +412,7 @@
                                     </Label>
                                  </children>
                               </HBox>
-                              <HBox maxHeight="-Infinity" style="-fx-background-color: #0A2A44; -fx-border-radius: 6px;">
+                              <HBox maxHeight="-Infinity" style="-fx-background-color: #003C44; -fx-border-radius: 6px;">
                                  <children>
                                     <Label minWidth="-Infinity" style="-fx-text-fill: #827410;" text="Total">
                                        <font>

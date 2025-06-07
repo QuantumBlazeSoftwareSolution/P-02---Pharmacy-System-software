@@ -1,20 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.qb.app.session;
 
 import com.qb.app.model.entity.Employee;
 import com.qb.app.model.entity.Session;
 
-/**
- *
- * @author Vihanga
- */
 public class ApplicationSession {
 
     private static Employee employee;
     private static Session session;
+    private static final String applicationName = "Ayusha Pharmacy & Grocery";
+    private static final String address = "No: 55 /1/2, welikadamulla, Attanagalla.";
+    private static final String mobile = "Contact: 0776085969";
 
     public static Employee getEmployee() {
         return employee;
@@ -30,5 +25,17 @@ public class ApplicationSession {
 
     public static void setSession(Session param) {
         session = param;
+    }
+
+    public static String getApplicationName() {
+        return applicationName;
+    }
+
+    public static String getAddress() {
+        return address;
+    }
+
+    public static String getMobile() {
+        return mobile;
     }
 }

@@ -53,9 +53,9 @@ public class App extends Application {
         scene.setRoot(root);
         primaryStage.sizeToScene();
         primaryStage.setMaximized(true);
-        primaryStage.setFullScreen(true);
-        primaryStage.setFullScreenExitHint("");
-        primaryStage.setFullScreenExitKeyCombination(null);
+//        primaryStage.setFullScreen(true);
+//        primaryStage.setFullScreenExitHint("");
+//        primaryStage.setFullScreenExitKeyCombination(null);
     }
 
     private static Parent loadFXML(String fxml) throws IOException {

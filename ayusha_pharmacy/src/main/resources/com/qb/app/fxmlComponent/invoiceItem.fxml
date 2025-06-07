@@ -24,7 +24,7 @@
                <center>
                   <Label fx:id="itemCode" styleClass="primary-text" stylesheets="@../css/style.css" text="10444" BorderPane.alignment="CENTER">
                      <font>
-                        <Font name="Segoe UI" size="14.0" />
+                        <Font name="Aptos SemiBold" size="14.0" />
                      </font>
                   </Label>
                </center>
@@ -54,7 +54,7 @@
                <center>
                   <Label fx:id="itemName" styleClass="primary-text" stylesheets="@../css/style.css" text="Tomato 1Kg" wrapText="true" BorderPane.alignment="CENTER">
                      <font>
-                        <Font name="Segoe UI" size="14.0" />
+                        <Font name="Aptos SemiBold" size="14.0" />
                      </font>
                   </Label>
                </center>
@@ -74,7 +74,7 @@
                <center>
                   <Label fx:id="itemPrice" styleClass="primary-text" stylesheets="@../css/style.css" text="Rs. 640.00" BorderPane.alignment="CENTER">
                      <font>
-                        <Font name="Segoe UI" size="14.0" />
+                        <Font name="Aptos SemiBold" size="14.0" />
                      </font>
                   </Label>
                </center>
@@ -91,7 +91,7 @@
                <center>
                   <Label fx:id="qty" styleClass="primary-text" stylesheets="@../css/style.css" text="2" BorderPane.alignment="CENTER">
                      <font>
-                        <Font name="Segoe UI" size="14.0" />
+                        <Font name="Aptos SemiBold" size="14.0" />
                      </font>
                   </Label>
                </center>
@@ -108,7 +108,7 @@
                <center>
                   <Label fx:id="itemAmount" styleClass="primary-text" stylesheets="@../css/style.css" text="Rs. 1280.00" BorderPane.alignment="CENTER">
                      <font>
-                        <Font name="Segoe UI" size="14.0" />
+                        <Font name="Aptos SemiBold" size="14.0" />
                      </font>
                   </Label>
                </center>

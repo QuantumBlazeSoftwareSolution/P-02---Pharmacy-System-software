@@ -44,7 +44,7 @@ public class PopUpProductListController implements Initializable {
     @FXML
     private AnchorPane root;
 
-    public static Product_registrationController productRegistrationController;
+    public static Object callingController;
     @FXML
     private TextField tfSearch;
 
@@ -56,8 +56,8 @@ public class PopUpProductListController implements Initializable {
         loadProducts(null);
     }
 
-    public void saveProductRegistrationController(Product_registrationController controller) {
-        this.productRegistrationController = controller;
+    public void saveProductRegistrationController(Object controller) {
+        this.callingController = controller;
     }
 
     private void loadProducts(String searchTerm) {

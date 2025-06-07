@@ -1,5 +1,6 @@
 package com.qb.app.controllers;
 
+import com.qb.app.model.entity.Product;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -7,6 +8,22 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 
 public class InventoryGRN_TableRowController implements Initializable {
+
+    public double getItemAmount() {
+        return itemAmount;
+    }
+
+    public void setItemAmount(double itemAmount) {
+        this.itemAmount = itemAmount;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
     public double getCost() {
         return cost;
@@ -30,21 +47,25 @@ public class InventoryGRN_TableRowController implements Initializable {
     public int productID;
     public int qty;
     public double cost;
+    public Product product;
+    public double itemAmount;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
 
-    public void setData(Integer id, String product, double costPrice, int itemQty) {
+    public void setData(Product product, Integer id, String productName, double costPrice, int itemQty) {
+        setProduct(product);
         setProductID(id);
         setQty(itemQty);
         setCost(costPrice);
+        setItemAmount(costPrice * itemQty);
         labelID.setText(String.valueOf(id));
-        labelProduct.setText(product);
+        labelProduct.setText(productName);
         labelCost.setText(String.format("Rs. %,.2f", costPrice));
         labelQty.setText(String.valueOf(itemQty));
-        labelAmount.setText(String.format("Rs. %,.2f", costPrice * itemQty));
+        labelAmount.setText(String.format("Rs. %,.2f", getItemAmount()));
     }
 
     public int getProductID() {
@@ -63,8 +84,9 @@ public class InventoryGRN_TableRowController implements Initializable {
         this.qty = qty;
     }
 
-    public void setProductQty(int i) {
-        setQty(i);
+    public void setProductQty(int qty) {
+        setQty(qty);
+        labelQty.setText(String.valueOf(qty));
         labelAmount.setText(String.format("Rs. %,.2f", getCost() * getQty()));
     }
 

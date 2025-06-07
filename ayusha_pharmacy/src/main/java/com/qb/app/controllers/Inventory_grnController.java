@@ -1,10 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package com.qb.app.controllers;
 
 import com.qb.app.App;
+import com.qb.app.controllers.report.beans.GrnItemBean;
 import com.qb.app.model.ComboBoxUtils;
 import com.qb.app.model.CustomAlert;
 import com.qb.app.model.DefaultAPI;
@@ -12,17 +9,27 @@ import com.qb.app.model.JPATransaction;
 import com.qb.app.model.SVGIconGroup;
 import com.qb.app.model.entity.Company;
 import com.qb.app.model.entity.Grn;
+import com.qb.app.model.entity.GrnItem;
 import com.qb.app.model.entity.Product;
+import com.qb.app.model.entity.Stock;
 import com.qb.app.model.entity.Supplier;
+import com.qb.app.session.ApplicationSession;
+import com.qb.app.session.CompanyInfo;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import java.io.IOException;
 import java.net.URL;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Vector;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -49,6 +56,13 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class Inventory_grnController implements Initializable {
 
@@ -83,19 +97,18 @@ public class Inventory_grnController implements Initializable {
     private TextField tfTotal;
     @FXML
     private Button btnAction;
-    //</editor-fold>
     @FXML
     private AnchorPane root;
     @FXML
     private Label displayMessage;
+    //</editor-fold>
 
     private Product loadedProduct;
     private boolean readyItemToAdd;
     private int itemQty;
+    private Grn savedGrn;
+    List<InventoryGRN_TableRowController> grnItemList = new ArrayList<>();
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         tfQty.setDisable(false);
@@ -119,9 +132,15 @@ public class Inventory_grnController implements Initializable {
     }
 
     private void makeGrn() {
+        System.out.println("grnItemList sizee: makeGrn()" + grnItemList.size());
+
         if (isEntriesValid()) {
             if (isGrnIdAvailable()) {
-                createGrn();
+                if (grnItemList.isEmpty() || grnItemList.size() == 0 || grnItemList == null) {
+                    CustomAlert.showStyledAlert(root, "messagee.", "No item to GRN", Alert.AlertType.WARNING);
+                } else {
+                    createGrn();
+                }
             } else {
                 CustomAlert.showStyledAlert(root, "This GRN number is already registered in the system.", "GRN Duplication Warning", Alert.AlertType.WARNING);
             }
@@ -174,7 +193,44 @@ public class Inventory_grnController implements Initializable {
     }
 
     private void createGrn() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        System.out.println("grnItemList sizee: createGrn()" + grnItemList.size());
+
+        JPATransaction.runInTransaction((em) -> {
+            Grn grn = new Grn();
+            grn.setGrnCode(tfGRNID.getText());
+            grn.setDateTime(new Date());
+            grn.setSupplierId(cbSupplier.getValue());
+            em.persist(grn);
+            em.flush();
+
+            this.savedGrn = grn;
+
+            for (InventoryGRN_TableRowController item : grnItemList) {
+                GrnItem grnItem = new GrnItem();
+                grnItem.setCostPrice(item.getCost());
+                grnItem.setQty(item.getQty());
+                grnItem.setProductId(item.getProduct());
+                grnItem.setGrnId(grn);
+                em.persist(grnItem);
+
+                CriteriaBuilder cb = em.getCriteriaBuilder();
+                CriteriaQuery<Stock> cq = cb.createQuery(Stock.class);
+                Root<Stock> stockTable = cq.from(Stock.class);
+                cq.where(cb.equal(stockTable.get("productId"), item.getProduct()));
+
+                Stock stock = em.createQuery(cq).getSingleResult();
+                stock.setQty(stock.getQty() + (item.getQty() * item.getProduct().getMeasure()));
+                em.persist(stock);
+            }
+
+            printGrnReport(grn);
+            grnItemList.clear();
+            grnTableBody.getChildren().clear();
+            tfTotal.setText("");
+            tfGRNID.setText("");
+            cbCompany.setValue(null);
+            cbSupplier.setValue(null);
+        });
     }
 
     private void displayWarningMessage(String message, boolean action) {
@@ -285,13 +341,13 @@ public class Inventory_grnController implements Initializable {
                 }
             }
         } else {
-            this.readyItemToAdd = true;
+            this.readyItemToAdd = false;
         }
     }
 
-    List<InventoryGRN_TableRowController> grnItemList = new ArrayList<>();
-
     private void addItemToList() {
+        System.out.println("grnItemList sizee: addItemToList()" + grnItemList.size());
+
         try {
             boolean itemExists = false;
 
@@ -307,12 +363,13 @@ public class Inventory_grnController implements Initializable {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/qb/app/fxmlComponent/InventoryGRN_TableRow.fxml"));
                 Node grnItem = loader.load();
                 InventoryGRN_TableRowController controller = loader.getController();
-                controller.setData(loadedProduct.getId(), loadedProduct.getProduct(), loadedProduct.getCostPrice(), itemQty);
+                controller.setData(loadedProduct, loadedProduct.getId(), loadedProduct.getProduct(), loadedProduct.getCostPrice(), itemQty);
 
                 grnItemList.add(controller);
                 grnTableBody.getChildren().add(grnItem);
             }
 
+            calculateTotal();
             clearLoadedTextFields();
             resetFields();
         } catch (IOException e) {
@@ -320,13 +377,11 @@ public class Inventory_grnController implements Initializable {
         }
     }
 
-//    private Product loadedProduct;
-//    private boolean readyItemToAdd;
-//    private int itemQty;
     private void resetFields() {
         this.loadedProduct = null;
         this.readyItemToAdd = false;
         this.itemQty = 0;
+        tfQty.setDisable(true);
     }
 
     private void clearLoadedTextFields() {
@@ -338,6 +393,84 @@ public class Inventory_grnController implements Initializable {
         tfAmount.setText("");
 
         tfProductID.requestFocus();
+    }
+
+    private void printGrnReport(Grn grn) {
+        Map<String, Object> params = getJRParams();
+        Vector<GrnItemBean> collection = getBeanCollection();
+
+        try {
+            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(
+                    getClass().getResourceAsStream("/com/qb/app/reports/PharmacyGRN.jasper"));
+
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(collection);
+
+            JasperPrint report = JasperFillManager.fillReport(jasperReport, params, dataSource);
+//            JasperPrintManager.printReport(report, false);
+            JasperViewer.viewReport(report, false);
+        } catch (JRException e) {
+            e.printStackTrace();
+            CustomAlert.showStyledAlert(root, "Report generation failed: " + e.getMessage(), "Reporting Error", Alert.AlertType.ERROR);
+        }
+    }
+
+    private Map<String, Object> getJRParams() {
+        Map<String, Object> params = new HashMap<>();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d, yyyy hh:mm a");
+        String grnTime = savedGrn.getDateTime().toInstant().atZone(ZoneId.systemDefault()).format(formatter);
+
+        params.put("GrnTime", grnTime);
+        params.put("GrnID", savedGrn.getGrnCode());
+        params.put("Supplier", cbSupplier.getValue().getName());
+        params.put("CompanyName", CompanyInfo.applicationName);
+        params.put("Contact", CompanyInfo.mobile);
+        params.put("Address", CompanyInfo.address);
+        params.put("Address", CompanyInfo.address);
+        getGrnTotal(params);
+        params.put("Employee", ApplicationSession.getEmployee().getName());
+
+        return params;
+    }
+
+    private Vector<GrnItemBean> getBeanCollection() {
+        System.out.println("grnItemList sizee: getBeanCollection()" + grnItemList.size());
+
+        Vector<GrnItemBean> collection = new Vector<>();
+        for (InventoryGRN_TableRowController item : grnItemList) {
+            GrnItemBean bean = new GrnItemBean(
+                    String.valueOf(item.getProduct().getId()),
+                    item.getProduct().getProduct(),
+                    item.getProduct().getGenericName() != null ? item.getProduct().getGenericName() : "",
+                    String.format("Rs. %,.2f", item.getProduct().getCostPrice()),
+                    String.valueOf(item.getQty()),
+                    String.format("Rs. %,.2f", item.getItemAmount())
+            );
+            collection.add(bean);
+        }
+
+        return collection;
+    }
+
+    private void getGrnTotal(Map<String, Object> params) {
+        System.out.println("grnItemList sizee: getGrnTotal()" + grnItemList.size());
+
+        double total = 0;
+        for (InventoryGRN_TableRowController item : grnItemList) {
+            total += item.getItemAmount();
+        }
+        params.put("SubTotal", String.format("Rs. %,.2f", total));
+        params.put("Discount", "Rs. 0.00");
+        params.put("Total", String.format("Rs. %,.2f", total));
+        params.put("TotalQty", String.valueOf(grnItemList.size()));
+    }
+
+    private void calculateTotal() {
+        double total = 0;
+        for (InventoryGRN_TableRowController item : grnItemList) {
+            total += item.getItemAmount();
+        }
+        tfTotal.setText(String.format("Rs. %,.2f", total));
     }
 
 }

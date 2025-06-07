@@ -11,12 +11,15 @@ import javafx.animation.ParallelTransition;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -24,6 +27,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class PanelAdminController implements Initializable {
@@ -128,6 +132,7 @@ public class PanelAdminController implements Initializable {
         setInitialState();
         setSystemLogo();
         setSubMenuState();
+        setEventFilter();
     }
 
     private void subMenuToggle(VBox subMenu) {
@@ -320,5 +325,15 @@ public class PanelAdminController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void setEventFilter() {
+        root.addEventFilter(KeyEvent.KEY_PRESSED, (event) -> {
+            if (event.getCode() == KeyCode.F11) {
+                Stage stage = (Stage) root.getScene().getWindow();
+                stage.setFullScreen(!stage.isFullScreen());
+                event.consume();
+            }
+        });
     }
 }

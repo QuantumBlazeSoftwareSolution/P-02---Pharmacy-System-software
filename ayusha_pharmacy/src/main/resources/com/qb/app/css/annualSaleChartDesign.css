@@ -3,11 +3,11 @@
 }
 
 .chart-vertical-grid-lines{
-    -fx-stroke: #3278fa;
+    -fx-stroke: #00796F;
 }
 
 .chart-horizontal-grid-lines{
-    -fx-stroke: #3278fa;
+    -fx-stroke: #00796F;
 }
 
 .chart-alternative-row-fill{
@@ -15,15 +15,15 @@
 }
 
 .default-color0.chart-series-area-fill {
-    -fx-fill: rgba(50, 120, 250, 0.3); /* Fill color for the first series */
+    -fx-fill: rgba(0, 149, 137, 0.3); /* Fill color for the first series */
 }
 
 .default-color1.chart-series-area-fill {
-    -fx-fill: rgba(255, 87, 51, 0.3); /* Fill color for the second series */
+    -fx-fill: rgba(102, 225, 180, 0.3); /* Fill color for the second series */
 }
 
 .default-color0.chart-series-area-line {
-    -fx-stroke: #3278fa; /* Line color for the first series */
+    -fx-stroke: #00796F; /* Line color for the first series */
 }
 
 .default-color1.chart-series-area-line {
@@ -31,13 +31,13 @@
 }
 
 .axis {
-    -fx-tick-label-fill: #3278fa; /* Color of the axis labels */
-    -fx-tick-mark-stroke: #3278fa; /* Color of the tick marks */
-    -fx-axis-label-fill: #3278fa; /* Color of the axis title */
+    -fx-tick-label-fill: #00796F; /* Color of the axis labels */
+    -fx-tick-mark-stroke: #00796F; /* Color of the tick marks */
+    -fx-axis-label-fill: #00796F; /* Color of the axis title */
 }
 
 .axis-tick-mark {
-    -fx-stroke: #3278fa; /* Color of the tick marks */
+    -fx-stroke: #00796F; /* Color of the tick marks */
 }
 
 .axis-tick-label {
@@ -45,20 +45,20 @@
 }
 
 .axis-minor-tick-mark {
-    -fx-stroke: #3278fa; /* Color of the minor tick marks */
+    -fx-stroke: #00796F; /* Color of the minor tick marks */
 }
 
 .chart-legend {
     -fx-background-color: transparent; /* Transparent background */
-    -fx-border-color: #3278fa; /* Border color */
+    -fx-border-color: #00796F; /* Border color */
 }
 
 .chart-legend-item {
-    -fx-text-fill: #fff; /* Font color for legend items */
+    -fx-text-fill: white; /* Font color for legend items */
 }
 
 .chart-title {
-    -fx-text-fill: #3278fa; /* Color of the chart title */
+    -fx-text-fill: white; /* Color of the chart title */
 }
 
 .chart-pie-label {

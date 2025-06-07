@@ -421,7 +421,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                 invoiceNumber.setText("#000001");
             } else {
                 Invoice invoice = invoiceList.get(0);
-                this.nextInvoiceNumber = invoice.getId() + 1;
+                this.nextInvoiceNumber = invoice.getId();
                 setNextInvoiceID();
             }
         });

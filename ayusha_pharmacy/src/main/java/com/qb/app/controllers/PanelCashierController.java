@@ -34,9 +34,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.shape.Circle;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -45,7 +47,7 @@ public class PanelCashierController implements Initializable {
 
     //<editor-fold desc="FXML init component" defaultstate="collapsed">
     @FXML
-    private Circle systemLogo;
+    private Rectangle systemLogo;
     @FXML
     private Button btnExit;
     @FXML
@@ -57,8 +59,6 @@ public class PanelCashierController implements Initializable {
     @FXML
     private Button btnCloseSale;
     @FXML
-    private Button btnWithdrawal;
-    @FXML
     private Group iconDashboard;
     @FXML
     private Group iconSession;
@@ -66,8 +66,6 @@ public class PanelCashierController implements Initializable {
     private Group iconInvoice;
     @FXML
     private Group iconCloseSale;
-    @FXML
-    private Group iconWithdrawal;
     @FXML
     private Group iconExit;
     @FXML
@@ -94,6 +92,7 @@ public class PanelCashierController implements Initializable {
         setInitialState();
         leftSideMenu.setTranslateX(0);
         ApplicationControllers.setPanelCashierController(this);
+        setLogo();
     }
 
     public void changePanel(String panel, String title) {
@@ -105,7 +104,6 @@ public class PanelCashierController implements Initializable {
         iconSession.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/cashier-session-outline.svg"));
         iconInvoice.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/cashier-invoice-outline.svg"));
         iconCloseSale.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/cashier-close-sale-outline.svg"));
-        iconWithdrawal.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/cashier-withdraw-outline.svg"));
         iconExit.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/cashier-exit-solid.svg"));
     }
 
@@ -141,19 +139,8 @@ public class PanelCashierController implements Initializable {
             } else {
                 CustomAlert.showStyledAlert(root, "Sale is already closed.", "Information", Alert.AlertType.INFORMATION);
             }
-        } else if (event.getSource() == btnWithdrawal) {
-            if (ApplicationSession.getSession() != null) {
-                if (!isSessionFinished()) {
-                    changeCenterPanel("/com/qb/app/cashierWithdrawal.fxml", "Withdrawal");
-                } else {
-                    CustomAlert.showStyledAlert(root, "Today's session is finished.", "Information", Alert.AlertType.INFORMATION);
-                }
-            } else {
-                CustomAlert.showStyledAlert(root, "You must activate your session before accessing withdrawal operations.", "Session activation Required", Alert.AlertType.INFORMATION);
-            }
         } else if (event.getSource() == btnExit) {
             InterfaceAction.closeWindow(root);
-            // App.setRoot("sytemLogin");
         }
     }
 
@@ -218,13 +205,18 @@ public class PanelCashierController implements Initializable {
 
     private void setDefaultPanel() {
         try {
-            FXMLLoader dashboard = new FXMLLoader(getClass().getResource("/com/qb/app/cashierDashboard.fxml"));
-            contentBorder.setCenter(dashboard.load());
+
             FXMLLoader cashier_top_menu = new FXMLLoader(getClass().getResource("/com/qb/app/fxmlComponent/cashier_top_panel.fxml"));
             contentBorder.setTop(cashier_top_menu.load());
             controller = cashier_top_menu.getController();
-            controller.setTitle("Dashboard");
             controller.setPanelCashierController(this);
+            if (ApplicationSession.getSession() != null && ApplicationSession.getSession().getStatus().equals("ON")) {
+                changeCenterPanel("/com/qb/app/cashierInvoice.fxml", "Invoice");
+            } else {
+                FXMLLoader dashboard = new FXMLLoader(getClass().getResource("/com/qb/app/cashierDashboard.fxml"));
+                contentBorder.setCenter(dashboard.load());
+                controller.setTitle("Dashboard");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -356,5 +348,10 @@ public class PanelCashierController implements Initializable {
                 return false;
             }
         });
+    }
+
+    private void setLogo() {
+        Image image = new Image(getClass().getResource("/com/qb/app/assets/images/logo.png").toExternalForm());
+        systemLogo.setFill(new ImagePattern(image));
     }
 }

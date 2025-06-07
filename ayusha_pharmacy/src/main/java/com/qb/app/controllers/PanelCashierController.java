@@ -59,8 +59,6 @@ public class PanelCashierController implements Initializable {
     @FXML
     private Button btnWithdrawal;
     @FXML
-    private Button BtnRePrint;
-    @FXML
     private Group iconDashboard;
     @FXML
     private Group iconSession;
@@ -71,10 +69,6 @@ public class PanelCashierController implements Initializable {
     @FXML
     private Group iconWithdrawal;
     @FXML
-    private Group iconRefund;
-    @FXML
-    private Group iconRePrint;
-    @FXML
     private Group iconExit;
     @FXML
     private BorderPane leftSideMenu;
@@ -84,8 +78,6 @@ public class PanelCashierController implements Initializable {
     private BorderPane contentBorder;
     @FXML
     private AnchorPane root;
-    @FXML
-    private Button btnRefund;
     @FXML
     private JFXToggleButton trainingModeToggle;
     // </editor-fold>
@@ -114,8 +106,6 @@ public class PanelCashierController implements Initializable {
         iconInvoice.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/cashier-invoice-outline.svg"));
         iconCloseSale.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/cashier-close-sale-outline.svg"));
         iconWithdrawal.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/cashier-withdraw-outline.svg"));
-        iconRefund.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/cashier-refund-outline.svg"));
-        iconRePrint.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/cashier-re-print-outline.svg"));
         iconExit.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/cashier-exit-solid.svg"));
     }
 
@@ -161,10 +151,6 @@ public class PanelCashierController implements Initializable {
             } else {
                 CustomAlert.showStyledAlert(root, "You must activate your session before accessing withdrawal operations.", "Session activation Required", Alert.AlertType.INFORMATION);
             }
-        } else if (event.getSource() == btnRefund) {
-            changeCenterPanel("/com/qb/app/cashierRefund.fxml", "Refund");
-        } else if (event.getSource() == BtnRePrint) {
-            changeCenterPanel("/com/qb/app/cashierRePrint.fxml", "Re-Print");
         } else if (event.getSource() == btnExit) {
             InterfaceAction.closeWindow(root);
             // App.setRoot("sytemLogin");
@@ -334,7 +320,7 @@ public class PanelCashierController implements Initializable {
             try {
                 em.createQuery(cQuery).getSingleResult();
                 return false;
-            } catch (Exception e) {                
+            } catch (Exception e) {
                 return true;
             }
         });

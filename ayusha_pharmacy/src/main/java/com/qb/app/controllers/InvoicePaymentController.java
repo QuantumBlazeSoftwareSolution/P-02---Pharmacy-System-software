@@ -9,6 +9,7 @@ import com.qb.app.model.SVGIconGroup;
 import com.qb.app.model.entity.Invoice;
 import com.qb.app.model.entity.InvoiceItem;
 import com.qb.app.model.entity.InvoiceItemType;
+import com.qb.app.model.entity.Stock;
 import com.qb.app.session.ApplicationSession;
 import com.qb.app.session.CompanyInfo;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -242,6 +243,8 @@ public class InvoicePaymentController implements Initializable {
                 invoiceItem.setInvoiceId(invoice);
                 invoiceItem.setInvoiceItemTypeId(sellItemType);
                 em.persist(invoiceItem);
+
+                manageStock(item);
             }
             InterfaceAction.closeWindow(root);
         });
@@ -338,6 +341,19 @@ public class InvoicePaymentController implements Initializable {
         if (event.getCode() == KeyCode.ENTER) {
             makeInvoice();
         }
+    }
+
+    private void manageStock(InvoiceItemController item) {
+        JPATransaction.runInTransaction((em) -> {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Stock> cq = cb.createQuery(Stock.class);
+            Root<Stock> stockTable = cq.from(Stock.class);
+            cq.where(cb.equal(stockTable.get("productId"), item.getProduct()));
+
+            Stock stock = em.createQuery(cq).getSingleResult();
+            stock.setQty(stock.getQty() - (item.getProductQty() * item.getProduct().getMeasure()));
+            em.persist(stock);
+        });
     }
 
 }

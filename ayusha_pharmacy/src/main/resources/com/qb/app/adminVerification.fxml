@@ -26,7 +26,7 @@
                         <Rectangle fx:id="quantumBlazeIcon" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="160.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="160.0" />
                         <Label styleClass="primary-white" stylesheets="@css/style.css" text="Welcome to Ayusha Pharmacy &amp; Grocery" textAlignment="CENTER" wrapText="true">
                            <font>
-                              <Font name="Aptos Bold" size="24.0" />
+                              <Font name="Gill Sans MT Bold" size="24.0" />
                            </font>
                            <padding>
                               <Insets left="10.0" right="10.0" />
@@ -42,7 +42,7 @@
                               <Font name="Aptos Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label styleClass="primary-white-50" stylesheets="@css/style.css" text="Contact: +94712345678 | Email: quantumblaze@gmail.com">
+                        <Label styleClass="primary-white-50" stylesheets="@css/style.css" text="Contact: 0788056838 / 0719681816">
                            <font>
                               <Font name="Aptos" size="12.0" />
                            </font>
@@ -55,7 +55,7 @@
                   <String fx:value="primary-gradient" />
                </styleClass>
                <padding>
-                  <Insets bottom="20.0" top="20.0" />
+                  <Insets bottom="10.0" top="20.0" />
                </padding>
             </VBox>
             <BorderPane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
@@ -79,9 +79,9 @@
                                     <Font name="Aptos" size="14.0" />
                                  </font>
                               </Label>
-                              <PasswordField fx:id="tfPinNumber" prefHeight="40.0">
+                              <PasswordField fx:id="tfPinNumber" onKeyPressed="#handleKeyPressed" prefHeight="40.0" styleClass="text-dark" stylesheets="@css/adminStyle.css">
                                  <font>
-                                    <Font name="Aptos" size="14.0" />
+                                    <Font name="Aptos" size="12.0" />
                                  </font></PasswordField>
                            </children>
                         </VBox>

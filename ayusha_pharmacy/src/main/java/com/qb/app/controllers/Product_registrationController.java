@@ -275,8 +275,6 @@ public class Product_registrationController implements Initializable {
         ComboBoxUtils.loadComboBoxValues(cbUnit, ProductUnit.class, "unit", ProductUnit::getUnit);
         ComboBoxUtils.loadComboBoxValues(cbType, ProductType.class, "type", ProductType::getType);
 
-        Brand selectedBrand = cbBrand.getValue();
-
         // Set default selection to "Parent" after loading
         Platform.runLater(() -> {
             cbType.getItems().stream()

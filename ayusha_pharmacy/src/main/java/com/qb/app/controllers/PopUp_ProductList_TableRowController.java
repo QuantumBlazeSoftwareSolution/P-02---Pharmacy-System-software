@@ -93,8 +93,12 @@ public class PopUp_ProductList_TableRowController implements Initializable {
                     controller.setParentID(itemID.getText());
                 case Inventory_grnController controller ->
                     controller.setParentID(itemID.getText()); // Example method
+                case DiscountController controller ->
+                    controller.setParentID(itemID.getText()); // Example method    
+                case Product_managementController controller ->
+                    controller.setParentID(itemID.getText()); // Example method    
                 default -> {
-                    
+
                 }
             }
         }

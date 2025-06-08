@@ -122,7 +122,7 @@ public class SytemLoginController implements Initializable {
                     try {
                         switch (role) {
                             case "admin" ->
-                                App.setRoot("panelAdmin");
+                                App.setRoot("adminVerification");
                             case "cashier" ->
                                 App.setRoot("panelCashier");
                             case "developer" ->

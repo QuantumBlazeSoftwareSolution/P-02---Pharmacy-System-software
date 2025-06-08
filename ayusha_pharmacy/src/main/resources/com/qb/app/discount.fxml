@@ -2,6 +2,7 @@
 
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
@@ -102,28 +103,14 @@
                      <children>
                         <HBox spacing="10.0">
                            <children>
-                              <VBox prefWidth="120.0">
+                              <VBox maxWidth="100.0" prefWidth="120.0">
                                  <children>
                                     <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Product ID">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField maxWidth="120.0" prefHeight="40.0" prefWidth="120.0" stylesheets="@css/adminStyle.css">
-                                       <font>
-                                          <Font name="Aptos" size="12.0" />
-                                       </font>
-                                    </TextField>
-                                 </children>
-                              </VBox>
-                              <VBox HBox.hgrow="ALWAYS">
-                                 <children>
-                                    <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Product Name">
-                                       <font>
-                                          <Font name="Aptos" size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <TextField prefHeight="40.0" stylesheets="@css/adminStyle.css" VBox.vgrow="ALWAYS">
+                                    <TextField fx:id="tfProductID" maxWidth="120.0" onKeyPressed="#handleKeyPressed" prefHeight="40.0" prefWidth="120.0" stylesheets="@css/adminStyle.css">
                                        <font>
                                           <Font name="Aptos" size="12.0" />
                                        </font>
@@ -139,28 +126,87 @@
                         </Label>
                      </children>
                   </VBox>
-                  <VBox>
-                     <children>
-                        <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Discount Value">
-                           <font>
-                              <Font name="Aptos" size="14.0" />
-                           </font>
-                        </Label>
-                        <TextField prefHeight="40.0" stylesheets="@css/adminStyle.css" VBox.vgrow="ALWAYS">
-                           <font>
-                              <Font name="Aptos" size="12.0" />
-                           </font>
-                        </TextField>
-                     </children>
-                  </VBox>
                   <HBox spacing="10.0">
                      <children>
-                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" styleClass="button-primary-outline" stylesheets="@css/adminStyle.css" text="Clear" HBox.hgrow="ALWAYS">
+                        <VBox HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Product Name">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="tfProductName" editable="false" prefHeight="40.0" stylesheets="@css/adminStyle.css" VBox.vgrow="ALWAYS">
+                                 <font>
+                                    <Font name="Aptos" size="12.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="DEFAULT" />
+                                 </cursor>
+                              </TextField>
+                           </children>
+                        </VBox>
+                        <VBox HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Generic Name">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="tfProductGeneric" editable="false" prefHeight="40.0" stylesheets="@css/adminStyle.css" VBox.vgrow="ALWAYS">
+                                 <font>
+                                    <Font name="Aptos" size="12.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="DEFAULT" />
+                                 </cursor>
+                              </TextField>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox spacing="10.0">
+                     <children>
+                        <VBox HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Sale Price">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="tfProductSalePrice" editable="false" prefHeight="40.0" stylesheets="@css/adminStyle.css" VBox.vgrow="ALWAYS">
+                                 <font>
+                                    <Font name="Aptos" size="12.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="DEFAULT" />
+                                 </cursor>
+                              </TextField>
+                           </children>
+                        </VBox>
+                        <VBox HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Discount Value">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="tfProductDiscount" prefHeight="40.0" stylesheets="@css/adminStyle.css" VBox.vgrow="ALWAYS">
+                                 <font>
+                                    <Font name="Aptos" size="12.0" />
+                                 </font>
+                              </TextField>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox spacing="10.0">
+                     <children>
+                        <Button fx:id="btnProductClear" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#actionEvent" prefHeight="40.0" styleClass="button-primary-outline" stylesheets="@css/adminStyle.css" text="Clear" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="Aptos" size="14.0" />
                            </font>
                         </Button>
-                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" stylesheets="@css/adminStyle.css" text="Add Discount" HBox.hgrow="ALWAYS">
+                        <Button fx:id="btnProductDiscount" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#actionEvent" prefHeight="40.0" stylesheets="@css/adminStyle.css" text="Add Discount" HBox.hgrow="ALWAYS">
                            <styleClass>
                               <String fx:value="button-primary" />
                               <String fx:value="primary-white" />
@@ -171,6 +217,15 @@
                         </Button>
                      </children>
                   </HBox>
+                  <VBox alignment="TOP_RIGHT">
+                     <children>
+                        <Label fx:id="displayMessage">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
                </children>
             </VBox>
          </children>

@@ -20,7 +20,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="800.0" styleClass="primary-gradient" stylesheets="@css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.Product_managementController">
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="800.0" prefWidth="800.0" styleClass="primary-gradient" stylesheets="@css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.Product_managementController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -316,7 +316,7 @@
                         <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                         <VBox alignment="BOTTOM_LEFT" spacing="10.0">
                            <children>
-                              <JFXToggleButton selected="true" styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Active Product">
+                              <JFXToggleButton fx:id="toggleStatus" selected="true" styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Active Product">
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font>

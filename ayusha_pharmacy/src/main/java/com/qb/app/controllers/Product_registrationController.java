@@ -260,8 +260,8 @@ public class Product_registrationController implements Initializable {
 
         if (!tfDiscount.getText().isEmpty()) {
             double discount = Double.parseDouble(tfDiscount.getText());
-            if (discount < 0 || discount >= 100) {
-                displayRegistrationMessage("Discount must be between 0 and 100%.", false);
+            if (discount < 0) {
+                displayRegistrationMessage("Discount must be greater than LKR. 0.00", false);
                 tfDiscount.requestFocus();
                 return false;
             }

@@ -9,6 +9,7 @@ import com.qb.app.model.SVGIconGroup;
 import com.qb.app.model.entity.Invoice;
 import com.qb.app.model.entity.InvoiceItem;
 import com.qb.app.model.entity.InvoiceItemType;
+import com.qb.app.model.entity.ProductHasProductType;
 import com.qb.app.model.entity.Stock;
 import com.qb.app.session.ApplicationSession;
 import com.qb.app.session.CompanyInfo;
@@ -346,13 +347,26 @@ public class InvoicePaymentController implements Initializable {
     private void manageStock(InvoiceItemController item) {
         JPATransaction.runInTransaction((em) -> {
             CriteriaBuilder cb = em.getCriteriaBuilder();
-            CriteriaQuery<Stock> cq = cb.createQuery(Stock.class);
-            Root<Stock> stockTable = cq.from(Stock.class);
-            cq.where(cb.equal(stockTable.get("productId"), item.getProduct()));
 
-            Stock stock = em.createQuery(cq).getSingleResult();
-            stock.setQty(stock.getQty() - (item.getProductQty() * item.getProduct().getMeasure()));
-            em.persist(stock);
+            CriteriaQuery<ProductHasProductType> productTypeQuery = cb.createQuery(ProductHasProductType.class);
+            Root<ProductHasProductType> productTypeRoot = productTypeQuery.from(ProductHasProductType.class);
+            productTypeQuery.where(cb.equal(productTypeRoot.get("productId"), item.getProduct()));
+
+            try {
+                ProductHasProductType productTypeRelation = em.createQuery(productTypeQuery).getSingleResult();
+                CriteriaQuery<Stock> stockQuery = cb.createQuery(Stock.class);
+                Root<Stock> stockTable = stockQuery.from(Stock.class);
+                if ("Parent".equals(productTypeRelation.getProductTypeId().getType())) {
+                    stockQuery.where(cb.equal(stockTable.get("productId"), item.getProduct()));
+                } else {
+                    stockQuery.where(cb.equal(stockTable.get("productId"), productTypeRelation.getReferenceId()));
+                }
+                Stock stock = em.createQuery(stockQuery).getSingleResult();
+                stock.setQty(stock.getQty() - (item.getProductQty() * item.getProduct().getMeasure()));
+                em.persist(stock);
+            } catch (Exception e) {
+                System.err.println("No ProductHasProductType found for product ID: " + item.getProduct().getId());
+            }
         });
     }
 

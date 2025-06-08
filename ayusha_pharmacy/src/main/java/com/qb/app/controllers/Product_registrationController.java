@@ -438,10 +438,12 @@ public class Product_registrationController implements Initializable {
 //                store.setQty(qty);
 //                em.persist(store);
                 // save this product in the stock
-                Stock stock = new Stock();
-                stock.setProductId(product);
-                stock.setQty(qty);
-                em.persist(stock);
+                if (type.equals("parent")) {
+                    Stock stock = new Stock();
+                    stock.setProductId(product);
+                    stock.setQty(qty);
+                    em.persist(stock);
+                }
 
                 displayRegistrationMessage("Product successfully added to inventory.", true);
 

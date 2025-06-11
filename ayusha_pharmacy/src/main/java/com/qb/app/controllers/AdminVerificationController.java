@@ -6,6 +6,7 @@ import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.InterfaceAction;
 import com.qb.app.model.InterfaceMortion;
 import com.qb.app.model.SVGIconGroup;
+import com.qb.app.model.getLogger;
 import com.qb.app.session.CompanyInfo;
 import java.io.IOException;
 import java.net.URL;
@@ -90,6 +91,7 @@ public class AdminVerificationController implements Initializable {
                     App.setRoot("panelAdmin");
                 } catch (IOException e) {
                     e.printStackTrace();
+                    getLogger.logger().warning(e.toString());
                 }
             } else {
                 CustomAlert.showStyledAlert(

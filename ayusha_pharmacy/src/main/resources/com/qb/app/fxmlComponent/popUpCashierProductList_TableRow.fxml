@@ -6,11 +6,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="958.0" style="-fx-border-radius: 0; -fx-border-width: 0 0 0.5 0;" styleClass="primary-border" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.PopUpCashierProductList_TableRowController">
    <children>
-      <BorderPane minWidth="-Infinity" prefWidth="60.0" style="-fx-border-radius: 0 0 0 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
+      <BorderPane maxWidth="80.0" minWidth="-Infinity" prefWidth="60.0" style="-fx-border-radius: 0; -fx-border-width: 0 0.5 0 0;" styleClass="primary-border" stylesheets="@../css/style.css" HBox.hgrow="ALWAYS">
          <left>
-            <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="ID" BorderPane.alignment="CENTER">
+            <Label fx:id="itemID" styleClass="primary-text" stylesheets="@../css/style.css" text="ID" BorderPane.alignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>
@@ -20,9 +20,9 @@
             <Insets left="10.0" />
          </padding>
       </BorderPane>
-      <BorderPane minWidth="-Infinity" prefWidth="175.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
+      <BorderPane minWidth="-Infinity" prefWidth="175.0" style="-fx-border-radius: 0; -fx-border-width: 0 0.5 0 0;" styleClass="primary-border" stylesheets="@../css/style.css" HBox.hgrow="ALWAYS">
          <left>
-            <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Product" BorderPane.alignment="CENTER">
+            <Label fx:id="ItemName" styleClass="primary-text" stylesheets="@../css/style.css" text="Product" BorderPane.alignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>
@@ -32,9 +32,9 @@
             <Insets left="10.0" />
          </padding>
       </BorderPane>
-      <BorderPane minWidth="-Infinity" prefWidth="100.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
+      <BorderPane minWidth="-Infinity" prefWidth="100.0" style="-fx-border-radius: 0; -fx-border-width: 0 0.5 0 0;" styleClass="primary-border" stylesheets="@../css/style.css" HBox.hgrow="ALWAYS">
          <left>
-            <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Brand" BorderPane.alignment="CENTER">
+            <Label fx:id="itemGeneric" styleClass="primary-text" stylesheets="@../css/style.css" text="Generic" BorderPane.alignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>
@@ -44,9 +44,9 @@
             <Insets left="10.0" />
          </padding>
       </BorderPane>
-      <BorderPane layoutX="310.0" layoutY="10.0" minWidth="-Infinity" prefWidth="100.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
+      <BorderPane layoutX="310.0" layoutY="10.0" maxWidth="140.0" minWidth="-Infinity" prefWidth="100.0" style="-fx-border-radius: 0; -fx-border-width: 0 0.5 0 0;" styleClass="primary-border" stylesheets="@../css/style.css" HBox.hgrow="ALWAYS">
          <left>
-            <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Sale Price" BorderPane.alignment="CENTER">
+            <Label fx:id="itemPrice" styleClass="primary-text" stylesheets="@../css/style.css" text="Sale Price" BorderPane.alignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>
@@ -56,9 +56,9 @@
             <Insets left="10.0" />
          </padding>
       </BorderPane>
-      <BorderPane layoutX="430.0" layoutY="10.0" minWidth="-Infinity" prefWidth="100.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
+      <BorderPane layoutX="430.0" layoutY="10.0" maxWidth="140.0" minWidth="-Infinity" prefWidth="100.0" style="-fx-border-radius: 0; -fx-border-width: 0 0.5 0 0;" styleClass="primary-border" stylesheets="@../css/style.css" HBox.hgrow="ALWAYS">
          <left>
-            <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Cost Price" BorderPane.alignment="CENTER">
+            <Label fx:id="itemCost" styleClass="primary-text" stylesheets="@../css/style.css" text="Cost Price" BorderPane.alignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>
@@ -68,9 +68,9 @@
             <Insets left="10.0" />
          </padding>
       </BorderPane>
-      <BorderPane minWidth="-Infinity" prefWidth="70.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
+      <BorderPane maxWidth="140.0" minWidth="-Infinity" prefWidth="70.0" style="-fx-border-radius: 0; -fx-border-width: 0 0.5 0 0;" styleClass="primary-border" stylesheets="@../css/style.css" HBox.hgrow="ALWAYS">
          <left>
-            <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Unit" BorderPane.alignment="CENTER">
+            <Label fx:id="itemUnit" styleClass="primary-text" stylesheets="@../css/style.css" text="Unit" BorderPane.alignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>
@@ -80,9 +80,9 @@
             <Insets left="10.0" />
          </padding>
       </BorderPane>
-      <BorderPane layoutX="550.0" layoutY="10.0" minWidth="-Infinity" prefWidth="100.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
+      <BorderPane layoutX="550.0" layoutY="10.0" maxWidth="140.0" minWidth="-Infinity" prefWidth="80.0" style="-fx-border-radius: 0; -fx-border-width: 0 0.5 0 0;" styleClass="primary-border" stylesheets="@../css/style.css" HBox.hgrow="ALWAYS">
          <left>
-            <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Measure" BorderPane.alignment="CENTER">
+            <Label fx:id="itemMeasure" styleClass="primary-text" stylesheets="@../css/style.css" text="Measure" BorderPane.alignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>
@@ -92,9 +92,9 @@
             <Insets left="10.0" />
          </padding>
       </BorderPane>
-      <BorderPane layoutX="430.0" layoutY="10.0" minWidth="-Infinity" prefWidth="60.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
+      <BorderPane layoutX="430.0" layoutY="10.0" maxWidth="140.0" minWidth="-Infinity" prefWidth="60.0" style="-fx-border-radius: 0; -fx-border-width: 0 0.5 0 0;" styleClass="primary-border" stylesheets="@../css/style.css" HBox.hgrow="ALWAYS">
          <left>
-            <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Discount" wrapText="true" BorderPane.alignment="CENTER">
+            <Label fx:id="itemDiscount" styleClass="primary-text" stylesheets="@../css/style.css" text="Discount" wrapText="true" BorderPane.alignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>
@@ -104,9 +104,9 @@
             <Insets left="10.0" />
          </padding>
       </BorderPane>
-      <BorderPane prefWidth="100.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0 0  0 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
+      <BorderPane maxWidth="140.0" prefWidth="100.0" style="-fx-border-radius: 0; -fx-border-width: 0 0 0 0;" styleClass="primary-border" stylesheets="@../css/style.css" HBox.hgrow="ALWAYS">
          <left>
-            <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Bar code" BorderPane.alignment="CENTER">
+            <Label fx:id="itemBarcode" styleClass="primary-text" stylesheets="@../css/style.css" text="Bar code" BorderPane.alignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>

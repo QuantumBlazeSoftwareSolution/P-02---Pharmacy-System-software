@@ -67,12 +67,12 @@ public class PopUp_ProductList_TableRowController implements Initializable {
         setLabelText(itemID, id);
         setLabelText(itemName, name);
         setLabelText(itemBrand, brand);
-        setFormattedDouble(itemPrice, price, "%.2f");
-        setFormattedDouble(itemCost, cost, "%.2f");
+        setFormattedDouble(itemPrice, price, "Rs. %.2f");
+        setFormattedDouble(itemCost, cost, "Rs. %.2f");
         setLabelText(itemUnit, unit);
         setLabelText(itemMeasure, measure);
 //        setFormattedDouble(itemMeasure, measure, "%.2f");
-        setFormattedDouble(itemDiscount, discount, "%.2f%%");
+        setFormattedDouble(itemDiscount, discount, "Rs. %.2f");
         setLabelText(itemBarCode, barcode);
     }
 

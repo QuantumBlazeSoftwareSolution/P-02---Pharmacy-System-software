@@ -6,6 +6,7 @@ import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.JPATransaction;
 import com.qb.app.model.entity.Invoice;
 import com.qb.app.model.entity.Product;
+import com.qb.app.model.getLogger;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
@@ -285,6 +286,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
             clearLoadProduct();
         } catch (IOException e) {
             e.printStackTrace();
+            getLogger.logger().warning(e.toString());
         }
     }
 
@@ -404,6 +406,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
             popupStage.showAndWait();
         } catch (Exception e) {
             e.printStackTrace();
+            getLogger.logger().warning(e.toString());
         }
     }
 

@@ -2,6 +2,7 @@ package com.qb.app.controllers;
 
 import com.qb.app.model.InterfaceAction;
 import com.qb.app.model.SVGIconGroup;
+import com.qb.app.model.getLogger;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -133,6 +134,7 @@ public class PanelDeveloperController implements Initializable {
             contentBorder.setCenter(panel.load());
         } catch (IOException e) {
             e.printStackTrace();
+            getLogger.logger().warning(e.toString());
         }
     }
 
@@ -156,6 +158,7 @@ public class PanelDeveloperController implements Initializable {
             controller.setPanelDeveloperController(this);
         } catch (IOException e) {
             e.printStackTrace();
+            getLogger.logger().warning(e.toString());
         }
     }
 

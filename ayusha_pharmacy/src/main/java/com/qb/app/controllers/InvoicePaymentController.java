@@ -11,6 +11,7 @@ import com.qb.app.model.entity.InvoiceItem;
 import com.qb.app.model.entity.InvoiceItemType;
 import com.qb.app.model.entity.ProductHasProductType;
 import com.qb.app.model.entity.Stock;
+import com.qb.app.model.getLogger;
 import com.qb.app.session.ApplicationSession;
 import com.qb.app.session.CompanyInfo;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -264,6 +265,7 @@ public class InvoicePaymentController implements Initializable {
             JasperViewer.viewReport(report, false);
         } catch (JRException e) {
             e.printStackTrace();
+            getLogger.logger().warning(e.toString());
             CustomAlert.showStyledAlert(root, "Report generation failed: " + e.getMessage(), "Reporting Error", Alert.AlertType.ERROR);
         }
         controller.removeAll();
@@ -308,6 +310,7 @@ public class InvoicePaymentController implements Initializable {
             params.put("Logo", imageUrl);
         } catch (Exception e) {
             e.printStackTrace();
+            getLogger.logger().warning(e.toString());
         }
         params.put("ItemCount", String.valueOf(invoiceItemList.size()));
         params.put("CompanyName", CompanyInfo.applicationName);

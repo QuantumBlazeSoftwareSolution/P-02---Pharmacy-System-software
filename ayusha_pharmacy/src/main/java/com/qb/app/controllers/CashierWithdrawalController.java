@@ -10,6 +10,7 @@ import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.JPATransaction;
 import com.qb.app.model.entity.CashWithdrawal;
 import com.qb.app.model.entity.Invoice;
+import com.qb.app.model.getLogger;
 import com.qb.app.session.ApplicationSession;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -82,6 +83,7 @@ public class CashierWithdrawalController implements Initializable, ControllerClo
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                getLogger.logger().warning(e.toString());
             }
 
             return cashAmount + ApplicationSession.getSession().getPettyCash();
@@ -103,6 +105,7 @@ public class CashierWithdrawalController implements Initializable, ControllerClo
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                getLogger.logger().warning(e.toString());
             }
 
             return withdrawalAmount;

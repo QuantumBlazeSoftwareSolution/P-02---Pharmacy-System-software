@@ -29,6 +29,7 @@ public class JpaUtil {
             factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME, properties);
         } catch (Exception e) {
             e.printStackTrace();
+            getLogger.logger().warning(e.toString());
             throw new RuntimeException("Failed to create EntityManagerFactory", e);
         }
     }

@@ -16,6 +16,7 @@ public class getLogger {
             log.addHandler(handler);
         } catch (IOException | SecurityException e) {
             e.printStackTrace();
+            getLogger.logger().warning(e.toString());
         }
         return log;
     }

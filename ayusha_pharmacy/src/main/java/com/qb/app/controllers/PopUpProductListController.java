@@ -6,6 +6,7 @@ import com.qb.app.model.JPATransaction;
 import com.qb.app.model.SVGIconGroup;
 import com.qb.app.model.entity.Product;
 import com.qb.app.model.entity.ProductStatus;
+import com.qb.app.model.getLogger;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Join;
@@ -121,6 +122,7 @@ public class PopUpProductListController implements Initializable {
             TableBody.getChildren().add(tableRow);
         } catch (IOException e) {
             e.printStackTrace();
+            getLogger.logger().warning(e.toString());
         }
     }
 

@@ -14,6 +14,7 @@ import com.qb.app.model.entity.ProductType;
 import com.qb.app.model.entity.ProductUnit;
 import com.qb.app.model.entity.Stock;
 import com.qb.app.model.entity.Store;
+import com.qb.app.model.getLogger;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -363,6 +364,7 @@ public class Product_registrationController implements Initializable {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            getLogger.logger().warning(e.toString());
             productImage.setImage(null);
         }
     }
@@ -450,6 +452,7 @@ public class Product_registrationController implements Initializable {
                 clearRegistrationField();
             } catch (NumberFormatException | IOException e) {
                 e.printStackTrace();
+                getLogger.logger().warning(e.toString());
             }
         });
     }
@@ -527,6 +530,7 @@ public class Product_registrationController implements Initializable {
                     popupStage.showAndWait();
                 } catch (Exception e) {
                     e.printStackTrace();
+                    getLogger.logger().warning(e.toString());
                 }
             }
         }

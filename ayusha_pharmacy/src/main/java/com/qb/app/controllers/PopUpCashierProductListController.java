@@ -29,18 +29,22 @@ public class PopUpCashierProductListController implements Initializable {
     @FXML
     private ScrollPane TableScrollContainer;
     @FXML
-    private VBox TableBody;
-    @FXML
     private ScrollBar TableScroller;
+    @FXML
+    private VBox tableBody;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        DefaultAPI.bindTableScroll(TableScroller, TableScrollContainer, TableBody);
-         pageIcon.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/page-icon.svg"));
-         closeIcon.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/close-icon.svg"));
-    }    
-    
+        DefaultAPI.bindTableScroll(TableScroller, TableScrollContainer, tableBody);
+        pageIcon.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/page-icon.svg"));
+        closeIcon.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/close-icon.svg"));
+    }
+
+    public void setParentID(String text) {
+        
+    }
+
 }

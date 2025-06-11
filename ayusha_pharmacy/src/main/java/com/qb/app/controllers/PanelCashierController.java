@@ -8,6 +8,7 @@ import com.qb.app.model.JPATransaction;
 import com.qb.app.model.SVGIconGroup;
 import com.qb.app.model.entity.CloseSale;
 import com.qb.app.model.entity.Session;
+import com.qb.app.model.getLogger;
 import com.qb.app.session.ApplicationControllers;
 import com.qb.app.session.ApplicationSession;
 import jakarta.persistence.NoResultException;
@@ -219,6 +220,7 @@ public class PanelCashierController implements Initializable {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            getLogger.logger().warning(e.toString());
         }
     }
 
@@ -248,7 +250,8 @@ public class PanelCashierController implements Initializable {
             }
         } catch (IOException e) {
             System.out.println("Error while excuting changeCenterPanel() " + e.getMessage());
-//            e.printStackTrace();
+            e.printStackTrace();
+            getLogger.logger().warning(e.toString());
         }
     }
 
@@ -285,6 +288,7 @@ public class PanelCashierController implements Initializable {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
+            getLogger.logger().warning(e.toString());
         }
     }
 

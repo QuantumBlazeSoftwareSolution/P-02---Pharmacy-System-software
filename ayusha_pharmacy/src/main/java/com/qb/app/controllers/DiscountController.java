@@ -9,6 +9,7 @@ import com.qb.app.model.CustomAlert;
 import com.qb.app.model.JPATransaction;
 import com.qb.app.model.SVGIconGroup;
 import com.qb.app.model.entity.Product;
+import com.qb.app.model.getLogger;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.PauseTransition;
@@ -114,6 +115,7 @@ public class DiscountController implements Initializable {
                     popupStage.showAndWait();
                 } catch (Exception e) {
                     e.printStackTrace();
+                    getLogger.logger().warning(e.toString());
                 }
             } else {
                 loadProductDetails();
@@ -177,6 +179,7 @@ public class DiscountController implements Initializable {
             } catch (Exception e) {
                 displayWarningMessage("Invalid discount amount.", false);
                 e.printStackTrace();
+                getLogger.logger().warning(e.toString());
             }
         }
     }

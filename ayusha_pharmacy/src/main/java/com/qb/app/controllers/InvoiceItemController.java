@@ -2,6 +2,7 @@ package com.qb.app.controllers;
 
 import com.qb.app.model.SVGIconGroup;
 import com.qb.app.model.entity.Product;
+import com.qb.app.model.getLogger;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -112,6 +113,7 @@ public class InvoiceItemController implements Initializable {
             itemImage.setImage(image);
         } catch (Exception e) {
             e.printStackTrace();
+            getLogger.logger().warning(e.toString());
             System.err.println("Failed to load image: " + imageUrl);
         }
     }
@@ -129,6 +131,7 @@ public class InvoiceItemController implements Initializable {
             itemAmount.setText(String.format("Rs. %, .2f", totalAmount));
         } catch (NumberFormatException e) {
             e.printStackTrace();
+            getLogger.logger().warning(e.toString());
             System.err.println("Failed to calculate item amount: Invalid price or quantity format.");
         }
     }

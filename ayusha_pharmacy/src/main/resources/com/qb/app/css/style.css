@@ -49,7 +49,7 @@
 }
 
 .primary-border-dash{
-    -fx-border-color: #004E92;
+    -fx-border-color: #00796F;
     -fx-border-width: 1px;
     -fx-border-style: dashed;
     -fx-border-radius: 4px;
@@ -129,6 +129,11 @@
 }
 
 /* styles.css */
+/*.scroll-pane{
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+}*/
+
 .scroll-pane .scroll-bar:vertical,
 .scroll-bar:vertical{
     -fx-pref-width: 20px; /* Set the width of the vertical scroll bar */
@@ -263,9 +268,11 @@
 .custom-alert {
     -fx-background-color: #f8f9fa;
 }
+
 .custom-alert .header-panel {
     -fx-background-color: #4a6fa5;
 }
+
 .custom-alert .content.label {
     -fx-font-size: 14px;
     -fx-text-fill: #333;

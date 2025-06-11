@@ -13,6 +13,7 @@ import com.qb.app.model.entity.GrnItem;
 import com.qb.app.model.entity.Product;
 import com.qb.app.model.entity.Stock;
 import com.qb.app.model.entity.Supplier;
+import com.qb.app.model.getLogger;
 import com.qb.app.session.ApplicationSession;
 import com.qb.app.session.CompanyInfo;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -286,6 +287,7 @@ public class Inventory_grnController implements Initializable {
                     popupStage.showAndWait();
                 } catch (Exception e) {
                     e.printStackTrace();
+                    getLogger.logger().warning(e.toString());
                 }
             } else {
                 loadProductDetails();
@@ -374,6 +376,7 @@ public class Inventory_grnController implements Initializable {
             resetFields();
         } catch (IOException e) {
             e.printStackTrace();
+            getLogger.logger().warning(e.toString());
         }
     }
 
@@ -410,6 +413,7 @@ public class Inventory_grnController implements Initializable {
             JasperViewer.viewReport(report, false);
         } catch (JRException e) {
             e.printStackTrace();
+            getLogger.logger().warning(e.toString());
             CustomAlert.showStyledAlert(root, "Report generation failed: " + e.getMessage(), "Reporting Error", Alert.AlertType.ERROR);
         }
     }

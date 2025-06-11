@@ -20,14 +20,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="root" prefHeight="800.0" prefWidth="800.0" styleClass="primary-gradient" stylesheets="@css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.Product_managementController">
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="800.0" prefWidth="800.0" styleClass="primary-10" stylesheets="@css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.Product_managementController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <HBox alignment="CENTER_LEFT" spacing="14.0" BorderPane.alignment="CENTER">
                <children>
                   <Group fx:id="iconPage" />
-                  <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Product Management">
+                  <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Product Management">
                      <font>
                         <Font name="Aptos" size="16.0" />
                      </font>
@@ -47,9 +47,9 @@
                            <children>
                               <HBox>
                                  <children>
-                                    <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Product Information">
+                                    <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Product Information">
                                        <font>
-                                          <Font name="Aptos" size="14.0" />
+                                          <Font name="Aptos" size="16.0" />
                                        </font>
                                     </Label>
                                  </children>
@@ -137,9 +137,9 @@
                                     </VBox>
                                  </children>
                               </HBox>
-                              <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Cost Information">
+                              <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Cost Information">
                                  <font>
-                                    <Font name="Aptos" size="14.0" />
+                                    <Font name="Aptos" size="16.0" />
                                  </font>
                                  <VBox.margin>
                                     <Insets top="20.0" />
@@ -191,9 +191,9 @@
                                     </VBox>
                                  </children>
                               </HBox>
-                              <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Stock Information">
+                              <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Stock Information">
                                  <font>
-                                    <Font name="Aptos" size="14.0" />
+                                    <Font name="Aptos" size="16.0" />
                                  </font>
                                  <VBox.margin>
                                     <Insets top="20.0" />

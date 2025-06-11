@@ -11,14 +11,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="800.0" styleClass="primary-gradient" stylesheets="@css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.Supply_company_managementController">
+<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="800.0" styleClass="primary-10" stylesheets="@css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.Supply_company_managementController">
    <children>
       <VBox layoutX="125.0" layoutY="239.0" prefWidth="610.0" spacing="15.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="40.0">
          <children>
             <HBox alignment="CENTER_LEFT" spacing="10.0">
                <children>
                   <Group fx:id="iconSupplyCompanyManagementTopic" />
-                  <Label text="Supply Company Management" textFill="WHITE">
+                  <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Supply Company Management" textFill="WHITE">
                      <font>
                         <Font name="Aptos" size="16.0" />
                      </font>
@@ -29,7 +29,7 @@
                <children>
                   <VBox spacing="20.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label text="Company Registration" textFill="WHITE">
+                        <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Company Registration" textFill="WHITE">
                            <font>
                               <Font name="Aptos" size="14.0" />
                            </font>
@@ -124,7 +124,7 @@
                   </VBox>
                   <VBox prefHeight="480.0" prefWidth="349.0" spacing="20.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label text="Company Management" textFill="WHITE">
+                        <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Company Management" textFill="WHITE">
                            <font>
                               <Font name="Aptos" size="14.0" />
                            </font>

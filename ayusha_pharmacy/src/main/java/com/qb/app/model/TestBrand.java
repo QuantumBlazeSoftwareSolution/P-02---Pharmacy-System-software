@@ -3,6 +3,7 @@ package com.qb.app.model;
 import java.util.List;
 
 public class TestBrand {
+    
     private String brandName;
     private List<TestProduct> products;
 

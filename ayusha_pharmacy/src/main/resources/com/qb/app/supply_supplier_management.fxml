@@ -14,14 +14,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="800.0" styleClass="primary-gradient" stylesheets="@css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.Supply_supplier_managementController">
+<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="800.0" styleClass="primary-10" stylesheets="@css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.Supply_supplier_managementController">
    <children>
       <BorderPane layoutX="104.0" layoutY="97.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <HBox spacing="10.0" BorderPane.alignment="CENTER">
                <children>
                   <Group fx:id="suppierManagementIcon" />
-                  <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Supplier Management">
+                  <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Supplier Management">
                      <font>
                         <Font name="Aptos" size="16.0" />
                      </font>
@@ -39,7 +39,7 @@
                      <children>
                         <HBox prefWidth="200.0">
                            <children>
-                              <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Supplier Registration">
+                              <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Supplier Registration">
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font></Label>
@@ -133,7 +133,7 @@
                      <children>
                         <HBox prefWidth="200.0">
                            <children>
-                              <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Supplier Management">
+                              <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Supplier Management">
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font></Label>

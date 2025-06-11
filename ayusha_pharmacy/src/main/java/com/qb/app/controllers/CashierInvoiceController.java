@@ -216,6 +216,9 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                     case F5 -> {
                         clearLoadProduct();
                     }
+                    case F1 -> {
+                        openProductView();
+                    }
                     default -> {
                     }
                 }
@@ -404,7 +407,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
             controller.setItems(invoiceItemList);
 
             popupStage.showAndWait();
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
             getLogger.logger().warning(e.toString());
         }
@@ -432,5 +435,46 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
 
     private void setNextInvoiceID() {
         invoiceNumber.setText(String.format("#%06d", nextInvoiceNumber + 1));
+    }
+
+    private void openProductView() {
+        try {
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("popUpCashierProductList.fxml"));
+            Parent root = loader.load();
+
+            // Create a new stage for the popup
+            Stage popupStage = new Stage();
+            popupStage.initOwner(root.getScene().getWindow());
+            popupStage.initModality(Modality.APPLICATION_MODAL);
+
+            // Get screen dimensions
+            Screen screen = Screen.getPrimary();
+            Rectangle2D bounds = screen.getVisualBounds();
+
+            // Create scene with full width but original height
+            Scene scene = new Scene(root);
+            popupStage.setScene(scene);
+
+            // Set width to screen width and position at x=0
+            popupStage.setWidth(bounds.getWidth());
+            popupStage.setX(0); // This ensures no left gap
+
+            // Set fixed height (adjust as needed)
+            popupStage.setHeight(600);
+
+            // Center the popup vertically
+            popupStage.setY((bounds.getHeight() - popupStage.getHeight()) / 2);
+
+            popupStage.initStyle(StageStyle.TRANSPARENT);
+
+            // Get controller reference
+            PopUpCashierProductListController controller = loader.getController();
+            controller.saveCallingController(this);
+
+            popupStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+            getLogger.logger().warning(e.toString());
+        }
     }
 }

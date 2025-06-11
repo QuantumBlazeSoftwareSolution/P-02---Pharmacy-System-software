@@ -2,16 +2,24 @@
     -fx-background-color: linear-gradient(to bottom, #00899B, #002F35);
 }
 
+.primary-bg{
+    -fx-background-color: #00899B;
+}
+
+.primary-10{
+    -fx-background-color: rgba(0, 137, 155, 0.1);
+}
+
 .primary-white{
     -fx-text-fill: #f1f1f1;
 }
 
 .admin-primary-blue{
-    -fx-text-fill: #66E1B4;
+    -fx-text-fill: #00899B;
 }
 
 .text-field-label{
-    -fx-text-fill: #BDE1D3;
+    -fx-text-fill: #00899B;
 }
 
 .bg-white{
@@ -42,7 +50,7 @@
 
 
 .primary-text{
-    -fx-text-fill: #00796F;
+    -fx-text-fill: #00899B;
 }
 
 .bg-transparent{
@@ -60,7 +68,7 @@
 
 .text-field,
 .combo-box{
-    -fx-border-color: #BDE1D3;
+    -fx-border-color: #00899B;
     -fx-border-width: 0.5px;
     -fx-border-style: solid;
     -fx-border-radius: 4px;
@@ -78,7 +86,7 @@
 }
 
 .button-primary{
-    -fx-background-color: #00796F;
+    -fx-background-color: #00899B;
 }
 .button-gradient {
     -fx-background-color: linear-gradient(to left, #00899B, #002F35);
@@ -86,8 +94,8 @@
 
 .button-primary-outline{
     -fx-background-color: transparent;
-    -fx-text-fill: #BDE1D3;
-    -fx-border-color: #BDE1D3;
+    -fx-text-fill: #00899B;
+    -fx-border-color: #00899B;
     -fx-border-width: 0.5px;
     -fx-border-style: solid;
     -fx-border-radius: 4px;

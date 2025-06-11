@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package com.qb.app.controllers;
 
 import java.net.URL;
@@ -12,11 +8,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 
-/**
- * FXML Controller class
- *
- * @author Vihanga
- */
 public class PopUpCashierProductList_TableRowController implements Initializable {
 
     @FXML
@@ -37,11 +28,9 @@ public class PopUpCashierProductList_TableRowController implements Initializable
     private Label itemDiscount;
     @FXML
     private Label itemBarcode;
-    private PopUpProductListController popUpProductListController;
 
-    /**
-     * Initializes the controller class.
-     */
+    private PopUpCashierProductListController callingController;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -85,7 +74,7 @@ public class PopUpCashierProductList_TableRowController implements Initializable
 
     private void handleMouseClick(MouseEvent event) {
         if (event.getClickCount() == 2) {
-            popUpProductListController.closeWindow();
+            callingController.closeWindow();
             switch (PopUpProductListController.callingController) {
                 case PopUpCashierProductListController controller ->
                     controller.setParentID(itemID.getText());
@@ -96,8 +85,8 @@ public class PopUpCashierProductList_TableRowController implements Initializable
         }
     }
 
-    public void setPopUpController(PopUpProductListController popUpProductListController) {
-        this.popUpProductListController = popUpProductListController;
+    public void setPopUpController(PopUpCashierProductListController controller) {
+        this.callingController = controller;
     }
 
 }

@@ -168,23 +168,22 @@ public class UnitTestingVihanga {
     }
 
     private static void testSubReport() {
-
-        List<TestProduct> brand1Products = new ArrayList<>();
-        brand1Products.add(new TestProduct("Product 1"));
-        brand1Products.add(new TestProduct("Product 2"));
-
-        List<TestProduct> brand2Products = new ArrayList<>();
-        brand2Products.add(new TestProduct("Product 3"));
-
+//        List<TestProduct> brand1Products = new ArrayList<>();
+//        brand1Products.add(new TestProduct("Product 1"));
+//        brand1Products.add(new TestProduct("Product 2"));
+//
+//        List<TestProduct> brand2Products = new ArrayList<>();
+//        brand2Products.add(new TestProduct("Product 3"));
+//
         List<TestBrand> brandList = new ArrayList<>();
-        brandList.add(new TestBrand("Brand 1", brand1Products));
-        brandList.add(new TestBrand("Brand 2", brand2Products));
+//        brandList.add(new TestBrand("Brand 1", brand1Products));
+//        brandList.add(new TestBrand("Brand 2", brand2Products));
 
         Map<String, Object> params = new HashMap<>();
         try {
-            JasperReport subReport = (JasperReport) JRLoader.loadObject(
-                    UnitTestingVihanga.class.getResourceAsStream("/com/qb/app/reports/PharmacyStockBalanceSubReport.jasper"));
-            params.put("SUB_REPORT_PATH", subReport);
+//            JasperReport subReport = (JasperReport) JRLoader.loadObject(
+//                    UnitTestingVihanga.class.getResourceAsStream("/com/qb/app/reports/PharmacyStockBalanceSubReport.jasper"));
+//            params.put("SUB_REPORT_PATH", subReport);
             params.put("BrandList", brandList);
 
             JasperReport mainReport = (JasperReport) JRLoader.loadObject(

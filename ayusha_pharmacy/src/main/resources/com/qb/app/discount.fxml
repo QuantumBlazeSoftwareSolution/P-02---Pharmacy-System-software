@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="800.0" styleClass="primary-gradient" stylesheets="@css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.DiscountController">
+<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="800.0" styleClass="primary-10" stylesheets="@css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.DiscountController">
    <children>
       <HBox layoutX="25.0" layoutY="25.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -22,7 +22,7 @@
                   <HBox alignment="CENTER_LEFT" spacing="10.0">
                      <children>
                         <Group fx:id="iconBillDiscountTopic" />
-                        <Label text="Bill Discount" textFill="WHITE">
+                        <Label styleClass="primary-text" text="Bill Discount" textFill="WHITE">
                            <font>
                               <Font name="Aptos" size="16.0" />
                            </font>
@@ -92,7 +92,7 @@
                   <HBox alignment="CENTER_LEFT" spacing="10.0">
                      <children>
                         <Group fx:id="iconProductDiscountTopic" />
-                        <Label text="Product Discount" textFill="WHITE">
+                        <Label styleClass="primary-text" text="Product Discount" textFill="WHITE">
                            <font>
                               <Font name="Aptos" size="16.0" />
                            </font>

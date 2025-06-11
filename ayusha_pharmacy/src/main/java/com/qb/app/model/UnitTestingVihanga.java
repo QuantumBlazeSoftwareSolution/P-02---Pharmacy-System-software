@@ -1,10 +1,8 @@
 package com.qb.app.model;
 
-import com.qb.app.controllers.report.beans.InvoiceItemBean;
 import com.qb.app.model.entity.Brand;
 import com.qb.app.model.entity.Employee;
 import com.qb.app.model.entity.Session;
-import com.qb.app.session.CompanyInfo;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.NoResultException;
@@ -18,10 +16,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Vector;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -41,6 +37,7 @@ public class UnitTestingVihanga {
 //        passwordTest();
 //        testDatabaseResults();
 //        testSubReport();
+        JpaTest();
     }
 
     private static void testJPA() {
@@ -196,5 +193,26 @@ public class UnitTestingVihanga {
         } catch (JRException e) {
             e.printStackTrace();
         }
+    }
+
+    private static void JpaTest() {
+        JPATransaction.runInTransaction((em) -> {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Employee> cq = cb.createQuery(Employee.class);
+            Root<Employee> employeeTable = cq.from(Employee.class);
+
+            Predicate usernameCondition = cb.equal(employeeTable.get("username"), "Vihanga");
+            Predicate passwordCondition = cb.equal(employeeTable.get("username"), "Vihanga");
+
+            cq.where(cb.and(usernameCondition, passwordCondition));
+
+//            Employee emp = em.createQuery(cq).getSingleResult();
+            List<Employee> empList = em.createQuery(cq).getResultList();
+
+            for (Employee employee : empList) {
+                System.out.println("Your Name: " + employee.getName());
+            }
+
+        });
     }
 }

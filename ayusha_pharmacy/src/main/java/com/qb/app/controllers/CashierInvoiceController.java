@@ -117,6 +117,9 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         tfItemCode.setTextFormatter(DefaultAPI.createNumericTextFormatter());
         setEventListener();
         findNextInvoiceID();
+        Platform.runLater(() -> {
+            tfItemCode.requestFocus();
+        });
     }
 
     @Override
@@ -444,7 +447,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
 
             // Create a new stage for the popup
             Stage popupStage = new Stage();
-            popupStage.initOwner(root.getScene().getWindow());
+            popupStage.initOwner(this.root.getScene().getWindow());
             popupStage.initModality(Modality.APPLICATION_MODAL);
 
             // Get screen dimensions
@@ -476,5 +479,10 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
             e.printStackTrace();
             getLogger.logger().warning(e.toString());
         }
+    }
+
+    public void setParentID(String text) {
+        tfItemCode.setText(text);
+        tfItemCode.requestFocus();
     }
 }

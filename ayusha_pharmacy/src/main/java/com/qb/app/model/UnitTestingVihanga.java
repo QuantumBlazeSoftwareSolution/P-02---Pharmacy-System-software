@@ -37,7 +37,7 @@ public class UnitTestingVihanga {
 //        passwordTest();
 //        testDatabaseResults();
 //        testSubReport();
-        JpaTest();
+//        JpaTest();
     }
 
     private static void testJPA() {

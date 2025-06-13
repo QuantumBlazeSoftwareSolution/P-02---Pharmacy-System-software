@@ -46,7 +46,8 @@ public class PopUpCashierProductListController implements Initializable {
     private AnchorPane root;
     @FXML
     private TextField tfSearch;
-    private CashierInvoiceController cashierInvoiceController;
+    
+    public static CashierInvoiceController callingController;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -54,10 +55,6 @@ public class PopUpCashierProductListController implements Initializable {
         pageIcon.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/page-icon.svg"));
         closeIcon.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/close-icon.svg"));
         loadProducts(null);
-    }
-
-    public void setParentID(String text) {
-
     }
 
     private void loadProducts(String searchTerm) {
@@ -141,7 +138,7 @@ public class PopUpCashierProductListController implements Initializable {
     }
 
     public void saveCallingController(CashierInvoiceController controller) {
-        this.cashierInvoiceController = controller;
+        this.callingController = controller;
     }
 
 }

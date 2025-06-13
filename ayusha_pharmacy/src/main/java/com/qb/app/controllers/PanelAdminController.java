@@ -93,8 +93,6 @@ public class PanelAdminController implements Initializable {
     @FXML
     private Group iconSupplierManagement;
     @FXML
-    private Group iconReportCloseSale;
-    @FXML
     private Group iconReportSale1;
     @FXML
     private Group iconReportGRN;
@@ -112,8 +110,6 @@ public class PanelAdminController implements Initializable {
     private HBox btnSupplyCompanyManagement;
     @FXML
     private HBox btnSupplySupplierManagement;
-    @FXML
-    private HBox btnReportCloseSale;
     @FXML
     private HBox btnReportDetailSale;
     @FXML
@@ -183,7 +179,6 @@ public class PanelAdminController implements Initializable {
         iconCompanyManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/companyManagement.svg"));
         iconSupplierManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/supplierManagement.svg"));
 
-        iconReportCloseSale.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
         iconReportGRN.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
         iconReportSale1.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
         iconReportStockBalance.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));

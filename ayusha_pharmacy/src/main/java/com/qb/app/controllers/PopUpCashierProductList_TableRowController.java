@@ -72,15 +72,13 @@ public class PopUpCashierProductList_TableRowController implements Initializable
         label.setText(String.format(format, value));
     }
 
+    @FXML
     private void handleMouseClick(MouseEvent event) {
         if (event.getClickCount() == 2) {
             callingController.closeWindow();
-            switch (PopUpProductListController.callingController) {
-                case PopUpCashierProductListController controller ->
+            switch (PopUpCashierProductListController.callingController) {
+                case CashierInvoiceController controller ->
                     controller.setParentID(itemID.getText());
-                default -> {
-
-                }
             }
         }
     }

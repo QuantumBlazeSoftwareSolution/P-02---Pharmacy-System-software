@@ -1,26 +1,22 @@
 Apr 18, 2025 7:56:51 PM com.qb.app.controllers.SytemLoginController systemLogin
 WARNING: java.lang.ArithmeticException: / by zero
-Jun 12, 2025 8:36:28 PM com.qb.app.controllers.AdminVerificationController verifyAdmin
-WARNING: javafx.fxml.LoadException: 
-/C:/Users/ravis/OneDrive/Documents/GitHub/P-02---Pharmacy-System-software/ayusha_pharmacy/target/classes/com/qb/app/panelAdmin.fxml
+Jun 13, 2025 8:40:07 AM com.qb.app.controllers.PopUpCashierProductListController createProductTableRow
+WARNING: javafx.fxml.LoadException: Error resolving onMouseClicked='#handleMouseClick', either the event handler is not in the Namespace or there is an error in the script.
+/E:/Quantum%20Blaze/Projects/Client%20Project/P%2302%20-%20Pharmacy%20System%20software/ayusha_pharmacy/target/classes/com/qb/app/fxmlComponent/popUpCashierProductList_TableRow.fxml:125
 
-Jun 12, 2025 8:38:17 PM com.qb.app.controllers.AdminVerificationController verifyAdmin
-WARNING: javafx.fxml.LoadException: 
-/C:/Users/ravis/OneDrive/Documents/GitHub/P-02---Pharmacy-System-software/ayusha_pharmacy/target/classes/com/qb/app/panelAdmin.fxml
+Jun 13, 2025 8:40:07 AM com.qb.app.controllers.PopUpCashierProductListController createProductTableRow
+WARNING: javafx.fxml.LoadException: Error resolving onMouseClicked='#handleMouseClick', either the event handler is not in the Namespace or there is an error in the script.
+/E:/Quantum%20Blaze/Projects/Client%20Project/P%2302%20-%20Pharmacy%20System%20software/ayusha_pharmacy/target/classes/com/qb/app/fxmlComponent/popUpCashierProductList_TableRow.fxml:125
 
-Jun 12, 2025 8:41:31 PM com.qb.app.controllers.AdminVerificationController verifyAdmin
-WARNING: javafx.fxml.LoadException: 
-/C:/Users/ravis/OneDrive/Documents/GitHub/P-02---Pharmacy-System-software/ayusha_pharmacy/target/classes/com/qb/app/panelAdmin.fxml
+Jun 13, 2025 8:40:07 AM com.qb.app.controllers.PopUpCashierProductListController createProductTableRow
+WARNING: javafx.fxml.LoadException: Error resolving onMouseClicked='#handleMouseClick', either the event handler is not in the Namespace or there is an error in the script.
+/E:/Quantum%20Blaze/Projects/Client%20Project/P%2302%20-%20Pharmacy%20System%20software/ayusha_pharmacy/target/classes/com/qb/app/fxmlComponent/popUpCashierProductList_TableRow.fxml:125
 
-Jun 13, 2025 6:51:44 PM com.qb.app.controllers.AdminVerificationController verifyAdmin
-WARNING: javafx.fxml.LoadException: 
-/C:/Users/ravis/OneDrive/Documents/GitHub/P-02---Pharmacy-System-software/ayusha_pharmacy/target/classes/com/qb/app/panelAdmin.fxml
+Jun 13, 2025 8:40:08 AM com.qb.app.controllers.PopUpCashierProductListController createProductTableRow
+WARNING: javafx.fxml.LoadException: Error resolving onMouseClicked='#handleMouseClick', either the event handler is not in the Namespace or there is an error in the script.
+/E:/Quantum%20Blaze/Projects/Client%20Project/P%2302%20-%20Pharmacy%20System%20software/ayusha_pharmacy/target/classes/com/qb/app/fxmlComponent/popUpCashierProductList_TableRow.fxml:125
 
-Jun 13, 2025 6:52:19 PM com.qb.app.controllers.AdminVerificationController verifyAdmin
-WARNING: javafx.fxml.LoadException: 
-/C:/Users/ravis/OneDrive/Documents/GitHub/P-02---Pharmacy-System-software/ayusha_pharmacy/target/classes/com/qb/app/panelAdmin.fxml
-
-Jun 13, 2025 6:52:25 PM com.qb.app.controllers.AdminVerificationController verifyAdmin
-WARNING: javafx.fxml.LoadException: 
-/C:/Users/ravis/OneDrive/Documents/GitHub/P-02---Pharmacy-System-software/ayusha_pharmacy/target/classes/com/qb/app/panelAdmin.fxml
+Jun 13, 2025 8:40:08 AM com.qb.app.controllers.PopUpCashierProductListController createProductTableRow
+WARNING: javafx.fxml.LoadException: Error resolving onMouseClicked='#handleMouseClick', either the event handler is not in the Namespace or there is an error in the script.
+/E:/Quantum%20Blaze/Projects/Client%20Project/P%2302%20-%20Pharmacy%20System%20software/ayusha_pharmacy/target/classes/com/qb/app/fxmlComponent/popUpCashierProductList_TableRow.fxml:125
 

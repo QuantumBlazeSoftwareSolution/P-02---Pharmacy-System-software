@@ -43,7 +43,7 @@
                                           <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField prefHeight="40.0" stylesheets="@css/adminStyle.css">
+                                    <TextField fx:id="spCompanyName" prefHeight="40.0" stylesheets="@css/adminStyle.css">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font></TextField>
@@ -60,7 +60,7 @@
                                           <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField prefHeight="40.0" stylesheets="@css/adminStyle.css">
+                                    <TextField fx:id="spCompanyAddress" prefHeight="40.0" stylesheets="@css/adminStyle.css">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font></TextField>
@@ -77,7 +77,7 @@
                                           <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField prefHeight="40.0" stylesheets="@css/adminStyle.css">
+                                    <TextField fx:id="spCompanyMobile_1" prefHeight="40.0" stylesheets="@css/adminStyle.css">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font></TextField>
@@ -90,7 +90,7 @@
                                           <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField prefHeight="40.0" stylesheets="@css/adminStyle.css">
+                                    <TextField fx:id="spCompanyMobile_2" prefHeight="40.0" stylesheets="@css/adminStyle.css">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font></TextField>
@@ -100,14 +100,14 @@
                         </HBox>
                         <HBox maxWidth="1.7976931348623157E308" spacing="10.0">
                            <children>
-                              <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" styleClass="button-primary-outline" stylesheets="@css/adminStyle.css" text="Clear" HBox.hgrow="ALWAYS">
+                              <Button fx:id="btnClearCompany" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addCompanyActionEvent" prefHeight="40.0" styleClass="button-primary-outline" stylesheets="@css/adminStyle.css" text="Clear" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor></Button>
-                              <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" stylesheets="@css/adminStyle.css" text="Add Company" HBox.hgrow="ALWAYS">
+                              <Button fx:id="btnAddCompany" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addCompanyActionEvent" prefHeight="40.0" stylesheets="@css/adminStyle.css" text="Add Company" HBox.hgrow="ALWAYS">
                                  <styleClass>
                                     <String fx:value="button-primary" />
                                     <String fx:value="primary-white" />

@@ -1,2 +1,22 @@
 Apr 18, 2025 7:56:51 PM com.qb.app.controllers.SytemLoginController systemLogin
 WARNING: java.lang.ArithmeticException: / by zero
+Jun 12, 2025 3:31:02 AM com.qb.app.model.JpaUtil <clinit>
+WARNING: org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment] due to: Error calling Driver#connect [null]
+Jun 12, 2025 3:37:17 AM com.qb.app.model.JpaUtil <clinit>
+WARNING: org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment] due to: Error calling Driver#connect [null]
+Jun 12, 2025 8:18:22 PM com.qb.app.controllers.AdminVerificationController verifyAdmin
+WARNING: javafx.fxml.LoadException: 
+/G:/Git%20Hub%20projects/P-02---Pharmacy-System-software/ayusha_pharmacy/target/classes/com/qb/app/panelAdmin.fxml
+
+Jun 12, 2025 8:31:40 PM com.qb.app.controllers.AdminVerificationController verifyAdmin
+WARNING: javafx.fxml.LoadException: 
+/G:/Git%20Hub%20projects/P-02---Pharmacy-System-software/ayusha_pharmacy/target/classes/com/qb/app/panelAdmin.fxml
+
+Jun 12, 2025 9:09:29 PM com.qb.app.controllers.AdminVerificationController verifyAdmin
+WARNING: javafx.fxml.LoadException: 
+/G:/Git%20Hub%20projects/P-02---Pharmacy-System-software/ayusha_pharmacy/target/classes/com/qb/app/panelAdmin.fxml
+
+Jun 13, 2025 8:31:53 PM com.qb.app.controllers.AdminVerificationController verifyAdmin
+WARNING: javafx.fxml.LoadException: 
+/G:/Git%20Hub%20projects/P-02---Pharmacy-System-software/ayusha_pharmacy/target/classes/com/qb/app/panelAdmin.fxml
+

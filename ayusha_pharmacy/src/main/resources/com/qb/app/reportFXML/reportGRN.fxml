@@ -160,7 +160,7 @@
                                                 </ScrollPane>
                                                 <ScrollPane fx:id="tableScrollContainer" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" stylesheets="@../css/adminStyle.css" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
                                                    <content>
-                                                      <VBox fx:id="tableBody" prefWidth="100.0" style="-fx-border-radius: 0 0 6px 6px; -fx-border-width: 0 0.5 0.5 0.5;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" />
+                                                      <VBox fx:id="tableBody" prefWidth="100.0" style="-fx-border-radius: 0 0 6px 6px; -fx-border-width: 0 0.5 0.5 0;" stylesheets="@../css/adminStyle.css" />
                                                    </content>
                                                 </ScrollPane>
                                              </children>
@@ -195,7 +195,7 @@
                                                       <Font size="14.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField fx:id="tfItemName1" prefHeight="45.0" styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="Rs:200,000.00">
+                                                <TextField fx:id="tfItemName1" prefHeight="45.0" styleClass="primary-text" stylesheets="@../css/adminStyle.css">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>

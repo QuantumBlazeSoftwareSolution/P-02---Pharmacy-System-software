@@ -60,7 +60,7 @@ public class ReportGRNController implements Initializable {
     @FXML
     private TextField TFGrnId;
     @FXML
-    private ComboBox<?> cbFilterBy;
+    private ComboBox<String> cbFilterBy;
     @FXML
     private Button btnLoadReport;
     @FXML
@@ -76,11 +76,17 @@ public class ReportGRNController implements Initializable {
         DefaultAPI.bindTableScroll(tableScroller, tableScrollContainer, tableBody);
         iconPage.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/page-icon.svg"));
         LoadComboBox();
+        LoadFilterComboBox();
 
     }    
     
     private void LoadComboBox(){
             ComboBoxUtils.loadComboBoxValues(cbSupplier, Supplier.class, "name", Supplier::getName);
+            
+    }
+    private void LoadFilterComboBox() {
+        cbFilterBy.getItems().addAll("ID","Product Name", "Quantity", "Cost Price");
+        cbFilterBy.setValue("Select Filter");
     }
 
     @FXML
@@ -117,10 +123,25 @@ JPATransaction.runInTransaction((em) -> {
     // (Optional) If you want to filter by specific GRN ID too
     Predicate grnIdCondition = cb.equal(grnJoin.get("grnCode"), TFGrnId.getText()); // replace 5L with target GRN id
 
-    cq.select(grnItemRoot)
-      .where(cb.and(supplierCondition, grnIdCondition));
+ cq.select(grnItemRoot).where(cb.and(supplierCondition, grnIdCondition));
 
-    List<GrnItem> resultList = em.createQuery(cq).getResultList();
+        // 👉 Apply sorting based on ComboBox selection
+        String selectedSort = cbFilterBy.getValue();
+        if ("Product Name".equals(selectedSort)) {
+            cq.orderBy(cb.asc(productJoin.get("product"))); // assuming getProduct() is the name
+        } else if ("Quantity".equals(selectedSort)) {
+            cq.orderBy(cb.asc(grnItemRoot.get("qty")));
+        } else if ("Cost Price".equals(selectedSort)) {
+            cq.orderBy(cb.asc(grnItemRoot.get("costPrice")));
+        } else if ("ID".equals(selectedSort)) {
+    cq.orderBy(cb.asc(grnItemRoot.get("id"))); // sort by primary key (id)
+}
+
+        List<GrnItem> resultList = em.createQuery(cq).getResultList();
+        tableBody.getChildren().clear(); // Clear previous data
+    
+    double totalAmount = 0.0; 
+   
 
 for (GrnItem item : resultList) {
     Product product = item.getProductId(); // Correct field name is getProductId()
@@ -130,14 +151,10 @@ for (GrnItem item : resultList) {
     System.out.println("Qty: " + item.getQty());
     System.out.println("Cost: " + item.getCostPrice());
     
-//    double amountd = item.getQty() * item.getCostPrice();
-//    String amount = String.valueOf(amountd);
-//System.out.println("Amount: " + amount);
+    double amountd = item.getQty() * item.getCostPrice();
+    totalAmount += amountd;
 
-    Grn grn = item.getGrnId(); // Correct field name is getGrnId()
-    if (grn != null) {
-        System.out.println("GRN Code: " + grn.getGrnCode());
-    }
+
     
     try {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/qb/app/fxmlComponent/reportGrn_TableRow.fxml"));
@@ -150,9 +167,10 @@ for (GrnItem item : resultList) {
     } catch (IOException e) {
         e.printStackTrace();
         
-    }
-   
+    } 
 }
+
+ tfItemName.setText(String.valueOf(totalAmount));
 
 });
         

@@ -6,6 +6,7 @@ package com.qb.app.controllers.report;
 
 import com.qb.app.controllers.InventoryGRN_TableRowController;
 import com.qb.app.model.ComboBoxUtils;
+import com.qb.app.model.CustomAlert;
 import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.JPATransaction;
 import com.qb.app.model.SVGIconGroup;
@@ -30,11 +31,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
@@ -53,8 +56,7 @@ public class ReportGRNController implements Initializable {
     private VBox tableBody;
     @FXML
     private ScrollBar tableScroller;
-    @FXML
-    private TextField tfItemName;
+  
     @FXML
     private ComboBox<Supplier> cbSupplier;
     @FXML
@@ -67,6 +69,14 @@ public class ReportGRNController implements Initializable {
     private Button btnRefresh;
     @FXML
     private Button btnVieweReport;
+    @FXML
+    private AnchorPane root;
+  
+    @FXML
+    private TextField tfTotalAmount;
+    @FXML
+    private TextField tfDiscount;
+
 
     /**
      * Initializes the controller class.
@@ -99,6 +109,8 @@ public class ReportGRNController implements Initializable {
     private void loadGRN(){
         if(isEntriesValid()){
             loadDataToTable();
+        }else{
+            
         }
         
     }
@@ -154,8 +166,6 @@ for (GrnItem item : resultList) {
     double amountd = item.getQty() * item.getCostPrice();
     totalAmount += amountd;
 
-
-    
     try {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/qb/app/fxmlComponent/reportGrn_TableRow.fxml"));
         Node grndata = loader.load();
@@ -170,7 +180,7 @@ for (GrnItem item : resultList) {
     } 
 }
 
- tfItemName.setText(String.valueOf(totalAmount));
+ tfTotalAmount.setText(String.valueOf(totalAmount));
 
 });
         
@@ -178,15 +188,13 @@ for (GrnItem item : resultList) {
     
     private boolean isEntriesValid() {
         if (cbSupplier.getValue() == null) {
-//            displayWarningMessage("Please select the supplier", false);
-            System.out.println("Please select the supplier");
+            CustomAlert.showStyledAlert(root, "Please select the supplier", Alert.AlertType.WARNING);
             cbSupplier.requestFocus();
             return false;
         }
-        
+
         if (TFGrnId.getText().isEmpty()) {
-//            displayWarningMessage("Please enter the grn id", false);
-            System.out.println("Please select the grn id");
+            CustomAlert.showStyledAlert(root, "Please select the GRN ID", Alert.AlertType.WARNING);
             TFGrnId.requestFocus();
             return false;
         }
@@ -195,8 +203,20 @@ for (GrnItem item : resultList) {
 
     @FXML
     private void refresh(ActionEvent event) {
-         if (event.getSource() == btnRefresh) 
-             loadGRN();
+        if (event.getSource() == btnRefresh) {
+            refreshInterface();
+        }
+    }
+
+    private void refreshInterface() {
+        cbSupplier.setValue(null);
+        cbSupplier.setPromptText("Ex: Munchee - Heshan");
+        cbFilterBy.setValue(null);
+        cbFilterBy.setPromptText("Ex: Qty");
+        TFGrnId.setText("");
+        tfTotalAmount.setText("");
+          tableBody.getChildren().clear();
+
     }
       
 

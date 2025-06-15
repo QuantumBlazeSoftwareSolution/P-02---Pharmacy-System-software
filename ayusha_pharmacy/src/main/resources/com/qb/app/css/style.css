@@ -292,9 +292,9 @@
     -fx-background-radius: 2em;
 }
 
-.subMenuHover:hover{
+/*.subMenuHover:hover{
     -fx-text-fill: #0095FF;
-}
+}*/
 
 .custom-alert {
     -fx-background-color: #f8f9fa;

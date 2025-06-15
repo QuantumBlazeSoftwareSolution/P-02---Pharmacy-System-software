@@ -150,7 +150,7 @@
 }
 
 .date-picker {
-    -fx-border-color: #00796F;
+    -fx-border-color: #00899B;
     -fx-border-width: 0.5px;
     -fx-border-style: solid;
     -fx-border-radius: 4px;
@@ -158,7 +158,7 @@
 }
 
 .date-picker .text-field {
-    -fx-text-fill: #f1f1f1;
+    -fx-text-fill: #00899B;
     -fx-background-color: transparent;
     -fx-border-color: transparent;
 }
@@ -168,7 +168,7 @@
 }
 
 .date-picker .arrow-button .arrow {
-    -fx-background-color: #f1f1f1;
+    -fx-background-color: #00899B;
 }
 
 /* Style for the popup content */

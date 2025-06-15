@@ -18,14 +18,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" styleClass="primary-gradient" stylesheets="@../css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.report.ReportSaleDetailController">
+<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" styleClass="primary-10" stylesheets="@../css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.report.ReportSaleDetailController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <HBox alignment="CENTER_LEFT" spacing="10.0" BorderPane.alignment="CENTER">
                <children>
                   <Group fx:id="iconPage" />
-                  <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Sales Report - Detailed">
+                  <Label styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="Sales Report - Detailed">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
@@ -51,24 +51,15 @@
                                              <children>
                                                 <VBox maxWidth="220.0" minWidth="180.0" prefWidth="180.0" HBox.hgrow="ALWAYS">
                                                    <children>
-                                                      <Label styleClass="text-field-label" stylesheets="@../css/adminStyle.css" text="Start Date">
+                                                      <Label styleClass="text-field-label" stylesheets="@../css/adminStyle.css" text="Sale Date">
                                                          <font>
                                                             <Font size="14.0" />
                                                          </font>
                                                       </Label>
-                                                      <DatePicker maxWidth="1.7976931348623157E308" prefHeight="45.0" />
+                                                      <DatePicker maxWidth="1.7976931348623157E308" prefHeight="45.0" promptText="Select a date" styleClass="primary-text" stylesheets="@../css/adminStyle.css" />
                                                    </children>
                                                 </VBox>
-                                                <VBox maxWidth="220.0" minWidth="180.0" prefWidth="180.0" HBox.hgrow="ALWAYS">
-                                                   <children>
-                                                      <Label styleClass="text-field-label" stylesheets="@../css/adminStyle.css" text="End Date">
-                                                         <font>
-                                                            <Font size="14.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <DatePicker maxWidth="1.7976931348623157E308" prefHeight="45.0" />
-                                                   </children>
-                                                </VBox>
+                                                <Region HBox.hgrow="ALWAYS" />
                                                 <VBox maxWidth="220.0" minWidth="180.0" prefWidth="180.0">
                                                    <children>
                                                       <Label styleClass="text-field-label" stylesheets="@../css/adminStyle.css" text="Filter By">
@@ -111,7 +102,7 @@
                                                          <children>
                                                             <BorderPane maxWidth="80.0" minWidth="80.0" prefWidth="80.0" style="-fx-border-radius: 6px 0 0 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
                                                                <center>
-                                                                  <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="ID" BorderPane.alignment="CENTER">
+                                                                  <Label styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="ID" BorderPane.alignment="CENTER">
                                                                      <font>
                                                                         <Font size="14.0" />
                                                                      </font>
@@ -120,7 +111,7 @@
                                                             </BorderPane>
                                                             <BorderPane maxWidth="150.0" minWidth="-Infinity" prefWidth="120.0" style="-fx-border-radius: 0px; -fx-border-width: 0.5px 0.5px 0.5px 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
                                                                <center>
-                                                                  <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Invoice Number" BorderPane.alignment="CENTER">
+                                                                  <Label styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="Invoice Number" BorderPane.alignment="CENTER">
                                                                      <font>
                                                                         <Font size="14.0" />
                                                                      </font>
@@ -129,7 +120,7 @@
                                                             </BorderPane>
                                                             <BorderPane minWidth="-Infinity" prefWidth="120.0" style="-fx-border-radius: 0px; -fx-border-width: 0.5px 0.5px 0.5px 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
                                                                <center>
-                                                                  <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Product Name" BorderPane.alignment="CENTER">
+                                                                  <Label styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="Product Name" BorderPane.alignment="CENTER">
                                                                      <font>
                                                                         <Font size="14.0" />
                                                                      </font>
@@ -138,7 +129,7 @@
                                                             </BorderPane>
                                                             <BorderPane maxWidth="200.0" minWidth="-Infinity" prefWidth="100.0" style="-fx-border-radius: 0px; -fx-border-width: 0.5px 0.5px 0.5px 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
                                                                <center>
-                                                                  <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Unit Price" BorderPane.alignment="CENTER">
+                                                                  <Label styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="Unit Price" BorderPane.alignment="CENTER">
                                                                      <font>
                                                                         <Font size="14.0" />
                                                                      </font>
@@ -147,7 +138,7 @@
                                                             </BorderPane>
                                                             <BorderPane maxWidth="70.0" minWidth="-Infinity" prefWidth="70.0" style="-fx-border-radius: 0px; -fx-border-width: 0.5px 0.5px 0.5px 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
                                                                <center>
-                                                                  <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Qty" BorderPane.alignment="CENTER">
+                                                                  <Label styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="Qty" BorderPane.alignment="CENTER">
                                                                      <font>
                                                                         <Font size="14.0" />
                                                                      </font>
@@ -156,7 +147,7 @@
                                                             </BorderPane>
                                                             <BorderPane maxWidth="200.0" minWidth="-Infinity" prefWidth="120.0" style="-fx-border-radius: 0px; -fx-border-width: 0.5px 0.5px 0.5px 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
                                                                <center>
-                                                                  <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Amount" BorderPane.alignment="CENTER">
+                                                                  <Label styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="Amount" BorderPane.alignment="CENTER">
                                                                      <font>
                                                                         <Font size="14.0" />
                                                                      </font>
@@ -165,7 +156,7 @@
                                                             </BorderPane>
                                                             <BorderPane maxWidth="150.0" minWidth="120.0" prefWidth="150.0" style="-fx-border-radius: 0 6px 0 0; -fx-border-width: 0.5px 0.5px 0.5px 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
                                                                <center>
-                                                                  <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Profit" BorderPane.alignment="CENTER">
+                                                                  <Label styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="Profit" BorderPane.alignment="CENTER">
                                                                      <font>
                                                                         <Font size="14.0" />
                                                                      </font>
@@ -199,7 +190,7 @@
                                                       <Font size="14.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField fx:id="tfItemName" prefHeight="45.0" styleClass="text-field" stylesheets="@../css/adminStyle.css">
+                                                <TextField fx:id="tfItemName" editable="false" prefHeight="45.0" styleClass="text-field" stylesheets="@../css/adminStyle.css">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
@@ -213,7 +204,7 @@
                                                       <Font size="14.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField fx:id="tfItemName1" prefHeight="45.0" styleClass="text-field" stylesheets="@../css/adminStyle.css">
+                                                <TextField fx:id="tfItemName1" editable="false" prefHeight="45.0" styleClass="text-field" stylesheets="@../css/adminStyle.css">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>

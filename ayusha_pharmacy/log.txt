@@ -1,0 +1,10 @@
+Jun 15, 2025 11:12:01 PM com.qb.app.model.SVGIconGroup loadSVGFromFile
+WARNING: org.xml.sax.SAXParseException; lineNumber: 1; columnNumber: 1; Invalid byte 1 of 1-byte UTF-8 sequence.
+Jun 15, 2025 11:12:03 PM com.qb.app.model.SVGIconGroup loadSVGFromFile
+WARNING: org.xml.sax.SAXParseException; lineNumber: 1; columnNumber: 1; Invalid byte 1 of 1-byte UTF-8 sequence.
+Jun 15, 2025 11:12:05 PM com.qb.app.model.SVGIconGroup loadSVGFromFile
+WARNING: org.xml.sax.SAXParseException; lineNumber: 1; columnNumber: 1; Invalid byte 1 of 1-byte UTF-8 sequence.
+Jun 15, 2025 11:12:07 PM com.qb.app.model.SVGIconGroup loadSVGFromFile
+WARNING: org.xml.sax.SAXParseException; lineNumber: 1; columnNumber: 1; Invalid byte 1 of 1-byte UTF-8 sequence.
+Jun 15, 2025 11:12:07 PM com.qb.app.model.SVGIconGroup loadSVGFromFile
+WARNING: org.xml.sax.SAXParseException; lineNumber: 1; columnNumber: 1; Invalid byte 1 of 1-byte UTF-8 sequence.

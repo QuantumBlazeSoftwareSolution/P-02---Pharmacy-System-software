@@ -46,7 +46,7 @@
                               <Font name="Aptos" size="14.0" />
                            </font>
                         </Label>
-                        <TextField prefHeight="40.0" stylesheets="@css/adminStyle.css">
+                        <TextField prefHeight="40.0" stylesheets="@css/adminStyle.css" text="asdasd">
                            <font>
                               <Font name="Aptos" size="12.0" />
                            </font>

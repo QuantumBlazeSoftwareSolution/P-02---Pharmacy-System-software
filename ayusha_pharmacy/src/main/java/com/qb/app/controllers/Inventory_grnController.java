@@ -427,7 +427,7 @@ public class Inventory_grnController implements Initializable {
         params.put("GrnTime", grnTime);
         params.put("GrnID", savedGrn.getGrnCode());
         params.put("Supplier", cbSupplier.getValue().getName());
-        params.put("CompanyName", CompanyInfo.applicationName);
+        params.put("CompanyName", CompanyInfo.companyName);
         params.put("Contact", CompanyInfo.mobile);
         params.put("Address", CompanyInfo.address);
         params.put("Address", CompanyInfo.address);

@@ -328,7 +328,7 @@ public class CashierCloseSaleController implements Initializable, ControllerClos
         String dayInTime = ApplicationSession.getSession().getDayInTime().toInstant().atZone(ZoneId.systemDefault()).format(formatter);
         String dayOutTime = ApplicationSession.getSession().getDayOutTime().toInstant().atZone(ZoneId.systemDefault()).format(formatter);
 
-        params.put("CompanyName", CompanyInfo.applicationName);
+        params.put("CompanyName", CompanyInfo.companyName);
         params.put("Cashier", ApplicationSession.getSession().getEmployeeId().getName());
         params.put("Shift", dayInTime + " - " + dayOutTime);
         params.put("PettyCash", String.format("Rs. %,.2f", ApplicationSession.getSession().getPettyCash()));

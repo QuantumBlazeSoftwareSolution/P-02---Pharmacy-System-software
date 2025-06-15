@@ -76,9 +76,9 @@
                            <children>
                               <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" minHeight="-Infinity" vbarPolicy="NEVER">
                                  <content>
-                                    <HBox maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="200.0">
+                                    <HBox maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="200.0" styleClass="primary-border" stylesheets="@css/adminStyle.css">
                                        <children>
-                                          <BorderPane minWidth="-Infinity" prefWidth="100.0" style="-fx-border-radius: 6px 0 0 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css">
+                                          <BorderPane minWidth="-Infinity" prefWidth="100.0" style="-fx-border-radius: 6px 0 0 0; -fx-background-insets: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css">
                                              <left>
                                                 <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="ID" BorderPane.alignment="CENTER">
                                                    <font>

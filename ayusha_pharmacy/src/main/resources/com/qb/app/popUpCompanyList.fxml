@@ -15,14 +15,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1000.0" styleClass="primary-gradient" stylesheets="@css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.PopUpCompanyListController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1000.0" styleClass="primary-10" stylesheets="@css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.PopUpCompanyListController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <HBox prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
                <children>
                   <Group fx:id="pageIcon" />
-                  <Label styleClass="primary-white" stylesheets="@css/style.css" text="Company List">
+                  <Label styleClass="primary-text" stylesheets="@css/style.css" text="Company List">
                      <font>
                         <Font name="Aptos" size="16.0" />
                      </font>
@@ -43,7 +43,7 @@
                      <children>
                         <VBox>
                            <children>
-                              <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Search">
+                              <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Search">
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font>
@@ -57,7 +57,7 @@
                         <Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />
                         <VBox>
                            <children>
-                              <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Filter By">
+                              <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Filter By">
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font>
@@ -80,7 +80,7 @@
                                        <children>
                                           <BorderPane minWidth="-Infinity" prefWidth="100.0" style="-fx-border-radius: 6px 0 0 0; -fx-background-insets: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css">
                                              <left>
-                                                <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="ID" BorderPane.alignment="CENTER">
+                                                <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="ID" BorderPane.alignment="CENTER">
                                                    <font>
                                                       <Font name="Aptos" size="14.0" />
                                                    </font>
@@ -92,7 +92,7 @@
                                           </BorderPane>
                                           <BorderPane maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="200.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
                                              <left>
-                                                <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Company Name" BorderPane.alignment="CENTER">
+                                                <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Company Name" BorderPane.alignment="CENTER">
                                                    <font>
                                                       <Font name="Aptos" size="14.0" />
                                                    </font>
@@ -104,7 +104,7 @@
                                           </BorderPane>
                                           <BorderPane maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="200.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0 6px  0 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
                                              <left>
-                                                <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Status" BorderPane.alignment="CENTER">
+                                                <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Status" BorderPane.alignment="CENTER">
                                                    <font>
                                                       <Font name="Aptos" size="14.0" />
                                                    </font>

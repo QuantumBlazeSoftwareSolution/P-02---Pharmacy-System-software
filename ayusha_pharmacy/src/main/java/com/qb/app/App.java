@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.StageStyle;
@@ -21,6 +22,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         primaryStage = stage;
+        primaryStage.getIcons().add(new Image(getClass().getResource("/com/qb/app/assets/images/logo.png").toExternalForm()));
         scene = new Scene(loadFXML("sytemLogin"));
         scene.setFill(Color.TRANSPARENT);
         stage.initStyle(StageStyle.TRANSPARENT);
@@ -51,11 +53,14 @@ public class App extends Application {
             scene.getStylesheets().add(App.class.getResource("/com/qb/app/css/annualSaleChartDesign.css").toExternalForm());
             scene.getStylesheets().add(App.class.getResource("/com/qb/app/css/adminStyle.css").toExternalForm());
         }
-        
+
         scene.setRoot(root);
-        
+
         if (fxml.equals("adminVerification")) {
-            // Special handling for verification window
+            primaryStage.setMaximized(false);
+            primaryStage.sizeToScene();
+            centerStageOnScreen();
+        } else if (fxml.equals("sytemLogin")) {
             primaryStage.setMaximized(false);
             primaryStage.sizeToScene();
             centerStageOnScreen();
@@ -66,7 +71,6 @@ public class App extends Application {
         }
 
 //        primaryStage.setMaximized(true);
-
 //        primaryStage.sizeToScene();
 //        primaryStage.setFullScreen(true);
 //        primaryStage.setFullScreenExitHint("");

@@ -62,7 +62,7 @@
 }
 
 .combo-box-popup .list-cell:hover {
-    -fx-text-fill: #006159;
+    -fx-text-fill: #00899B;
     -fx-background-color: #BDE1D3; /* Light gray on hover */
 }
 
@@ -81,7 +81,7 @@
 }
 
 .combo-box .list-cell {
-    -fx-text-fill: #BDE1D3;
+    -fx-text-fill: #00899B;
     -fx-background-color: transparent;
 }
 

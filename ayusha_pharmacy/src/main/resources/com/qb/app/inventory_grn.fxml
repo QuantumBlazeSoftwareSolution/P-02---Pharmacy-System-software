@@ -41,7 +41,7 @@
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font></Label>
-                              <ComboBox fx:id="cbCompany" prefHeight="40.0" prefWidth="230.0" stylesheets="@css/adminStyle.css">
+                              <ComboBox fx:id="cbCompany" prefHeight="40.0" prefWidth="230.0" promptText="Ex: ABC Company" styleClass="primary-text" stylesheets="@css/adminStyle.css">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
@@ -54,7 +54,7 @@
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font></Label>
-                              <ComboBox fx:id="cbSupplier" prefHeight="40.0" prefWidth="230.0" stylesheets="@css/adminStyle.css">
+                              <ComboBox fx:id="cbSupplier" prefHeight="40.0" prefWidth="230.0" promptText="Ex: John Doe" styleClass="primary-text" stylesheets="@css/adminStyle.css">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
@@ -71,7 +71,7 @@
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font></Label>
-                              <TextField fx:id="tfGRNID" prefHeight="40.0" prefWidth="200.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                              <TextField fx:id="tfGRNID" prefHeight="40.0" prefWidth="200.0" promptText="Ex: 12457823" styleClass="primary-text" stylesheets="@css/adminStyle.css">
                                  <VBox.margin>
                                     <Insets top="6.0" />
                                  </VBox.margin>
@@ -112,7 +112,7 @@
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font></Label>
-                              <TextField fx:id="tfProductID" onKeyPressed="#handlePopUpProductView" prefHeight="40.0" prefWidth="100.0" styleClass="primary-white" stylesheets="@css/adminStyle.css" VBox.vgrow="ALWAYS">
+                              <TextField fx:id="tfProductID" onKeyPressed="#handlePopUpProductView" prefHeight="40.0" prefWidth="100.0" styleClass="primary-text" stylesheets="@css/adminStyle.css" VBox.vgrow="ALWAYS">
                                  <font>
                                     <Font name="Aptos" size="12.0" />
                                  </font>
@@ -128,7 +128,7 @@
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font></Label>
-                              <TextField fx:id="tfProductName" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="200.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                              <TextField fx:id="tfProductName" editable="false" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="200.0" styleClass="primary-text" stylesheets="@css/adminStyle.css">
                                  <font>
                                     <Font name="Aptos" size="12.0" />
                                  </font>
@@ -145,7 +145,7 @@
                                     <Font name="Aptos" size="14.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="tfGenericName" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="200.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                              <TextField fx:id="tfGenericName" editable="false" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="200.0" styleClass="primary-text" stylesheets="@css/adminStyle.css">
                                  <font>
                                     <Font name="Aptos" size="12.0" />
                                  </font>
@@ -161,7 +161,7 @@
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font></Label>
-                              <TextField fx:id="tfCostPrice" prefHeight="40.0" prefWidth="120.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                              <TextField fx:id="tfCostPrice" disable="true" onKeyPressed="#costPriceListener" prefHeight="40.0" prefWidth="120.0" styleClass="primary-text" stylesheets="@css/adminStyle.css">
                                  <font>
                                     <Font name="Aptos" size="12.0" />
                                  </font>
@@ -177,7 +177,7 @@
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font></Label>
-                              <TextField fx:id="tfQty" onKeyPressed="#qtyListener" prefHeight="40.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                              <TextField fx:id="tfQty" disable="true" onKeyPressed="#qtyListener" prefHeight="40.0" styleClass="primary-text" stylesheets="@css/adminStyle.css">
                                  <font>
                                     <Font name="Aptos" size="12.0" />
                                  </font>
@@ -193,7 +193,7 @@
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font></Label>
-                              <TextField fx:id="tfAmount" prefHeight="40.0" prefWidth="200.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                              <TextField fx:id="tfAmount" editable="false" prefHeight="40.0" prefWidth="200.0" styleClass="primary-text" stylesheets="@css/adminStyle.css">
                                  <font>
                                     <Font name="Aptos" size="12.0" />
                                  </font>
@@ -227,7 +227,7 @@
                                     <Font name="Aptos" size="14.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="tfTotal" prefHeight="40.0" prefWidth="200.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                              <TextField fx:id="tfTotal" editable="false" prefHeight="40.0" prefWidth="200.0" styleClass="primary-text" stylesheets="@css/adminStyle.css">
                                  <font>
                                     <Font name="Aptos" size="12.0" />
                                  </font>
@@ -269,7 +269,7 @@
                                  <children>
                                     <BorderPane maxWidth="120.0" minWidth="-Infinity" prefWidth="100.0" style="-fx-border-radius: 6px 0 0 0; -fx-border-width: 0 0.5 0 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="ID" BorderPane.alignment="CENTER">
+                                          <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="ID" BorderPane.alignment="CENTER">
                                              <font>
                                                 <Font name="Aptos" size="14.0" />
                                              </font>
@@ -278,7 +278,7 @@
                                     </BorderPane>
                                     <BorderPane minWidth="-Infinity" prefWidth="200.0" style="-fx-border-width: 0 0.5 0 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Product" BorderPane.alignment="CENTER">
+                                          <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Product" BorderPane.alignment="CENTER">
                                              <font>
                                                 <Font name="Aptos" size="14.0" />
                                              </font>
@@ -287,7 +287,7 @@
                                     </BorderPane>
                                     <BorderPane maxWidth="220.0" minWidth="-Infinity" prefWidth="120.0" style="-fx-border-width: 0 0.5 0 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Cost Price" BorderPane.alignment="CENTER">
+                                          <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Cost Price" BorderPane.alignment="CENTER">
                                              <font>
                                                 <Font name="Aptos" size="14.0" />
                                              </font>
@@ -296,7 +296,7 @@
                                     </BorderPane>
                                     <BorderPane maxWidth="180.0" minWidth="-Infinity" prefWidth="100.0" style="-fx-border-width: 0 0.5 0 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Qty" BorderPane.alignment="CENTER">
+                                          <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Qty" BorderPane.alignment="CENTER">
                                              <font>
                                                 <Font name="Aptos" size="14.0" />
                                              </font>
@@ -305,7 +305,7 @@
                                     </BorderPane>
                                     <BorderPane maxWidth="350.0" prefWidth="200.0" style="-fx-border-width: 0 0 0 0; -fx-border-radius: 0 6px  0 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
                                        <center>
-                                          <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Amount" BorderPane.alignment="CENTER">
+                                          <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Amount" BorderPane.alignment="CENTER">
                                              <font>
                                                 <Font name="Aptos" size="14.0" />
                                              </font>

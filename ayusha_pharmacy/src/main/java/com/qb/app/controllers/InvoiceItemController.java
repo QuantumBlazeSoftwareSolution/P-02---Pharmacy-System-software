@@ -100,9 +100,9 @@ public class InvoiceItemController implements Initializable {
         setProductPrice(product.getSalePrice());
         this.itemCode.setText(String.valueOf(product.getId()));
         this.itemName.setText(product.getProduct());
-        this.itemPrice.setText(String.format("Rs. %, .2f", product.getSalePrice()));
+        this.itemPrice.setText(String.format("Rs. %, .2f", product.getSalePrice()-product.getDiscount()));
         this.qty.setText(String.valueOf(quantity));
-        this.itemAmount.setText(String.format("Rs. %, .2f", (product.getSalePrice() * quantity) - (product.getSalePrice() * product.getDiscount())));
+        this.itemAmount.setText(String.format("Rs. %, .2f", (product.getSalePrice() * quantity) - (quantity * product.getDiscount())));
         calculateItemAmount();
         setItemImage(itemImage);
     }
@@ -121,7 +121,7 @@ public class InvoiceItemController implements Initializable {
     private void calculateItemAmount() {
         try {
             // Parse the item price and quantity from the labels
-            double price = product.getSalePrice();
+            double price = product.getSalePrice()-product.getDiscount();
             double quantity = Double.parseDouble(qty.getText());
 
             // Calculate the total amount

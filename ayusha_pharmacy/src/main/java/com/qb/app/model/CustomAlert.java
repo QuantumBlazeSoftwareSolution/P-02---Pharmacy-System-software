@@ -2,6 +2,7 @@ package com.qb.app.model;
 
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -18,6 +19,7 @@ public class CustomAlert {
         if (owner != null) {
             Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
             stage.initOwner(owner);
+            stage.getIcons().add(new Image(CustomAlert.class.getResource("/com/qb/app/assets/images/logo.png").toExternalForm()));
         }
 
         alert.show();
@@ -34,6 +36,7 @@ public class CustomAlert {
         if (owner != null) {
             Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
             stage.initOwner(owner);
+            stage.getIcons().add(new Image(CustomAlert.class.getResource("/com/qb/app/assets/images/logo.png").toExternalForm()));
         }
 
         alert.show();

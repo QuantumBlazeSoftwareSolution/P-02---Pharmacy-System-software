@@ -9,6 +9,18 @@
 .black-gradient{
     -fx-background-color: linear-gradient(to bottom, #434343, #000000);
 }
+/*
+.strike-label-true {
+    -fx-strikethrough: true;
+    -fx-stroke: red;
+    -fx-stroke-width: 1.5;
+}
+
+.strike-label-false {
+    -fx-strikethrough: true;
+    -fx-stroke: #00796F;
+    -fx-stroke-width: 1.5;
+}*/
 
 .green-gradient{
     -fx-text-fill: linear-gradient(to bottom, #237A57, #093028);
@@ -16,6 +28,25 @@
 
 .primary-gradient-50{
     -fx-background-color: linear-gradient(to top, hsba(175, 100%, 47%, 0.5), hsba(175, 100%, 58%, 0.5));
+}
+
+.combo-box{
+    -fx-border-color: #00796F;
+    -fx-border-width: 0.5px;
+    -fx-border-style: solid;
+    -fx-border-radius: 4px;
+    -fx-text-fill: #00796F;
+    -fx-background-color: transparent;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: #00796F;
+    -fx-background-color: transparent;
+}
+
+.combo-box-popup .list-cell:hover {
+    -fx-text-fill: #00796F;
+    -fx-background-color: #BDE1D3; /* Light gray on hover */
 }
 
 .buttonHover{

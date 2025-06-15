@@ -9,7 +9,7 @@
    <children>
       <BorderPane maxWidth="120.0" minWidth="-Infinity" prefWidth="100.0" style="-fx-border-width: 0 0.5 0.5 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
          <center>
-            <Label fx:id="labelID" styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="ID" BorderPane.alignment="CENTER">
+            <Label fx:id="labelID" styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="ID" BorderPane.alignment="CENTER">
                <font>
                   <Font name="Aptos" size="14.0" />
                </font>
@@ -18,7 +18,7 @@
       </BorderPane>
       <BorderPane minWidth="-Infinity" prefWidth="200.0" style="-fx-border-width: 0 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
          <center>
-            <Label fx:id="labelProduct" styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Product" BorderPane.alignment="CENTER">
+            <Label fx:id="labelProduct" styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="Product" BorderPane.alignment="CENTER">
                <font>
                   <Font name="Aptos" size="14.0" />
                </font>
@@ -27,7 +27,7 @@
       </BorderPane>
       <BorderPane maxWidth="220.0" minWidth="-Infinity" prefWidth="120.0" style="-fx-border-width: 0 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
          <center>
-            <Label fx:id="labelCost" styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Cost Price" BorderPane.alignment="CENTER">
+            <Label fx:id="labelCost" styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="Cost Price" BorderPane.alignment="CENTER">
                <font>
                   <Font name="Aptos" size="14.0" />
                </font>
@@ -36,7 +36,7 @@
       </BorderPane>
       <BorderPane maxWidth="180.0" minWidth="-Infinity" prefWidth="100.0" style="-fx-border-width: 0 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
          <center>
-            <Label fx:id="labelQty" styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Qty" BorderPane.alignment="CENTER">
+            <Label fx:id="labelQty" styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="Qty" BorderPane.alignment="CENTER">
                <font>
                   <Font name="Aptos" size="14.0" />
                </font>
@@ -45,7 +45,7 @@
       </BorderPane>
       <BorderPane maxWidth="350.0" prefWidth="200.0" style="-fx-border-width: 0 0 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
          <center>
-            <Label fx:id="labelAmount" styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Amount" BorderPane.alignment="CENTER">
+            <Label fx:id="labelAmount" styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="Amount" BorderPane.alignment="CENTER">
                <font>
                   <Font name="Aptos" size="14.0" />
                </font>

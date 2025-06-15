@@ -17,16 +17,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" styleClass="primary-gradient" stylesheets="@../css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.report.ReportGRNController">
+<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" styleClass="primary-10" stylesheets="@../css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.report.ReportGRNController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <HBox alignment="CENTER_LEFT" spacing="10.0" BorderPane.alignment="CENTER">
                <children>
                   <Group fx:id="iconPage" />
-                  <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="GRN Report">
+                  <Label styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="GRN Report">
                      <font>
-                        <Font name="System Bold" size="16.0" />
+                        <Font size="16.0" />
                      </font>
                   </Label>
                </children>
@@ -55,7 +55,7 @@
                                                             <Font size="14.0" />
                                                          </font>
                                                       </Label>
-                                                      <ComboBox fx:id="cbBrand" maxWidth="1.7976931348623157E308" prefHeight="45.0" prefWidth="230.0" promptText="Ex: Munchee - Heshan" stylesheets="@../css/adminStyle.css" />
+                                                      <ComboBox fx:id="cbSupplier" maxWidth="1.7976931348623157E308" prefHeight="45.0" prefWidth="230.0" promptText="Ex: Munchee - Heshan" stylesheets="@../css/adminStyle.css" />
                                                    </children>
                                                 </VBox>
                                                 <VBox prefWidth="160.0">
@@ -65,7 +65,7 @@
                                                             <Font size="14.0" />
                                                          </font>
                                                       </Label>
-                                                      <TextField fx:id="tfItemName2" prefHeight="45.0" styleClass="text-field" stylesheets="@../css/adminStyle.css">
+                                                      <TextField fx:id="TFGrnId" prefHeight="45.0" stylesheets="@../css/adminStyle.css">
                                                          <font>
                                                             <Font size="14.0" />
                                                          </font>
@@ -79,10 +79,11 @@
                                                             <Font size="14.0" />
                                                          </font>
                                                       </Label>
-                                                      <ComboBox fx:id="cbBrand1" maxWidth="1.7976931348623157E308" prefHeight="45.0" prefWidth="230.0" promptText="Ex: Qty" stylesheets="@../css/adminStyle.css" />
+                                                      <ComboBox fx:id="cbFilterBy" maxWidth="1.7976931348623157E308" prefHeight="45.0" prefWidth="230.0" promptText="Ex: Qty" stylesheets="@../css/adminStyle.css" />
                                                    </children>
                                                 </VBox>
-                                                <Button fx:id="btnRegister1" maxWidth="200.0" minHeight="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" stylesheets="@../css/adminStyle.css" text="Load Report">
+                                                <Region HBox.hgrow="ALWAYS" />
+                                                <Button fx:id="btnLoadReport" maxWidth="200.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#loadReportAcion" prefHeight="45.0" prefWidth="200.0" stylesheets="@../css/adminStyle.css" text="Load Report">
                                                    <styleClass>
                                                       <String fx:value="button-primary" />
                                                       <String fx:value="primary-white" />
@@ -110,7 +111,7 @@
                                                          <children>
                                                             <BorderPane maxWidth="100.0" minWidth="80.0" prefWidth="80.0" style="-fx-border-radius: 6px 0 0 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
                                                                <center>
-                                                                  <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="ID" BorderPane.alignment="CENTER">
+                                                                  <Label styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="ID" BorderPane.alignment="CENTER">
                                                                      <font>
                                                                         <Font size="14.0" />
                                                                      </font>
@@ -119,7 +120,7 @@
                                                             </BorderPane>
                                                             <BorderPane minWidth="-Infinity" prefWidth="120.0" style="-fx-border-radius: 0px; -fx-border-width: 0.5px 0.5px 0.5px 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
                                                                <center>
-                                                                  <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Product Name" BorderPane.alignment="CENTER">
+                                                                  <Label styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="Product Name" BorderPane.alignment="CENTER">
                                                                      <font>
                                                                         <Font size="14.0" />
                                                                      </font>
@@ -128,7 +129,7 @@
                                                             </BorderPane>
                                                             <BorderPane maxWidth="250.0" prefWidth="200.0" style="-fx-border-radius: 0px; -fx-border-width: 0.5px 0.5px 0.5px 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
                                                                <center>
-                                                                  <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Cost Price" BorderPane.alignment="CENTER">
+                                                                  <Label styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="Cost Price" BorderPane.alignment="CENTER">
                                                                      <font>
                                                                         <Font size="14.0" />
                                                                      </font>
@@ -137,7 +138,7 @@
                                                             </BorderPane>
                                                             <BorderPane maxWidth="100.0" minWidth="-Infinity" prefWidth="80.0" style="-fx-border-radius: 0px; -fx-border-width: 0.5px 0.5px 0.5px 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
                                                                <center>
-                                                                  <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Qty" BorderPane.alignment="CENTER">
+                                                                  <Label styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="Qty" BorderPane.alignment="CENTER">
                                                                      <font>
                                                                         <Font size="14.0" />
                                                                      </font>
@@ -146,7 +147,7 @@
                                                             </BorderPane>
                                                             <BorderPane maxWidth="250.0" minWidth="120.0" prefWidth="200.0" style="-fx-border-radius: 0 6px 0 0; -fx-border-width: 0.5px 0.5px 0.5px 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
                                                                <center>
-                                                                  <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Amount" BorderPane.alignment="CENTER">
+                                                                  <Label styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="Amount" BorderPane.alignment="CENTER">
                                                                      <font>
                                                                         <Font size="14.0" />
                                                                      </font>
@@ -159,7 +160,7 @@
                                                 </ScrollPane>
                                                 <ScrollPane fx:id="tableScrollContainer" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" stylesheets="@../css/adminStyle.css" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
                                                    <content>
-                                                      <VBox fx:id="tableBody" prefWidth="100.0" style="-fx-border-radius: 0 0 6px 6px; -fx-border-width: 0 0.5 0.5 0.5;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" />
+                                                      <VBox fx:id="tableBody" prefWidth="100.0" style="-fx-border-radius: 0 0 6px 6px; -fx-border-width: 0 0.5 0.5 0;" stylesheets="@../css/adminStyle.css" />
                                                    </content>
                                                 </ScrollPane>
                                              </children>
@@ -173,22 +174,36 @@
                                     </HBox>
                                     <HBox alignment="BOTTOM_LEFT" spacing="10.0">
                                        <children>
-                                          <VBox prefWidth="200.0">
+                                          <VBox prefWidth="160.0">
                                              <children>
-                                                <Label styleClass="text-field-label" stylesheets="@../css/adminStyle.css" text="Total Sale">
+                                                <Label styleClass="text-field-label" stylesheets="@../css/adminStyle.css" text="Total Amount">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField fx:id="tfItemName" prefHeight="45.0" styleClass="text-field" stylesheets="@../css/adminStyle.css">
+                                                <TextField fx:id="tfItemName" prefHeight="45.0" styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="Rs. 50000000.0">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
                                                 </TextField>
                                              </children>
                                           </VBox>
-                                          <Region HBox.hgrow="ALWAYS" />
-                                          <Button fx:id="btnClear11" minHeight="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" stylesheets="@../css/adminStyle.css" text="Refresh (F5)">
+                                          <VBox layoutX="10.0" layoutY="10.0" prefWidth="160.0">
+                                             <children>
+                                                <Label styleClass="text-field-label" stylesheets="@../css/adminStyle.css" text="Discount">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <TextField fx:id="tfItemName1" prefHeight="45.0" styleClass="primary-text" stylesheets="@../css/adminStyle.css">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </TextField>
+                                             </children>
+                                          </VBox>
+                                          <Region minWidth="40.0" HBox.hgrow="ALWAYS" />
+                                          <Button fx:id="btnRefresh" minHeight="-Infinity" mnemonicParsing="false" onAction="#refresh" prefHeight="45.0" prefWidth="200.0" stylesheets="@../css/adminStyle.css" text="Refresh (F5)">
                                              <styleClass>
                                                 <String fx:value="button-primary-outline" />
                                                 <String fx:value="primary-white" />
@@ -198,7 +213,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                           </Button>
-                                          <Button fx:id="btnRegister11" maxWidth="200.0" minHeight="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" stylesheets="@../css/adminStyle.css" text="View Report">
+                                          <Button fx:id="btnVieweReport" maxWidth="200.0" minHeight="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" stylesheets="@../css/adminStyle.css" text="View Report">
                                              <styleClass>
                                                 <String fx:value="button-primary" />
                                                 <String fx:value="primary-white" />

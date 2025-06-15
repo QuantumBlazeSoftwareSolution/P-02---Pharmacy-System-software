@@ -109,6 +109,8 @@ public class ReportGRNController implements Initializable {
     private void loadGRN(){
         if(isEntriesValid()){
             loadDataToTable();
+        }else{
+            
         }
         
     }
@@ -208,10 +210,11 @@ for (GrnItem item : resultList) {
 
     private void refreshInterface() {
         cbSupplier.setValue(null);
-        cbSupplier.setPromptText("Select Supplier");
-        cbFilterBy.setPromptText("Ex: Qty");
+        cbSupplier.setPromptText("Ex: Munchee - Heshan");
         cbFilterBy.setValue(null);
+        cbFilterBy.setPromptText("Ex: Qty");
         TFGrnId.setText("");
+        tfTotalAmount.setText("");
           tableBody.getChildren().clear();
 
     }

@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -45,36 +46,34 @@
                                  </font></Label>
                            </children>
                         </HBox>
-                        <HBox spacing="10.0">
+                        <VBox prefWidth="100.0" spacing="6.0">
                            <children>
-                              <VBox prefWidth="100.0" spacing="6.0" HBox.hgrow="ALWAYS">
-                                 <children>
-                                    <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Name">
-                                       <font>
-                                          <Font name="Aptos" size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <TextField fx:id="supplierName" prefHeight="40.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
-                                       <font>
-                                          <Font name="Aptos" size="14.0" />
-                                       </font></TextField>
-                                 </children>
-                              </VBox>
-                              <VBox layoutX="10.0" layoutY="10.0" prefWidth="100.0" spacing="6.0" HBox.hgrow="ALWAYS">
-                                 <children>
-                                    <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Telephone">
-                                       <font>
-                                          <Font name="Aptos" size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <TextField fx:id="supplierTelephone" prefHeight="40.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
-                                       <font>
-                                          <Font name="Aptos" size="14.0" />
-                                       </font></TextField>
-                                 </children>
-                              </VBox>
+                              <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Name">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="supplierName" prefHeight="40.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </TextField>
                            </children>
-                        </HBox>
+                        </VBox>
+                        <VBox prefWidth="100.0" spacing="6.0">
+                           <children>
+                              <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Telephone">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="supplierTelephone" prefHeight="40.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </TextField>
+                           </children>
+                        </VBox>
                         <HBox spacing="10.0">
                            <children>
                               <VBox prefWidth="100.0" spacing="6.0" HBox.hgrow="ALWAYS">
@@ -129,6 +128,7 @@
                         </HBox>
                      </children>
                   </VBox>
+                  <Separator orientation="VERTICAL" prefHeight="200.0" />
                   <VBox layoutX="30.0" layoutY="30.0" spacing="10.0" HBox.hgrow="ALWAYS">
                      <children>
                         <HBox prefWidth="200.0">
@@ -139,37 +139,57 @@
                                  </font></Label>
                            </children>
                         </HBox>
-                        <HBox spacing="10.0">
+                        <VBox spacing="2.0">
                            <children>
-                              <VBox prefWidth="100.0" spacing="6.0">
+                              <HBox spacing="10.0">
                                  <children>
-                                    <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Id">
-                                       <font>
-                                          <Font name="Aptos" size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <TextField fx:id="supplierId" onKeyPressed="#handlePopUpSupplierView" prefHeight="40.0" prefWidth="200.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
-                                       <font>
-                                          <Font name="Aptos" size="14.0" />
-                                       </font></TextField>
+                                    <VBox prefWidth="100.0" spacing="6.0">
+                                       <children>
+                                          <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Id">
+                                             <font>
+                                                <Font name="Aptos" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="supplierId" onKeyPressed="#handlePopUpSupplierView" prefHeight="40.0" prefWidth="200.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                                             <font>
+                                                <Font name="Aptos" size="14.0" />
+                                             </font>
+                                          </TextField>
+                                       </children>
+                                    </VBox>
                                  </children>
-                              </VBox>
-                              <VBox layoutX="10.0" layoutY="10.0" prefWidth="100.0" spacing="6.0" HBox.hgrow="ALWAYS">
-                                 <children>
-                                    <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Name">
-                                       <font>
-                                          <Font name="Aptos" size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <TextField fx:id="updateSpName" prefHeight="40.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
-                                       <font>
-                                          <Font name="Aptos" size="14.0" />
-                                       </font></TextField>
-                                 </children>
-                              </VBox>
+                              </HBox>
+                              <Label styleClass="admin-primary-blue" stylesheets="@css/adminStyle.css" text="Enter - View Supplier List" />
                            </children>
-                        </HBox>
-                        <Label styleClass="admin-primary-blue" stylesheets="@css/adminStyle.css" text="Enter - View Supplier List" />
+                        </VBox>
+                        <VBox prefWidth="100.0" spacing="6.0">
+                           <children>
+                              <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Name">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="updateSpName" prefHeight="40.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </TextField>
+                           </children>
+                        </VBox>
+                        <VBox prefWidth="100.0" spacing="6.0">
+                           <children>
+                              <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Telephone">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="updateSpName1" prefHeight="40.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </TextField>
+                           </children>
+                        </VBox>
                         <HBox spacing="10.0">
                            <children>
                               <VBox prefWidth="100.0" spacing="6.0" HBox.hgrow="ALWAYS">

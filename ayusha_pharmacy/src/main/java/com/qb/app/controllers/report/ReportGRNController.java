@@ -37,6 +37,7 @@ import java.util.ResourceBundle;
 import java.util.Vector;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -48,6 +49,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -111,6 +115,7 @@ public class ReportGRNController implements Initializable {
         iconPage.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/page-icon.svg"));
         LoadComboBox();
         LoadFilterComboBox();
+        setEventListner();
 
     }
 
@@ -144,7 +149,7 @@ public class ReportGRNController implements Initializable {
     }
 
     private void loadDataToTable() {
-        grnItemList.clear(); 
+        grnItemList.clear();
 
         JPATransaction.runInTransaction((em) -> {
             CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -197,11 +202,9 @@ public class ReportGRNController implements Initializable {
                     grnDateTimeString = grn.getDateTime().toInstant()
                             .atZone(ZoneId.systemDefault())
                             .format(formatter);
-                    
-                    discount =grn.getDiscount();
-                    
-                    tfDiscount.setText( String.format("Rs. %,.2f", discount));
-                   
+
+                    discount = grn.getDiscount();
+                    tfDiscount.setText(String.format("Rs. %,.2f", discount));
                 }
                 System.out.println("GRN DateTime: " + grnDateTimeString);
                 double amountd = item.getQty() * item.getCostPrice();
@@ -219,10 +222,7 @@ public class ReportGRNController implements Initializable {
                     e.printStackTrace();
                 }
             }
-
-            tfTotalAmount.setText( String.format("Rs. %,.2f", totalAmount));
-
-
+            tfTotalAmount.setText(String.format("Rs. %,.2f", totalAmount));
         });
 
     }
@@ -240,8 +240,8 @@ public class ReportGRNController implements Initializable {
         }
         return true;
     }
-    
-     private boolean isGrnIdAvailable() {
+
+    private boolean isGrnIdAvailable() {
         return JPATransaction.runInTransaction((em) -> {
             String grnID = TFGrnId.getText();
             Supplier selectedSupplier = cbSupplier.getValue();
@@ -275,14 +275,14 @@ public class ReportGRNController implements Initializable {
         cbSupplier.setValue(null);
         cbSupplier.setPromptText("Ex: Munchee - Heshan");
         cbFilterBy.setValue(null);
-        cbFilterBy.setPromptText("Ex: Qty");
+        cbFilterBy.setPromptText("Select Filter");
         TFGrnId.setText("");
         tfTotalAmount.setText("");
         tfDiscount.setText("");
         tableBody.getChildren().clear();
 
     }
-    
+
     private void printGrnReport() {
         Map<String, Object> params = getJRParams();
         Vector<GrnItemBean> collection = getBeanCollection();
@@ -340,7 +340,7 @@ public class ReportGRNController implements Initializable {
         for (ReportGrn_TableRowController item : grnItemList) {
             total += item.getProductAmount();
         }
-        double finalTotal =total-discount;
+        double finalTotal = total - discount;
         params.put("SubTotal", String.format("Rs. %,.2f", total));
         params.put("Discount", String.format("Rs. %,.2f", discount));
         params.put("Total", String.format("Rs. %,.2f", finalTotal));
@@ -349,13 +349,21 @@ public class ReportGRNController implements Initializable {
 
     @FXML
     private void viewReport(ActionEvent event) {
-            if (event.getSource() == btnVieweReport) {
+        if (event.getSource() == btnVieweReport) {
             printGrnReport();
         }
-        
-    }
 
- 
-      
+    }
+    
+    private void setEventListner() {
+        root.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (null != event.getCode()) {
+                if (event.getCode() == KeyCode.F5) {
+                    refreshInterface();
+                }
+            }
+        });
+
+    }
 
 }

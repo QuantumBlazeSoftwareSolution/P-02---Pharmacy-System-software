@@ -55,7 +55,7 @@
                                                             <Font size="14.0" />
                                                          </font>
                                                       </Label>
-                                                      <ComboBox fx:id="cbSupplier" maxWidth="1.7976931348623157E308" prefHeight="45.0" prefWidth="230.0" promptText="Ex: Munchee - Heshan" stylesheets="@../css/adminStyle.css" />
+                                                      <ComboBox fx:id="cbSupplier" maxWidth="1.7976931348623157E308" prefHeight="45.0" prefWidth="230.0" stylesheets="@../css/adminStyle.css" />
                                                    </children>
                                                 </VBox>
                                                 <VBox prefWidth="160.0">
@@ -79,7 +79,7 @@
                                                             <Font size="14.0" />
                                                          </font>
                                                       </Label>
-                                                      <ComboBox fx:id="cbFilterBy" maxWidth="1.7976931348623157E308" prefHeight="45.0" prefWidth="230.0" promptText="Ex: Qty" stylesheets="@../css/adminStyle.css" />
+                                                      <ComboBox fx:id="cbFilterBy" maxWidth="1.7976931348623157E308" prefHeight="45.0" prefWidth="230.0" stylesheets="@../css/adminStyle.css" />
                                                    </children>
                                                 </VBox>
                                                 <Region HBox.hgrow="ALWAYS" />
@@ -181,7 +181,7 @@
                                                       <Font size="14.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField fx:id="tfTotalAmount" prefHeight="45.0" styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="Rs. 50000000.0">
+                                                <TextField fx:id="tfTotalAmount" prefHeight="45.0" styleClass="primary-text" stylesheets="@../css/adminStyle.css">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>

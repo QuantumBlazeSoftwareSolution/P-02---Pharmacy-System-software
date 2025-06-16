@@ -106,9 +106,11 @@ public class Inventory_grnController implements Initializable {
 
     private Product loadedProduct;
     private boolean readyItemToAdd;
-    private int itemQty;
+    private double itemQty;
     private Grn savedGrn;
     List<InventoryGRN_TableRowController> grnItemList = new ArrayList<>();
+    @FXML
+    private TextField tfDiscount;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -119,7 +121,6 @@ public class Inventory_grnController implements Initializable {
         tfQty.setTextFormatter(DefaultAPI.createNumericTextFormatter());
         tfCostPrice.setTextFormatter(DefaultAPI.createNumericTextFormatter());
         loadComboBox();
-
     }
 
     private void loadComboBox() {
@@ -135,7 +136,6 @@ public class Inventory_grnController implements Initializable {
     }
 
     private void makeGrn() {
-
         if (isEntriesValid()) {
             if (isGrnIdAvailable()) {
                 if (grnItemList.isEmpty() || grnItemList.size() == 0 || grnItemList == null) {
@@ -197,10 +197,15 @@ public class Inventory_grnController implements Initializable {
     private void createGrn() {
 
         JPATransaction.runInTransaction((em) -> {
+            double discount = 0;
+            if (!tfDiscount.getText().isEmpty()) {
+                discount = Double.parseDouble(tfDiscount.getText());
+            }
             Grn grn = new Grn();
             grn.setGrnCode(tfGRNID.getText());
             grn.setDateTime(new Date());
             grn.setSupplierId(cbSupplier.getValue());
+            grn.setDiscount(discount);
             em.persist(grn);
             em.flush();
 
@@ -474,11 +479,17 @@ public class Inventory_grnController implements Initializable {
     private void getGrnTotal(Map<String, Object> params) {
 
         double total = 0;
+        double discount = 0;
+
+        if (!tfDiscount.getText().isEmpty()) {
+            discount = Double.parseDouble(tfDiscount.getText());
+        }
+
         for (InventoryGRN_TableRowController item : grnItemList) {
             total += item.getItemAmount();
         }
         params.put("SubTotal", String.format("Rs. %,.2f", total));
-        params.put("Discount", "Rs. 0.00");
+        params.put("Discount", String.format("Rs. %,.2f", discount));
         params.put("Total", String.format("Rs. %,.2f", total));
         params.put("TotalQty", String.valueOf(grnItemList.size()));
     }
@@ -488,6 +499,10 @@ public class Inventory_grnController implements Initializable {
         for (InventoryGRN_TableRowController item : grnItemList) {
             total += item.getItemAmount();
         }
+        if (!tfDiscount.getText().isEmpty()) {
+            double discount = Double.parseDouble(tfDiscount.getText());
+            total -= discount;
+        }
         tfTotal.setText(String.format("Rs. %,.2f", total));
     }
 
@@ -496,6 +511,13 @@ public class Inventory_grnController implements Initializable {
         if (event.getCode() == KeyCode.ENTER) {
             calculateLoadedItemAmount();
             tfQty.requestFocus();
+        }
+    }
+
+    @FXML
+    private void handleDiscountPressed(KeyEvent event) {
+        if (!tfDiscount.getText().isEmpty()) {
+            calculateTotal();
         }
     }
 

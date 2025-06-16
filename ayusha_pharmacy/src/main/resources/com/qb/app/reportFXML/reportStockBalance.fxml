@@ -220,7 +220,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                           </Button>
-                                          <Button fx:id="ViewReport" maxWidth="200.0" minHeight="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" stylesheets="@../css/adminStyle.css" text="View Report">
+                                          <Button fx:id="ViewReport" maxWidth="200.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#viewReport" prefHeight="45.0" prefWidth="200.0" stylesheets="@../css/adminStyle.css" text="View Report">
                                              <styleClass>
                                                 <String fx:value="button-primary" />
                                                 <String fx:value="primary-white" />

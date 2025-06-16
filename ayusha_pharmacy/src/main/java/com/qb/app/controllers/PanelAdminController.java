@@ -1,5 +1,6 @@
 package com.qb.app.controllers;
 
+import com.qb.app.App;
 import com.qb.app.model.InterfaceAction;
 import com.qb.app.model.SVGIconGroup;
 import com.qb.app.model.getLogger;
@@ -12,7 +13,6 @@ import javafx.animation.ParallelTransition;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -152,8 +152,12 @@ public class PanelAdminController implements Initializable {
             subMenuToggle(subMenuReport);
             setSubMenuState(subMenuReport);
         } else if (event.getSource() == btnExit) {
-            InterfaceAction.closeWindow(root);
-            // App.setRoot("sytemLogin");
+            try {
+                App.setRoot("sytemLogin");
+            } catch (IOException e) {
+                e.printStackTrace();
+                getLogger.logger().warning(e.toString());
+            }
         } else if (event.getSource() == btnDiscount) {
             loadCenterPanel("discount");
         } else if (event.getSource() == btnDashboard) {

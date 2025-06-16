@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollBar?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -251,11 +252,25 @@
                                                 <Font name="Aptos Bold" size="24.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="labelItemPrice" styleClass="primary-text" stylesheets="@css/style.css" text="Rs. 0.00">
-                                             <font>
-                                                <Font name="Aptos" size="14.0" />
-                                             </font>
-                                          </Label>
+                                          <HBox spacing="10.0">
+                                             <children>
+                                                <Label fx:id="labelItemPrice" stylesheets="@css/style.css" text="Rs. 0.00">
+                                                   <font>
+                                                      <Font name="Aptos" size="14.0" />
+                                                   </font>
+                                                   <styleClass>
+                                                      <String fx:value="primary-text" />
+                                                      <String fx:value="strike-label-true" />
+                                                   </styleClass>
+                                                </Label>
+                                                <Separator orientation="VERTICAL" stylesheets="@css/style.css" />
+                                                <Label fx:id="labelItemNewPrice" layoutX="10.0" layoutY="10.0" styleClass="primary-text" stylesheets="@css/style.css" text="Rs. 0.00">
+                                                   <font>
+                                                      <Font name="Aptos" size="14.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </HBox>
                                        </children>
                                     </VBox>
                                     <HBox maxHeight="-Infinity" spacing="6.0" VBox.vgrow="ALWAYS">

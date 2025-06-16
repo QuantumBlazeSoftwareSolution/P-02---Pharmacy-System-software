@@ -11,7 +11,7 @@
    <children>
       <BorderPane minWidth="-Infinity" prefWidth="60.0" style="-fx-border-radius: 0; -fx-border-width: 0 0.5px 0.5px 0.5px;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
          <left>
-            <Label fx:id="itemID" styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="..." wrapText="true" BorderPane.alignment="CENTER">
+            <Label fx:id="itemID" styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="..." wrapText="true" BorderPane.alignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>
@@ -23,7 +23,7 @@
       </BorderPane>
       <BorderPane minWidth="-Infinity" prefWidth="175.0" style="-fx-border-width: 0 0.5px 0.5px0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
          <left>
-            <Label fx:id="itemName" styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="sssssssssssssssssssssssssss" wrapText="true" BorderPane.alignment="CENTER">
+            <Label fx:id="itemName" styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="..." wrapText="true" BorderPane.alignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>
@@ -35,7 +35,7 @@
       </BorderPane>
       <BorderPane minWidth="-Infinity" prefWidth="100.0" style="-fx-border-width: 0 0.5px 0.5px0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
          <left>
-            <Label fx:id="itemBrand" styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="sssssssssssss" wrapText="true" BorderPane.alignment="CENTER">
+            <Label fx:id="itemBrand" styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="..." wrapText="true" BorderPane.alignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>
@@ -47,7 +47,7 @@
       </BorderPane>
       <BorderPane layoutX="310.0" layoutY="10.0" minWidth="-Infinity" prefWidth="100.0" style="-fx-border-width: 0 0.5px 0.5px0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
          <left>
-            <Label fx:id="itemPrice" styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="150000.00" wrapText="true" BorderPane.alignment="CENTER">
+            <Label fx:id="itemPrice" styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="..." wrapText="true" BorderPane.alignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>
@@ -59,7 +59,7 @@
       </BorderPane>
       <BorderPane layoutX="430.0" layoutY="10.0" minWidth="-Infinity" prefWidth="100.0" style="-fx-border-width: 0 0.5px 0.5px0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
          <left>
-            <Label fx:id="itemCost" styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="1500000.00" wrapText="true" BorderPane.alignment="CENTER">
+            <Label fx:id="itemCost" styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="..." wrapText="true" BorderPane.alignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>
@@ -71,7 +71,7 @@
       </BorderPane>
       <BorderPane minWidth="-Infinity" prefWidth="70.0" style="-fx-border-width: 0 0.5px 0.5px0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
          <left>
-            <Label fx:id="itemUnit" styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="500 pices" wrapText="true" BorderPane.alignment="CENTER">
+            <Label fx:id="itemUnit" styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="..." wrapText="true" BorderPane.alignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>
@@ -83,7 +83,7 @@
       </BorderPane>
       <BorderPane layoutX="550.0" layoutY="10.0" minWidth="-Infinity" prefWidth="100.0" style="-fx-border-width: 0 0.5px 0.5px0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
          <left>
-            <Label fx:id="itemMeasure" styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Liters" wrapText="true" BorderPane.alignment="CENTER">
+            <Label fx:id="itemMeasure" styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="..." wrapText="true" BorderPane.alignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>
@@ -95,7 +95,7 @@
       </BorderPane>
       <BorderPane layoutX="430.0" layoutY="10.0" minWidth="-Infinity" prefWidth="60.0" style="-fx-border-width: 0 0.5px 0.5px0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
          <left>
-            <Label fx:id="itemDiscount" styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="20%" wrapText="true" BorderPane.alignment="CENTER">
+            <Label fx:id="itemDiscount" styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="..." wrapText="true" BorderPane.alignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>
@@ -107,7 +107,7 @@
       </BorderPane>
       <BorderPane minWidth="-Infinity" prefWidth="100.0" style="-fx-border-width: 0 0.5px 0.5px0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
          <left>
-            <Label fx:id="itemBarCode" styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="1221212122111111111" wrapText="true" BorderPane.alignment="CENTER">
+            <Label fx:id="itemBarCode" styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="..." wrapText="true" BorderPane.alignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>

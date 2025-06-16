@@ -337,6 +337,9 @@
                                                 </VBox>
                                                 <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                                             </children>
+                                 <padding>
+                                    <Insets right="6.0" />
+                                 </padding>
                                         </VBox>
                                     </content>
                                     <padding>

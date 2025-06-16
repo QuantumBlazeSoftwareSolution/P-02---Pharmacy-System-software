@@ -313,7 +313,7 @@ public class InvoicePaymentController implements Initializable {
             getLogger.logger().warning(e.toString());
         }
         params.put("ItemCount", String.valueOf(invoiceItemList.size()));
-        params.put("CompanyName", CompanyInfo.applicationName);
+        params.put("CompanyName", CompanyInfo.companyName);
         params.put("Cashier", ApplicationSession.getEmployee().getName());
         params.put("SubTotal", String.format("Rs. %, .2f", subTotal));
         params.put("Discount", String.format("Rs. %, .2f", discount));

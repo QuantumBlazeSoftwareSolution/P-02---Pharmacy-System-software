@@ -94,6 +94,8 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
     private boolean isProductLoaded;
     private Product product;
     private int nextInvoiceNumber;
+    @FXML
+    private Label labelItemNewPrice;
 
     public double getUnitPrice() {
         return unitPrice;
@@ -134,6 +136,8 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
             if (!invoiceItemList.isEmpty()) {
                 openPaymentPanel();
             }
+        } else if (event.getSource() == btnProductView) {
+            openProductView();
         }
     }
 
@@ -170,7 +174,11 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                             String imagePath = findProductImage(this.product.getId());
                             itemImage.setImage(new Image(imagePath));
                             labelItemName.setText(product.getProduct());
-                            labelItemPrice.setText(String.format("%, .2f", productPrice));
+                            if (product.getDiscount() > 0) {
+
+                            } else {
+                                labelItemPrice.setText(String.format("%, .2f", productPrice));
+                            }
                             setUnitPrice(productPrice);
                             setItemPrice();
                         });

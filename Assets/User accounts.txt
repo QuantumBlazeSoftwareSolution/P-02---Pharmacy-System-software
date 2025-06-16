@@ -1,0 +1,11 @@
+Admin account
+Name: Milani Wijewardhana
+Username : Ayusha
+Password : 2025
+
+Cashier account
+Name: Milani Wijewardhana
+Username : Minu
+Password : 1993
+
+Authentication PIN: 1991

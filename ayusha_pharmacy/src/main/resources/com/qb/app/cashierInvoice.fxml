@@ -17,6 +17,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane id="AnchorPane" fx:id="root" prefHeight="800.0" prefWidth="992.0" styleClass="bg-primary-5" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.CashierInvoiceController">
    <children>
@@ -254,17 +255,13 @@
                                           </Label>
                                           <HBox spacing="10.0">
                                              <children>
-                                                <Label fx:id="labelItemPrice" stylesheets="@css/style.css" text="Rs. 0.00">
+                                                <Text fx:id="labelItemPrice" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="primary-text" text="Rs. 0.00">
                                                    <font>
                                                       <Font name="Aptos" size="14.0" />
                                                    </font>
-                                                   <styleClass>
-                                                      <String fx:value="primary-text" />
-                                                      <String fx:value="strike-label-true" />
-                                                   </styleClass>
-                                                </Label>
-                                                <Separator orientation="VERTICAL" stylesheets="@css/style.css" />
-                                                <Label fx:id="labelItemNewPrice" layoutX="10.0" layoutY="10.0" styleClass="primary-text" stylesheets="@css/style.css" text="Rs. 0.00">
+                                                </Text>
+                                                <Separator fx:id="salePriceSeparator" orientation="VERTICAL" stylesheets="@css/style.css" />
+                                                <Label fx:id="labelItemNewPrice" layoutX="10.0" layoutY="10.0" styleClass="primary-text" stylesheets="@css/style.css">
                                                    <font>
                                                       <Font name="Aptos" size="14.0" />
                                                    </font>

@@ -28,6 +28,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -35,6 +36,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -62,7 +65,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
     @FXML
     private Label labelItemName;
     @FXML
-    private Label labelItemPrice;
+    private Text labelItemPrice;
     @FXML
     private Button btnDecreaseQty;
     @FXML
@@ -96,6 +99,8 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
     private int nextInvoiceNumber;
     @FXML
     private Label labelItemNewPrice;
+    @FXML
+    private Separator salePriceSeparator;
 
     public double getUnitPrice() {
         return unitPrice;
@@ -122,6 +127,10 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         Platform.runLater(() -> {
             tfItemCode.requestFocus();
         });
+        salePriceSeparator.setVisible(false);
+        salePriceSeparator.setManaged(false);
+        labelItemNewPrice.setText("");
+        labelItemPrice.setFill(Color.web("#00796F"));
     }
 
     @Override
@@ -175,9 +184,19 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                             itemImage.setImage(new Image(imagePath));
                             labelItemName.setText(product.getProduct());
                             if (product.getDiscount() > 0) {
-
+                                labelItemPrice.setStyle("-fx-strikethrough: true;");
+                                labelItemPrice.setFill(Color.RED);
+                                labelItemPrice.setText(String.format("Rs. %, .2f", product.getSalePrice()));
+                                labelItemNewPrice.setText(String.format("Rs. %, .2f", productPrice));
+                                salePriceSeparator.setVisible(true);
+                                salePriceSeparator.setManaged(true);
                             } else {
-                                labelItemPrice.setText(String.format("%, .2f", productPrice));
+                                labelItemPrice.setStyle("-fx-strikethrough: false;");
+                                labelItemPrice.setFill(Color.web("#00796F"));
+                                labelItemPrice.setText(String.format("Rs. %, .2f", product.getSalePrice()));
+                                labelItemNewPrice.setText("");
+                                salePriceSeparator.setVisible(false);
+                                salePriceSeparator.setManaged(false);
                             }
                             setUnitPrice(productPrice);
                             setItemPrice();
@@ -208,29 +227,36 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                     case PLUS, ADD -> {
                         event.consume();
                         increaseQty();
+                        event.consume();
                     }
                     case MINUS, SUBTRACT -> {
                         decreaseQty();
+                        event.consume();
                         event.consume();
                     }
                     case ENTER -> {
                         if (isProductLoaded) {
                             addInvoiceItem();
                             isProductLoaded = false;
+                            event.consume();
                         }
                     }
                     case DIVIDE -> {
                         if (!invoiceItemList.isEmpty()) {
                             openPaymentPanel();
+                            event.consume();
                         }
                     }
                     case F5 -> {
                         clearLoadProduct();
+                        event.consume();
                     }
                     case F1 -> {
                         openProductView();
+                        event.consume();
                     }
                     default -> {
+
                     }
                 }
             }
@@ -341,6 +367,11 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         btnViewQty.setText("0");
         itemImage.setImage(new Image(getClass().getResource("/com/qb/app/assets/images/new_product_image.png").toExternalForm()));
         isProductLoaded = false;
+        labelItemNewPrice.setText("");
+        labelItemPrice.setStyle("-fx-strikethrough: false;");
+        labelItemPrice.setFill(Color.web("#00796F"));
+        salePriceSeparator.setVisible(false);
+        salePriceSeparator.setManaged(false);
     }
 
     public void calculateInvoiceSummary() {

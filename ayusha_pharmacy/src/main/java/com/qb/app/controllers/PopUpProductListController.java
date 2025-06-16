@@ -71,19 +71,13 @@ public class PopUpProductListController implements Initializable {
             Root<Product> product = cQuery.from(Product.class);
             Join<Product, ProductStatus> statusJoin = product.join("productStatusId", JoinType.INNER);
 
-            // Base condition - only enabled products
-            Predicate baseCondition = cBuilder.equal(statusJoin.get("status"), "Enable");
-
-            // Add search condition if search term exists
             if (searchTerm != null && !searchTerm.isEmpty()) {
                 String likePattern = "%" + searchTerm.toLowerCase() + "%";
                 Predicate searchCondition = cBuilder.or(
                         cBuilder.like(cBuilder.lower(product.get("product")), likePattern),
                         cBuilder.like(cBuilder.lower(product.get("barCode")), likePattern)
                 );
-                cQuery.where(cBuilder.and(baseCondition, searchCondition));
-            } else {
-                cQuery.where(baseCondition);
+                cQuery.where(searchCondition);
             }
 
             cQuery.select(product);

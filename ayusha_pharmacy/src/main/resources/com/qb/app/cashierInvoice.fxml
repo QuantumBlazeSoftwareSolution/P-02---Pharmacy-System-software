@@ -255,8 +255,8 @@
                                                       <Font name="Aptos Bold" size="24.0" />
                                                    </font>
                                                 </Label>
-                                                <Separator fx:id="notAvailableSeparator" orientation="VERTICAL" stylesheets="@css/style.css" />
-                                                <Label fx:id="notAvailableLabel" style="-fx-text-fill: red;" stylesheets="@css/style.css" text="( Not available )">
+                                                <Separator fx:id="previewSeparator" orientation="VERTICAL" stylesheets="@css/style.css" />
+                                                <Label fx:id="previewMessage" style="-fx-text-fill: red;" stylesheets="@css/style.css" text="( Not available )">
                                                    <font>
                                                       <Font name="Aptos" size="16.0" />
                                                    </font>

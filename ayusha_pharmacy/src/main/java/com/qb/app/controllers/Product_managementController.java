@@ -169,6 +169,11 @@ public class Product_managementController implements Initializable {
                     String imagePath = findProductImage(product.getId());
                     setItemImage(imagePath);
                     setComboBoxData(product);
+                    if (product.getProductStatusId().getStatus().equals("Enable")) {
+                        toggleStatus.setSelected(true);
+                    } else {
+                        toggleStatus.setSelected(false);
+                    }
                 } else {
                     displayWarningMessage("Product not found.", false);
                 }

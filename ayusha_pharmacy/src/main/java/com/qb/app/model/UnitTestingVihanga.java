@@ -4,6 +4,7 @@ import com.qb.app.App;
 import static com.qb.app.model.JPATransaction.runInTransaction;
 import com.qb.app.model.entity.Brand;
 import com.qb.app.model.entity.Employee;
+import com.qb.app.model.entity.Product;
 import com.qb.app.model.entity.Session;
 import com.qb.app.session.CompanyInfo;
 import jakarta.persistence.EntityManager;
@@ -287,11 +288,29 @@ public class UnitTestingVihanga {
         brand5Products.add(new TestProduct("0008", "Item H", "Item Generic H", "Rs. 800.00", "2", "Rs. 1600.00"));
 
         List<TestBrand> brandList = new ArrayList<>();
-        brandList.add(new TestBrand("Brand 1", brand1Products, "10"));
-        brandList.add(new TestBrand("Brand 2", brand2Products, "10"));
-        brandList.add(new TestBrand("Brand 3", brand3Products, "10"));
-        brandList.add(new TestBrand("Brand 4", brand4Products, "10"));
-        brandList.add(new TestBrand("Brand 5", brand5Products, "10"));
+        brandList.add(new TestBrand("Brand 1", brand1Products, "10", "Rs. 23,000.00", "123"));
+        brandList.add(new TestBrand("Brand 2", brand2Products, "10", "Rs. 23,000.00", "123"));
+        brandList.add(new TestBrand("Brand 3", brand3Products, "10", "Rs. 23,000.00", "123"));
+        brandList.add(new TestBrand("Brand 4", brand4Products, "10", "Rs. 23,000.00", "123"));
+        brandList.add(new TestBrand("Brand 5", brand5Products, "10", "Rs. 23,000.00", "123"));
+
+        // search here... (brand list)
+        List<Brand> brandsList = new ArrayList<>(); // entity brand list
+
+        List<TestBrand> brandListBean = new ArrayList<>(); // report brand bean
+
+        for (Brand brand : brandsList) {
+            // search here... (product list)
+            List<Product> productList = new ArrayList<>(); // entity product list
+
+            List<TestProduct> productListBean = new ArrayList<>(); // report product bean
+
+            for (Product product : productList) {
+                productListBean.add(new TestProduct(String.valueOf(product.getId()), product.getProduct(), product.getGenericName(), String.valueOf(product.getSalePrice()), "Stock Quantity", "Total Amount"));
+            }
+            
+            brandListBean.add(new TestBrand(brand.getBrand(), productListBean, String.valueOf(productListBean.size()), "total amount", "total quantity"));
+        }
 
         Map<String, Object> params = new HashMap<>();
         params.put("companyName", CompanyInfo.companyName);

@@ -6,6 +6,7 @@ import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.JPATransaction;
 import com.qb.app.model.entity.Invoice;
 import com.qb.app.model.entity.Product;
+import com.qb.app.model.entity.Stock;
 import com.qb.app.model.getLogger;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -103,9 +104,9 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
     @FXML
     private Separator salePriceSeparator;
     @FXML
-    private Separator notAvailableSeparator;
+    private Separator previewSeparator;
     @FXML
-    private Label notAvailableLabel;
+    private Label previewMessage;
 
     public double getUnitPrice() {
         return unitPrice;
@@ -136,9 +137,9 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         salePriceSeparator.setManaged(false);
         labelItemNewPrice.setText("");
         labelItemPrice.setFill(Color.web("#00796F"));
-        notAvailableLabel.setText("");
-        notAvailableSeparator.setVisible(false);
-        notAvailableSeparator.setManaged(false);
+        previewMessage.setText("");
+        previewSeparator.setVisible(false);
+        previewSeparator.setManaged(false);
     }
 
     @Override
@@ -207,13 +208,16 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                                 salePriceSeparator.setManaged(false);
                             }
                             if (product.getProductStatusId().getStatus().equals("Enable")) {
-                                notAvailableLabel.setText("");
-                                notAvailableSeparator.setVisible(false);
-                                notAvailableSeparator.setManaged(false);
+                                Stock stock = getProductStock(product);
+                                if (stock.getQty() <= 0) {
+                                    showPreviewMessage("(Low stock amount)");
+                                } else if (stock.getQty() < 20) {
+                                    showPreviewMessage("(Out of stock)");
+                                } else {
+                                    hidePreviewMessage();
+                                }
                             } else {
-                                notAvailableLabel.setText("(Not Available)");
-                                notAvailableSeparator.setVisible(true);
-                                notAvailableSeparator.setManaged(true);
+                                showPreviewMessage("(Not Available)");
                             }
                             setUnitPrice(productPrice);
                             setItemPrice();
@@ -230,6 +234,18 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
             System.err.println("Database error: " + e.getMessage());
             // Optionally show user-friendly error message
         }
+    }
+
+    private void hidePreviewMessage() {
+        previewMessage.setText("");
+        previewSeparator.setVisible(false);
+        previewSeparator.setManaged(false);
+    }
+
+    private void showPreviewMessage(String text) {
+        previewMessage.setText(text);
+        previewSeparator.setVisible(true);
+        previewSeparator.setManaged(true);
     }
 
     private void setItemPrice() {
@@ -553,5 +569,9 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
     public void setParentID(String text) {
         tfItemCode.setText(text);
         tfItemCode.requestFocus();
+    }
+
+    private Stock getProductStock(Product product) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

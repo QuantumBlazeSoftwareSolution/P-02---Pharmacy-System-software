@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
+ */
 package com.qb.app.controllers;
 
 import com.qb.app.model.entity.Company;
@@ -8,6 +12,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 
+/**
+ * FXML Controller class
+ *
+ * @author Vihanga
+ */
 public class PopUp_CompanyList_TableRowController implements Initializable {
 
     @FXML
@@ -16,7 +25,8 @@ public class PopUp_CompanyList_TableRowController implements Initializable {
     private Label companyName;
     @FXML
     private Label companyAddress;
-    private PopUpCompanyListController popUpCompanyListController;
+
+    private PopUpCompanyListController popUpController;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -26,19 +36,19 @@ public class PopUp_CompanyList_TableRowController implements Initializable {
     @FXML
     private void handleClickEvent(MouseEvent event) {
         if (event.getClickCount() == 2) {
-            // send company id to the company controller
-            popUpCompanyListController.closeWindow();
+            popUpController.callingController.setCompanyID(companyID.getText());
+            popUpController.closeWindow();
         }
     }
 
     public void setPopUpController(PopUpCompanyListController controller) {
-        this.popUpCompanyListController = controller;
+        this.popUpController = controller;
     }
 
     public void setItems(Company item) {
-        companyID.setText(item.getId().toString());
+        companyID.setText(String.valueOf(item.getId()));
         companyName.setText(item.getName());
-        companyAddress.setText(item.getAddress() != null ? item.getAddress() : "N/A");
+        companyAddress.setText(item.getAddress());
     }
 
 }

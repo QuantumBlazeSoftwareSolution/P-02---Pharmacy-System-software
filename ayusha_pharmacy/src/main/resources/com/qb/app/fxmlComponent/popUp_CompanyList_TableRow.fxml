@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="50.0" minHeight="50.0" onMouseClicked="#handleClickEvent" prefHeight="50.0" prefWidth="960.0" stylesheets="@../css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.fxmlComponent.PopUp_CompanyList_TableRowController">
+<HBox maxHeight="50.0" minHeight="50.0" onMouseClicked="#handleClickEvent" prefHeight="50.0" prefWidth="960.0" styleClass="hover-white-bg" stylesheets="@../css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.PopUp_CompanyList_TableRowController">
    <children>
       <BorderPane minWidth="-Infinity" prefWidth="100.0" style="-fx-border-radius: 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css">
          <left>

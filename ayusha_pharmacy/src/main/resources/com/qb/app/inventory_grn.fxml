@@ -249,7 +249,7 @@
                                     <Font name="Aptos" size="12.0" />
                                  </font>
                                  <cursor>
-                                    <Cursor fx:constant="HAND" />
+                                    <Cursor fx:constant="DEFAULT" />
                                  </cursor>
                               </TextField>
                            </children>

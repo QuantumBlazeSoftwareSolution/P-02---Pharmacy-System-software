@@ -210,9 +210,9 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                             if (product.getProductStatusId().getStatus().equals("Enable")) {
                                 Stock stock = getProductStock(product);
                                 if (stock.getQty() <= 0) {
-                                    showPreviewMessage("(Low stock amount)");
-                                } else if (stock.getQty() < 20) {
                                     showPreviewMessage("(Out of stock)");
+                                } else if (stock.getQty() < 20) {
+                                    showPreviewMessage("(Low stock amount)");
                                 } else {
                                     hidePreviewMessage();
                                 }
@@ -417,6 +417,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         labelItemPrice.setFill(Color.web("#00796F"));
         salePriceSeparator.setVisible(false);
         salePriceSeparator.setManaged(false);
+        hidePreviewMessage();
         this.product = null;
     }
 

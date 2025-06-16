@@ -22,6 +22,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -40,10 +41,11 @@ public class PopUpCompanyListController implements Initializable {
     private ScrollBar TableScroller;
     @FXML
     private TextField tfSearch;
-    private Supply_company_managementController callingController;
     @FXML
     private AnchorPane root;
 
+    public Supply_company_managementController callingController;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         DefaultAPI.bindTableScroll(TableScroller, TableScrollContainer, TableBody);
@@ -101,7 +103,7 @@ public class PopUpCompanyListController implements Initializable {
             getLogger.logger().warning(e.toString());
         }
     }
-    
+
     @FXML
     private void closePopUp(MouseEvent event) {
         InterfaceAction.closeWindow(root);
@@ -109,6 +111,12 @@ public class PopUpCompanyListController implements Initializable {
 
     public void closeWindow() {
         InterfaceAction.closeWindow(root);
+    }
+
+    @FXML
+    private void handleSearch(KeyEvent event) {
+        String searchTerm = tfSearch.getText().trim();
+        loadCompanies(searchTerm);
     }
 
 }

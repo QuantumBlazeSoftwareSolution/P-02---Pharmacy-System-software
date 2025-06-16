@@ -4,9 +4,11 @@
  */
 package com.qb.app.controllers;
 
+import com.qb.app.model.CustomAlert;
 import com.qb.app.model.JPATransaction;
 import com.qb.app.model.SVGIconGroup;
 import com.qb.app.model.entity.Company;
+import com.qb.app.model.getLogger;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
@@ -18,10 +20,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
@@ -61,6 +65,8 @@ public class Supply_company_managementController implements Initializable {
     private boolean isCompanyLoaded;
     @FXML
     private Button btnUpdateClearCompany;
+    @FXML
+    private AnchorPane root;
 
     /**
      * Initializes the controller class.
@@ -98,12 +104,13 @@ public class Supply_company_managementController implements Initializable {
                         company.setTelephone2(spCompanyMobile_2.getText());
 
                         em.persist(company);
-
+                        System.out.println("Company added Successful");
                         clearAddCompanyFields();
-                        System.out.println("save cpmpany okkkkk....");
+                        CustomAlert.showStyledAlert(root, "Company added Successful", Alert.AlertType.CONFIRMATION);
 
                     } catch (Exception e) {
                         e.printStackTrace();
+                        getLogger.logger().warning(e.toString());
                     }
                 });
 
@@ -113,30 +120,26 @@ public class Supply_company_managementController implements Initializable {
     }
 
     private boolean IsCompanyValid() {
-        if (spCompanyName.getText().isEmpty()) {
-            System.out.println("Company name is required.");
+        String companyName = spCompanyName.getText().trim();
+        if (companyName.isEmpty()) {
+            CustomAlert.showStyledAlert(root, "Company name is required.", Alert.AlertType.WARNING);
             spCompanyName.requestFocus();
             return false;
         }
 
-//        if (spCompanyAddress.getText().isEmpty()) {
-//            System.out.println("Company Address is required.");
-//            spCompanyAddress.requestFocus();
-//            return false;
-//        }
-        String telephone_1 = spCompanyMobile_1.getText();
-        if (telephone_1 != null && !telephone_1.trim().isEmpty()) {
-            if (telephone_1.length() != 10) {
-                System.out.println("Telephone Number 01 must be exactly 10 digits.");
+        String telephone_1 = spCompanyMobile_1.getText().trim();
+        if (!telephone_1.isEmpty()) {
+            if (!telephone_1.matches("\\d{10}")) {
+                CustomAlert.showStyledAlert(root, "Telephone Number 01 must be exactly 10 digits.", Alert.AlertType.WARNING);
                 spCompanyMobile_1.requestFocus();
                 return false;
             }
         }
 
-        String telephone_2 = spCompanyMobile_2.getText();
-        if (telephone_2 != null && !telephone_2.trim().isEmpty()) {
-            if (telephone_2.length() != 10) {
-                System.out.println("Telephone Number 02 must be exactly 10 digits.");
+        String telephone_2 = spCompanyMobile_2.getText().trim();
+        if (!telephone_2.isEmpty()) {
+            if (!telephone_2.matches("\\d{10}")) {
+                CustomAlert.showStyledAlert(root, "Telephone Number 02 must be exactly 10 digits.", Alert.AlertType.WARNING);
                 spCompanyMobile_2.requestFocus();
                 return false;
             }
@@ -195,11 +198,11 @@ public class Supply_company_managementController implements Initializable {
                             updateCompanyTelephone_2.setText(String.valueOf(company.getTelephone2()));
 
                         } else {
-                            // displayWarningMessage("Product not found.", false);
-                            System.out.println("Product not found.");
+                            CustomAlert.showStyledAlert(root, "Company not found", Alert.AlertType.WARNING);
                         }
                     } catch (Exception e) {
-//                displayWarningMessage("Invalid Product ID.", false);
+                        e.printStackTrace();
+                        getLogger.logger().warning(e.toString());
                     }
 
                 });
@@ -212,6 +215,7 @@ public class Supply_company_managementController implements Initializable {
 
     private boolean isValidCompanyID() {
         return JPATransaction.runInTransaction((em) -> {
+
             CriteriaBuilder cBuilder = em.getCriteriaBuilder();
             CriteriaQuery<Company> cQuery = cBuilder.createQuery(Company.class);
             Root<Company> companyTable = cQuery.from(Company.class);
@@ -249,10 +253,11 @@ public class Supply_company_managementController implements Initializable {
                         em.merge(loadedCompany);
                         clearUpdateCompanyFields();
 
-                        System.out.println("Company successfully Updated");
+                        CustomAlert.showStyledAlert(root, "Company successfully Updated", Alert.AlertType.CONFIRMATION);
 
                     } catch (Exception e) {
                         e.printStackTrace();
+                        getLogger.logger().warning(e.toString());
                     }
 
                 });
@@ -264,13 +269,13 @@ public class Supply_company_managementController implements Initializable {
 
     private boolean IsValidCompanyDetails() {
         if (companyId.getText().isEmpty()) {
-            System.out.println("Company ID is required.");
+            CustomAlert.showStyledAlert(root, "Company ID is required.", Alert.AlertType.WARNING);
             companyId.requestFocus();
             return false;
         }
 
         if (updateCompanyName.getText().trim().isEmpty()) {
-            System.out.println("Company Name is required.");
+            CustomAlert.showStyledAlert(root, "Company Name is required.", Alert.AlertType.WARNING);
             updateCompanyName.requestFocus();
             return false;
         }
@@ -278,7 +283,7 @@ public class Supply_company_managementController implements Initializable {
         String telephone_1 = updateCompanyTelephone_1.getText();
         if (telephone_1 != null && !telephone_1.trim().isEmpty()) {
             if (telephone_1.length() != 10) {
-                System.out.println("Telephone Number 01 must be exactly 10 digits.");
+                CustomAlert.showStyledAlert(root, "Telephone Number 01 must be exactly 10 digits.", Alert.AlertType.WARNING);
                 updateCompanyTelephone_1.requestFocus();
                 return false;
             }
@@ -287,7 +292,7 @@ public class Supply_company_managementController implements Initializable {
         String telephone_2 = updateCompanyTelephone_2.getText();
         if (telephone_2 != null && !telephone_2.trim().isEmpty()) {
             if (telephone_2.length() != 10) {
-                System.out.println("Telephone Number 02 must be exactly 10 digits.");
+                CustomAlert.showStyledAlert(root, "Telephone Number 02 must be exactly 10 digits.", Alert.AlertType.WARNING);
                 updateCompanyTelephone_2.requestFocus();
                 return false;
             }
@@ -301,12 +306,9 @@ public class Supply_company_managementController implements Initializable {
         updateCompanyAddress.setText("");
         updateCompanyTelephone_1.setText("");
         updateCompanyTelephone_2.setText("");
-        
-        isCompanyLoaded = false;
-        loadedCompany = null;    
-        
-        
 
+        isCompanyLoaded = false;
+        loadedCompany = null;
     }
 
 }

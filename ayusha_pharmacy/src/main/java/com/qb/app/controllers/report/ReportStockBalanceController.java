@@ -3,6 +3,7 @@ package com.qb.app.controllers.report;
 
 import com.qb.app.controllers.report.beans.BrandBean;
 import com.qb.app.controllers.report.beans.ProductBean;
+import com.qb.app.model.ComboBoxUtils;
 import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.JPATransaction;
 import com.qb.app.model.TestBrand;
@@ -82,12 +83,19 @@ public class ReportStockBalanceController implements Initializable {
      */
     
      List<ReportStockBalance_TableRowController> stockItemList = new ArrayList<>();
+    @FXML
+    private ComboBox<Brand> cbBrand;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
             DefaultAPI.bindTableScroll(tableScroller, tableScrollContainer, tableBody);
         setEventListner();
         loadFilterCombo();
+        loadBandCombo();
+        
        
+    }
+    private void loadBandCombo(){
+        ComboBoxUtils.loadComboBoxValues(cbBrand, Brand.class, "brand", Brand::getBrand);
     }
     
     private void loadData() {
@@ -132,30 +140,14 @@ public class ReportStockBalanceController implements Initializable {
                 Product product = stock.getProductId();
                 Brand brand = product.getBrandId();
 
-                String productId = product.getId().toString();
-                String productName = product.getProduct(); // or getProductName()
-                String brandName = brand.getBrand();
                 double qty = stock.getQty();
-                double costPrice = product.getCostPrice();
-                double salePrice = product.getSalePrice();
-                
-                System.out.println("Product ID: " + productId);
-                System.out.println("Brand: " + brandName);
-                System.out.println("Product: " + productName);
-                System.out.println("Qty: " + qty);
-                System.out.println("Cost Price: " + costPrice);
-                System.out.println("Sale Price: " + salePrice);
-                double profit = product.getSalePrice() - product.getCostPrice();
-                System.out.println(String.valueOf(profit));
-                
                 double rowCostprice = qty*product.getCostPrice();
                 totalStockValue += rowCostprice;
                 double rowSalePrice = qty*product.getSalePrice();
                 totalSaleValue += rowSalePrice;
                 double rowProfilt = rowSalePrice-rowCostprice  ;
                 totalProfit += rowProfilt;
-                
-                System.out.println("-----------------------------");
+          
                 
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/qb/app/fxmlComponent/ReportStockBalance_TableRow.fxml"));
@@ -184,6 +176,7 @@ public class ReportStockBalanceController implements Initializable {
     
     private void refreshInterface() {
         cbFilter.setValue(null);
+        cbBrand.setValue(null);
         TFTotalProfit.setText("");
         TFTotalSaleValue.setText("");
         TFTotalStockValue.setText("");
@@ -229,7 +222,6 @@ public class ReportStockBalanceController implements Initializable {
             CriteriaBuilder cb = em.getCriteriaBuilder();
             CriteriaQuery<Brand> brandQuery = cb.createQuery(Brand.class);
             Root<Brand> brandRoot = brandQuery.from(Brand.class);
-//    brandQuery.select(brandRoot).where(cb.equal(brandRoot.get("status"), "Enable"));
             brandQuery.select(brandRoot);
             List<Brand> brandList = em.createQuery(brandQuery).getResultList();
 

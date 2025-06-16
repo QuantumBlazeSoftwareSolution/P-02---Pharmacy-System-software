@@ -360,9 +360,15 @@ public class Product_managementController implements Initializable {
     }
 
     private void clearRegistrationField() {
-        cbBrand.setValue(null);
-        cbUnit.setValue(null);
-        cbType.setValue(null);
+//        cbBrand.setValue(null);
+//        cbUnit.setValue(null);
+//        cbType.setValue(null);
+//        cbBrand.setPromptText("Ex: Munche");
+//        cbUnit.setPromptText("Select Unit");
+//        cbType.setPromptText("Select Type");
+        cbBrand.getSelectionModel().clearSelection();
+        cbUnit.getSelectionModel().clearSelection();
+        cbType.getSelectionModel().clearSelection();
         cbBrand.setPromptText("Ex: Munche");
         cbUnit.setPromptText("Select Unit");
         cbType.setPromptText("Select Type");

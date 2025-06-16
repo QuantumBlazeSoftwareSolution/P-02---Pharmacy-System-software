@@ -48,6 +48,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -465,7 +466,7 @@ public class Inventory_grnController implements Initializable {
             GrnItemBean bean = new GrnItemBean(
                     String.valueOf(item.getProduct().getId()),
                     item.getProduct().getProduct(),
-                    item.getProduct().getGenericName() != null ? item.getProduct().getGenericName() : "",
+                    item.getProduct().getGenericName() != null ? item.getProduct().getGenericName() : "N/A",
                     String.format("Rs. %,.2f", item.getProduct().getCostPrice()),
                     String.valueOf(item.getQty()),
                     String.format("Rs. %,.2f", item.getItemAmount())
@@ -515,10 +516,8 @@ public class Inventory_grnController implements Initializable {
     }
 
     @FXML
-    private void handleDiscountPressed(KeyEvent event) {
-        if (!tfDiscount.getText().isEmpty()) {
-            calculateTotal();
-        }
+    private void handleDiscount(KeyEvent event) {
+        calculateTotal();
     }
 
 }

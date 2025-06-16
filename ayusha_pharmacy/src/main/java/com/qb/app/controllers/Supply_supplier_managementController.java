@@ -1,11 +1,13 @@
 package com.qb.app.controllers;
 
 import com.qb.app.model.ComboBoxUtils;
+import com.qb.app.model.CustomAlert;
 import com.qb.app.model.JPATransaction;
 import com.qb.app.model.SVGIconGroup;
 import com.qb.app.model.entity.Company;
 import com.qb.app.model.entity.Supplier;
 import com.qb.app.model.entity.SupplierStatus;
+import com.qb.app.model.getLogger;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -18,11 +20,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
 public class Supply_supplier_managementController implements Initializable {
@@ -54,6 +58,10 @@ public class Supply_supplier_managementController implements Initializable {
 
     private Supplier loadedSupplier;
     private boolean isSupplierLoaded;
+    @FXML
+    private TextField updateSpTelephone;
+    @FXML
+    private AnchorPane root;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -92,14 +100,14 @@ public class Supply_supplier_managementController implements Initializable {
                         em.persist(supplier);
 
                         clearAddSupplierFields();
-                        System.out.println("save cpmpany okkkkk....");
+                        CustomAlert.showStyledAlert(root, "Supplier added Successful.", Alert.AlertType.CONFIRMATION);
 
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 });
             } else {
-                System.out.println("this supplier is already added");
+                CustomAlert.showStyledAlert(root, "This supplier is already added", Alert.AlertType.WARNING);
             }
 
         }
@@ -108,7 +116,7 @@ public class Supply_supplier_managementController implements Initializable {
 
     private boolean IsSupplierValid() {
         if (supplierName.getText().isEmpty()) {
-            System.out.println("Company name is required.");
+            CustomAlert.showStyledAlert(root, "Supplier name is required.", Alert.AlertType.WARNING);
             supplierName.requestFocus();
             return false;
         }
@@ -116,15 +124,14 @@ public class Supply_supplier_managementController implements Initializable {
         String telephone_1 = supplierTelephone.getText();
         if (telephone_1 != null && !telephone_1.trim().isEmpty()) {
             if (telephone_1.length() != 10) {
-                System.out.println("Telephone Number 01 must be exactly 10 digits.");
+                CustomAlert.showStyledAlert(root, "Telephone Number 01 must be exactly 10 digits.", Alert.AlertType.WARNING);
                 supplierTelephone.requestFocus();
                 return false;
             }
         }
 
         if (suppilerCompanyComboBox.getValue() == null) {
-//            displayRegistrationMessage("Please select a Company.", false);
-            System.out.println("Please select a Company.");
+            CustomAlert.showStyledAlert(root, "Please select a Company.", Alert.AlertType.WARNING);
             suppilerCompanyComboBox.requestFocus();
             return false;
         }
@@ -199,13 +206,14 @@ public class Supply_supplier_managementController implements Initializable {
                             updateSpName.setText(supplier.getName());
                             updateSpCpComboBox.setValue(supplier.getCompanyId());
                             updateSpStatus.setValue(supplier.getSupplierStatusId());
+                            updateSpTelephone.setText(supplier.getTelephone());
 
                         } else {
-                            // displayWarningMessage("Supplier not found.", false);
-                            System.out.println("Supplier not found.");
+                            CustomAlert.showStyledAlert(root, "Supplier not found.", Alert.AlertType.WARNING);
                         }
                     } catch (Exception e) {
-//                displayWarningMessage("Invalid Supplier ID.", false);
+                        e.printStackTrace();
+                        getLogger.logger().warning(e.toString());
                     }
 
                 });
@@ -223,11 +231,11 @@ public class Supply_supplier_managementController implements Initializable {
         } else if (event.getSource() == btnClearUpdateSpDetails) {
             clearUpdateSupplierFields();
         }
-        
+
     }
 
     private void UpdateSupplier() {
-        
+
         if (UpdateSupplierValid()) {
             if (isSupplierLoaded) {
                 JPATransaction.runInTransaction((em) -> {
@@ -235,68 +243,67 @@ public class Supply_supplier_managementController implements Initializable {
 
                         Supplier supplier = new Supplier();
                         loadedSupplier.setName(updateSpName.getText());
+                        loadedSupplier.setTelephone(updateSpTelephone.getText());
                         loadedSupplier.setCompanyId(updateSpCpComboBox.getValue());
                         loadedSupplier.setSupplierStatusId(updateSpStatus.getValue());
 
                         em.merge(loadedSupplier);
                         clearUpdateSupplierFields();
 
-                        System.out.println("Company successfully Updated");
+                        CustomAlert.showStyledAlert(root, "Supplier successfully Updated", Alert.AlertType.CONFIRMATION);
 
                     } catch (Exception e) {
                         e.printStackTrace();
+                        getLogger.logger().warning(e.toString());
                     }
 
                 });
             }
-            
+
         }
-        
 
     }
 
     private boolean UpdateSupplierValid() {
         if (supplierId.getText().isEmpty()) {
-            System.out.println("Supplier ID is required.");
+            CustomAlert.showStyledAlert(root, "Supplier ID is required.", Alert.AlertType.WARNING);
             supplierId.requestFocus();
             return false;
         }
 
         if (updateSpName.getText().isEmpty()) {
-            System.out.println("Company name is required.");
+            CustomAlert.showStyledAlert(root, "Supplier name is required.", Alert.AlertType.WARNING);
             updateSpName.requestFocus();
             return false;
         }
 
-//        String telephone_1 = supplierTelephone.getText();
-//        if (telephone_1 != null && !telephone_1.trim().isEmpty()) {
-//            if (telephone_1.length() != 10) {
-//                System.out.println("Telephone Number 01 must be exactly 10 digits.");
-//                supplierTelephone.requestFocus();
-//                return false;
-//            }
-//        }
+        String telephone_1 = updateSpTelephone.getText();
+        if (telephone_1 != null && !telephone_1.trim().isEmpty()) {
+            if (telephone_1.length() != 10) {
+                CustomAlert.showStyledAlert(root, "Telephone Number 01 must be exactly 10 digits.", Alert.AlertType.WARNING);
+                updateSpTelephone.requestFocus();
+                return false;
+            }
+        }
         if (updateSpCpComboBox.getValue() == null) {
 //            displayRegistrationMessage("Please select a Company.", false);
-            System.out.println("Please select a Company.");
+            CustomAlert.showStyledAlert(root, "Please select a Company.", Alert.AlertType.WARNING);
             updateSpCpComboBox.requestFocus();
             return false;
         }
 
         return true;
     }
-    
+
     private void clearUpdateSupplierFields() {
         supplierId.setText("");
         updateSpName.setText("");
+        updateSpTelephone.setText("");
         updateSpCpComboBox.getSelectionModel().clearSelection();
         updateSpStatus.getSelectionModel().clearSelection();
 
-        
         isSupplierLoaded = false;
-        loadedSupplier = null;    
-        
-        
+        loadedSupplier = null;
 
     }
 

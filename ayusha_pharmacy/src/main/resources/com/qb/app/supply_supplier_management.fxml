@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="800.0" styleClass="primary-10" stylesheets="@css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.Supply_supplier_managementController">
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="640.0" prefWidth="800.0" styleClass="primary-10" stylesheets="@css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.Supply_supplier_managementController">
    <children>
       <BorderPane layoutX="104.0" layoutY="97.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -183,7 +183,7 @@
                                     <Font name="Aptos" size="14.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="updateSpName1" prefHeight="40.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                              <TextField fx:id="updateSpTelephone" prefHeight="40.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font>

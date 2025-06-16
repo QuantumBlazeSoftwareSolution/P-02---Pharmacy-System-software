@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Vector;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -88,6 +89,9 @@ public class InvoicePaymentController implements Initializable {
         closeIcon.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/close-icon.svg"));
         tfCashAmount.requestFocus();
         System.out.println("Requested");
+        Platform.runLater(() -> {
+            tfCashAmount.requestFocus();
+        });
     }
 
     @FXML

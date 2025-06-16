@@ -4,6 +4,7 @@
  */
 package com.qb.app.controllers;
 
+import com.qb.app.App;
 import com.qb.app.model.CustomAlert;
 import com.qb.app.model.JPATransaction;
 import com.qb.app.model.SVGIconGroup;
@@ -13,19 +14,28 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -182,7 +192,44 @@ public class Supply_company_managementController implements Initializable {
     private void handlePopUpCompanyView(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
             if (companyId.getText().isEmpty()) {
-                // view popup window
+                try {
+                    FXMLLoader loader = new FXMLLoader(App.class.getResource("popUpCompanyList.fxml"));
+                    Parent root = loader.load();
+
+                    // Create a new stage for the popup
+                    Stage popupStage = new Stage();
+                    popupStage.initOwner(this.root.getScene().getWindow());
+                    popupStage.initModality(Modality.APPLICATION_MODAL);
+
+                    // Get screen dimensions
+                    Screen screen = Screen.getPrimary();
+                    Rectangle2D bounds = screen.getVisualBounds();
+
+                    // Create scene with full width but original height
+                    Scene scene = new Scene(root);
+                    popupStage.setScene(scene);
+
+                    // Set width to screen width and position at x=0
+                    popupStage.setWidth(bounds.getWidth());
+                    popupStage.setX(0); // This ensures no left gap
+
+                    // Set fixed height (adjust as needed)
+                    popupStage.setHeight(600);
+
+                    // Center the popup vertically
+                    popupStage.setY((bounds.getHeight() - popupStage.getHeight()) / 2);
+
+                    popupStage.initStyle(StageStyle.TRANSPARENT);
+
+                    // Get controller reference
+                    PopUpCompanyListController controller = loader.getController();
+                    controller.saveCallingController(this);
+
+                    popupStage.showAndWait();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    getLogger.logger().warning(e.toString());
+                }
             } else {
                 JPATransaction.runInTransaction((em) -> {
 
@@ -206,7 +253,6 @@ public class Supply_company_managementController implements Initializable {
                     }
 
                 });
-
             }
 
         }
@@ -309,6 +355,10 @@ public class Supply_company_managementController implements Initializable {
 
         isCompanyLoaded = false;
         loadedCompany = null;
+    }
+
+    public void setCompanyID(String id) {
+        companyId.setText(id);
     }
 
 }

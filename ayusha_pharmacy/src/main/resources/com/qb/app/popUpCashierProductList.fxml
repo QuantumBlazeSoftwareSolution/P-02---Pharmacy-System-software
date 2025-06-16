@@ -55,7 +55,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="tfSearch" maxWidth="1.7976931348623157E308" onKeyPressed="#handleSearchKeyPressed" prefHeight="40.0" prefWidth="300.0" stylesheets="@css/style.css">
+                              <TextField fx:id="tfSearch" maxWidth="1.7976931348623157E308" onKeyReleased="#handleSearchKeyPressed" prefHeight="40.0" prefWidth="300.0" stylesheets="@css/style.css">
                                  <styleClass>
                                     <String fx:value="bg-white" />
                                     <String fx:value="primary-border-dash" />

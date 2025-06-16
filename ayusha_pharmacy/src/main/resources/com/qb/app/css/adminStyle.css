@@ -129,7 +129,8 @@
 }
 
 .hover-white-bg:hover{
-    -fx-background-color: rgba(255, 255, 255, 0.05);
+    /*-fx-background-color: rgba(255, 255, 255, 0.05);*/
+    -fx-background-color: rgba(0, 137, 155, 0.11);
 }
 
 .separator .line {

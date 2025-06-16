@@ -15,6 +15,7 @@ public class InterfaceAction {
             // Check if this was the last open window
             if (Stage.getWindows().stream().filter(Window::isShowing).count() == 0) {
                 Platform.exit(); // Exit if no windows left
+                System.exit(0);
                 System.out.println("System Closed");
             }
         }

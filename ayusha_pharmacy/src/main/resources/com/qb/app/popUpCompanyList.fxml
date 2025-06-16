@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1000.0" styleClass="primary-10" stylesheets="@css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.PopUpCompanyListController">
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="600.0" prefWidth="1000.0" styleClass="primary-10" stylesheets="@css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.PopUpCompanyListController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -28,7 +28,7 @@
                      </font>
                   </Label>
                   <Pane HBox.hgrow="ALWAYS" />
-                  <BorderPane prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 5px;" styleClass="close" stylesheets="@css/r.css">
+                  <BorderPane onMouseClicked="#closePopUp" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 5px;" styleClass="close" stylesheets="@css/r.css">
                      <center>
                         <Group fx:id="closeIcon" BorderPane.alignment="CENTER" />
                      </center>
@@ -48,7 +48,7 @@
                                     <Font name="Aptos" size="14.0" />
                                  </font>
                               </Label>
-                              <TextField maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="300.0">
+                              <TextField fx:id="tfSearch" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="300.0">
                                  <font>
                                     <Font name="Aptos" size="12.0" />
                                  </font></TextField>

@@ -244,15 +244,25 @@
                                     <String fx:value="primary-border" />
                                  </styleClass>
                               </VBox>
-                              <VBox minWidth="-Infinity" spacing="10.0">
+                              <VBox minWidth="-Infinity" spacing="10.0" HBox.hgrow="ALWAYS">
                                  <children>
                                     <VBox maxHeight="-Infinity" VBox.vgrow="ALWAYS">
                                        <children>
-                                          <Label fx:id="labelItemName" styleClass="primary-text" stylesheets="@css/style.css" text="Product name">
-                                             <font>
-                                                <Font name="Aptos Bold" size="24.0" />
-                                             </font>
-                                          </Label>
+                                          <HBox alignment="BOTTOM_LEFT" spacing="10.0">
+                                             <children>
+                                                <Label fx:id="labelItemName" styleClass="primary-text" stylesheets="@css/style.css" text="Product name">
+                                                   <font>
+                                                      <Font name="Aptos Bold" size="24.0" />
+                                                   </font>
+                                                </Label>
+                                                <Separator fx:id="previewSeparator" orientation="VERTICAL" stylesheets="@css/style.css" />
+                                                <Label fx:id="previewMessage" style="-fx-text-fill: red;" stylesheets="@css/style.css" text="( Not available )">
+                                                   <font>
+                                                      <Font name="Aptos" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </HBox>
                                           <HBox spacing="10.0">
                                              <children>
                                                 <Text fx:id="labelItemPrice" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="primary-text" text="Rs. 0.00">
@@ -272,9 +282,9 @@
                                     </VBox>
                                     <HBox maxHeight="-Infinity" spacing="6.0" VBox.vgrow="ALWAYS">
                                        <children>
-                                          <Button fx:id="btnDecreaseQty" mnemonicParsing="false" onAction="#handleQuantityAmount" prefHeight="30.0" prefWidth="50.0" style="-fx-background-radius: 15px;" stylesheets="@css/style.css" text="-">
+                                          <Button fx:id="btnDecreaseQty" mnemonicParsing="false" onAction="#handleQuantityAmount" prefHeight="30.0" prefWidth="50.0" style="-fx-background-radius: 6px;" stylesheets="@css/style.css" text="-">
                                              <font>
-                                                <Font name="Segoe UI" size="18.0" />
+                                                <Font name="Segoe UI Bold" size="18.0" />
                                              </font>
                                              <styleClass>
                                                 <String fx:value="bg-primary" />
@@ -284,14 +294,14 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                           </Button>
-                                          <Button fx:id="btnViewQty" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" styleClass="buttonHover" stylesheets="@css/style.css" text="1">
+                                          <Button fx:id="btnViewQty" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" style="-fx-background-radius: 6px;" styleClass="buttonHover" stylesheets="@css/style.css" text="1">
                                              <font>
-                                                <Font name="Segoe UI" size="14.0" />
+                                                <Font name="Segoe UI Bold" size="18.0" />
                                              </font>
                                           </Button>
-                                          <Button fx:id="btnIncreaseQty" mnemonicParsing="false" onAction="#handleQuantityAmount" prefHeight="30.0" prefWidth="50.0" style="-fx-background-radius: 15px;" stylesheets="@css/style.css" text="+">
+                                          <Button fx:id="btnIncreaseQty" mnemonicParsing="false" onAction="#handleQuantityAmount" prefHeight="30.0" prefWidth="50.0" style="-fx-background-radius: 6px;" stylesheets="@css/style.css" text="+">
                                              <font>
-                                                <Font name="Segoe UI" size="18.0" />
+                                                <Font name="Segoe UI Bold" size="18.0" />
                                              </font>
                                              <styleClass>
                                                 <String fx:value="bg-primary" />
@@ -305,7 +315,7 @@
                                     </HBox>
                                  </children>
                               </VBox>
-                              <Region prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                              <Region HBox.hgrow="ALWAYS" />
                               <VBox alignment="CENTER" prefWidth="300.0" spacing="6.0">
                                  <children>
                                     <Button fx:id="itemPrice" mnemonicParsing="false" prefHeight="40.0" stylesheets="@css/style.css" text="Rs. 0.00" VBox.vgrow="ALWAYS">

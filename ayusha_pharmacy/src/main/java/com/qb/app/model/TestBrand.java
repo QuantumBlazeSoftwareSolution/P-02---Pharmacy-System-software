@@ -11,14 +11,14 @@ public class TestBrand {
     public String brandCount;
     public Map<String, Object> subreportParams;
 
-    public TestBrand(String brands, List<TestProduct> products, String brandCount) {
+    public TestBrand(String brands, List<TestProduct> products, String brandCount, String totalAmount, String totalQty) {
         this.brands = brands;
         this.products = products;
         this.brandCount = brandCount;
 
         Map<String, Object> params = new HashMap<>();
-        params.put("Total_Amount", "LKR. 23,500.00 | " + brands);
-        params.put("TotalStock", "23 | " + brands);
+        params.put("Total_Amount", totalAmount);
+        params.put("TotalStock", totalQty);
 
         setSubreportParams(params);
     }

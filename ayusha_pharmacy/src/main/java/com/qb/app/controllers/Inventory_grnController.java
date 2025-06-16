@@ -238,6 +238,7 @@ public class Inventory_grnController implements Initializable {
             tfGRNID.setText("");
             cbCompany.setValue(null);
             cbSupplier.setValue(null);
+            tfDiscount.setText("");
         });
     }
 

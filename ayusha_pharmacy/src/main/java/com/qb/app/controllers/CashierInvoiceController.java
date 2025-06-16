@@ -24,6 +24,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
@@ -101,6 +102,10 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
     private Label labelItemNewPrice;
     @FXML
     private Separator salePriceSeparator;
+    @FXML
+    private Separator notAvailableSeparator;
+    @FXML
+    private Label notAvailableLabel;
 
     public double getUnitPrice() {
         return unitPrice;
@@ -131,6 +136,9 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         salePriceSeparator.setManaged(false);
         labelItemNewPrice.setText("");
         labelItemPrice.setFill(Color.web("#00796F"));
+        notAvailableLabel.setText("");
+        notAvailableSeparator.setVisible(false);
+        notAvailableSeparator.setManaged(false);
     }
 
     @Override
@@ -198,6 +206,15 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                                 salePriceSeparator.setVisible(false);
                                 salePriceSeparator.setManaged(false);
                             }
+                            if (product.getProductStatusId().getStatus().equals("Enable")) {
+                                notAvailableLabel.setText("");
+                                notAvailableSeparator.setVisible(false);
+                                notAvailableSeparator.setManaged(false);
+                            } else {
+                                notAvailableLabel.setText("(Not Available)");
+                                notAvailableSeparator.setVisible(true);
+                                notAvailableSeparator.setManaged(true);
+                            }
                             setUnitPrice(productPrice);
                             setItemPrice();
                         });
@@ -236,8 +253,20 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                     }
                     case ENTER -> {
                         if (isProductLoaded) {
-                            addInvoiceItem();
-                            isProductLoaded = false;
+                            if (this.product.getProductStatusId().getStatus().equals("Enable")) {
+                                addInvoiceItem();
+                            } else {
+                                Alert alert = new Alert(Alert.AlertType.WARNING);
+                                alert.setTitle("Product Disabled - Action Restricted");
+                                alert.setHeaderText("This Product is Disabled");
+                                alert.setContentText("The selected product is currently disabled and cannot be added to the invoice.\n\nPlease enable the product or choose an alternative.");
+
+                                Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                                stage.getIcons().add(new Image(getClass().getResource("/com/qb/app/assets/images/logo.png").toExternalForm()));
+
+                                alert.show();
+                            }
+                            clearLoadProduct();
                             event.consume();
                         }
                     }
@@ -323,7 +352,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                 tfItemCode.setText("");
             }
             calculateInvoiceSummary();
-            clearLoadProduct();
+            isProductLoaded = false;
         } catch (IOException e) {
             e.printStackTrace();
             getLogger.logger().warning(e.toString());
@@ -372,6 +401,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         labelItemPrice.setFill(Color.web("#00796F"));
         salePriceSeparator.setVisible(false);
         salePriceSeparator.setManaged(false);
+        this.product = null;
     }
 
     public void calculateInvoiceSummary() {

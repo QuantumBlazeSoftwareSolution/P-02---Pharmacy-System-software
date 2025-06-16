@@ -437,7 +437,7 @@ public class Inventory_grnController implements Initializable {
     private Map<String, Object> getJRParams() {
         Map<String, Object> params = new HashMap<>();
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d, yyyy hh:mm a");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy hh:mm a");
         String grnTime = savedGrn.getDateTime().toInstant().atZone(ZoneId.systemDefault()).format(formatter);
 
         params.put("GrnTime", grnTime);

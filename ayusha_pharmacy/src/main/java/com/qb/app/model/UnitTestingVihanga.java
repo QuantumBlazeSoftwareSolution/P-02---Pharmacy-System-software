@@ -45,7 +45,7 @@ public class UnitTestingVihanga {
 //        testSubReport();
 //        JpaTest();
 //        systemLogin();
-        testStockBalanceReport();
+//        testStockBalanceReport();
     }
 
     private static void testJPA() {

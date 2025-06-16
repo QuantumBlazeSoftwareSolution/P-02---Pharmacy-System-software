@@ -165,14 +165,17 @@ public class DiscountController implements Initializable {
             try {
                 double discount = Double.parseDouble(tfProductDiscount.getText());
                 if (discount > 0) {
+                    if (discount <= loadedProduct.getSalePrice()) {
+                        JPATransaction.runInTransaction((em) -> {
+                            loadedProduct.setDiscount(discount);
+                            em.merge(loadedProduct);
+                        });
 
-                    JPATransaction.runInTransaction((em) -> {
-                        loadedProduct.setDiscount(discount);
-                        em.merge(loadedProduct);
-                    });
-
-                    displayWarningMessage("Discount applied successfully", true);
-                    resetProductDiscount();
+                        displayWarningMessage("Discount applied successfully", true);
+                        resetProductDiscount();
+                    } else {
+                        displayWarningMessage("Discount amount should be less than sale price", false);
+                    }
                 } else {
                     displayWarningMessage("Discount amount should be greater than 0.", false);
                 }
@@ -202,7 +205,15 @@ public class DiscountController implements Initializable {
         tfProductID.setText("");
         tfProductName.setText("");
         tfProductGeneric.setText("");
+        tfProductSalePrice.setText("");
         tfProductDiscount.setText("");
+    }
+
+    @FXML
+    private void handleDiscountManage(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            saveDiscount();
+        }
     }
 
 }

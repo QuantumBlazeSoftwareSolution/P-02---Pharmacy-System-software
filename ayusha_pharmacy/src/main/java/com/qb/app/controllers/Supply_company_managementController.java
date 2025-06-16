@@ -301,6 +301,11 @@ public class Supply_company_managementController implements Initializable {
         updateCompanyAddress.setText("");
         updateCompanyTelephone_1.setText("");
         updateCompanyTelephone_2.setText("");
+        
+        isCompanyLoaded = false;
+        loadedCompany = null;    
+        
+        
 
     }
 

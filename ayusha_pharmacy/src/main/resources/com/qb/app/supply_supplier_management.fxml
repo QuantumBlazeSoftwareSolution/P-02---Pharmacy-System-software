@@ -54,7 +54,7 @@
                                           <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField prefHeight="40.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                                    <TextField fx:id="supplierName" prefHeight="40.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font></TextField>
@@ -67,7 +67,7 @@
                                           <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField prefHeight="40.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                                    <TextField fx:id="supplierTelephone" prefHeight="40.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font></TextField>
@@ -84,7 +84,7 @@
                                           <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Label>
-                                    <ComboBox prefHeight="40.0" prefWidth="400.0" styleClass="full-width-button" stylesheets="@css/adminStyle.css" />
+                                    <ComboBox fx:id="suppilerCompanyComboBox" prefHeight="40.0" prefWidth="400.0" promptText="Select Company" styleClass="full-width-button" stylesheets="@css/adminStyle.css" />
                                  </children>
                               </VBox>
                            </children>
@@ -93,7 +93,7 @@
                            <children>
                               <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="394.0" stylesheets="@css/adminStyle.css" text="Clear">
+                                    <Button fx:id="btnSupplierDetailsClear" mnemonicParsing="false" onAction="#addSupplierActionEvent" prefHeight="40.0" prefWidth="394.0" stylesheets="@css/adminStyle.css" text="Clear">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font>
@@ -109,7 +109,7 @@
                               </VBox>
                               <VBox layoutX="10.0" layoutY="10.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="394.0" stylesheets="@css/adminStyle.css" text="Add Supplier">
+                                    <Button fx:id="btnAddSupplier" mnemonicParsing="false" onAction="#addSupplierActionEvent" prefHeight="40.0" prefWidth="394.0" stylesheets="@css/adminStyle.css" text="Add Supplier">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font>
@@ -148,7 +148,7 @@
                                           <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField prefHeight="40.0" prefWidth="200.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                                    <TextField fx:id="supplierId" onKeyPressed="#handlePopUpSupplierView" prefHeight="40.0" prefWidth="200.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font></TextField>
@@ -161,7 +161,7 @@
                                           <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField prefHeight="40.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
+                                    <TextField fx:id="updateSpName" prefHeight="40.0" styleClass="primary-white" stylesheets="@css/adminStyle.css">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font></TextField>
@@ -179,7 +179,7 @@
                                           <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Label>
-                                    <ComboBox prefHeight="40.0" prefWidth="394.0" stylesheets="@css/adminStyle.css" />
+                                    <ComboBox fx:id="updateSpCpComboBox" prefHeight="40.0" prefWidth="394.0" promptText="Change Company" stylesheets="@css/adminStyle.css" />
                                  </children>
                               </VBox>
                               <VBox layoutX="10.0" layoutY="10.0" prefWidth="100.0" spacing="6.0" HBox.hgrow="ALWAYS">
@@ -189,7 +189,7 @@
                                           <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Label>
-                                    <ComboBox prefHeight="40.0" prefWidth="394.0" stylesheets="@css/adminStyle.css" />
+                                    <ComboBox fx:id="updateSpStatus" prefHeight="40.0" prefWidth="394.0" stylesheets="@css/adminStyle.css" />
                                  </children>
                               </VBox>
                            </children>
@@ -198,7 +198,7 @@
                            <children>
                               <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="394.0" stylesheets="@css/adminStyle.css" text="Clear">
+                                    <Button fx:id="btnClearUpdateSpDetails" mnemonicParsing="false" onAction="#updateSupplierActionEvent" prefHeight="40.0" prefWidth="394.0" stylesheets="@css/adminStyle.css" text="Clear">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font>
@@ -214,7 +214,7 @@
                               </VBox>
                               <VBox layoutX="10.0" layoutY="10.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="394.0" stylesheets="@css/adminStyle.css" text="Update Changes">
+                                    <Button fx:id="btnUpdateSpDetails" mnemonicParsing="false" onAction="#updateSupplierActionEvent" prefHeight="40.0" prefWidth="394.0" stylesheets="@css/adminStyle.css" text="Update Changes">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font>

@@ -272,7 +272,7 @@ public class PanelAdminController implements Initializable {
     }
 
     private void setSystemLogo() {
-        Image image = new Image(getClass().getResource("/com/qb/app/assets/images/QB_LOGO.png").toExternalForm());
+        Image image = new Image(getClass().getResource("/com/qb/app/assets/images/logo.png").toExternalForm());
         systemLogo.setFill(new ImagePattern(image));
     }
 

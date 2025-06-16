@@ -12,6 +12,7 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,6 +20,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 /**
  * FXML Controller class
@@ -41,6 +44,23 @@ public class Supply_company_managementController implements Initializable {
     private Button btnAddCompany;
     @FXML
     private Button btnClearCompany;
+    @FXML
+    private TextField companyId;
+    @FXML
+    private TextField updateCompanyName;
+    @FXML
+    private TextField updateCompanyAddress;
+    @FXML
+    private TextField updateCompanyTelephone_1;
+    @FXML
+    private TextField updateCompanyTelephone_2;
+    @FXML
+    private Button btnUpdateCompanyDetails;
+
+    private Company loadedCompany;
+    private boolean isCompanyLoaded;
+    @FXML
+    private Button btnUpdateClearCompany;
 
     /**
      * Initializes the controller class.
@@ -76,9 +96,10 @@ public class Supply_company_managementController implements Initializable {
                         company.setAddress(spCompanyAddress.getText());
                         company.setTelephone1(spCompanyMobile_1.getText());
                         company.setTelephone2(spCompanyMobile_2.getText());
-                      
+
                         em.persist(company);
 
+                        clearAddCompanyFields();
                         System.out.println("save cpmpany okkkkk....");
 
                     } catch (Exception e) {
@@ -98,22 +119,27 @@ public class Supply_company_managementController implements Initializable {
             return false;
         }
 
-        if (spCompanyAddress.getText().isEmpty()) {
-            System.out.println("Company Address is required.");
-            spCompanyAddress.requestFocus();
-            return false;
+//        if (spCompanyAddress.getText().isEmpty()) {
+//            System.out.println("Company Address is required.");
+//            spCompanyAddress.requestFocus();
+//            return false;
+//        }
+        String telephone_1 = spCompanyMobile_1.getText();
+        if (telephone_1 != null && !telephone_1.trim().isEmpty()) {
+            if (telephone_1.length() != 10) {
+                System.out.println("Telephone Number 01 must be exactly 10 digits.");
+                spCompanyMobile_1.requestFocus();
+                return false;
+            }
         }
 
-        if (spCompanyMobile_1.getText().isEmpty()) {
-            System.out.println("Telephone Number 01 is required.");
-            spCompanyMobile_1.requestFocus();
-            return false;
-        }
-
-        if (spCompanyMobile_2.getText().isEmpty()) {
-            System.out.println("Telephone Number 02 is required.");
-            spCompanyMobile_2.requestFocus();
-            return false;
+        String telephone_2 = spCompanyMobile_2.getText();
+        if (telephone_2 != null && !telephone_2.trim().isEmpty()) {
+            if (telephone_2.length() != 10) {
+                System.out.println("Telephone Number 02 must be exactly 10 digits.");
+                spCompanyMobile_2.requestFocus();
+                return false;
+            }
         }
 
         return true;
@@ -141,8 +167,7 @@ public class Supply_company_managementController implements Initializable {
             return !em.createQuery(cQuery).getResultList().isEmpty();
         });
     }
-    
-    
+
     private void clearAddCompanyFields() {
         spCompanyName.setText("");
         spCompanyAddress.setText("");
@@ -150,7 +175,133 @@ public class Supply_company_managementController implements Initializable {
         spCompanyMobile_2.setText("");
     }
 
+    @FXML
+    private void handlePopUpCompanyView(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            if (companyId.getText().isEmpty()) {
+                // view popup window
+            } else {
+                JPATransaction.runInTransaction((em) -> {
 
+                    try {
+                        int CompanyId = Integer.parseInt(companyId.getText());
+                        Company company = em.find(Company.class, CompanyId);
+                        if (company != null) {
+                            this.loadedCompany = company;
+                            isCompanyLoaded = true;
+                            updateCompanyName.setText(company.getName());
+                            updateCompanyAddress.setText(company.getAddress());
+                            updateCompanyTelephone_1.setText(String.valueOf(company.getTelephone1()));
+                            updateCompanyTelephone_2.setText(String.valueOf(company.getTelephone2()));
 
+                        } else {
+                            // displayWarningMessage("Product not found.", false);
+                            System.out.println("Product not found.");
+                        }
+                    } catch (Exception e) {
+//                displayWarningMessage("Invalid Product ID.", false);
+                    }
+
+                });
+
+            }
+
+        }
+
+    }
+
+    private boolean isValidCompanyID() {
+        return JPATransaction.runInTransaction((em) -> {
+            CriteriaBuilder cBuilder = em.getCriteriaBuilder();
+            CriteriaQuery<Company> cQuery = cBuilder.createQuery(Company.class);
+            Root<Company> companyTable = cQuery.from(Company.class);
+
+            Predicate predicate2 = cBuilder.equal(companyTable.get("id"), Integer.parseInt(companyId.getText()));
+            cQuery.where(predicate2);
+
+            return !em.createQuery(cQuery).getResultList().isEmpty();
+        });
+    }
+
+    @FXML
+    private void updateCompanyActionEvent(ActionEvent event) {
+
+        if (event.getSource() == btnUpdateCompanyDetails) {
+            updateCompany();
+        } else if (event.getSource() == btnUpdateClearCompany) {
+            clearUpdateCompanyFields();
+        }
+    }
+
+    private void updateCompany() {
+
+        if (IsValidCompanyDetails()) {
+            if (isCompanyLoaded) {
+                JPATransaction.runInTransaction((em) -> {
+                    try {
+
+                        Company company = new Company();
+                        loadedCompany.setName(updateCompanyName.getText());
+                        loadedCompany.setAddress(updateCompanyAddress.getText());
+                        loadedCompany.setTelephone1(updateCompanyTelephone_1.getText());
+                        loadedCompany.setTelephone2(updateCompanyTelephone_2.getText());
+
+                        em.merge(loadedCompany);
+                        clearUpdateCompanyFields();
+
+                        System.out.println("Company successfully Updated");
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                });
+
+            }
+
+        }
+    }
+
+    private boolean IsValidCompanyDetails() {
+        if (companyId.getText().isEmpty()) {
+            System.out.println("Company ID is required.");
+            companyId.requestFocus();
+            return false;
+        }
+
+        if (updateCompanyName.getText().trim().isEmpty()) {
+            System.out.println("Company Name is required.");
+            updateCompanyName.requestFocus();
+            return false;
+        }
+
+        String telephone_1 = updateCompanyTelephone_1.getText();
+        if (telephone_1 != null && !telephone_1.trim().isEmpty()) {
+            if (telephone_1.length() != 10) {
+                System.out.println("Telephone Number 01 must be exactly 10 digits.");
+                updateCompanyTelephone_1.requestFocus();
+                return false;
+            }
+        }
+
+        String telephone_2 = updateCompanyTelephone_2.getText();
+        if (telephone_2 != null && !telephone_2.trim().isEmpty()) {
+            if (telephone_2.length() != 10) {
+                System.out.println("Telephone Number 02 must be exactly 10 digits.");
+                updateCompanyTelephone_2.requestFocus();
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void clearUpdateCompanyFields() {
+        companyId.setText("");
+        updateCompanyName.setText("");
+        updateCompanyAddress.setText("");
+        updateCompanyTelephone_1.setText("");
+        updateCompanyTelephone_2.setText("");
+
+    }
 
 }

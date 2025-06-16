@@ -1,7 +1,6 @@
 package com.qb.app.controllers;
 
 import com.qb.app.App;
-import com.qb.app.model.InterfaceAction;
 import com.qb.app.model.SVGIconGroup;
 import com.qb.app.model.getLogger;
 import java.io.IOException;
@@ -27,7 +26,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -41,7 +40,7 @@ public class PanelAdminController implements Initializable {
     @FXML
     private BorderPane leftSideMenu;
     @FXML
-    private Circle systemLogo;
+    private Rectangle systemLogo;
     @FXML
     private Button btnExit;
     @FXML
@@ -272,7 +271,7 @@ public class PanelAdminController implements Initializable {
     }
 
     private void setSystemLogo() {
-        Image image = new Image(getClass().getResource("/com/qb/app/assets/images/QB_LOGO.png").toExternalForm());
+        Image image = new Image(getClass().getResource("/com/qb/app/assets/images/logo.png").toExternalForm());
         systemLogo.setFill(new ImagePattern(image));
     }
 

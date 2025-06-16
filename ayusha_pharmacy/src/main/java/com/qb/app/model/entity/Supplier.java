@@ -42,7 +42,6 @@ public class Supplier implements Serializable {
     @Basic(optional = false)
     @Column(name = "name")
     private String name;
-    @Basic(optional = false)
     @Column(name = "telephone")
     private String telephone;
     @JoinColumn(name = "company_id", referencedColumnName = "id")
@@ -65,10 +64,9 @@ public class Supplier implements Serializable {
         this.id = id;
     }
 
-    public Supplier(Integer id, String name, String telephone) {
+    public Supplier(Integer id, String name) {
         this.id = id;
         this.name = name;
-        this.telephone = telephone;
     }
 
     public Integer getId() {

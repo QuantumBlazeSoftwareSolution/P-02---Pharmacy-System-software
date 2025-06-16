@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
+
 package com.qb.app.controllers.report;
 
 import com.qb.app.model.entity.Product;
@@ -11,12 +8,58 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 
-/**
- * FXML Controller class
- *
- * @author ravis
- */
+
 public class ReportGrn_TableRowController implements Initializable {
+
+    public double getProductQty() {
+        return productQty;
+    }
+
+    public void setProductQty(double productQty) {
+        this.productQty = productQty;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
+
+
+
+    public double getProductCost() {
+        return productCost;
+    }
+
+    public void setProductCost(double productCost) {
+        this.productCost = productCost;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public double getProductAmount() {
+        return productAmount;
+    }
+
+    public void setProductAmount(double productAmount) {
+        this.productAmount = productAmount;
+    }
 
     @FXML
     private Label id;
@@ -28,16 +71,28 @@ public class ReportGrn_TableRowController implements Initializable {
     private Label Qty;
     @FXML
     private Label Amount;
+    
+    private int productId;
+    private double productQty;
+    private double productCost;
+    private String productName;
+    private double productAmount;
+    private Product product;
 
-    /**
-     * Initializes the controller class.
-     */
+ 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
     
     public void setData(Product product, Integer id, String productName, double costPrice, double itemQty) {
+        
+        setProduct(product);
+        setProductId(id);
+        setProductName(productName);
+        setProductCost(costPrice);
+        setProductQty(itemQty);
+        setProductAmount(costPrice * itemQty);
      
         this.id.setText(String.valueOf(id));
         ProductName.setText(productName);

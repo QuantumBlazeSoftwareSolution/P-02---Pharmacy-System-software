@@ -130,6 +130,7 @@ public class SytemLoginController implements Initializable {
                             default ->
                                 System.out.println("Unknown role: " + role);
                         }
+                        ApplicationSession.setEmployee(emp); // save in session
                     } catch (IOException e) {
                         System.out.println("Navigation error: " + e.getMessage());
                     }
@@ -138,6 +139,7 @@ public class SytemLoginController implements Initializable {
                 }
             } else {
                 displayLoginMessage("Incorrect Password", false);
+                ApplicationSession.setEmployee(null); // save in session
             }
         });
     }

@@ -148,34 +148,43 @@ public class PanelCashierController implements Initializable {
                 CustomAlert.showStyledAlert(root, "Sale is already closed.", "Information", Alert.AlertType.INFORMATION);
             }
         } else if (event.getSource() == btnExit) {
-            if (ApplicationSession.getSession().getStatus().equals("OFF")) {
-                try {
-                    App.setRoot("sytemLogin");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    getLogger.logger().warning(e.toString());
-                }
-            } else {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Session Active - Confirmation Required");
-                alert.setHeaderText("Active Session Detected");
-                alert.setContentText("You have an active sales session.\n\nPlease complete or cancel the current sale before exiting the system.");
-
-                Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-                stage.getIcons().add(new Image(getClass().getResource("/com/qb/app/assets/images/logo.png").toExternalForm()));
-
-                ButtonType exitButton = new ButtonType("Exit Anyway", ButtonBar.ButtonData.CANCEL_CLOSE);
-                ButtonType stayButton = new ButtonType("Stay in System", ButtonBar.ButtonData.OK_DONE);
-                alert.getButtonTypes().setAll(stayButton, exitButton);
-
-                Optional<ButtonType> result = alert.showAndWait();
-                if (result.isPresent() && result.get() == exitButton) {
+            if (ApplicationSession.getSession() != null) {
+                if (ApplicationSession.getSession().getStatus().equals("OFF")) {
                     try {
                         App.setRoot("sytemLogin");
                     } catch (IOException e) {
                         e.printStackTrace();
                         getLogger.logger().warning(e.toString());
                     }
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Session Active - Confirmation Required");
+                    alert.setHeaderText("Active Session Detected");
+                    alert.setContentText("You have an active sales session.\n\nPlease complete or cancel the current sale before exiting the system.");
+
+                    Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                    stage.getIcons().add(new Image(getClass().getResource("/com/qb/app/assets/images/logo.png").toExternalForm()));
+
+                    ButtonType exitButton = new ButtonType("Exit Anyway", ButtonBar.ButtonData.CANCEL_CLOSE);
+                    ButtonType stayButton = new ButtonType("Stay in System", ButtonBar.ButtonData.OK_DONE);
+                    alert.getButtonTypes().setAll(stayButton, exitButton);
+
+                    Optional<ButtonType> result = alert.showAndWait();
+                    if (result.isPresent() && result.get() == exitButton) {
+                        try {
+                            App.setRoot("sytemLogin");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            getLogger.logger().warning(e.toString());
+                        }
+                    }
+                }
+            } else {
+                try {
+                    App.setRoot("sytemLogin");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    getLogger.logger().warning(e.toString());
                 }
             }
         }

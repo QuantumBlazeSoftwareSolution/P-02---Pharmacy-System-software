@@ -337,7 +337,8 @@ public class InvoicePaymentController implements Initializable {
                     item.getProduct().getProduct(),
                     String.format("Rs. %,.2f", item.getProduct().getSalePrice() - item.getProduct().getDiscount()),
                     String.valueOf(item.getProductQty()),
-                    String.format("Rs. %,.2f", (item.getProduct().getSalePrice() * item.getProductQty()) - (item.getProductQty() * item.getProduct().getDiscount()))
+                    String.format("Rs. %,.2f", (item.getProduct().getSalePrice() * item.getProductQty()) - (item.getProductQty() * item.getProduct().getDiscount())),
+                    String.format("Rs. %,.2f", item.getProductQty() * item.getProduct().getDiscount())
             );
             collection.add(bean);
         }

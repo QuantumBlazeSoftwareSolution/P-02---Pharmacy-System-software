@@ -8,15 +8,17 @@ public class InvoiceItemBean implements Serializable {
     private String unitPrice;
     private String qty;
     private String amount;
+    public String discount;
 
     public InvoiceItemBean() {
     }
 
-    public InvoiceItemBean(String productName, String unitPrice, String qty, String amount) {
+    public InvoiceItemBean(String productName, String unitPrice, String qty, String amount, String discount) {
         this.productName = productName;
         this.unitPrice = unitPrice;
         this.qty = qty;
         this.amount = amount;
+        this.discount = discount;
     }
 
     public String getProductName() {
@@ -49,5 +51,13 @@ public class InvoiceItemBean implements Serializable {
 
     public void setAmount(String amount) {
         this.amount = amount;
+    }
+
+    public String getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(String discount) {
+        this.discount = discount;
     }
 }

@@ -10,6 +10,7 @@ import com.qb.app.model.entity.Stock;
 import com.qb.app.model.getLogger;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import java.io.IOException;
 import java.net.URL;
@@ -171,7 +172,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
 
         // Validate input before database query
         if (itemCode.isEmpty()) {
-            System.out.println("CANNOT FIND THE PRODUCT - Empty code");
+            showPreviewMessage("(CANNOT FIND THE PRODUCT - Empty code)");
             return;
         }
 
@@ -183,6 +184,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                     Product product = em.find(Product.class, productId);
 
                     if (product != null) {
+                        hidePreviewMessage();
                         double productPrice = product.getSalePrice() - product.getDiscount();
                         this.product = product;
                         setItemQty(1);
@@ -208,31 +210,36 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                                 salePriceSeparator.setManaged(false);
                             }
                             if (product.getProductStatusId().getStatus().equals("Enable")) {
-                                Stock stock = getProductStock(product);
-                                if (stock.getQty() <= 0) {
-                                    showPreviewMessage("(Out of stock)");
-                                } else if (stock.getQty() < 20) {
-                                    showPreviewMessage("(Low stock amount)");
+                                if (this.product.getBrandId().getProductStatusId().getStatus().equals("Enable")) {
+                                    Stock stock = getProductStock(product);
+                                    if (stock.getQty() <= 0) {
+                                        showPreviewMessage("(Out of stock)");
+                                    } else if (stock.getQty() < 20) {
+                                        showPreviewMessage("(Low stock amount)");
+                                    } else {
+                                        hidePreviewMessage();
+                                    }
                                 } else {
-                                    hidePreviewMessage();
+                                    showPreviewMessage("(Brand Not Available)");
                                 }
                             } else {
-                                showPreviewMessage("(Not Available)");
+                                showPreviewMessage("(Product Not Available)");
                             }
                             setUnitPrice(productPrice);
                             setItemPrice();
                         });
                         isProductLoaded = true;
                     } else {
-                        System.out.println("CANNOT FIND THE PRODUCT");
+                        showPreviewMessage("(CANNOT FIND THE PRODUCT)");
                     }
                 } catch (NumberFormatException e) {
-                    System.out.println("CANNOT FIND THE PRODUCT - Invalid code format");
+                    showPreviewMessage("(CANNOT FIND THE PRODUCT - Invalid code format)");
                 }
             });
         } catch (Exception e) {
             System.err.println("Database error: " + e.getMessage());
             // Optionally show user-friendly error message
+            getLogger.logger().warning(e.toString());
         }
     }
 
@@ -270,7 +277,22 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                     case ENTER -> {
                         if (isProductLoaded) {
                             if (this.product.getProductStatusId().getStatus().equals("Enable")) {
-                                addInvoiceItem();
+                                if (this.product.getBrandId().getProductStatusId().getStatus().equals("Enable")) {
+                                    addInvoiceItem();
+                                } else {
+                                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                                    alert.setTitle("Brand Disabled - Action Restricted");
+                                    alert.setHeaderText("Product Brand Currently Inactive");
+                                    alert.setContentText("The brand associated with this product has been deactivated.\n\n"
+                                            + "To proceed, please either:\n"
+                                            + "• Reactivate the brand in system settings, or\n"
+                                            + "• Select an alternative product from an active brand");
+
+                                    Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                                    stage.getIcons().add(new Image(getClass().getResource("/com/qb/app/assets/images/logo.png").toExternalForm()));
+
+                                    alert.show();
+                                }
                             } else {
                                 Alert alert = new Alert(Alert.AlertType.WARNING);
                                 alert.setTitle("Product Disabled - Action Restricted");
@@ -573,6 +595,16 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
     }
 
     private Stock getProductStock(Product product) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return JPATransaction.runInTransaction((em) -> {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Stock> cq = cb.createQuery(Stock.class);
+            Root<Stock> stockTable = cq.from(Stock.class);
+
+            Predicate prdct = cb.equal(stockTable.get("productId"), product);
+            cq.where(prdct);
+
+            Stock stock = em.createQuery(cq).getSingleResult();
+            return stock;
+        });
     }
 }

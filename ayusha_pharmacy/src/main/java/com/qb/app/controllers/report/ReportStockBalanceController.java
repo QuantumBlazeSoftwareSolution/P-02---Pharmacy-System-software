@@ -91,8 +91,14 @@ public class ReportStockBalanceController implements Initializable {
         setEventListner();
         loadFilterCombo();
         loadBandCombo();
+        loadTextField();
         
        
+    }
+    private void loadTextField() {
+        TFTotalStockValue.setText(String.format("Rs. %,.2f", 0.00));
+        TFTotalSaleValue.setText(String.format("Rs. %,.2f", 0.00));
+        TFTotalProfit.setText(String.format("Rs. %,.2f", 0.00));
     }
     private void loadBandCombo(){
         ComboBoxUtils.loadComboBoxValues(cbBrand, Brand.class, "brand", Brand::getBrand);
@@ -177,9 +183,7 @@ public class ReportStockBalanceController implements Initializable {
     private void refreshInterface() {
         cbFilter.setValue(null);
         cbBrand.setValue(null);
-        TFTotalProfit.setText("");
-        TFTotalSaleValue.setText("");
-        TFTotalStockValue.setText("");
+        loadTextField();
         tableBody.getChildren().clear();
         
     }

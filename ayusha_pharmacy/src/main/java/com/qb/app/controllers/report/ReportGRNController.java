@@ -116,7 +116,13 @@ public class ReportGRNController implements Initializable {
         LoadComboBox();
         LoadFilterComboBox();
         setEventListner();
+        loadTextField();
 
+    }
+    
+    private void loadTextField() {
+        tfTotalAmount.setText(String.format("Rs. %,.2f", 0.00));
+        tfDiscount.setText(String.format("Rs. %,.2f", 0.00));
     }
 
     private void LoadComboBox() {
@@ -277,8 +283,7 @@ public class ReportGRNController implements Initializable {
         cbFilterBy.setValue(null);
         cbFilterBy.setPromptText("Select Filter");
         TFGrnId.setText("");
-        tfTotalAmount.setText("");
-        tfDiscount.setText("");
+       loadTextField();
         tableBody.getChildren().clear();
 
     }

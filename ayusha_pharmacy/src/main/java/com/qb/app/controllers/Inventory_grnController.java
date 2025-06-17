@@ -13,6 +13,7 @@ import com.qb.app.model.entity.GrnItem;
 import com.qb.app.model.entity.Product;
 import com.qb.app.model.entity.Stock;
 import com.qb.app.model.entity.Supplier;
+import com.qb.app.model.getLogger;
 import com.qb.app.session.ApplicationSession;
 import com.qb.app.session.CompanyInfo;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -47,6 +48,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -105,18 +107,21 @@ public class Inventory_grnController implements Initializable {
 
     private Product loadedProduct;
     private boolean readyItemToAdd;
-    private int itemQty;
+    private double itemQty;
     private Grn savedGrn;
     List<InventoryGRN_TableRowController> grnItemList = new ArrayList<>();
+    @FXML
+    private TextField tfDiscount;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        tfCostPrice.setDisable(false);
         tfQty.setDisable(false);
         DefaultAPI.bindTableScroll(grnTableScroller, grnTableScrollContainer, grnTableBody);
         GrnIcon.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/page-icon.svg"));
         tfQty.setTextFormatter(DefaultAPI.createNumericTextFormatter());
+        tfCostPrice.setTextFormatter(DefaultAPI.createNumericTextFormatter());
         loadComboBox();
-
     }
 
     private void loadComboBox() {
@@ -132,8 +137,6 @@ public class Inventory_grnController implements Initializable {
     }
 
     private void makeGrn() {
-        System.out.println("grnItemList sizee: makeGrn()" + grnItemList.size());
-
         if (isEntriesValid()) {
             if (isGrnIdAvailable()) {
                 if (grnItemList.isEmpty() || grnItemList.size() == 0 || grnItemList == null) {
@@ -193,13 +196,17 @@ public class Inventory_grnController implements Initializable {
     }
 
     private void createGrn() {
-        System.out.println("grnItemList sizee: createGrn()" + grnItemList.size());
 
         JPATransaction.runInTransaction((em) -> {
+            double discount = 0;
+            if (!tfDiscount.getText().isEmpty()) {
+                discount = Double.parseDouble(tfDiscount.getText());
+            }
             Grn grn = new Grn();
             grn.setGrnCode(tfGRNID.getText());
             grn.setDateTime(new Date());
             grn.setSupplierId(cbSupplier.getValue());
+            grn.setDiscount(discount);
             em.persist(grn);
             em.flush();
 
@@ -212,6 +219,7 @@ public class Inventory_grnController implements Initializable {
                 grnItem.setProductId(item.getProduct());
                 grnItem.setGrnId(grn);
                 em.persist(grnItem);
+                em.merge(item.getProduct());
 
                 CriteriaBuilder cb = em.getCriteriaBuilder();
                 CriteriaQuery<Stock> cq = cb.createQuery(Stock.class);
@@ -230,6 +238,7 @@ public class Inventory_grnController implements Initializable {
             tfGRNID.setText("");
             cbCompany.setValue(null);
             cbSupplier.setValue(null);
+            tfDiscount.setText("");
         });
     }
 
@@ -286,6 +295,7 @@ public class Inventory_grnController implements Initializable {
                     popupStage.showAndWait();
                 } catch (Exception e) {
                     e.printStackTrace();
+                    getLogger.logger().warning(e.toString());
                 }
             } else {
                 loadProductDetails();
@@ -307,8 +317,10 @@ public class Inventory_grnController implements Initializable {
                     tfProductName.setText(product.getProduct());
                     tfGenericName.setText(product.getGenericName());
                     tfCostPrice.setText(String.valueOf(product.getCostPrice()));
+                    tfQty.setText("1");
+                    tfCostPrice.setDisable(false);
                     tfQty.setDisable(false);
-                    tfQty.requestFocus();
+                    tfCostPrice.requestFocus();
                 } else {
                     displayWarningMessage("Product not found.", false);
                 }
@@ -320,10 +332,16 @@ public class Inventory_grnController implements Initializable {
 
     private void calculateLoadedItemAmount() {
         int qty = Integer.parseInt(tfQty.getText());
-        this.itemQty = qty;
-        double productAmount = loadedProduct.getCostPrice() * qty;
-        tfAmount.setText(String.format("Rs. %,.2f", productAmount));
-        this.readyItemToAdd = true;
+        try {
+            double costPrice = Double.parseDouble(tfCostPrice.getText());
+            this.itemQty = qty;
+            double productAmount = costPrice * qty;
+            tfAmount.setText(String.format("Rs. %,.2f", productAmount));
+            this.readyItemToAdd = true;
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            getLogger.logger().warning(e.toString());
+        }
     }
 
     @FXML
@@ -346,34 +364,42 @@ public class Inventory_grnController implements Initializable {
     }
 
     private void addItemToList() {
-        System.out.println("grnItemList sizee: addItemToList()" + grnItemList.size());
+        if (tfCostPrice.getText().isEmpty()) {
+            displayWarningMessage("Cost price is required. Please enter a value.", false);
+        } else {
+            try {
+                boolean itemExists = false;
 
-        try {
-            boolean itemExists = false;
-
-            for (InventoryGRN_TableRowController item : grnItemList) {
-                if (item.getProductID() == loadedProduct.getId()) {
-                    item.setProductQty(item.getQty() + itemQty);
-                    itemExists = true;
-                    break;
+                for (InventoryGRN_TableRowController item : grnItemList) {
+                    if (item.getProductID() == loadedProduct.getId()) {
+                        item.setProductQty(item.getQty() + itemQty);
+                        itemExists = true;
+                        break;
+                    }
                 }
+
+                if (!itemExists) {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/qb/app/fxmlComponent/InventoryGRN_TableRow.fxml"));
+                    Node grnItem = loader.load();
+                    InventoryGRN_TableRowController controller = loader.getController();
+                    controller.setData(loadedProduct, loadedProduct.getId(), loadedProduct.getProduct(), Double.parseDouble(tfCostPrice.getText()), itemQty);
+
+                    loadedProduct.setCostPrice(Double.parseDouble(tfCostPrice.getText()));
+
+                    grnItemList.add(controller);
+                    grnTableBody.getChildren().add(grnItem);
+                }
+
+                calculateTotal();
+                clearLoadedTextFields();
+                resetFields();
+            } catch (IOException e) {
+                e.printStackTrace();
+                getLogger.logger().warning(e.toString());
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+                getLogger.logger().warning(e.toString());
             }
-
-            if (!itemExists) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/qb/app/fxmlComponent/InventoryGRN_TableRow.fxml"));
-                Node grnItem = loader.load();
-                InventoryGRN_TableRowController controller = loader.getController();
-                controller.setData(loadedProduct, loadedProduct.getId(), loadedProduct.getProduct(), loadedProduct.getCostPrice(), itemQty);
-
-                grnItemList.add(controller);
-                grnTableBody.getChildren().add(grnItem);
-            }
-
-            calculateTotal();
-            clearLoadedTextFields();
-            resetFields();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -410,6 +436,7 @@ public class Inventory_grnController implements Initializable {
             JasperViewer.viewReport(report, false);
         } catch (JRException e) {
             e.printStackTrace();
+            getLogger.logger().warning(e.toString());
             CustomAlert.showStyledAlert(root, "Report generation failed: " + e.getMessage(), "Reporting Error", Alert.AlertType.ERROR);
         }
     }
@@ -417,13 +444,13 @@ public class Inventory_grnController implements Initializable {
     private Map<String, Object> getJRParams() {
         Map<String, Object> params = new HashMap<>();
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d, yyyy hh:mm a");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy hh:mm a");
         String grnTime = savedGrn.getDateTime().toInstant().atZone(ZoneId.systemDefault()).format(formatter);
 
         params.put("GrnTime", grnTime);
         params.put("GrnID", savedGrn.getGrnCode());
         params.put("Supplier", cbSupplier.getValue().getName());
-        params.put("CompanyName", CompanyInfo.applicationName);
+        params.put("CompanyName", CompanyInfo.companyName);
         params.put("Contact", CompanyInfo.mobile);
         params.put("Address", CompanyInfo.address);
         params.put("Address", CompanyInfo.address);
@@ -434,14 +461,13 @@ public class Inventory_grnController implements Initializable {
     }
 
     private Vector<GrnItemBean> getBeanCollection() {
-        System.out.println("grnItemList sizee: getBeanCollection()" + grnItemList.size());
 
         Vector<GrnItemBean> collection = new Vector<>();
         for (InventoryGRN_TableRowController item : grnItemList) {
             GrnItemBean bean = new GrnItemBean(
                     String.valueOf(item.getProduct().getId()),
                     item.getProduct().getProduct(),
-                    item.getProduct().getGenericName() != null ? item.getProduct().getGenericName() : "",
+                    item.getProduct().getGenericName() != null ? item.getProduct().getGenericName() : "N/A",
                     String.format("Rs. %,.2f", item.getProduct().getCostPrice()),
                     String.valueOf(item.getQty()),
                     String.format("Rs. %,.2f", item.getItemAmount())
@@ -453,14 +479,19 @@ public class Inventory_grnController implements Initializable {
     }
 
     private void getGrnTotal(Map<String, Object> params) {
-        System.out.println("grnItemList sizee: getGrnTotal()" + grnItemList.size());
 
         double total = 0;
+        double discount = 0;
+
+        if (!tfDiscount.getText().isEmpty()) {
+            discount = Double.parseDouble(tfDiscount.getText());
+        }
+
         for (InventoryGRN_TableRowController item : grnItemList) {
             total += item.getItemAmount();
         }
         params.put("SubTotal", String.format("Rs. %,.2f", total));
-        params.put("Discount", "Rs. 0.00");
+        params.put("Discount", String.format("Rs. %,.2f", discount));
         params.put("Total", String.format("Rs. %,.2f", total));
         params.put("TotalQty", String.valueOf(grnItemList.size()));
     }
@@ -470,7 +501,24 @@ public class Inventory_grnController implements Initializable {
         for (InventoryGRN_TableRowController item : grnItemList) {
             total += item.getItemAmount();
         }
+        if (!tfDiscount.getText().isEmpty()) {
+            double discount = Double.parseDouble(tfDiscount.getText());
+            total -= discount;
+        }
         tfTotal.setText(String.format("Rs. %,.2f", total));
+    }
+
+    @FXML
+    private void costPriceListener(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            calculateLoadedItemAmount();
+            tfQty.requestFocus();
+        }
+    }
+
+    @FXML
+    private void handleDiscount(KeyEvent event) {
+        calculateTotal();
     }
 
 }

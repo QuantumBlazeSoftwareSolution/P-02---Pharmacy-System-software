@@ -15,14 +15,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="root" prefHeight="720.0" prefWidth="800.0" styleClass="primary-gradient" stylesheets="@css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.Product_brand_managementController">
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="720.0" prefWidth="800.0" styleClass="primary-10" stylesheets="@css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.Product_brand_managementController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <HBox alignment="CENTER_LEFT" spacing="10.0" BorderPane.alignment="CENTER">
                <children>
                   <Group fx:id="iconPage" />
-                  <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Brand Management">
+                  <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Brand Management">
                      <font>
                         <Font name="Aptos" size="16.0" />
                      </font>
@@ -40,7 +40,7 @@
                      <children>
                         <VBox spacing="10.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Brand Registration">
+                              <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Brand Registration">
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font>
@@ -94,7 +94,7 @@
                         <Separator orientation="VERTICAL" prefHeight="200.0" />
                         <VBox spacing="10.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Brand Update">
+                              <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Brand Update">
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font>

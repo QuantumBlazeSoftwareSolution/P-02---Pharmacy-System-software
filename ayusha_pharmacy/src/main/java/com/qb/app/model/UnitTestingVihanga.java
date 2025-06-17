@@ -1,27 +1,30 @@
 package com.qb.app.model;
 
-import com.qb.app.controllers.report.beans.InvoiceItemBean;
+import com.qb.app.App;
+import static com.qb.app.model.JPATransaction.runInTransaction;
 import com.qb.app.model.entity.Brand;
 import com.qb.app.model.entity.Employee;
+import com.qb.app.model.entity.Product;
 import com.qb.app.model.entity.Session;
 import com.qb.app.session.CompanyInfo;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.NoResultException;
+import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
+import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Vector;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -41,6 +44,9 @@ public class UnitTestingVihanga {
 //        passwordTest();
 //        testDatabaseResults();
 //        testSubReport();
+//        JpaTest();
+//        systemLogin();
+//        testStockBalanceReport();
     }
 
     private static void testJPA() {
@@ -167,28 +173,168 @@ public class UnitTestingVihanga {
         }
     }
 
-    private static void testSubReport() {
+//    private static void testSubReport() {
+//        List<TestProduct> brand1Products = new ArrayList<>();
+//        brand1Products.add(new TestProduct("Product 1"));
+//        brand1Products.add(new TestProduct("Product 2"));
+//
+//        List<TestProduct> brand2Products = new ArrayList<>();
+//        brand2Products.add(new TestProduct("Product 3"));
+//
+//        List<TestBrand> brandList = new ArrayList<>();
+//        brandList.add(new TestBrand("Brand 1", brand1Products));
+//        brandList.add(new TestBrand("Brand 2", brand2Products));
+//
+//        Map<String, Object> params = new HashMap<>();
+//        try {
+//            JasperReport subReport = (JasperReport) JRLoader.loadObject(
+//                    UnitTestingVihanga.class.getResourceAsStream("/com/qb/app/reports/PharmacyStockBalanceSubReport.jasper"));
+//            params.put("SUB_REPORT_PATH", subReport);
+//            params.put("BrandList", brandList);
+//
+//            JasperReport mainReport = (JasperReport) JRLoader.loadObject(
+//                    UnitTestingVihanga.class.getResourceAsStream("/com/qb/app/reports/PharmacyStockBalance.jasper"));
+//
+//            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(brandList);
+//
+//            JasperPrint report = JasperFillManager.fillReport(mainReport, params, dataSource);
+//            JasperViewer.viewReport(report, false);
+//        } catch (JRException e) {
+//            e.printStackTrace();
+//        }
+//    }
+    private static void systemLogin() {
+        runInTransaction((EntityManager em) -> {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Employee> cq = cb.createQuery(Employee.class);
+            Root<Employee> employeeRoot = cq.from(Employee.class);
 
+            // Filter by username
+            Predicate usernamePredicate = cb.equal(employeeRoot.get("username"), "Cashier");
+            cq.where(usernamePredicate);
+
+            // Execute query
+            TypedQuery<Employee> query = em.createQuery(cq);
+            Employee emp = null;
+
+            try {
+                emp = query.getSingleResult();
+            } catch (NoResultException e) {
+                // No user found
+                emp = null;
+            }
+
+            if (emp == null) {
+                System.out.println("No user found with this username");
+                return;
+            }
+
+            String enteredPassword = "asd321";
+
+            if (PasswordEncryption.verifyPassword(emp.getPassword(), enteredPassword)) {
+                String role = emp.getEmployeeRoleId().getRole().toLowerCase(); // Assuming employeeRoleId is the FK
+                String status = emp.getEmployeeStatusId().getStatus();
+
+                if (status.equals("Active")) {
+                    switch (role) {
+                        case "admin" ->
+//                                App.setRoot("adminVerification")
+                            System.out.println("Navigation: Admin Verification");
+                        case "cashier" ->
+                            System.out.println("Navigation: Cashier");
+                        case "developer" ->
+                            System.out.println("Navigation: Developer");
+                        default ->
+                            System.out.println("Unknown role: " + role);
+                    }
+                } else {
+                    System.out.println("Access Denied");
+                }
+            } else {
+                System.out.println("Incorrect Password");
+            }
+        });
+    }
+
+    private static void testStockBalanceReport() {
         List<TestProduct> brand1Products = new ArrayList<>();
-        brand1Products.add(new TestProduct("Product 1"));
-        brand1Products.add(new TestProduct("Product 2"));
+        brand1Products.add(new TestProduct("0001", "Item A", "Item Generic A", "Rs. 500.00", "2", "Rs. 1000.00"));
+        brand1Products.add(new TestProduct("0002", "Item B", "Item Generic B", "Rs. 600.00", "2", "Rs. 1200.00"));
+        brand1Products.add(new TestProduct("0003", "Item C", "Item Generic C", "Rs. 700.00", "2", "Rs. 1400.00"));
+        brand1Products.add(new TestProduct("0004", "Item D", "Item Generic D", "Rs. 800.00", "2", "Rs. 1600.00"));
 
         List<TestProduct> brand2Products = new ArrayList<>();
-        brand2Products.add(new TestProduct("Product 3"));
+        brand2Products.add(new TestProduct("0005", "Item E", "Item Generic E", "Rs. 500.00", "2", "Rs. 1000.00"));
+        brand2Products.add(new TestProduct("0006", "Item F", "Item Generic F", "Rs. 600.00", "2", "Rs. 1200.00"));
+        brand2Products.add(new TestProduct("0007", "Item G", "Item Generic G", "Rs. 700.00", "2", "Rs. 1400.00"));
+        brand2Products.add(new TestProduct("0008", "Item H", "Item Generic H", "Rs. 800.00", "2", "Rs. 1600.00"));
+
+        List<TestProduct> brand3Products = new ArrayList<>();
+        brand3Products.add(new TestProduct("0005", "Item E", "Item Generic E", "Rs. 500.00", "2", "Rs. 1000.00"));
+        brand3Products.add(new TestProduct("0006", "Item F", "Item Generic F", "Rs. 600.00", "2", "Rs. 1200.00"));
+        brand3Products.add(new TestProduct("0007", "Item G", "Item Generic G", "Rs. 700.00", "2", "Rs. 1400.00"));
+        brand3Products.add(new TestProduct("0008", "Item H", "Item Generic H", "Rs. 800.00", "2", "Rs. 1600.00"));
+
+        List<TestProduct> brand4Products = new ArrayList<>();
+        brand4Products.add(new TestProduct("0005", "Item E", "Item Generic E", "Rs. 500.00", "2", "Rs. 1000.00"));
+        brand4Products.add(new TestProduct("0006", "Item F", "Item Generic F", "Rs. 600.00", "2", "Rs. 1200.00"));
+        brand4Products.add(new TestProduct("0007", "Item G", "Item Generic G", "Rs. 700.00", "2", "Rs. 1400.00"));
+        brand4Products.add(new TestProduct("0008", "Item H", "Item Generic H", "Rs. 800.00", "2", "Rs. 1600.00"));
+
+        List<TestProduct> brand5Products = new ArrayList<>();
+        brand5Products.add(new TestProduct("0005", "Item E", "Item Generic E", "Rs. 500.00", "2", "Rs. 1000.00"));
+        brand5Products.add(new TestProduct("0006", "Item F", "Item Generic F", "Rs. 600.00", "2", "Rs. 1200.00"));
+        brand5Products.add(new TestProduct("0007", "Item G", "Item Generic G", "Rs. 700.00", "2", "Rs. 1400.00"));
+        brand5Products.add(new TestProduct("0008", "Item H", "Item Generic H", "Rs. 800.00", "2", "Rs. 1600.00"));
 
         List<TestBrand> brandList = new ArrayList<>();
-        brandList.add(new TestBrand("Brand 1", brand1Products));
-        brandList.add(new TestBrand("Brand 2", brand2Products));
+        brandList.add(new TestBrand("Brand 1", brand1Products, "10", "Rs. 23,000.00", "123"));
+        brandList.add(new TestBrand("Brand 2", brand2Products, "10", "Rs. 23,000.00", "123"));
+        brandList.add(new TestBrand("Brand 3", brand3Products, "10", "Rs. 23,000.00", "123"));
+        brandList.add(new TestBrand("Brand 4", brand4Products, "10", "Rs. 23,000.00", "123"));
+        brandList.add(new TestBrand("Brand 5", brand5Products, "10", "Rs. 23,000.00", "123"));
+
+        // search here... (brand list)
+        List<Brand> brandsList = new ArrayList<>(); // entity brand list
+
+        List<TestBrand> brandListBean = new ArrayList<>(); // report brand bean
+
+        for (Brand brand : brandsList) {
+            // search here... (product list)
+            List<Product> productList = new ArrayList<>(); // entity product list
+
+            List<TestProduct> productListBean = new ArrayList<>(); // report product bean
+
+            for (Product product : productList) {
+                productListBean.add(new TestProduct(String.valueOf(product.getId()), product.getProduct(), product.getGenericName(), String.valueOf(product.getSalePrice()), "Stock Quantity", "Total Amount"));
+            }
+            
+            brandListBean.add(new TestBrand(brand.getBrand(), productListBean, String.valueOf(productListBean.size()), "total amount", "total quantity"));
+        }
 
         Map<String, Object> params = new HashMap<>();
+        params.put("companyName", CompanyInfo.companyName);
+        params.put("Address", CompanyInfo.address);
+        params.put("Contact", CompanyInfo.mobile);
+        params.put("ExpectedProfit", "Rs. 123,000.00");
+        params.put("TotalSaleValue", "Rs. 423,000.00");
+        params.put("TotalStockValue", "Rs. 300,000.00");
+
+        try {
+            URL imageUrl = UnitTestingVihanga.class.getResource("/com/qb/app/assets/images/logo.png");
+            params.put("Logo", imageUrl);
+        } catch (Exception e) {
+            e.printStackTrace();
+            getLogger.logger().warning(e.toString());
+        }
+
         try {
             JasperReport subReport = (JasperReport) JRLoader.loadObject(
-                    UnitTestingVihanga.class.getResourceAsStream("/com/qb/app/reports/PharmacyStockBalanceSubReport.jasper"));
+                    UnitTestingVihanga.class.getResourceAsStream("/com/qb/app/reports/Pharmacy_Stock_Balance_Sub_Report.jasper"));
             params.put("SUB_REPORT_PATH", subReport);
-            params.put("BrandList", brandList);
 
             JasperReport mainReport = (JasperReport) JRLoader.loadObject(
-                    UnitTestingVihanga.class.getResourceAsStream("/com/qb/app/reports/PharmacyStockBalance.jasper"));
+                    UnitTestingVihanga.class.getResourceAsStream("/com/qb/app/reports/Pharmacy_Stock_Balance.jasper"));
 
             JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(brandList);
 
@@ -197,5 +343,26 @@ public class UnitTestingVihanga {
         } catch (JRException e) {
             e.printStackTrace();
         }
+    }
+
+    private static void JpaTest() {
+        JPATransaction.runInTransaction((em) -> {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Employee> cq = cb.createQuery(Employee.class);
+            Root<Employee> employeeTable = cq.from(Employee.class);
+
+            Predicate usernameCondition = cb.equal(employeeTable.get("username"), "Vihanga");
+            Predicate passwordCondition = cb.equal(employeeTable.get("username"), "Vihanga");
+
+            cq.where(cb.and(usernameCondition, passwordCondition));
+
+//            Employee emp = em.createQuery(cq).getSingleResult();
+            List<Employee> empList = em.createQuery(cq).getResultList();
+
+            for (Employee employee : empList) {
+                System.out.println("Your Name: " + employee.getName());
+            }
+
+        });
     }
 }

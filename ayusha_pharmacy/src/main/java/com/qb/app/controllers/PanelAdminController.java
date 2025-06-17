@@ -1,7 +1,8 @@
 package com.qb.app.controllers;
 
-import com.qb.app.model.InterfaceAction;
+import com.qb.app.App;
 import com.qb.app.model.SVGIconGroup;
+import com.qb.app.model.getLogger;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -11,7 +12,6 @@ import javafx.animation.ParallelTransition;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -26,7 +26,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -40,7 +40,7 @@ public class PanelAdminController implements Initializable {
     @FXML
     private BorderPane leftSideMenu;
     @FXML
-    private Circle systemLogo;
+    private Rectangle systemLogo;
     @FXML
     private Button btnExit;
     @FXML
@@ -92,8 +92,6 @@ public class PanelAdminController implements Initializable {
     @FXML
     private Group iconSupplierManagement;
     @FXML
-    private Group iconReportCloseSale;
-    @FXML
     private Group iconReportSale1;
     @FXML
     private Group iconReportGRN;
@@ -111,8 +109,6 @@ public class PanelAdminController implements Initializable {
     private HBox btnSupplyCompanyManagement;
     @FXML
     private HBox btnSupplySupplierManagement;
-    @FXML
-    private HBox btnReportCloseSale;
     @FXML
     private HBox btnReportDetailSale;
     @FXML
@@ -155,8 +151,12 @@ public class PanelAdminController implements Initializable {
             subMenuToggle(subMenuReport);
             setSubMenuState(subMenuReport);
         } else if (event.getSource() == btnExit) {
-            InterfaceAction.closeWindow(root);
-            // App.setRoot("sytemLogin");
+            try {
+                App.setRoot("sytemLogin");
+            } catch (IOException e) {
+                e.printStackTrace();
+                getLogger.logger().warning(e.toString());
+            }
         } else if (event.getSource() == btnDiscount) {
             loadCenterPanel("discount");
         } else if (event.getSource() == btnDashboard) {
@@ -182,7 +182,6 @@ public class PanelAdminController implements Initializable {
         iconCompanyManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/companyManagement.svg"));
         iconSupplierManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/supplierManagement.svg"));
 
-        iconReportCloseSale.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
         iconReportGRN.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
         iconReportSale1.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
         iconReportStockBalance.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/reports.svg"));
@@ -257,6 +256,7 @@ public class PanelAdminController implements Initializable {
             controller.setPanelAdminController(this);
         } catch (IOException e) {
             e.printStackTrace();
+            getLogger.logger().warning(e.toString());
         }
     }
 
@@ -266,11 +266,12 @@ public class PanelAdminController implements Initializable {
             contentBorder.setCenter(panel.load());
         } catch (IOException e) {
             e.printStackTrace();
+            getLogger.logger().warning(e.toString());
         }
     }
 
     private void setSystemLogo() {
-        Image image = new Image(getClass().getResource("/com/qb/app/assets/images/QB_LOGO.png").toExternalForm());
+        Image image = new Image(getClass().getResource("/com/qb/app/assets/images/logo.png").toExternalForm());
         systemLogo.setFill(new ImagePattern(image));
     }
 
@@ -324,6 +325,7 @@ public class PanelAdminController implements Initializable {
             contentBorder.setCenter(panel.load());
         } catch (IOException e) {
             e.printStackTrace();
+            getLogger.logger().warning(e.toString());
         }
     }
 

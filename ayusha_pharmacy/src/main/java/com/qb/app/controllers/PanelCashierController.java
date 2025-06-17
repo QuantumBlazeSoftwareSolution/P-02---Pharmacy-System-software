@@ -1,6 +1,7 @@
 package com.qb.app.controllers;
 
 import com.jfoenix.controls.JFXToggleButton;
+import com.qb.app.App;
 import com.qb.app.model.ControllerClose;
 import com.qb.app.model.CustomAlert;
 import com.qb.app.model.InterfaceAction;
@@ -8,6 +9,7 @@ import com.qb.app.model.JPATransaction;
 import com.qb.app.model.SVGIconGroup;
 import com.qb.app.model.entity.CloseSale;
 import com.qb.app.model.entity.Session;
+import com.qb.app.model.getLogger;
 import com.qb.app.session.ApplicationControllers;
 import com.qb.app.session.ApplicationSession;
 import jakarta.persistence.NoResultException;
@@ -19,6 +21,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -34,7 +37,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.ImagePattern;
@@ -93,6 +100,7 @@ public class PanelCashierController implements Initializable {
         leftSideMenu.setTranslateX(0);
         ApplicationControllers.setPanelCashierController(this);
         setLogo();
+        setEventFilter();
     }
 
     public void changePanel(String panel, String title) {
@@ -140,7 +148,36 @@ public class PanelCashierController implements Initializable {
                 CustomAlert.showStyledAlert(root, "Sale is already closed.", "Information", Alert.AlertType.INFORMATION);
             }
         } else if (event.getSource() == btnExit) {
-            InterfaceAction.closeWindow(root);
+            if (ApplicationSession.getSession().getStatus().equals("OFF")) {
+                try {
+                    App.setRoot("sytemLogin");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    getLogger.logger().warning(e.toString());
+                }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Session Active - Confirmation Required");
+                alert.setHeaderText("Active Session Detected");
+                alert.setContentText("You have an active sales session.\n\nPlease complete or cancel the current sale before exiting the system.");
+
+                Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                stage.getIcons().add(new Image(getClass().getResource("/com/qb/app/assets/images/logo.png").toExternalForm()));
+
+                ButtonType exitButton = new ButtonType("Exit Anyway", ButtonBar.ButtonData.CANCEL_CLOSE);
+                ButtonType stayButton = new ButtonType("Stay in System", ButtonBar.ButtonData.OK_DONE);
+                alert.getButtonTypes().setAll(stayButton, exitButton);
+
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.isPresent() && result.get() == exitButton) {
+                    try {
+                        App.setRoot("sytemLogin");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        getLogger.logger().warning(e.toString());
+                    }
+                }
+            }
         }
     }
 
@@ -219,6 +256,7 @@ public class PanelCashierController implements Initializable {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            getLogger.logger().warning(e.toString());
         }
     }
 
@@ -248,7 +286,8 @@ public class PanelCashierController implements Initializable {
             }
         } catch (IOException e) {
             System.out.println("Error while excuting changeCenterPanel() " + e.getMessage());
-//            e.printStackTrace();
+            e.printStackTrace();
+            getLogger.logger().warning(e.toString());
         }
     }
 
@@ -285,6 +324,7 @@ public class PanelCashierController implements Initializable {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
+            getLogger.logger().warning(e.toString());
         }
     }
 
@@ -353,5 +393,15 @@ public class PanelCashierController implements Initializable {
     private void setLogo() {
         Image image = new Image(getClass().getResource("/com/qb/app/assets/images/logo.png").toExternalForm());
         systemLogo.setFill(new ImagePattern(image));
+    }
+
+    private void setEventFilter() {
+        root.addEventFilter(KeyEvent.KEY_PRESSED, (event) -> {
+            if (event.getCode() == KeyCode.F11) {
+                Stage stage = (Stage) root.getScene().getWindow();
+                stage.setFullScreen(!stage.isFullScreen());
+                event.consume();
+            }
+        });
     }
 }

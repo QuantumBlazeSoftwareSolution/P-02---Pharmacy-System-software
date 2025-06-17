@@ -10,6 +10,7 @@ import com.qb.app.model.entity.CloseSale;
 import com.qb.app.model.entity.Invoice;
 import com.qb.app.model.entity.InvoiceItem;
 import com.qb.app.model.entity.Session;
+import com.qb.app.model.getLogger;
 import com.qb.app.session.ApplicationControllers;
 import com.qb.app.session.ApplicationSession;
 import com.qb.app.session.CompanyInfo;
@@ -198,6 +199,7 @@ public class CashierCloseSaleController implements Initializable, ControllerClos
         } catch (NumberFormatException e) {
             // Handle invalid number format (optional)
             e.printStackTrace();
+            getLogger.logger().warning(e.toString());
         }
         return 0;
     }
@@ -241,6 +243,7 @@ public class CashierCloseSaleController implements Initializable, ControllerClos
                                 PrintReport();
                             } catch (Exception e) {
                                 e.printStackTrace();
+                                getLogger.logger().warning(e.toString());
                             }
                         });
                         printThread.start();
@@ -302,6 +305,7 @@ public class CashierCloseSaleController implements Initializable, ControllerClos
             JasperViewer.viewReport(report, false);
         } catch (JRException e) {
             e.printStackTrace();
+            getLogger.logger().warning(e.toString());
             CustomAlert.showStyledAlert(root, "Report generation failed: " + e.getMessage(), "Reporting Error", Alert.AlertType.ERROR);
         }
     }
@@ -314,6 +318,7 @@ public class CashierCloseSaleController implements Initializable, ControllerClos
             params.put("Logo", imageUrl);
         } catch (Exception e) {
             e.printStackTrace();
+            getLogger.logger().warning(e.toString());
         }
 
         this.systemBalance = getSystemBalance();
@@ -323,7 +328,7 @@ public class CashierCloseSaleController implements Initializable, ControllerClos
         String dayInTime = ApplicationSession.getSession().getDayInTime().toInstant().atZone(ZoneId.systemDefault()).format(formatter);
         String dayOutTime = ApplicationSession.getSession().getDayOutTime().toInstant().atZone(ZoneId.systemDefault()).format(formatter);
 
-        params.put("CompanyName", CompanyInfo.applicationName);
+        params.put("CompanyName", CompanyInfo.companyName);
         params.put("Cashier", ApplicationSession.getSession().getEmployeeId().getName());
         params.put("Shift", dayInTime + " - " + dayOutTime);
         params.put("PettyCash", String.format("Rs. %,.2f", ApplicationSession.getSession().getPettyCash()));

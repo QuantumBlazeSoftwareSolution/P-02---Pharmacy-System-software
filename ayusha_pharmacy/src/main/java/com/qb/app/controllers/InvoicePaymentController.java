@@ -9,7 +9,9 @@ import com.qb.app.model.SVGIconGroup;
 import com.qb.app.model.entity.Invoice;
 import com.qb.app.model.entity.InvoiceItem;
 import com.qb.app.model.entity.InvoiceItemType;
+import com.qb.app.model.entity.ProductHasProductType;
 import com.qb.app.model.entity.Stock;
+import com.qb.app.model.getLogger;
 import com.qb.app.session.ApplicationSession;
 import com.qb.app.session.CompanyInfo;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -22,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Vector;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -86,6 +89,9 @@ public class InvoicePaymentController implements Initializable {
         closeIcon.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/close-icon.svg"));
         tfCashAmount.requestFocus();
         System.out.println("Requested");
+        Platform.runLater(() -> {
+            tfCashAmount.requestFocus();
+        });
     }
 
     @FXML
@@ -263,6 +269,7 @@ public class InvoicePaymentController implements Initializable {
             JasperViewer.viewReport(report, false);
         } catch (JRException e) {
             e.printStackTrace();
+            getLogger.logger().warning(e.toString());
             CustomAlert.showStyledAlert(root, "Report generation failed: " + e.getMessage(), "Reporting Error", Alert.AlertType.ERROR);
         }
         controller.removeAll();
@@ -307,9 +314,10 @@ public class InvoicePaymentController implements Initializable {
             params.put("Logo", imageUrl);
         } catch (Exception e) {
             e.printStackTrace();
+            getLogger.logger().warning(e.toString());
         }
         params.put("ItemCount", String.valueOf(invoiceItemList.size()));
-        params.put("CompanyName", CompanyInfo.applicationName);
+        params.put("CompanyName", CompanyInfo.companyName);
         params.put("Cashier", ApplicationSession.getEmployee().getName());
         params.put("SubTotal", String.format("Rs. %, .2f", subTotal));
         params.put("Discount", String.format("Rs. %, .2f", discount));
@@ -346,13 +354,26 @@ public class InvoicePaymentController implements Initializable {
     private void manageStock(InvoiceItemController item) {
         JPATransaction.runInTransaction((em) -> {
             CriteriaBuilder cb = em.getCriteriaBuilder();
-            CriteriaQuery<Stock> cq = cb.createQuery(Stock.class);
-            Root<Stock> stockTable = cq.from(Stock.class);
-            cq.where(cb.equal(stockTable.get("productId"), item.getProduct()));
 
-            Stock stock = em.createQuery(cq).getSingleResult();
-            stock.setQty(stock.getQty() - (item.getProductQty() * item.getProduct().getMeasure()));
-            em.persist(stock);
+            CriteriaQuery<ProductHasProductType> productTypeQuery = cb.createQuery(ProductHasProductType.class);
+            Root<ProductHasProductType> productTypeRoot = productTypeQuery.from(ProductHasProductType.class);
+            productTypeQuery.where(cb.equal(productTypeRoot.get("productId"), item.getProduct()));
+
+            try {
+                ProductHasProductType productTypeRelation = em.createQuery(productTypeQuery).getSingleResult();
+                CriteriaQuery<Stock> stockQuery = cb.createQuery(Stock.class);
+                Root<Stock> stockTable = stockQuery.from(Stock.class);
+                if ("Parent".equals(productTypeRelation.getProductTypeId().getType())) {
+                    stockQuery.where(cb.equal(stockTable.get("productId"), item.getProduct()));
+                } else {
+                    stockQuery.where(cb.equal(stockTable.get("productId"), productTypeRelation.getReferenceId()));
+                }
+                Stock stock = em.createQuery(stockQuery).getSingleResult();
+                stock.setQty(stock.getQty() - (item.getProductQty() * item.getProduct().getMeasure()));
+                em.persist(stock);
+            } catch (Exception e) {
+                System.err.println("No ProductHasProductType found for product ID: " + item.getProduct().getId());
+            }
         });
     }
 

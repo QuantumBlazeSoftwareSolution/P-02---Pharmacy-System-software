@@ -2,6 +2,7 @@ package com.qb.app.controllers;
 
 import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.SVGIconGroup;
+import com.qb.app.model.getLogger;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Random;
@@ -49,6 +50,7 @@ public class Product_analyticsController implements Initializable {
                 tableBody.getChildren().add(invoiceItem);
             } catch (IOException e) {
                 e.printStackTrace();
+                getLogger.logger().warning(e.toString());
             }
         }
     }    

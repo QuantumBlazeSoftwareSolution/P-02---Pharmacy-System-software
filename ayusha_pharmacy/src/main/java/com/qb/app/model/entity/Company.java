@@ -42,13 +42,10 @@ public class Company implements Serializable {
     @Basic(optional = false)
     @Column(name = "name")
     private String name;
-    @Basic(optional = false)
     @Column(name = "address")
     private String address;
-    @Basic(optional = false)
     @Column(name = "telephone_1")
     private String telephone1;
-    @Basic(optional = false)
     @Column(name = "telephone_2")
     private String telephone2;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyId")
@@ -61,12 +58,9 @@ public class Company implements Serializable {
         this.id = id;
     }
 
-    public Company(Integer id, String name, String address, String telephone1, String telephone2) {
+    public Company(Integer id, String name) {
         this.id = id;
         this.name = name;
-        this.address = address;
-        this.telephone1 = telephone1;
-        this.telephone2 = telephone2;
     }
 
     public Integer getId() {

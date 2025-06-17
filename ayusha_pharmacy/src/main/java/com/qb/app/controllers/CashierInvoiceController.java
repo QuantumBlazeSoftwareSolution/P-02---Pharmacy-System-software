@@ -6,8 +6,11 @@ import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.JPATransaction;
 import com.qb.app.model.entity.Invoice;
 import com.qb.app.model.entity.Product;
+import com.qb.app.model.entity.Stock;
+import com.qb.app.model.getLogger;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import java.io.IOException;
 import java.net.URL;
@@ -23,10 +26,12 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -34,6 +39,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -61,7 +68,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
     @FXML
     private Label labelItemName;
     @FXML
-    private Label labelItemPrice;
+    private Text labelItemPrice;
     @FXML
     private Button btnDecreaseQty;
     @FXML
@@ -93,6 +100,14 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
     private boolean isProductLoaded;
     private Product product;
     private int nextInvoiceNumber;
+    @FXML
+    private Label labelItemNewPrice;
+    @FXML
+    private Separator salePriceSeparator;
+    @FXML
+    private Separator previewSeparator;
+    @FXML
+    private Label previewMessage;
 
     public double getUnitPrice() {
         return unitPrice;
@@ -116,6 +131,16 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         tfItemCode.setTextFormatter(DefaultAPI.createNumericTextFormatter());
         setEventListener();
         findNextInvoiceID();
+        Platform.runLater(() -> {
+            tfItemCode.requestFocus();
+        });
+        salePriceSeparator.setVisible(false);
+        salePriceSeparator.setManaged(false);
+        labelItemNewPrice.setText("");
+        labelItemPrice.setFill(Color.web("#00796F"));
+        previewMessage.setText("");
+        previewSeparator.setVisible(false);
+        previewSeparator.setManaged(false);
     }
 
     @Override
@@ -130,6 +155,8 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
             if (!invoiceItemList.isEmpty()) {
                 openPaymentPanel();
             }
+        } else if (event.getSource() == btnProductView) {
+            openProductView();
         }
     }
 
@@ -145,7 +172,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
 
         // Validate input before database query
         if (itemCode.isEmpty()) {
-            System.out.println("CANNOT FIND THE PRODUCT - Empty code");
+            showPreviewMessage("(CANNOT FIND THE PRODUCT - Empty code)");
             return;
         }
 
@@ -157,6 +184,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                     Product product = em.find(Product.class, productId);
 
                     if (product != null) {
+                        hidePreviewMessage();
                         double productPrice = product.getSalePrice() - product.getDiscount();
                         this.product = product;
                         setItemQty(1);
@@ -166,22 +194,65 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                             String imagePath = findProductImage(this.product.getId());
                             itemImage.setImage(new Image(imagePath));
                             labelItemName.setText(product.getProduct());
-                            labelItemPrice.setText(String.format("%, .2f", productPrice));
+                            if (product.getDiscount() > 0) {
+                                labelItemPrice.setStyle("-fx-strikethrough: true;");
+                                labelItemPrice.setFill(Color.RED);
+                                labelItemPrice.setText(String.format("Rs. %, .2f", product.getSalePrice()));
+                                labelItemNewPrice.setText(String.format("Rs. %, .2f", productPrice));
+                                salePriceSeparator.setVisible(true);
+                                salePriceSeparator.setManaged(true);
+                            } else {
+                                labelItemPrice.setStyle("-fx-strikethrough: false;");
+                                labelItemPrice.setFill(Color.web("#00796F"));
+                                labelItemPrice.setText(String.format("Rs. %, .2f", product.getSalePrice()));
+                                labelItemNewPrice.setText("");
+                                salePriceSeparator.setVisible(false);
+                                salePriceSeparator.setManaged(false);
+                            }
+                            if (product.getProductStatusId().getStatus().equals("Enable")) {
+                                if (this.product.getBrandId().getProductStatusId().getStatus().equals("Enable")) {
+                                    Stock stock = getProductStock(product);
+                                    if (stock.getQty() <= 0) {
+                                        showPreviewMessage("(Out of stock)");
+                                    } else if (stock.getQty() < 20) {
+                                        showPreviewMessage("(Low stock amount)");
+                                    } else {
+                                        hidePreviewMessage();
+                                    }
+                                } else {
+                                    showPreviewMessage("(Brand Not Available)");
+                                }
+                            } else {
+                                showPreviewMessage("(Product Not Available)");
+                            }
                             setUnitPrice(productPrice);
                             setItemPrice();
                         });
                         isProductLoaded = true;
                     } else {
-                        System.out.println("CANNOT FIND THE PRODUCT");
+                        showPreviewMessage("(CANNOT FIND THE PRODUCT)");
                     }
                 } catch (NumberFormatException e) {
-                    System.out.println("CANNOT FIND THE PRODUCT - Invalid code format");
+                    showPreviewMessage("(CANNOT FIND THE PRODUCT - Invalid code format)");
                 }
             });
         } catch (Exception e) {
             System.err.println("Database error: " + e.getMessage());
             // Optionally show user-friendly error message
+            getLogger.logger().warning(e.toString());
         }
+    }
+
+    private void hidePreviewMessage() {
+        previewMessage.setText("");
+        previewSeparator.setVisible(false);
+        previewSeparator.setManaged(false);
+    }
+
+    private void showPreviewMessage(String text) {
+        previewMessage.setText(text);
+        previewSeparator.setVisible(true);
+        previewSeparator.setManaged(true);
     }
 
     private void setItemPrice() {
@@ -196,26 +267,63 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                     case PLUS, ADD -> {
                         event.consume();
                         increaseQty();
+                        event.consume();
                     }
                     case MINUS, SUBTRACT -> {
                         decreaseQty();
                         event.consume();
+                        event.consume();
                     }
                     case ENTER -> {
                         if (isProductLoaded) {
-                            addInvoiceItem();
-                            isProductLoaded = false;
+                            if (this.product.getProductStatusId().getStatus().equals("Enable")) {
+                                if (this.product.getBrandId().getProductStatusId().getStatus().equals("Enable")) {
+                                    addInvoiceItem();
+                                } else {
+                                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                                    alert.setTitle("Brand Disabled - Action Restricted");
+                                    alert.setHeaderText("Product Brand Currently Inactive");
+                                    alert.setContentText("The brand associated with this product has been deactivated.\n\n"
+                                            + "To proceed, please either:\n"
+                                            + "• Reactivate the brand in system settings, or\n"
+                                            + "• Select an alternative product from an active brand");
+
+                                    Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                                    stage.getIcons().add(new Image(getClass().getResource("/com/qb/app/assets/images/logo.png").toExternalForm()));
+
+                                    alert.show();
+                                }
+                            } else {
+                                Alert alert = new Alert(Alert.AlertType.WARNING);
+                                alert.setTitle("Product Disabled - Action Restricted");
+                                alert.setHeaderText("This Product is Disabled");
+                                alert.setContentText("The selected product is currently disabled and cannot be added to the invoice.\n\nPlease enable the product or choose an alternative.");
+
+                                Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                                stage.getIcons().add(new Image(getClass().getResource("/com/qb/app/assets/images/logo.png").toExternalForm()));
+
+                                alert.show();
+                            }
+                            clearLoadProduct();
+                            event.consume();
                         }
                     }
                     case DIVIDE -> {
                         if (!invoiceItemList.isEmpty()) {
                             openPaymentPanel();
+                            event.consume();
                         }
                     }
                     case F5 -> {
                         clearLoadProduct();
+                        event.consume();
+                    }
+                    case F1 -> {
+                        openProductView();
+                        event.consume();
                     }
                     default -> {
+
                     }
                 }
             }
@@ -282,9 +390,10 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                 tfItemCode.setText("");
             }
             calculateInvoiceSummary();
-            clearLoadProduct();
+            isProductLoaded = false;
         } catch (IOException e) {
             e.printStackTrace();
+            getLogger.logger().warning(e.toString());
         }
     }
 
@@ -325,6 +434,13 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         btnViewQty.setText("0");
         itemImage.setImage(new Image(getClass().getResource("/com/qb/app/assets/images/new_product_image.png").toExternalForm()));
         isProductLoaded = false;
+        labelItemNewPrice.setText("");
+        labelItemPrice.setStyle("-fx-strikethrough: false;");
+        labelItemPrice.setFill(Color.web("#00796F"));
+        salePriceSeparator.setVisible(false);
+        salePriceSeparator.setManaged(false);
+        hidePreviewMessage();
+        this.product = null;
     }
 
     public void calculateInvoiceSummary() {
@@ -402,8 +518,9 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
             controller.setItems(invoiceItemList);
 
             popupStage.showAndWait();
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
+            getLogger.logger().warning(e.toString());
         }
     }
 
@@ -429,5 +546,65 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
 
     private void setNextInvoiceID() {
         invoiceNumber.setText(String.format("#%06d", nextInvoiceNumber + 1));
+    }
+
+    private void openProductView() {
+        try {
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("popUpCashierProductList.fxml"));
+            Parent root = loader.load();
+
+            // Create a new stage for the popup
+            Stage popupStage = new Stage();
+            popupStage.initOwner(this.root.getScene().getWindow());
+            popupStage.initModality(Modality.APPLICATION_MODAL);
+
+            // Get screen dimensions
+            Screen screen = Screen.getPrimary();
+            Rectangle2D bounds = screen.getVisualBounds();
+
+            // Create scene with full width but original height
+            Scene scene = new Scene(root);
+            popupStage.setScene(scene);
+
+            // Set width to screen width and position at x=0
+            popupStage.setWidth(bounds.getWidth());
+            popupStage.setX(0); // This ensures no left gap
+
+            // Set fixed height (adjust as needed)
+            popupStage.setHeight(600);
+
+            // Center the popup vertically
+            popupStage.setY((bounds.getHeight() - popupStage.getHeight()) / 2);
+
+            popupStage.initStyle(StageStyle.TRANSPARENT);
+
+            // Get controller reference
+            PopUpCashierProductListController controller = loader.getController();
+            controller.saveCallingController(this);
+
+            popupStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+            getLogger.logger().warning(e.toString());
+        }
+    }
+
+    public void setParentID(String text) {
+        tfItemCode.setText(text);
+        tfItemCode.requestFocus();
+    }
+
+    private Stock getProductStock(Product product) {
+        return JPATransaction.runInTransaction((em) -> {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Stock> cq = cb.createQuery(Stock.class);
+            Root<Stock> stockTable = cq.from(Stock.class);
+
+            Predicate prdct = cb.equal(stockTable.get("productId"), product);
+            cq.where(prdct);
+
+            Stock stock = em.createQuery(cq).getSingleResult();
+            return stock;
+        });
     }
 }

@@ -1,6 +1,7 @@
 package com.qb.app.controllers;
 
 import com.qb.app.model.SVGIconGroup;
+import com.qb.app.session.ApplicationSession;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -20,8 +21,6 @@ public class Admin_top_panelController implements Initializable {
     private Label employeeName;
     @FXML
     private Label employeeType;
-    @FXML
-    private Circle employeeImage;
 
     private PanelAdminController panelAdminController;
 
@@ -43,8 +42,8 @@ public class Admin_top_panelController implements Initializable {
     }
 
     public void setAdminProfile() {
-        Image image = new Image(getClass().getResource("/com/qb/app/assets/images/girl_profile.jpg").toExternalForm());
-        employeeImage.setFill(new ImagePattern(image));
+        employeeName.setText(ApplicationSession.getEmployee().getName());
+        employeeType.setText(ApplicationSession.getEmployee().getEmployeeRoleId().getRole());
     }
 
     private void setIcons() {

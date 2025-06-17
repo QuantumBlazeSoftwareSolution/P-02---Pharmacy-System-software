@@ -2,6 +2,7 @@ package com.qb.app.controllers;
 
 import com.qb.app.model.ControllerClose;
 import com.qb.app.model.DefaultAPI;
+import com.qb.app.model.getLogger;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -41,6 +42,7 @@ public class CashierRePrintController implements Initializable, ControllerClose 
                 rePrintInvoiceItemContainer.getChildren().add(rePrintInvoiceItem);
             } catch (IOException e) {
                 e.printStackTrace();
+                getLogger.logger().warning(e.toString());
             }
         }
         

@@ -68,6 +68,7 @@ public class ComboBoxUtils {
             });
         } catch (Exception e) {
             e.printStackTrace();
+            getLogger.logger().warning(e.toString());
         }
     }
 }

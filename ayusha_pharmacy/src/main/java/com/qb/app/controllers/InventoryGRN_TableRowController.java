@@ -45,7 +45,7 @@ public class InventoryGRN_TableRowController implements Initializable {
     private Label labelAmount;
 
     public int productID;
-    public int qty;
+    public double qty;
     public double cost;
     public Product product;
     public double itemAmount;
@@ -55,7 +55,7 @@ public class InventoryGRN_TableRowController implements Initializable {
         // TODO
     }
 
-    public void setData(Product product, Integer id, String productName, double costPrice, int itemQty) {
+    public void setData(Product product, Integer id, String productName, double costPrice, double itemQty) {
         setProduct(product);
         setProductID(id);
         setQty(itemQty);
@@ -76,15 +76,15 @@ public class InventoryGRN_TableRowController implements Initializable {
         this.productID = productID;
     }
 
-    public int getQty() {
+    public double getQty() {
         return qty;
     }
 
-    public void setQty(int qty) {
+    public void setQty(double qty) {
         this.qty = qty;
     }
 
-    public void setProductQty(int qty) {
+    public void setProductQty(double qty) {
         setQty(qty);
         labelQty.setText(String.valueOf(qty));
         labelAmount.setText(String.format("Rs. %,.2f", getCost() * getQty()));

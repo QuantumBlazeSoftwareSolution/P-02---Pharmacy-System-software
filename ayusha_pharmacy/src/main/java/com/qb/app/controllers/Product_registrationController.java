@@ -14,6 +14,7 @@ import com.qb.app.model.entity.ProductType;
 import com.qb.app.model.entity.ProductUnit;
 import com.qb.app.model.entity.Stock;
 import com.qb.app.model.entity.Store;
+import com.qb.app.model.getLogger;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -260,8 +261,8 @@ public class Product_registrationController implements Initializable {
 
         if (!tfDiscount.getText().isEmpty()) {
             double discount = Double.parseDouble(tfDiscount.getText());
-            if (discount < 0 || discount >= 100) {
-                displayRegistrationMessage("Discount must be between 0 and 100%.", false);
+            if (discount < 0) {
+                displayRegistrationMessage("Discount must be greater than LKR. 0.00", false);
                 tfDiscount.requestFocus();
                 return false;
             }
@@ -274,8 +275,6 @@ public class Product_registrationController implements Initializable {
         ComboBoxUtils.loadComboBoxValues(cbBrand, Brand.class, "brand", Brand::getBrand);
         ComboBoxUtils.loadComboBoxValues(cbUnit, ProductUnit.class, "unit", ProductUnit::getUnit);
         ComboBoxUtils.loadComboBoxValues(cbType, ProductType.class, "type", ProductType::getType);
-
-        Brand selectedBrand = cbBrand.getValue();
 
         // Set default selection to "Parent" after loading
         Platform.runLater(() -> {
@@ -365,6 +364,7 @@ public class Product_registrationController implements Initializable {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            getLogger.logger().warning(e.toString());
             productImage.setImage(null);
         }
     }
@@ -440,16 +440,19 @@ public class Product_registrationController implements Initializable {
 //                store.setQty(qty);
 //                em.persist(store);
                 // save this product in the stock
-                Stock stock = new Stock();
-                stock.setProductId(product);
-                stock.setQty(qty);
-                em.persist(stock);
+                if (type.equals("parent")) {
+                    Stock stock = new Stock();
+                    stock.setProductId(product);
+                    stock.setQty(qty);
+                    em.persist(stock);
+                }
 
                 displayRegistrationMessage("Product successfully added to inventory.", true);
 
                 clearRegistrationField();
             } catch (NumberFormatException | IOException e) {
                 e.printStackTrace();
+                getLogger.logger().warning(e.toString());
             }
         });
     }
@@ -527,6 +530,7 @@ public class Product_registrationController implements Initializable {
                     popupStage.showAndWait();
                 } catch (Exception e) {
                     e.printStackTrace();
+                    getLogger.logger().warning(e.toString());
                 }
             }
         }

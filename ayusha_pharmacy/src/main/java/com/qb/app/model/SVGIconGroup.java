@@ -87,6 +87,7 @@ public class SVGIconGroup extends Group {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            getLogger.logger().warning(e.toString());
         }
     }
 }

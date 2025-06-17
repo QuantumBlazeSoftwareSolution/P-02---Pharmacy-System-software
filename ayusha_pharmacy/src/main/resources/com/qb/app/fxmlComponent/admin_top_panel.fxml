@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="40.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.Admin_top_panelController">
@@ -30,18 +29,17 @@
                <children>
                   <VBox alignment="CENTER_LEFT">
                      <children>
-                        <Label fx:id="employeeName" styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="Vihanga Heshan">
+                        <Label fx:id="employeeName" styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="...">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="employeeType" layoutX="10.0" layoutY="10.0" styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="Admin" />
+                        <Label fx:id="employeeType" layoutX="10.0" layoutY="10.0" styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="..." />
                      </children>
                      <padding>
                         <Insets bottom="6.0" top="6.0" />
                      </padding>
                   </VBox>
-                  <Circle fx:id="employeeImage" fill="DODGERBLUE" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
                </children>
                <padding>
                   <Insets right="10.0" />

@@ -8,11 +8,13 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" fx:id="root" prefHeight="800.0" prefWidth="992.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.CashierSessionController">
@@ -38,7 +40,7 @@
                      <children>
                         <HBox alignment="CENTER" maxWidth="-Infinity" spacing="20.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <BorderPane prefHeight="200.0" prefWidth="200.0" styleClass="bg-primary" stylesheets="@css/style.css">
+                              <BorderPane maxHeight="80.0" prefHeight="80.0" prefWidth="140.0" stylesheets="@css/style.css">
                                  <center>
                                     <Label fx:id="sessionHours" styleClass="primary-white" stylesheets="@css/style.css" text="07" BorderPane.alignment="CENTER">
                                        <font>
@@ -46,13 +48,24 @@
                                        </font>
                                     </Label>
                                  </center>
+                                 <styleClass>
+                                    <String fx:value="bg-primary" />
+                                    <String fx:value="border-radius" />
+                                 </styleClass>
+                                 <effect>
+                                    <DropShadow offsetX="4.0" offsetY="4.0">
+                                       <color>
+                                          <Color red="0.06420565396547318" green="0.40789473056793213" blue="0.18449683487415314" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
                               </BorderPane>
                               <Label styleClass="primary-text" stylesheets="@css/style.css" text=":">
                                  <font>
                                     <Font name="Segoe UI Bold" size="96.0" />
                                  </font>
                               </Label>
-                              <BorderPane prefHeight="200.0" prefWidth="200.0" styleClass="bg-primary" stylesheets="@css/style.css">
+                              <BorderPane maxHeight="80.0" prefHeight="80.0" prefWidth="140.0" stylesheets="@css/style.css">
                                  <center>
                                     <Label fx:id="sessionMinutes" styleClass="primary-white" stylesheets="@css/style.css" text="35" BorderPane.alignment="CENTER">
                                        <font>
@@ -60,13 +73,24 @@
                                        </font>
                                     </Label>
                                  </center>
+                                 <styleClass>
+                                    <String fx:value="bg-primary" />
+                                    <String fx:value="border-radius" />
+                                 </styleClass>
+                                 <effect>
+                                    <DropShadow offsetX="4.0" offsetY="4.0">
+                                       <color>
+                                          <Color red="0.06420565396547318" green="0.40789473056793213" blue="0.18449683487415314" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
                               </BorderPane>
                               <Label styleClass="primary-text" stylesheets="@css/style.css" text=":">
                                  <font>
                                     <Font name="Segoe UI Bold" size="96.0" />
                                  </font>
                               </Label>
-                              <BorderPane prefHeight="200.0" prefWidth="200.0" styleClass="bg-primary" stylesheets="@css/style.css">
+                              <BorderPane maxHeight="80.0" prefHeight="80.0" prefWidth="140.0" stylesheets="@css/style.css">
                                  <center>
                                     <Label fx:id="sessionAMPM" styleClass="primary-white" stylesheets="@css/style.css" text="AM" BorderPane.alignment="CENTER">
                                        <font>
@@ -74,6 +98,17 @@
                                        </font>
                                     </Label>
                                  </center>
+                                 <styleClass>
+                                    <String fx:value="bg-primary" />
+                                    <String fx:value="border-radius" />
+                                 </styleClass>
+                                 <effect>
+                                    <DropShadow offsetX="4.0" offsetY="4.0">
+                                       <color>
+                                          <Color red="0.06420565396547318" green="0.40789473056793213" blue="0.18449683487415314" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
                               </BorderPane>
                            </children>
                         </HBox>

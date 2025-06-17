@@ -196,11 +196,7 @@ public class ReportGRNController implements Initializable {
                 Product product = item.getProductId(); // Correct field name is getProductId()
                 String productName = (product != null) ? product.getProduct() : "No Product"; // Correct getter: getProduct()
 
-                System.out.println("Product: " + productName);
-                System.out.println("Qty: " + item.getQty());
-                System.out.println("Cost: " + item.getCostPrice());
-                System.out.println("Cost: " + item.getCostPrice());
-
+           
                 Grn grn = item.getGrnId();
                 grnDateTimeString = "No Date";
                 if (grn != null && grn.getDateTime() != null) {

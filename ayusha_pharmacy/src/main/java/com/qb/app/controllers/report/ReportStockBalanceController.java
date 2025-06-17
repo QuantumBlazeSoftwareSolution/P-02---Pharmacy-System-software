@@ -1,11 +1,13 @@
 
 package com.qb.app.controllers.report;
 
+import com.jfoenix.controls.JFXToggleButton;
 import com.qb.app.controllers.report.beans.BrandBean;
 import com.qb.app.controllers.report.beans.ProductBean;
 import com.qb.app.model.ComboBoxUtils;
 import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.JPATransaction;
+import com.qb.app.model.SVGIconGroup;
 import com.qb.app.model.TestBrand;
 import com.qb.app.model.TestProduct;
 import com.qb.app.model.UnitTestingVihanga;
@@ -42,6 +44,7 @@ import java.util.List;
 import java.util.Map;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.CheckBox;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -77,23 +80,28 @@ public class ReportStockBalanceController implements Initializable {
     private TextField TFTotalStockValue;
     @FXML
     private TextField TFTotalSaleValue;
+     @FXML
+    private ComboBox<Brand> cbBrand;
+    @FXML
+    private JFXToggleButton CheckBox;
 
     /**
      * Initializes the controller class.
      */
     
      List<ReportStockBalance_TableRowController> stockItemList = new ArrayList<>();
-    @FXML
-    private ComboBox<Brand> cbBrand;
+   
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        iconPage.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/page-icon.svg"));
         DefaultAPI.bindTableScroll(tableScroller, tableScrollContainer, tableBody);
+        CheckBox.selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
+            cbBrand.setDisable(isNowSelected);
+        });
         setEventListner();
         loadFilterCombo();
         loadBandCombo();
         loadTextField();
-        
-       
     }
     private void loadTextField() {
         TFTotalStockValue.setText(String.format("Rs. %,.2f", 0.00));
@@ -106,19 +114,32 @@ public class ReportStockBalanceController implements Initializable {
     
     private void loadData() {
          stockItemList.clear();
-
         JPATransaction.runInTransaction((em) -> {
             CriteriaBuilder cb = em.getCriteriaBuilder();
             CriteriaQuery<Stock> cq = cb.createQuery(Stock.class);
             Root<Stock> stockRoot = cq.from(Stock.class);
 
-     
             Join<Stock, Product> productJoin = stockRoot.join("productId");
             Join<Product, Brand> brandJoin = productJoin.join("brandId");
             Join<Product, ProductStatus> PstatusJoin = productJoin.join("productStatusId");
             
-            Predicate productStatusEnabled = cb.equal(PstatusJoin.get("status"), "Enable");
-            cq.select(stockRoot).where(cb.and(productStatusEnabled));
+          List<Predicate> predicates = new ArrayList<>();
+
+    // Always add status = 'Enable'
+    Predicate productStatusEnabled = cb.equal(PstatusJoin.get("status"), "Enable");
+    predicates.add(productStatusEnabled);
+
+    // If checkbox is not selected, filter by selected brand
+    if (!CheckBox.isSelected()) {
+        Brand selectedBrand = cbBrand.getSelectionModel().getSelectedItem();
+        if (selectedBrand != null) {
+            predicates.add(cb.equal(brandJoin.get("id"), selectedBrand.getId()));
+        }
+    }
+
+    cq.select(stockRoot).where(cb.and(predicates.toArray(new Predicate[0])));
+    
+      
             
             String selectedSort = cbFilter.getValue();
             if ("Product Name".equals(selectedSort)) {
@@ -130,7 +151,6 @@ public class ReportStockBalanceController implements Initializable {
             } else if ("ID".equals(selectedSort)) {
                 cq.orderBy(cb.asc(stockRoot.get("id"))); 
             }
-
             List<Stock> stockList = em.createQuery(cq).getResultList();
             tableBody.getChildren().clear();
             double totalStockValue=0;
@@ -148,8 +168,6 @@ public class ReportStockBalanceController implements Initializable {
                 totalSaleValue += rowSalePrice;
                 double rowProfilt = rowSalePrice-rowCostprice  ;
                 totalProfit += rowProfilt;
-          
-                
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/qb/app/fxmlComponent/ReportStockBalance_TableRow.fxml"));
                     Node stockdata = loader.load();
@@ -157,13 +175,11 @@ public class ReportStockBalanceController implements Initializable {
                     controller.setData(product,brand,qty);
                     stockItemList.add(controller);
                     tableBody.getChildren().add(stockdata);
-
                 } catch (IOException e) {
                     e.printStackTrace();
                      getLogger.logger().warning(e.toString());
                 }
             }
-      
             TFTotalProfit.setText(String.format("Rs. %,.2f", totalProfit));
             TFTotalSaleValue.setText(String.format("Rs. %,.2f", totalSaleValue));
             TFTotalStockValue.setText(String.format("Rs. %,.2f", totalStockValue));
@@ -181,7 +197,6 @@ public class ReportStockBalanceController implements Initializable {
         cbBrand.setValue(null);
         loadTextField();
         tableBody.getChildren().clear();
-        
     }
 
     @FXML
@@ -204,10 +219,15 @@ public class ReportStockBalanceController implements Initializable {
 
     @FXML
     private void Loadreport(ActionEvent event) {
-         if (event.getSource() == LoadReport) {
-              loadData();
-         }
-        
+        if (event.getSource() == LoadReport) {
+             loadData(); 
+//            if (CheckBox.isSelected()) {
+//                loadData();
+//            } else {
+//                LoadDataBrand();
+//
+//            }
+        }
     }
 
     @FXML
@@ -230,8 +250,6 @@ public class ReportStockBalanceController implements Initializable {
             double grandTotalStockAmount = 0;
             int grandTotalQty = 0;
             for (Brand brand : brandList) {
-                
-                // Step 2: Get all products for this brand with status "Enable"
                 CriteriaQuery<Product> productQuery = cb.createQuery(Product.class);
                 Root<Product> productRoot = productQuery.from(Product.class);
                 productQuery.select(productRoot)
@@ -249,17 +267,14 @@ public class ReportStockBalanceController implements Initializable {
                 int brandTotalQty = 0;
 
                 for (Product product : productList) {
-                  
-                    // Step 3: Get stock qty for this product
                     CriteriaQuery<Stock> stockQuery = cb.createQuery(Stock.class);
                     Root<Stock> stockRoot = stockQuery.from(Stock.class);
                     stockQuery.select(stockRoot)
                             .where(cb.equal(stockRoot.get("productId"), product));
                              Stock stockdetails = em.createQuery(stockQuery).getSingleResult();
                     double qty = stockdetails.getQty();
-                    double tSaleAmount = qty * product.getSalePrice(); // or SalePrice if needed
-                    double tCostAmount = qty * product.getCostPrice(); // or SalePrice if needed
-
+                    double tSaleAmount = qty * product.getSalePrice();
+                    double tCostAmount = qty * product.getCostPrice();
                     brandTotalQty += qty;
                     brandTotalSaleAmount += tSaleAmount;
                     brandTotalStockAmount += tCostAmount;
@@ -310,7 +325,6 @@ public class ReportStockBalanceController implements Initializable {
                         UnitTestingVihanga.class.getResourceAsStream("/com/qb/app/reports/Pharmacy_Stock_Balance.jasper"));
 
                 JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(brandListBean);
-
                 JasperPrint report = JasperFillManager.fillReport(mainReport, params, dataSource);
                 JasperViewer.viewReport(report, false);
             } catch (JRException e) {
@@ -318,7 +332,9 @@ public class ReportStockBalanceController implements Initializable {
                  getLogger.logger().warning(e.toString());
             }
         });
-
     }
 
+    @FXML
+    private void checkBoxAction(ActionEvent event) {
+    }
 }

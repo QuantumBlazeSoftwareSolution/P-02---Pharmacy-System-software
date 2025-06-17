@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXToggleButton?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
@@ -26,7 +27,7 @@
                   <Group fx:id="iconPage" />
                   <Label styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="Stock Balance Report">
                      <font>
-                        <Font name="System Bold" size="16.0" />
+                        <Font size="16.0" />
                      </font>
                   </Label>
                </children>
@@ -48,6 +49,12 @@
                                        <children>
                                           <HBox alignment="BOTTOM_LEFT" spacing="10.0">
                                              <children>
+                                                <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" maxWidth="220.0" minWidth="180.0" prefWidth="180.0">
+                                                   <children>
+                                                      <JFXToggleButton fx:id="CheckBox" onAction="#checkBoxAction" />
+                                                   </children>
+                                                </VBox>
+                                                <Region HBox.hgrow="ALWAYS" />
                                                 <VBox layoutX="10.0" layoutY="10.0" maxWidth="220.0" minWidth="180.0" prefWidth="180.0">
                                                    <children>
                                                       <Label styleClass="text-field-label" stylesheets="@../css/adminStyle.css" text="Brand">

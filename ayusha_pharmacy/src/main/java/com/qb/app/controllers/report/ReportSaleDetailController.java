@@ -3,6 +3,7 @@ package com.qb.app.controllers.report;
 import com.qb.app.model.CustomAlert;
 import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.JPATransaction;
+import com.qb.app.model.SVGIconGroup;
 import com.qb.app.model.entity.Invoice;
 import com.qb.app.model.entity.InvoiceItem;
 import com.qb.app.model.entity.Product;
@@ -35,6 +36,13 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class ReportSaleDetailController implements Initializable {
 
@@ -71,13 +79,14 @@ public class ReportSaleDetailController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+          iconPage.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/page-icon.svg"));
         DefaultAPI.bindTableScroll(tableScroller, tableScrollContainer, tableBody);
         DateSelector.setValue(LocalDate.now());
         setEventListner();
         loadComboBox();
         loadTextField();
     }
-    
+   
     private void  loadTextField(){
         TFTotalCost.setText(String.format("Rs. %,.2f", 0.00));
         TFTotalDiscount.setText(String.format("Rs. %,.2f", 0.00));
@@ -103,27 +112,23 @@ private void loadInvoiceReport() {
         Join<InvoiceItem, Invoice> invoiceJoin = itemRoot.join("invoiceId");
         Join<InvoiceItem, Product> productJoin = itemRoot.join("productId");
 
-        // Filter by selected date (assumes time is stored)
         Predicate datePredicate = cb.between(
             invoiceJoin.get("dateTime"),
             selectedDate.atStartOfDay(),
             selectedDate.plusDays(1).atStartOfDay()
         );
-
         cq.select(itemRoot).where(datePredicate).orderBy(cb.asc(invoiceJoin.get("id")));
-
-        String selectedSort = cbFilter.getValue(); // ComboBox<String> for sorting
+        String selectedSort = cbFilter.getValue(); 
 
         if ("ID".equals(selectedSort)) {
             cq.orderBy(cb.asc(productJoin.get("id")));
         } else if ("Invoice Number".equals(selectedSort)) {
-            cq.orderBy(cb.asc(invoiceJoin.get("id"))); // or "invoiceNumber" if exists
+            cq.orderBy(cb.asc(invoiceJoin.get("id"))); 
         } else if ("Product Name".equals(selectedSort)) {
-            cq.orderBy(cb.asc(productJoin.get("product"))); // use the actual field name
+            cq.orderBy(cb.asc(productJoin.get("product")));
         } else if ("Quantity".equals(selectedSort)) {
             cq.orderBy(cb.asc(itemRoot.get("qty")));
         }
-
         List<InvoiceItem> invoiceItems = em.createQuery(cq).getResultList();
         if (invoiceItems.isEmpty()) {
              CustomAlert.showStyledAlert(root, "No sales records found for the selected date.", Alert.AlertType.WARNING);
@@ -140,7 +145,6 @@ private void loadInvoiceReport() {
             TSale +=   item.getSalePrice()* item.getQty();
             TCost += item.getCostPrice()* item.getQty();
 
-            // Or load FXML row like:
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/qb/app/fxmlComponent/reportSaleDetail_TableRow.fxml"));
                 Node row = loader.load();
@@ -157,10 +161,107 @@ private void loadInvoiceReport() {
         TFTotalCost.setText(String.format("Rs. %,.2f", TCost));
         TFTotalDiscount.setText(String.format("Rs. %,.2f", Tdiscount));
         TFTotalProfit.setText(String.format("Rs. %,.2f", TSale-(TCost+Tdiscount)));
-                
-    });
-}
 
+        });
+    }
+
+//    private void LoadReportDetails() {
+//        
+//           JPATransaction.runInTransaction((em) -> {
+//            CriteriaBuilder cb = em.getCriteriaBuilder();
+//            CriteriaQuery<Brand> brandQuery = cb.createQuery(Brand.class);
+//            Root<Brand> brandRoot = brandQuery.from(Brand.class);
+//            brandQuery.select(brandRoot);
+//            List<Brand> brandList = em.createQuery(brandQuery).getResultList();
+//
+//            List<BrandBean> brandListBean = new ArrayList<>();
+//            double grandTotalSaleAmount = 0;
+//            double grandTotalStockAmount = 0;
+//            int grandTotalQty = 0;
+//            for (Brand brand : brandList) {
+//                CriteriaQuery<Product> productQuery = cb.createQuery(Product.class);
+//                Root<Product> productRoot = productQuery.from(Product.class);
+//                productQuery.select(productRoot)
+//                        .where(
+//                                cb.and(
+//                                        cb.equal(productRoot.get("brandId"), brand)
+//                                )
+//                        );
+//
+//                List<Product> productList = em.createQuery(productQuery).getResultList();
+//                List<ProductBean> productBeanList = new ArrayList<>();
+//
+//                double brandTotalSaleAmount = 0;
+//                double brandTotalStockAmount = 0;
+//                int brandTotalQty = 0;
+//
+//                for (Product product : productList) {
+//                    CriteriaQuery<Stock> stockQuery = cb.createQuery(Stock.class);
+//                    Root<Stock> stockRoot = stockQuery.from(Stock.class);
+//                    stockQuery.select(stockRoot)
+//                            .where(cb.equal(stockRoot.get("productId"), product));
+//                             Stock stockdetails = em.createQuery(stockQuery).getSingleResult();
+//                    double qty = stockdetails.getQty();
+//                    double tSaleAmount = qty * product.getSalePrice();
+//                    double tCostAmount = qty * product.getCostPrice();
+//                    brandTotalQty += qty;
+//                    brandTotalSaleAmount += tSaleAmount;
+//                    brandTotalStockAmount += tCostAmount;
+//
+//                    productBeanList.add(new ProductBean(
+//                            String.valueOf(product.getId()),
+//                            product.getProduct(),
+//                            product.getGenericName(),
+//                            String.format("Rs. %,.2f", product.getSalePrice()),
+//                            String.valueOf(qty),
+//                            String.format("Rs. %,.2f", tSaleAmount)
+//                    ));
+//                }
+//                  grandTotalSaleAmount += brandTotalSaleAmount;
+//                  grandTotalStockAmount += brandTotalStockAmount;
+//
+//                brandListBean.add(new BrandBean(
+//                        brand.getBrand(),
+//                        productBeanList,
+//                        String.valueOf(productBeanList.size()),
+//                        String.format("Rs. %,.2f", brandTotalSaleAmount),
+//                        String.valueOf(brandTotalQty)
+//                ));
+//            }
+//
+//            Map<String, Object> params = new HashMap<>();
+//            params.put("companyName", CompanyInfo.companyName);
+//            params.put("Address", CompanyInfo.address);
+//            params.put("Contact", CompanyInfo.mobile);
+//            params.put("ExpectedProfit", String.format("Rs. %,.2f", grandTotalSaleAmount-grandTotalStockAmount));
+//            params.put("TotalSaleValue",String.format("Rs. %,.2f", grandTotalSaleAmount ));
+//            params.put("TotalStockValue",String.format("Rs. %,.2f", grandTotalStockAmount));
+//
+//            try {
+//                URL imageUrl = getClass().getResource("/com/qb/app/assets/images/logo.png");
+//                params.put("Logo", imageUrl);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//                getLogger.logger().warning(e.toString());
+//            }
+//
+//            try {
+//                JasperReport subReport = (JasperReport) JRLoader.loadObject(
+//                        getClass().getResourceAsStream("/com/qb/app/reports/Pharmacy_Stock_Balance_Sub_Report.jasper"));
+//                params.put("SUB_REPORT_PATH", subReport);
+//
+//                JasperReport mainReport = (JasperReport) JRLoader.loadObject(
+//                        getClass().getResourceAsStream("/com/qb/app/reports/Pharmacy_Stock_Balance.jasper"));
+//
+//                JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(brandListBean);
+//                JasperPrint report = JasperFillManager.fillReport(mainReport, params, dataSource);
+//                JasperViewer.viewReport(report, false);
+//            } catch (JRException e) {
+//                e.printStackTrace();
+//                 getLogger.logger().warning(e.toString());
+//            }
+//        });
+//    }
 
     private void loadComboBox() {
         cbFilter.getItems().addAll("ID", "Invoice Number", "Product Name", "Quantity");
@@ -175,7 +276,6 @@ private void loadInvoiceReport() {
                 }
             }
         });
-
     }
 
     private void refreshInterface() {
@@ -183,7 +283,6 @@ private void loadInvoiceReport() {
         loadTextField();
         DateSelector.setValue(LocalDate.now());
         tableBody.getChildren().clear();
-
     }
 
     @FXML
@@ -195,6 +294,9 @@ private void loadInvoiceReport() {
 
     @FXML
     private void ViewReport(ActionEvent event) {
+        if (event.getSource() == ViewRepoetBtn) {
+//              LoadReportDetails();
+         }
     }
 
     @FXML

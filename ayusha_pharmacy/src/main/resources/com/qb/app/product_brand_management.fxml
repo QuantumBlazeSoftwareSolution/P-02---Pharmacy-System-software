@@ -42,7 +42,7 @@
                            <children>
                               <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Brand Registration">
                                  <font>
-                                    <Font name="Aptos" size="14.0" />
+                                    <Font name="Aptos" size="16.0" />
                                  </font>
                               </Label>
                               <VBox prefWidth="100.0">
@@ -96,7 +96,7 @@
                            <children>
                               <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Brand Update">
                                  <font>
-                                    <Font name="Aptos" size="14.0" />
+                                    <Font name="Aptos" size="16.0" />
                                  </font>
                               </Label>
                               <HBox spacing="10.0">
@@ -108,7 +108,7 @@
                                                 <Font name="Aptos" size="14.0" />
                                              </font>
                                           </Label>
-                                          <TextField prefHeight="45.0" styleClass="text-field" stylesheets="@css/adminStyle.css">
+                                          <TextField fx:id="tfBrandID" prefHeight="45.0" styleClass="text-field" stylesheets="@css/adminStyle.css">
                                              <font>
                                                 <Font name="Aptos" size="14.0" />
                                              </font>
@@ -122,7 +122,7 @@
                                                 <Font name="Aptos" size="14.0" />
                                              </font>
                                           </Label>
-                                          <TextField prefHeight="45.0" styleClass="text-field" stylesheets="@css/adminStyle.css">
+                                          <TextField fx:id="tfSecondaryBrandName" prefHeight="45.0" styleClass="text-field" stylesheets="@css/adminStyle.css">
                                              <font>
                                                 <Font name="Aptos" size="14.0" />
                                              </font>
@@ -139,7 +139,7 @@
                                           <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Label>
-                                    <JFXToggleButton selected="true" styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Active">
+                                    <JFXToggleButton fx:id="toggleBrandStatus" selected="true" styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Active">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
@@ -148,7 +148,7 @@
                               </VBox>
                               <HBox spacing="10.0">
                                  <children>
-                                    <Button minHeight="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Clear">
+                                    <Button fx:id="btnSecondaryClear" minHeight="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Clear">
                                        <styleClass>
                                           <String fx:value="button-primary-outline" />
                                           <String fx:value="primary-white" />
@@ -161,7 +161,7 @@
                                           <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Button>
-                                    <Button minHeight="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Update Changes">
+                                    <Button fx:id="btnSecondaryUpdate" minHeight="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Update Changes">
                                        <styleClass>
                                           <String fx:value="button-primary" />
                                           <String fx:value="primary-white" />

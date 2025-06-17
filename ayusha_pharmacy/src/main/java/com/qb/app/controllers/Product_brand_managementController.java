@@ -1,5 +1,6 @@
 package com.qb.app.controllers;
 
+import com.jfoenix.controls.JFXToggleButton;
 import com.qb.app.model.SVGIconGroup;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -13,7 +14,6 @@ import com.qb.app.model.CustomAlert;
 import static com.qb.app.model.JPATransaction.runInTransaction;
 import com.qb.app.model.entity.Brand;
 import com.qb.app.model.entity.ProductStatus;
-import com.qb.app.model.entity.Session;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -34,9 +34,19 @@ public class Product_brand_managementController implements Initializable {
     private Button btnPrimaryClear;
     @FXML
     private Button btnPrimaryRegister;
-    //</editor-fold>
     @FXML
     private AnchorPane root;
+    @FXML
+    private TextField tfBrandID;
+    @FXML
+    private TextField tfSecondaryBrandName;
+    @FXML
+    private JFXToggleButton toggleBrandStatus;
+    @FXML
+    private Button btnSecondaryClear;
+    @FXML
+    private Button btnSecondaryUpdate;
+    //</editor-fold>
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -47,6 +57,8 @@ public class Product_brand_managementController implements Initializable {
     private void handleActionEvent(ActionEvent event) {
         if (event.getSource() == btnPrimaryRegister) {
             BrandRegistration();
+        } else if (event.getSource() == btnPrimaryClear) {
+            clearPrimary();
         }
     }
 
@@ -115,6 +127,10 @@ public class Product_brand_managementController implements Initializable {
             }
         });
         return null;
+    }
+
+    private void clearPrimary() {
+        tfPrimaryBrandName.setText("");
     }
 
 }

@@ -6,6 +6,7 @@ import com.qb.app.model.JPATransaction;
 import com.qb.app.model.entity.Invoice;
 import com.qb.app.model.entity.InvoiceItem;
 import com.qb.app.model.entity.Product;
+import com.qb.app.model.getLogger;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Join;
@@ -148,6 +149,7 @@ private void loadInvoiceReport() {
                 tableBody.getChildren().add(row);
             } catch (IOException e) {
                 e.printStackTrace();
+                 getLogger.logger().warning(e.toString());
             }
         }
         

@@ -116,7 +116,13 @@ public class ReportGRNController implements Initializable {
         LoadComboBox();
         LoadFilterComboBox();
         setEventListner();
+        loadTextField();
 
+    }
+    
+    private void loadTextField() {
+        tfTotalAmount.setText(String.format("Rs. %,.2f", 0.00));
+        tfDiscount.setText(String.format("Rs. %,.2f", 0.00));
     }
 
     private void LoadComboBox() {
@@ -154,19 +160,12 @@ public class ReportGRNController implements Initializable {
         JPATransaction.runInTransaction((em) -> {
             CriteriaBuilder cb = em.getCriteriaBuilder();
             CriteriaQuery<GrnItem> cq = cb.createQuery(GrnItem.class);
-
             Root<GrnItem> grnItemRoot = cq.from(GrnItem.class);
 
-            // Join GRN table from GRNItem
-            Join<GrnItem, Grn> grnJoin = grnItemRoot.join("grnId"); // make sure "grn" is the field name in GRNItem.java
-
-            // Join Product table from GRNItem
+            Join<GrnItem, Grn> grnJoin = grnItemRoot.join("grnId");
             Join<GrnItem, Product> productJoin = grnItemRoot.join("productId"); // same here
 
-            // Add condition: grn.supplier.id == targetSupplierId
             Predicate supplierCondition = cb.equal(grnJoin.get("supplierId"), cbSupplier.getValue());
-
-            // (Optional) If you want to filter by specific GRN ID too
             Predicate grnIdCondition = cb.equal(grnJoin.get("grnCode"), TFGrnId.getText());
 
             cq.select(grnItemRoot).where(cb.and(supplierCondition, grnIdCondition));
@@ -190,11 +189,7 @@ public class ReportGRNController implements Initializable {
                 Product product = item.getProductId(); // Correct field name is getProductId()
                 String productName = (product != null) ? product.getProduct() : "No Product"; // Correct getter: getProduct()
 
-                System.out.println("Product: " + productName);
-                System.out.println("Qty: " + item.getQty());
-                System.out.println("Cost: " + item.getCostPrice());
-                System.out.println("Cost: " + item.getCostPrice());
-
+           
                 Grn grn = item.getGrnId();
                 grnDateTimeString = "No Date";
                 if (grn != null && grn.getDateTime() != null) {
@@ -220,6 +215,7 @@ public class ReportGRNController implements Initializable {
 
                 } catch (IOException e) {
                     e.printStackTrace();
+                  getLogger.logger().warning(e.toString());
                 }
             }
             tfTotalAmount.setText(String.format("Rs. %,.2f", totalAmount));
@@ -277,8 +273,7 @@ public class ReportGRNController implements Initializable {
         cbFilterBy.setValue(null);
         cbFilterBy.setPromptText("Select Filter");
         TFGrnId.setText("");
-        tfTotalAmount.setText("");
-        tfDiscount.setText("");
+       loadTextField();
         tableBody.getChildren().clear();
 
     }

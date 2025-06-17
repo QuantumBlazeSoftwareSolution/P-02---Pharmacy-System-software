@@ -87,12 +87,18 @@ public class ReportStockBalanceController implements Initializable {
     private ComboBox<Brand> cbBrand;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-            DefaultAPI.bindTableScroll(tableScroller, tableScrollContainer, tableBody);
+        DefaultAPI.bindTableScroll(tableScroller, tableScrollContainer, tableBody);
         setEventListner();
         loadFilterCombo();
         loadBandCombo();
+        loadTextField();
         
        
+    }
+    private void loadTextField() {
+        TFTotalStockValue.setText(String.format("Rs. %,.2f", 0.00));
+        TFTotalSaleValue.setText(String.format("Rs. %,.2f", 0.00));
+        TFTotalProfit.setText(String.format("Rs. %,.2f", 0.00));
     }
     private void loadBandCombo(){
         ComboBoxUtils.loadComboBoxValues(cbBrand, Brand.class, "brand", Brand::getBrand);
@@ -106,18 +112,14 @@ public class ReportStockBalanceController implements Initializable {
             CriteriaQuery<Stock> cq = cb.createQuery(Stock.class);
             Root<Stock> stockRoot = cq.from(Stock.class);
 
-            // Join to Product
+     
             Join<Stock, Product> productJoin = stockRoot.join("productId");
-
-            // Join to Brand
             Join<Product, Brand> brandJoin = productJoin.join("brandId");
-
-            // Join to ProductStatus
             Join<Product, ProductStatus> PstatusJoin = productJoin.join("productStatusId");
             
             Predicate productStatusEnabled = cb.equal(PstatusJoin.get("status"), "Enable");
-
             cq.select(stockRoot).where(cb.and(productStatusEnabled));
+            
             String selectedSort = cbFilter.getValue();
             if ("Product Name".equals(selectedSort)) {
                 cq.orderBy(cb.asc(productJoin.get("product")));
@@ -126,7 +128,7 @@ public class ReportStockBalanceController implements Initializable {
             } else if ("Brand Name".equals(selectedSort)) {
                 cq.orderBy(cb.asc(brandJoin.get("brand")));
             } else if ("ID".equals(selectedSort)) {
-                cq.orderBy(cb.asc(stockRoot.get("id"))); // assuming stockRoot represents Stock entity
+                cq.orderBy(cb.asc(stockRoot.get("id"))); 
             }
 
             List<Stock> stockList = em.createQuery(cq).getResultList();
@@ -135,7 +137,6 @@ public class ReportStockBalanceController implements Initializable {
             double totalSaleValue=0;
             double totalProfit=0;
 
-            // Now loop through and extract needed info
             for (Stock stock : stockList) {
                 Product product = stock.getProductId();
                 Brand brand = product.getBrandId();
@@ -159,6 +160,7 @@ public class ReportStockBalanceController implements Initializable {
 
                 } catch (IOException e) {
                     e.printStackTrace();
+                     getLogger.logger().warning(e.toString());
                 }
             }
       
@@ -177,9 +179,7 @@ public class ReportStockBalanceController implements Initializable {
     private void refreshInterface() {
         cbFilter.setValue(null);
         cbBrand.setValue(null);
-        TFTotalProfit.setText("");
-        TFTotalSaleValue.setText("");
-        TFTotalStockValue.setText("");
+        loadTextField();
         tableBody.getChildren().clear();
         
     }
@@ -315,6 +315,7 @@ public class ReportStockBalanceController implements Initializable {
                 JasperViewer.viewReport(report, false);
             } catch (JRException e) {
                 e.printStackTrace();
+                 getLogger.logger().warning(e.toString());
             }
         });
 

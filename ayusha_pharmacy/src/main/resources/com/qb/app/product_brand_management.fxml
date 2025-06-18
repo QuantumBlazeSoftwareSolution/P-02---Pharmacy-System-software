@@ -108,7 +108,7 @@
                                                 <Font name="Aptos" size="14.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="tfBrandID" prefHeight="45.0" styleClass="text-field" stylesheets="@css/adminStyle.css">
+                                          <TextField fx:id="tfBrandID" onKeyPressed="#handleBrandIDKeyPressed" prefHeight="45.0" styleClass="text-field" stylesheets="@css/adminStyle.css">
                                              <font>
                                                 <Font name="Aptos" size="14.0" />
                                              </font>
@@ -146,9 +146,18 @@
                                     </JFXToggleButton>
                                  </children>
                               </VBox>
+                              <VBox alignment="TOP_RIGHT">
+                                 <children>
+                                    <Label fx:id="displayMessage">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
                               <HBox spacing="10.0">
                                  <children>
-                                    <Button fx:id="btnSecondaryClear" minHeight="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Clear">
+                                    <Button fx:id="btnSecondaryClear" minHeight="-Infinity" mnemonicParsing="false" onAction="#handleActionEvent" prefHeight="45.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Clear">
                                        <styleClass>
                                           <String fx:value="button-primary-outline" />
                                           <String fx:value="primary-white" />
@@ -161,7 +170,7 @@
                                           <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Button>
-                                    <Button fx:id="btnSecondaryUpdate" minHeight="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Update Changes">
+                                    <Button fx:id="btnSecondaryUpdate" minHeight="-Infinity" mnemonicParsing="false" onAction="#handleActionEvent" prefHeight="45.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Update Changes">
                                        <styleClass>
                                           <String fx:value="button-primary" />
                                           <String fx:value="primary-white" />

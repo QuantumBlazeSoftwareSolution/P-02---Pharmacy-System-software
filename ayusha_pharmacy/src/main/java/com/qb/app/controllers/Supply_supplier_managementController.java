@@ -1,5 +1,6 @@
 package com.qb.app.controllers;
 
+import com.qb.app.App;
 import com.qb.app.model.ComboBoxUtils;
 import com.qb.app.model.CustomAlert;
 import com.qb.app.model.JPATransaction;
@@ -13,13 +14,18 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -27,6 +33,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 public class Supply_supplier_managementController implements Initializable {
@@ -193,33 +203,10 @@ public class Supply_supplier_managementController implements Initializable {
     private void handlePopUpSupplierView(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
             if (supplierId.getText().isEmpty()) {
-                // view popup window
+                openPopUp();
             } else {
-                JPATransaction.runInTransaction((em) -> {
-
-                    try {
-                        int SupplierId = Integer.parseInt(supplierId.getText());
-                        Supplier supplier = em.find(Supplier.class, SupplierId);
-                        if (supplier != null) {
-                            this.loadedSupplier = supplier;
-                            isSupplierLoaded = true;
-                            updateSpName.setText(supplier.getName());
-                            updateSpCpComboBox.setValue(supplier.getCompanyId());
-                            updateSpStatus.setValue(supplier.getSupplierStatusId());
-                            updateSpTelephone.setText(supplier.getTelephone());
-
-                        } else {
-                            CustomAlert.showStyledAlert(root, "Supplier not found.", Alert.AlertType.WARNING);
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        getLogger.logger().warning(e.toString());
-                    }
-
-                });
-
+                loadSupplier();
             }
-
         }
     }
 
@@ -305,6 +292,74 @@ public class Supply_supplier_managementController implements Initializable {
         isSupplierLoaded = false;
         loadedSupplier = null;
 
+    }
+
+    private void openPopUp() {
+        try {
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("popUpSupplierList.fxml"));
+            Parent root = loader.load();
+
+            // Create a new stage for the popup
+            Stage popupStage = new Stage();
+            popupStage.initOwner(this.root.getScene().getWindow());
+            popupStage.initModality(Modality.APPLICATION_MODAL);
+
+            // Get screen dimensions
+            Screen screen = Screen.getPrimary();
+            Rectangle2D bounds = screen.getVisualBounds();
+
+            // Create scene with full width but original height
+            Scene scene = new Scene(root);
+            popupStage.setScene(scene);
+
+            // Set width to screen width and position at x=0
+            popupStage.setWidth(bounds.getWidth());
+            popupStage.setX(0); // This ensures no left gap
+
+            // Set fixed height (adjust as needed)
+            popupStage.setHeight(600);
+
+            // Center the popup vertically
+            popupStage.setY((bounds.getHeight() - popupStage.getHeight()) / 2);
+
+            popupStage.initStyle(StageStyle.TRANSPARENT);
+
+            // Get controller reference
+            PopUpSupplierListController controller = loader.getController();
+            controller.saveCallingController(this);
+
+            popupStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+            getLogger.logger().warning(e.toString());
+        }
+    }
+
+    public void setSupplierID(String id) {
+        supplierId.setText(id);
+    }
+    
+    private void loadSupplier() {
+        JPATransaction.runInTransaction((em) -> {
+            try {
+                int SupplierId = Integer.parseInt(supplierId.getText());
+                Supplier supplier = em.find(Supplier.class, SupplierId);
+                if (supplier != null) {
+                    this.loadedSupplier = supplier;
+                    isSupplierLoaded = true;
+                    updateSpName.setText(supplier.getName());
+                    updateSpCpComboBox.setValue(supplier.getCompanyId());
+                    updateSpStatus.setValue(supplier.getSupplierStatusId());
+                    updateSpTelephone.setText(supplier.getTelephone());
+
+                } else {
+                    CustomAlert.showStyledAlert(root, "Supplier not found.", Alert.AlertType.WARNING);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                getLogger.logger().warning(e.toString());
+            }
+        });
     }
 
 }

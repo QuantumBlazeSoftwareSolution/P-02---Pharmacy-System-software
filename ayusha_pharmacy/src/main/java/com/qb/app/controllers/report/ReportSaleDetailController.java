@@ -1,5 +1,7 @@
 package com.qb.app.controllers.report;
 
+import com.qb.app.controllers.report.beans.InvoiceBean;
+import com.qb.app.controllers.report.beans.InvoiceItemsBean;
 import com.qb.app.model.CustomAlert;
 import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.JPATransaction;
@@ -8,6 +10,7 @@ import com.qb.app.model.entity.Invoice;
 import com.qb.app.model.entity.InvoiceItem;
 import com.qb.app.model.entity.Product;
 import com.qb.app.model.getLogger;
+import com.qb.app.session.CompanyInfo;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Join;
@@ -17,7 +20,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -165,103 +170,120 @@ private void loadInvoiceReport() {
         });
     }
 
-//    private void LoadReportDetails() {
-//        
-//           JPATransaction.runInTransaction((em) -> {
-//            CriteriaBuilder cb = em.getCriteriaBuilder();
-//            CriteriaQuery<Brand> brandQuery = cb.createQuery(Brand.class);
-//            Root<Brand> brandRoot = brandQuery.from(Brand.class);
-//            brandQuery.select(brandRoot);
-//            List<Brand> brandList = em.createQuery(brandQuery).getResultList();
-//
-//            List<BrandBean> brandListBean = new ArrayList<>();
-//            double grandTotalSaleAmount = 0;
-//            double grandTotalStockAmount = 0;
-//            int grandTotalQty = 0;
-//            for (Brand brand : brandList) {
-//                CriteriaQuery<Product> productQuery = cb.createQuery(Product.class);
-//                Root<Product> productRoot = productQuery.from(Product.class);
-//                productQuery.select(productRoot)
-//                        .where(
-//                                cb.and(
-//                                        cb.equal(productRoot.get("brandId"), brand)
-//                                )
-//                        );
-//
-//                List<Product> productList = em.createQuery(productQuery).getResultList();
-//                List<ProductBean> productBeanList = new ArrayList<>();
-//
-//                double brandTotalSaleAmount = 0;
-//                double brandTotalStockAmount = 0;
-//                int brandTotalQty = 0;
-//
-//                for (Product product : productList) {
-//                    CriteriaQuery<Stock> stockQuery = cb.createQuery(Stock.class);
-//                    Root<Stock> stockRoot = stockQuery.from(Stock.class);
-//                    stockQuery.select(stockRoot)
-//                            .where(cb.equal(stockRoot.get("productId"), product));
-//                             Stock stockdetails = em.createQuery(stockQuery).getSingleResult();
-//                    double qty = stockdetails.getQty();
-//                    double tSaleAmount = qty * product.getSalePrice();
-//                    double tCostAmount = qty * product.getCostPrice();
-//                    brandTotalQty += qty;
-//                    brandTotalSaleAmount += tSaleAmount;
-//                    brandTotalStockAmount += tCostAmount;
-//
-//                    productBeanList.add(new ProductBean(
-//                            String.valueOf(product.getId()),
-//                            product.getProduct(),
-//                            product.getGenericName(),
-//                            String.format("Rs. %,.2f", product.getSalePrice()),
-//                            String.valueOf(qty),
-//                            String.format("Rs. %,.2f", tSaleAmount)
-//                    ));
-//                }
-//                  grandTotalSaleAmount += brandTotalSaleAmount;
-//                  grandTotalStockAmount += brandTotalStockAmount;
-//
-//                brandListBean.add(new BrandBean(
-//                        brand.getBrand(),
-//                        productBeanList,
-//                        String.valueOf(productBeanList.size()),
-//                        String.format("Rs. %,.2f", brandTotalSaleAmount),
-//                        String.valueOf(brandTotalQty)
-//                ));
-//            }
-//
-//            Map<String, Object> params = new HashMap<>();
-//            params.put("companyName", CompanyInfo.companyName);
-//            params.put("Address", CompanyInfo.address);
-//            params.put("Contact", CompanyInfo.mobile);
-//            params.put("ExpectedProfit", String.format("Rs. %,.2f", grandTotalSaleAmount-grandTotalStockAmount));
-//            params.put("TotalSaleValue",String.format("Rs. %,.2f", grandTotalSaleAmount ));
-//            params.put("TotalStockValue",String.format("Rs. %,.2f", grandTotalStockAmount));
-//
-//            try {
-//                URL imageUrl = getClass().getResource("/com/qb/app/assets/images/logo.png");
-//                params.put("Logo", imageUrl);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//                getLogger.logger().warning(e.toString());
-//            }
-//
-//            try {
-//                JasperReport subReport = (JasperReport) JRLoader.loadObject(
-//                        getClass().getResourceAsStream("/com/qb/app/reports/Pharmacy_Stock_Balance_Sub_Report.jasper"));
-//                params.put("SUB_REPORT_PATH", subReport);
-//
-//                JasperReport mainReport = (JasperReport) JRLoader.loadObject(
-//                        getClass().getResourceAsStream("/com/qb/app/reports/Pharmacy_Stock_Balance.jasper"));
-//
-//                JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(brandListBean);
-//                JasperPrint report = JasperFillManager.fillReport(mainReport, params, dataSource);
-//                JasperViewer.viewReport(report, false);
-//            } catch (JRException e) {
-//                e.printStackTrace();
-//                 getLogger.logger().warning(e.toString());
-//            }
-//        });
-//    }
+    private void LoadReportDetails() {
+        
+           JPATransaction.runInTransaction((em) -> {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Invoice> InvoiceQuery = cb.createQuery(Invoice.class);
+            Root<Invoice> invoiceRoot = InvoiceQuery.from(Invoice.class);
+            InvoiceQuery.select(invoiceRoot);
+            List<Invoice> invoiceList = em.createQuery(InvoiceQuery).getResultList();
+
+            List<InvoiceBean> invoiceListBean = new ArrayList<>();
+            
+            double GrnadTotalStockValue =0;
+            double GrnadTotalSaleValue =0;
+            double GrnadTotalDiscountValue =0;
+            double GrnadTotalProfitValue =0;
+            
+            for (Invoice invoice : invoiceList) {
+                CriteriaQuery<InvoiceItem> InvoiceItemQuery = cb.createQuery(InvoiceItem.class);
+                Root<InvoiceItem> InvoiceItemRoot = InvoiceItemQuery.from(InvoiceItem.class);
+                InvoiceItemQuery.select(InvoiceItemRoot)
+                        .where(
+                                cb.and(
+                                        cb.equal(InvoiceItemRoot.get("invoiceId"), invoice)
+                                )
+                        );
+
+                List<InvoiceItem> InvoiceItemList = em.createQuery(InvoiceItemQuery).getResultList();
+                List<InvoiceItemsBean> invoiceItemBeanList = new ArrayList<>();
+                
+                double tQty=0;
+                double tDiscount=0;
+                double tAmount=0;
+                double tProfit=0;
+                double tCost=0;
+                for (InvoiceItem invoiceItem : InvoiceItemList) {
+                    tQty+=invoiceItem.getQty();
+                    tDiscount+=invoiceItem.getDiscount();
+                    double Ramount =invoiceItem.getQty()*invoiceItem.getSalePrice();
+                    double Rcost =invoiceItem.getQty()*invoiceItem.getCostPrice();
+                    double Rdiscount =invoiceItem.getQty()*invoiceItem.getDiscount();
+                    double Rprofit =Ramount-(Rcost+Rdiscount);
+                    tCost+=Rcost;
+                    tAmount+=Ramount;
+                    tProfit+=Rprofit;
+                    
+                    
+                    invoiceItemBeanList.add(new InvoiceItemsBean(
+                            String.valueOf(invoiceItem.getProductId().getId()),
+                            String.valueOf(invoiceItem.getProductId().getProduct()),
+                            String.format("Rs. %,.2f", invoiceItem.getCostPrice()),
+                            String.format("Rs. %,.2f", invoiceItem.getSalePrice()),
+                            String.valueOf(invoiceItem.getQty()),
+                            String.valueOf(invoiceItem.getDiscount()),
+                            String.format("Rs. %,.2f",Ramount),
+                            String.format("Rs. %,.2f", Rprofit)
+                            
+                    ));
+                }
+                
+                GrnadTotalDiscountValue+=tDiscount;
+                GrnadTotalProfitValue+=tProfit;
+                GrnadTotalSaleValue+=tAmount;
+                GrnadTotalStockValue+=tCost;
+                
+                  
+
+                invoiceListBean.add(new InvoiceBean(
+                        String.valueOf(invoice.getId()),
+                        invoiceItemBeanList,
+                        String.valueOf(invoice.getDateTime()),
+                        String.format("Rs. %,.2f", invoice.getBillAmount()),
+                        String.format("Rs. %,.2f", invoice.getPaidAmount()),
+                        String.format("Rs. %,.2f", invoice.getPaidAmount() - invoice.getBillAmount()),
+                        String.format("Rs. %,.2f",tQty),
+                        String.format("Rs. %,.2f", tDiscount),
+                        String.format("Rs. %,.2f", tAmount),
+                        String.format("Rs. %,.2f", tProfit)
+                ));
+            }
+
+               Map<String, Object> params = new HashMap<>();
+            params.put("ApplicationName", CompanyInfo.companyName);
+            params.put("Address", CompanyInfo.address);
+            params.put("Contact", CompanyInfo.mobile);
+            params.put("TotalStockValue", String.format("Rs. %,.2f", GrnadTotalStockValue));
+            params.put("TotalSaleValue",String.format("Rs. %,.2f", GrnadTotalSaleValue));
+            params.put("TotalDiscount",String.format("Rs. %,.2f", GrnadTotalDiscountValue));
+            params.put("TotalProfit",String.format("Rs. %,.2f", GrnadTotalProfitValue));
+
+            try {
+                URL imageUrl = getClass().getResource("/com/qb/app/assets/images/logo.png");
+                params.put("Logo", imageUrl);
+            } catch (Exception e) {
+                e.printStackTrace();
+                getLogger.logger().warning(e.toString());
+            }
+
+            try {
+                JasperReport subReport = (JasperReport) JRLoader.loadObject(
+                        getClass().getResourceAsStream("/com/qb/app/reports/Pharmacy_Detail_Sale_Sub_Report.jasper"));
+                params.put("SUB_REPORT_PATH", subReport);
+
+                JasperReport mainReport = (JasperReport) JRLoader.loadObject(
+                        getClass().getResourceAsStream("/com/qb/app/reports/Pharmacy_Detail_Sale.jasper"));
+
+                JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(invoiceListBean);
+                JasperPrint report = JasperFillManager.fillReport(mainReport, params, dataSource);
+                JasperViewer.viewReport(report, false);
+            } catch (JRException e) {
+                e.printStackTrace();
+                 getLogger.logger().warning(e.toString());
+            }
+        });
+    }
 
     private void loadComboBox() {
         cbFilter.getItems().addAll("ID", "Invoice Number", "Product Name", "Quantity");
@@ -295,7 +317,7 @@ private void loadInvoiceReport() {
     @FXML
     private void ViewReport(ActionEvent event) {
         if (event.getSource() == ViewRepoetBtn) {
-//              LoadReportDetails();
+              LoadReportDetails();
          }
     }
 

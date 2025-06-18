@@ -24,7 +24,7 @@
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
-            <HBox alignment="CENTER_LEFT" spacing="14.0" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER_LEFT" spacing="10.0" BorderPane.alignment="CENTER">
                <children>
                   <Group fx:id="iconPage" />
                   <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Product Management">
@@ -142,7 +142,7 @@
                                     <Font name="Aptos" size="16.0" />
                                  </font>
                                  <VBox.margin>
-                                    <Insets top="20.0" />
+                                    <Insets top="10.0" />
                                  </VBox.margin>
                               </Label>
                               <HBox prefWidth="200.0" spacing="10.0">
@@ -196,7 +196,7 @@
                                     <Font name="Aptos" size="16.0" />
                                  </font>
                                  <VBox.margin>
-                                    <Insets top="20.0" />
+                                    <Insets top="10.0" />
                                  </VBox.margin>
                               </Label>
                               <VBox spacing="10.0">
@@ -273,15 +273,6 @@
                         </VBox>
                      </children>
                   </HBox>
-                  <VBox alignment="TOP_RIGHT">
-                     <children>
-                        <Label fx:id="displayMessage">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </VBox>
                   <HBox spacing="10.0">
                      <children>
                         <VBox maxHeight="-Infinity" maxWidth="-Infinity" spacing="10.0" HBox.hgrow="ALWAYS">
@@ -303,7 +294,7 @@
                                  <children>
                                     <ImageView fx:id="productImage" fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@assets/images/new_product_image.png" />
+                                          <Image url="@assets/images/add_product.png" />
                                        </image>
                                        <viewport>
                                           <Rectangle2D />
@@ -314,8 +305,17 @@
                            </children>
                         </VBox>
                         <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                        <VBox alignment="BOTTOM_LEFT" spacing="10.0">
+                        <VBox alignment="BOTTOM_LEFT" spacing="10.0" HBox.hgrow="ALWAYS">
                            <children>
+                              <VBox alignment="TOP_RIGHT">
+                                 <children>
+                                    <Label fx:id="displayMessage">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
                               <JFXToggleButton fx:id="toggleStatus" selected="true" styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Active Product">
                                  <font>
                                     <Font name="Aptos" size="14.0" />

@@ -285,9 +285,9 @@
                                  <children>
                                     <Pane maxHeight="-Infinity" maxWidth="-Infinity" styleClass="primary-border" stylesheets="@css/adminStyle.css">
                                        <children>
-                                          <ImageView fx:id="productImage" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fx:id="productImage" fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@assets/images/new_product_image.png" />
+                                                <Image url="@assets/images/add_product.png" />
                                              </image>
                                              <viewport>
                                                 <Rectangle2D />

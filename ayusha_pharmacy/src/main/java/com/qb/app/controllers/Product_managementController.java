@@ -392,7 +392,7 @@ public class Product_managementController implements Initializable {
     private void loadDefaultImage() {
         try {
             // Absolute path from classpath root
-            String imagePath = "/com/qb/app/assets/images/new_product_image.png";
+            String imagePath = "/com/qb/app/assets/images/add_product.png";
             InputStream stream = getClass().getResourceAsStream(imagePath);
 
             if (stream != null) {

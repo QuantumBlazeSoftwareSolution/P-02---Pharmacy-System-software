@@ -422,7 +422,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         }
 
         // Return default image if none found
-        return getClass().getResource("/com/qb/app/assets/images/new_product_image.png").toExternalForm();
+        return getClass().getResource("/com/qb/app/assets/images/empty_product.png").toExternalForm();
     }
 
     private void clearLoadProduct() {

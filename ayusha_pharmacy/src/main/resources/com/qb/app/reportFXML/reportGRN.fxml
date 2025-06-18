@@ -165,7 +165,7 @@
                                                 </ScrollPane>
                                              </children>
                                           </VBox>
-                                          <ScrollBar fx:id="tableScroller" orientation="VERTICAL" styleClass="transparent-scroll-pane" stylesheets="@../css/style.css" visibleAmount="20.0">
+                                          <ScrollBar fx:id="tableScroller" orientation="VERTICAL" styleClass="transparent-scroll-pane" visibleAmount="20.0">
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>

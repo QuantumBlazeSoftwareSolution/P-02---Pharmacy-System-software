@@ -51,7 +51,7 @@
                                              <children>
                                                 <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" maxWidth="220.0" minWidth="180.0" prefWidth="180.0">
                                                    <children>
-                                                      <JFXToggleButton fx:id="CheckBox" onAction="#checkBoxAction" />
+                                                      <JFXToggleButton fx:id="CheckBox" onAction="#checkBoxAction" styleClass="text-field-label" stylesheets="@../css/adminStyle.css" text="View Full Stock" />
                                                    </children>
                                                 </VBox>
                                                 <Region HBox.hgrow="ALWAYS" />
@@ -175,7 +175,7 @@
                                                 </ScrollPane>
                                              </children>
                                           </VBox>
-                                          <ScrollBar fx:id="tableScroller" orientation="VERTICAL" styleClass="transparent-scroll-pane" stylesheets="@../css/style.css" visibleAmount="20.0">
+                                          <ScrollBar fx:id="tableScroller" orientation="VERTICAL" styleClass="transparent-scroll-pane" visibleAmount="20.0">
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>

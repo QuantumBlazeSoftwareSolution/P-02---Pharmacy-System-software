@@ -27,6 +27,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
@@ -39,6 +40,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -365,16 +368,10 @@ public class Product_managementController implements Initializable {
     }
 
     private void clearRegistrationField() {
-//        cbBrand.setValue(null);
-//        cbUnit.setValue(null);
-//        cbType.setValue(null);
-//        cbBrand.setPromptText("Ex: Munche");
-//        cbUnit.setPromptText("Select Unit");
-//        cbType.setPromptText("Select Type");
         cbBrand.getSelectionModel().clearSelection();
         cbUnit.getSelectionModel().clearSelection();
         cbType.getSelectionModel().clearSelection();
-        cbBrand.setPromptText("Ex: Munche");
+        cbBrand.setPromptText("Ex: GSK");
         cbUnit.setPromptText("Select Unit");
         cbType.setPromptText("Select Type");
         tfBarcode.setText("");
@@ -461,12 +458,34 @@ public class Product_managementController implements Initializable {
                 tfCostPrice.requestFocus();
                 return false;
             }
-        }
 
-        if (!DefaultAPI.isDouble(tfCostPrice.getText())) {
-            displayWarningMessage("Invalid cost price format.", false);
-            tfCostPrice.requestFocus();
-            return false;
+            if (!DefaultAPI.isDouble(tfCostPrice.getText())) {
+                displayWarningMessage("Invalid cost price format.", false);
+                tfCostPrice.requestFocus();
+                return false;
+            }
+
+            // Additional validations
+            double salePrice = Double.parseDouble(tfSalePrice.getText());
+            double costPrice = Double.parseDouble(tfCostPrice.getText());
+
+            if (salePrice <= 0) {
+                displayWarningMessage("Sale price must be greater than 0.", false);
+                tfSalePrice.requestFocus();
+                return false;
+            }
+
+            if (costPrice <= 0) {
+                displayWarningMessage("Cost price must be greater than 0.", false);
+                tfCostPrice.requestFocus();
+                return false;
+            }
+
+            if (salePrice < costPrice) {
+                displayWarningMessage("Sale price cannot be less than cost price.", false);
+                tfSalePrice.requestFocus();
+                return false;
+            }
         }
 
         if (!tfDiscount.getText().isEmpty() && !DefaultAPI.isDouble(tfDiscount.getText())) {
@@ -499,28 +518,6 @@ public class Product_managementController implements Initializable {
             return false;
         }
 
-        // Additional validations
-        double salePrice = Double.parseDouble(tfSalePrice.getText());
-        double costPrice = Double.parseDouble(tfCostPrice.getText());
-
-        if (salePrice <= 0) {
-            displayWarningMessage("Sale price must be greater than 0.", false);
-            tfSalePrice.requestFocus();
-            return false;
-        }
-
-        if (costPrice <= 0) {
-            displayWarningMessage("Cost price must be greater than 0.", false);
-            tfCostPrice.requestFocus();
-            return false;
-        }
-
-        if (salePrice < costPrice) {
-            displayWarningMessage("Sale price cannot be less than cost price.", false);
-            tfSalePrice.requestFocus();
-            return false;
-        }
-
         if (!tfDiscount.getText().isEmpty()) {
             double discount = Double.parseDouble(tfDiscount.getText());
             if (discount < 0) {
@@ -534,71 +531,28 @@ public class Product_managementController implements Initializable {
     }
 
     private void mergeProduct(String type) {
-        JPATransaction.runInTransaction((em) -> {
-            try {
-                Product parentProduct = null;
-                if (type.equals("Child")) {
-                    parentProduct = em.find(Product.class, tfParentID.getText());
-                    if (parentProduct == null) {
-//                        CustomAlert.showStyledAlert("No parent product found with ID: " + tfParentID.getText(), Alert.AlertType.WARNING);
-                        displayWarningMessage("No parent product found with ID: " + tfParentID.getText(), false);
-                        tfParentID.requestFocus();
-                        return;
-                    }
-                }
+        if (!toggleStatus.isSelected()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("");
+            alert.setHeaderText("");
+            alert.setContentText("");
 
-                // save new product
-                Product product = new Product();
-                loadedProduct.setProduct(tfItemName.getText());
-                loadedProduct.setSalePrice(Double.parseDouble(tfSalePrice.getText()));
-                double costPrice;
-                if ("Child".equals(cbType.getValue().getType())) {
-                    costPrice = 0.0; // Set cost price to 0 for child products
-                } else {
-                    costPrice = Double.parseDouble(tfCostPrice.getText());
-                }
-                loadedProduct.setCostPrice(costPrice);
-                loadedProduct.setDiscount(tfDiscount.getText().isEmpty()
-                        ? 0.0
-                        : Double.parseDouble(tfDiscount.getText())
-                );
-                loadedProduct.setMeasure(Float.parseFloat(tfMeasure.getText()));
-                if (!tfBarcode.getText().isEmpty()) {
-                    product.setBarCode(tfBarcode.getText());
-                }
-                loadedProduct.setProductUnitId(cbUnit.getValue());
-                loadedProduct.setBrandId(cbBrand.getValue());
-                loadedProduct.setProductStatusId(getProductStatus(toggleStatus.isSelected()));
-                if (!tfGenericName.getText().isEmpty()) {
-                    loadedProduct.setGenericName(tfGenericName.getText());
-                }
-                em.merge(loadedProduct);
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(new Image(getClass().getResource("/com/qb/app/assets/images/logo.png").toExternalForm()));
 
-                // save new product's product_has_product_type
-                productHasProductType.setProductId(loadedProduct);
-                productHasProductType.setProductTypeId(cbType.getValue());
-                // check if this product is a parent product or a child product
-                if (type.equals("Child")) {
-                    productHasProductType.setReferenceId(parentProduct);
-                } else {
-                    productHasProductType.setReferenceId(loadedProduct);
-                }
-                em.merge(productHasProductType);
+            ButtonType disableButton = new ButtonType("Disable Product", ButtonBar.ButtonData.CANCEL_CLOSE);
+            ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.OK_DONE);
+            alert.getButtonTypes().setAll(disableButton, cancelButton);
 
-                if (selectedImageFile != null) {
-                    String extension = getFileExtension(selectedImageFile.getName());
-                    String imageName = "product_" + loadedProduct.getId() + extension;
-                    saveProductImage(selectedImageFile, imageName);
-                }
-
-                displayWarningMessage("Product successfully added to inventory.", true);
-
-                clearRegistrationField();
-            } catch (NumberFormatException | IOException e) {
-                e.printStackTrace();
-                getLogger.logger().warning(e.toString());
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == disableButton) {
+                continueMergeWithProductStatus(true, type);
+            } else {
+                continueMergeWithProductStatus(false, type);
             }
-        });
+        } else {
+            continueMergeWithProductStatus(true, type);
+        }
     }
 
     private String saveProductImage(File sourceFile, String fileName) throws IOException {
@@ -627,6 +581,70 @@ public class Product_managementController implements Initializable {
                 // Handle case where no "Enable" status exists
                 System.err.println("No ProductStatus with status='Enable' found");
                 return null;
+            }
+        });
+    }
+
+    private void continueMergeWithProductStatus(boolean status, String type) {
+        JPATransaction.runInTransaction((em) -> {
+            try {
+                Product parentProduct = null;
+                if (type.equals("Child")) {
+                    parentProduct = em.find(Product.class, tfParentID.getText());
+                    if (parentProduct == null) {
+                        displayWarningMessage("No parent product found with ID: " + tfParentID.getText(), false);
+                        tfParentID.requestFocus();
+                        return;
+                    }
+                }
+
+                Product product = new Product();
+                loadedProduct.setProduct(tfItemName.getText());
+                loadedProduct.setSalePrice(Double.parseDouble(tfSalePrice.getText()));
+                double costPrice;
+                if ("Child".equals(cbType.getValue().getType())) {
+                    costPrice = 0.0;
+                } else {
+                    costPrice = Double.parseDouble(tfCostPrice.getText());
+                }
+                loadedProduct.setCostPrice(costPrice);
+                loadedProduct.setDiscount(tfDiscount.getText().isEmpty()
+                        ? 0.0
+                        : Double.parseDouble(tfDiscount.getText())
+                );
+                loadedProduct.setMeasure(Float.parseFloat(tfMeasure.getText()));
+                if (!tfBarcode.getText().isEmpty()) {
+                    product.setBarCode(tfBarcode.getText());
+                }
+                loadedProduct.setProductUnitId(cbUnit.getValue());
+                loadedProduct.setBrandId(cbBrand.getValue());
+                loadedProduct.setProductStatusId(getProductStatus(status ? toggleStatus.isSelected() : true));
+                if (!tfGenericName.getText().isEmpty()) {
+                    loadedProduct.setGenericName(tfGenericName.getText());
+                }
+                em.merge(loadedProduct);
+
+                productHasProductType.setProductId(loadedProduct);
+                productHasProductType.setProductTypeId(cbType.getValue());
+                if (type.equals("Child")) {
+                    productHasProductType.setReferenceId(parentProduct);
+                } else {
+                    productHasProductType.setReferenceId(loadedProduct);
+                }
+                em.merge(productHasProductType);
+
+                if (selectedImageFile != null) {
+                    String extension = getFileExtension(selectedImageFile.getName());
+                    String imageName = "product_" + loadedProduct.getId() + extension;
+                    saveProductImage(selectedImageFile, imageName);
+                }
+
+                displayWarningMessage("Product successfully updated.", true);
+
+                clearRegistrationField();
+            } catch (NumberFormatException | IOException e) {
+                e.printStackTrace();
+                getLogger.logger().warning(e.toString());
             }
         });
     }

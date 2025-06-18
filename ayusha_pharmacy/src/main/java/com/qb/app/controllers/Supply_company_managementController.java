@@ -231,28 +231,7 @@ public class Supply_company_managementController implements Initializable {
                     getLogger.logger().warning(e.toString());
                 }
             } else {
-                JPATransaction.runInTransaction((em) -> {
-
-                    try {
-                        int CompanyId = Integer.parseInt(companyId.getText());
-                        Company company = em.find(Company.class, CompanyId);
-                        if (company != null) {
-                            this.loadedCompany = company;
-                            isCompanyLoaded = true;
-                            updateCompanyName.setText(company.getName());
-                            updateCompanyAddress.setText(company.getAddress());
-                            updateCompanyTelephone_1.setText(String.valueOf(company.getTelephone1()));
-                            updateCompanyTelephone_2.setText(String.valueOf(company.getTelephone2()));
-
-                        } else {
-                            CustomAlert.showStyledAlert(root, "Company not found", Alert.AlertType.WARNING);
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        getLogger.logger().warning(e.toString());
-                    }
-
-                });
+                loadCompany();
             }
 
         }
@@ -305,11 +284,8 @@ public class Supply_company_managementController implements Initializable {
                         e.printStackTrace();
                         getLogger.logger().warning(e.toString());
                     }
-
                 });
-
             }
-
         }
     }
 
@@ -359,6 +335,29 @@ public class Supply_company_managementController implements Initializable {
 
     public void setCompanyID(String id) {
         companyId.setText(id);
+    }
+
+    private void loadCompany() {
+        JPATransaction.runInTransaction((em) -> {
+            try {
+                int CompanyId = Integer.parseInt(companyId.getText());
+                Company company = em.find(Company.class, CompanyId);
+                if (company != null) {
+                    this.loadedCompany = company;
+                    isCompanyLoaded = true;
+                    updateCompanyName.setText(company.getName());
+                    updateCompanyAddress.setText(company.getAddress());
+                    updateCompanyTelephone_1.setText(String.valueOf(company.getTelephone1()));
+                    updateCompanyTelephone_2.setText(String.valueOf(company.getTelephone2()));
+
+                } else {
+                    CustomAlert.showStyledAlert(root, "Company not found", Alert.AlertType.WARNING);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                getLogger.logger().warning(e.toString());
+            }
+        });
     }
 
 }

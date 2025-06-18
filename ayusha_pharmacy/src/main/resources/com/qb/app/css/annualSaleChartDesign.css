@@ -54,13 +54,13 @@
 }
 
 .chart-legend-item {
-    -fx-text-fill: white; /* Font color for legend items */
+    -fx-text-fill: #00796F; /* Font color for legend items */
 }
 
 .chart-title {
-    -fx-text-fill: white; /* Color of the chart title */
+    -fx-text-fill: #00796F; /* Color of the chart title */
 }
 
 .chart-pie-label {
-    -fx-fill: white; /* Change label color to white */
+    -fx-fill: #00796F; /* Change label color to white */
 }

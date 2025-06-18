@@ -360,6 +360,9 @@
                                     <graphic>
                                         <Group fx:id="iconExit" />
                                     </graphic>
+                           <VBox.margin>
+                              <Insets right="4.0" />
+                           </VBox.margin>
                                 </Button>
                             </children>
                         </VBox>

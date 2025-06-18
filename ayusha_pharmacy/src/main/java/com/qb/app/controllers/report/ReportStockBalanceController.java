@@ -221,12 +221,6 @@ public class ReportStockBalanceController implements Initializable {
     private void Loadreport(ActionEvent event) {
         if (event.getSource() == LoadReport) {
              loadData(); 
-//            if (CheckBox.isSelected()) {
-//                loadData();
-//            } else {
-//                LoadDataBrand();
-//
-//            }
         }
     }
 
@@ -309,7 +303,7 @@ public class ReportStockBalanceController implements Initializable {
             params.put("TotalStockValue",String.format("Rs. %,.2f", grandTotalStockAmount));
 
             try {
-                URL imageUrl = UnitTestingVihanga.class.getResource("/com/qb/app/assets/images/logo.png");
+                URL imageUrl = getClass().getResource("/com/qb/app/assets/images/logo.png");
                 params.put("Logo", imageUrl);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -318,11 +312,11 @@ public class ReportStockBalanceController implements Initializable {
 
             try {
                 JasperReport subReport = (JasperReport) JRLoader.loadObject(
-                        UnitTestingVihanga.class.getResourceAsStream("/com/qb/app/reports/Pharmacy_Stock_Balance_Sub_Report.jasper"));
+                        getClass().getResourceAsStream("/com/qb/app/reports/Pharmacy_Stock_Balance_Sub_Report.jasper"));
                 params.put("SUB_REPORT_PATH", subReport);
 
                 JasperReport mainReport = (JasperReport) JRLoader.loadObject(
-                        UnitTestingVihanga.class.getResourceAsStream("/com/qb/app/reports/Pharmacy_Stock_Balance.jasper"));
+                        getClass().getResourceAsStream("/com/qb/app/reports/Pharmacy_Stock_Balance.jasper"));
 
                 JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(brandListBean);
                 JasperPrint report = JasperFillManager.fillReport(mainReport, params, dataSource);

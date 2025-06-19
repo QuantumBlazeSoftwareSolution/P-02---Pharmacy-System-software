@@ -4,7 +4,7 @@ import com.qb.app.App;
 import com.qb.app.model.ControllerClose;
 import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.JPATransaction;
-import com.qb.app.model.entity.Invoice;
+import com.qb.app.model.PopUp;
 import com.qb.app.model.entity.Product;
 import com.qb.app.model.entity.Stock;
 import com.qb.app.model.getLogger;
@@ -65,8 +65,6 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
     @FXML
     private Button btnProductView;
     @FXML
-    private Label invoiceNumber;
-    @FXML
     private Label labelItemName;
     @FXML
     private Text labelItemPrice;
@@ -94,13 +92,6 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
     private Button itemPrice;
     @FXML
     private AnchorPane root;
-    // </editor-fold>
-
-    private double unitPrice = 0;
-    private double itemQty = 1;
-    private boolean isProductLoaded;
-    private Product product;
-    private int nextInvoiceNumber;
     @FXML
     private Label labelItemNewPrice;
     @FXML
@@ -109,6 +100,12 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
     private Separator previewSeparator;
     @FXML
     private Label previewMessage;
+    // </editor-fold>
+
+    private double unitPrice = 0;
+    private double itemQty = 1;
+    private boolean isProductLoaded;
+    private Product product;
 
     public double getUnitPrice() {
         return unitPrice;
@@ -131,7 +128,6 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         DefaultAPI.bindTableScroll(invoiceScroller, invoiceScrollContainer, invoiceItemContainer);
         tfItemCode.setTextFormatter(DefaultAPI.createNumericTextFormatter());
         setEventListener();
-        findNextInvoiceID();
         Platform.runLater(() -> {
             tfItemCode.requestFocus();
         });
@@ -300,7 +296,6 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                     }
                 }
             }
-            System.out.println("Ky Code: " + event.getCode());
         });
     }
 
@@ -317,8 +312,6 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
             if (getItemQty() > 1) {
                 setItemQty(getItemQty() - 1);
                 setItemPrice();
-            } else {
-                System.out.println("Quantity is less than 1");
             }
             btnViewQty.setText(String.valueOf(getItemQty()));
         }
@@ -444,7 +437,6 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         invoiceItemList.clear();
         invoiceItemContainer.getChildren().clear();
         calculateInvoiceSummary();
-        setNextInvoiceID();
     }
 
     @FXML
@@ -458,65 +450,58 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
 
     private void openPaymentPanel() {
         try {
-            FXMLLoader loader = new FXMLLoader(App.class.getResource("fxmlPanel/InvoicePayment.fxml"));
-            Parent root = loader.load();
-
-            Stage popupStage = new Stage();
-            popupStage.initOwner(btnPayment.getScene().getWindow());
-            popupStage.initModality(Modality.APPLICATION_MODAL);
-
-            Scene mainScene = this.root.getScene();
-            GaussianBlur blur = new GaussianBlur(10);
-            mainScene.getRoot().setEffect(blur);
-            
-            popupStage.setOnHidden(e -> mainScene.getRoot().setEffect(null));
-
-            Screen screen = Screen.getPrimary();
-            Rectangle2D bounds = screen.getVisualBounds();
-
-            Scene scene = new Scene(root);
-            popupStage.setScene(scene);
-
-            popupStage.setWidth(bounds.getWidth());
-            popupStage.setX(0);
-
-            popupStage.setY((bounds.getHeight() - popupStage.getHeight()) / 2);
-
-            popupStage.initStyle(StageStyle.TRANSPARENT);
-
-            InvoicePaymentController controller = loader.getController();
-            controller.saveProductRegistrationController(this);
-            controller.setItems(invoiceItemList);
-
-            popupStage.showAndWait();
+            PopUp.showPopupAndWait(
+                    "fxmlPanel/InvoicePayment.fxml",
+                    btnPayment,
+                    this.root.getScene(),
+                    PopUp.PopupType.CENTERED_80_WIDTH,
+                    (InvoicePaymentController controller) -> {
+                        controller.saveProductRegistrationController(this);
+                        controller.setItems(invoiceItemList);
+                    }
+            );
+//            FXMLLoader loader = new FXMLLoader(App.class.getResource("fxmlPanel/InvoicePayment.fxml"));
+//            Parent root = loader.load();
+//
+//            Stage popupStage = new Stage();
+//            popupStage.initOwner(btnPayment.getScene().getWindow());
+//            popupStage.initModality(Modality.APPLICATION_MODAL);
+//
+//            Scene mainScene = this.root.getScene();
+//            GaussianBlur blur = new GaussianBlur(10);
+//            mainScene.getRoot().setEffect(blur);
+//
+//            popupStage.setOnHidden(e -> mainScene.getRoot().setEffect(null));
+//
+//            Screen screen = Screen.getPrimary();
+//            Rectangle2D bounds = screen.getVisualBounds();
+//
+//            // Calculate 80% of screen width
+//            double eightyPercentWidth = bounds.getWidth() * 0.8;
+//
+//            Scene scene = new Scene(root);
+//            popupStage.setScene(scene);
+//
+//            // Set width to 80% of screen
+//            popupStage.setWidth(eightyPercentWidth);
+//
+//            // Center the stage horizontally
+//            popupStage.setX((bounds.getWidth() - eightyPercentWidth) / 2);
+//
+//            // Center vertically
+//            popupStage.setY((bounds.getHeight() - popupStage.getHeight()) / 2);
+//
+//            popupStage.initStyle(StageStyle.TRANSPARENT);
+//
+//            InvoicePaymentController controller = loader.getController();
+//            controller.saveProductRegistrationController(this);
+//            controller.setItems(invoiceItemList);
+//
+//            popupStage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
             getLogger.logger().warning(e.toString());
         }
-    }
-
-    private void findNextInvoiceID() {
-        JPATransaction.runInTransaction((em) -> {
-            CriteriaBuilder cb = em.getCriteriaBuilder();
-            CriteriaQuery<Invoice> cq = cb.createQuery(Invoice.class);
-            Root<Invoice> invoiceTable = cq.from(Invoice.class);
-
-            cq.orderBy(cb.desc(invoiceTable.get("dateTime")));
-
-            List<Invoice> invoiceList = em.createQuery(cq).setMaxResults(1).getResultList();
-
-            if (invoiceList.isEmpty()) {
-                invoiceNumber.setText("#000001");
-            } else {
-                Invoice invoice = invoiceList.get(0);
-                this.nextInvoiceNumber = invoice.getId();
-                setNextInvoiceID();
-            }
-        });
-    }
-
-    private void setNextInvoiceID() {
-        invoiceNumber.setText(String.format("#%06d", nextInvoiceNumber + 1));
     }
 
     private void openProductView() {

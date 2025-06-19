@@ -1,11 +1,13 @@
 package com.qb.app.controllers;
 
+import com.qb.app.model.CustomAlert;
 import com.qb.app.model.InterfaceMortion;
 import com.qb.app.model.SVGIconGroup;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -52,7 +54,7 @@ public class TrainingVerificationController implements Initializable {
             panelCashierController.enableTrainingMode();
             stage.close();
         } else {
-            System.out.println("Incorrect PIN. Please try again.");
+            CustomAlert.showStyledAlert(root, "Incorrect PIN. Please try again.", Alert.AlertType.WARNING);
         }
     }
 

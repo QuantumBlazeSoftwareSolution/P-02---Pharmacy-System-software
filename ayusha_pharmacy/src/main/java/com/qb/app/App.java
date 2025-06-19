@@ -35,10 +35,10 @@ public class App extends Application {
     public static void setRoot(String fxml) throws IOException {
         // Call close() on previous controller if applicable
         if (currentController instanceof ControllerClose controllerClose) {
-            System.out.println("instanceof ControllerClose: Going to trigger close method.");
+//            System.out.println("instanceof ControllerClose: Going to trigger close method.");
             controllerClose.close();
         } else {
-            System.out.println("Not instanceof ControllerClose");
+//            System.out.println("Not instanceof ControllerClose");
         }
 
         // Load new FXML

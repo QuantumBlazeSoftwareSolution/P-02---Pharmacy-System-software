@@ -4,6 +4,7 @@ import com.qb.app.App;
 import com.qb.app.model.ComboBoxUtils;
 import com.qb.app.model.CustomAlert;
 import com.qb.app.model.JPATransaction;
+import com.qb.app.model.PopUp;
 import com.qb.app.model.SVGIconGroup;
 import com.qb.app.model.entity.Company;
 import com.qb.app.model.entity.Supplier;
@@ -296,39 +297,48 @@ public class Supply_supplier_managementController implements Initializable {
 
     private void openPopUp() {
         try {
-            FXMLLoader loader = new FXMLLoader(App.class.getResource("popUpSupplierList.fxml"));
-            Parent root = loader.load();
-
-            // Create a new stage for the popup
-            Stage popupStage = new Stage();
-            popupStage.initOwner(this.root.getScene().getWindow());
-            popupStage.initModality(Modality.APPLICATION_MODAL);
-
-            // Get screen dimensions
-            Screen screen = Screen.getPrimary();
-            Rectangle2D bounds = screen.getVisualBounds();
-
-            // Create scene with full width but original height
-            Scene scene = new Scene(root);
-            popupStage.setScene(scene);
-
-            // Set width to screen width and position at x=0
-            popupStage.setWidth(bounds.getWidth());
-            popupStage.setX(0); // This ensures no left gap
-
-            // Set fixed height (adjust as needed)
-            popupStage.setHeight(600);
-
-            // Center the popup vertically
-            popupStage.setY((bounds.getHeight() - popupStage.getHeight()) / 2);
-
-            popupStage.initStyle(StageStyle.TRANSPARENT);
-
-            // Get controller reference
-            PopUpSupplierListController controller = loader.getController();
-            controller.saveCallingController(this);
-
-            popupStage.showAndWait();
+            PopUp.showPopupAndWait(
+                    "popUpSupplierList.fxml",
+                    supplierId,
+                    this.root.getScene(),
+                    PopUp.PopupType.CENTERED_80_WIDTH,
+                    (PopUpSupplierListController controller) -> {
+                        controller.saveCallingController(this);
+                    }
+            );
+//            FXMLLoader loader = new FXMLLoader(App.class.getResource("popUpSupplierList.fxml"));
+//            Parent root = loader.load();
+//
+//            // Create a new stage for the popup
+//            Stage popupStage = new Stage();
+//            popupStage.initOwner(this.root.getScene().getWindow());
+//            popupStage.initModality(Modality.APPLICATION_MODAL);
+//
+//            // Get screen dimensions
+//            Screen screen = Screen.getPrimary();
+//            Rectangle2D bounds = screen.getVisualBounds();
+//
+//            // Create scene with full width but original height
+//            Scene scene = new Scene(root);
+//            popupStage.setScene(scene);
+//
+//            // Set width to screen width and position at x=0
+//            popupStage.setWidth(bounds.getWidth());
+//            popupStage.setX(0); // This ensures no left gap
+//
+//            // Set fixed height (adjust as needed)
+//            popupStage.setHeight(600);
+//
+//            // Center the popup vertically
+//            popupStage.setY((bounds.getHeight() - popupStage.getHeight()) / 2);
+//
+//            popupStage.initStyle(StageStyle.TRANSPARENT);
+//
+//            // Get controller reference
+//            PopUpSupplierListController controller = loader.getController();
+//            controller.saveCallingController(this);
+//
+//            popupStage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
             getLogger.logger().warning(e.toString());
@@ -338,7 +348,7 @@ public class Supply_supplier_managementController implements Initializable {
     public void setSupplierID(String id) {
         supplierId.setText(id);
     }
-    
+
     private void loadSupplier() {
         JPATransaction.runInTransaction((em) -> {
             try {

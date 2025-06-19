@@ -6,11 +6,14 @@ import com.qb.app.model.ComboBoxUtils;
 import com.qb.app.model.CustomAlert;
 import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.JPATransaction;
+import com.qb.app.model.PopUp;
 import com.qb.app.model.SVGIconGroup;
 import com.qb.app.model.entity.Company;
 import com.qb.app.model.entity.Grn;
 import com.qb.app.model.entity.GrnItem;
 import com.qb.app.model.entity.Product;
+import com.qb.app.model.entity.ProductHasProductType;
+import com.qb.app.model.entity.ProductStatus;
 import com.qb.app.model.entity.Stock;
 import com.qb.app.model.entity.Supplier;
 import com.qb.app.model.getLogger;
@@ -260,39 +263,48 @@ public class Inventory_grnController implements Initializable {
         if (event.getCode() == KeyCode.ENTER) {
             if (tfProductID.getText().isEmpty()) {
                 try {
-                    FXMLLoader loader = new FXMLLoader(App.class.getResource("popUpProductList.fxml"));
-                    Parent root = loader.load();
-
-                    // Create a new stage for the popup
-                    Stage popupStage = new Stage();
-                    popupStage.initOwner(tfProductID.getScene().getWindow());
-                    popupStage.initModality(Modality.APPLICATION_MODAL);
-
-                    // Get screen dimensions
-                    Screen screen = Screen.getPrimary();
-                    Rectangle2D bounds = screen.getVisualBounds();
-
-                    // Create scene with full width but original height
-                    Scene scene = new Scene(root);
-                    popupStage.setScene(scene);
-
-                    // Set width to screen width and position at x=0
-                    popupStage.setWidth(bounds.getWidth());
-                    popupStage.setX(0); // This ensures no left gap
-
-                    // Set fixed height (adjust as needed)
-                    popupStage.setHeight(600);
-
-                    // Center the popup vertically
-                    popupStage.setY((bounds.getHeight() - popupStage.getHeight()) / 2);
-
-                    popupStage.initStyle(StageStyle.TRANSPARENT);
-
-                    // Get controller reference
-                    PopUpProductListController controller = loader.getController();
-                    controller.saveProductRegistrationController(this);
-
-                    popupStage.showAndWait();
+                    PopUp.showPopupAndWait(
+                            "popUpProductList.fxml",
+                            tfProductID,
+                            this.root.getScene(),
+                            PopUp.PopupType.CENTERED_80_WIDTH,
+                            (PopUpProductListController controller) -> {
+                                controller.saveProductRegistrationController(this);
+                            }
+                    );
+//                    FXMLLoader loader = new FXMLLoader(App.class.getResource("popUpProductList.fxml"));
+//                    Parent root = loader.load();
+//
+//                    // Create a new stage for the popup
+//                    Stage popupStage = new Stage();
+//                    popupStage.initOwner(tfProductID.getScene().getWindow());
+//                    popupStage.initModality(Modality.APPLICATION_MODAL);
+//
+//                    // Get screen dimensions
+//                    Screen screen = Screen.getPrimary();
+//                    Rectangle2D bounds = screen.getVisualBounds();
+//
+//                    // Create scene with full width but original height
+//                    Scene scene = new Scene(root);
+//                    popupStage.setScene(scene);
+//
+//                    // Set width to screen width and position at x=0
+//                    popupStage.setWidth(bounds.getWidth());
+//                    popupStage.setX(0); // This ensures no left gap
+//
+//                    // Set fixed height (adjust as needed)
+//                    popupStage.setHeight(600);
+//
+//                    // Center the popup vertically
+//                    popupStage.setY((bounds.getHeight() - popupStage.getHeight()) / 2);
+//
+//                    popupStage.initStyle(StageStyle.TRANSPARENT);
+//
+//                    // Get controller reference
+//                    PopUpProductListController controller = loader.getController();
+//                    controller.saveProductRegistrationController(this);
+//
+//                    popupStage.showAndWait();
                 } catch (Exception e) {
                     e.printStackTrace();
                     getLogger.logger().warning(e.toString());
@@ -313,14 +325,19 @@ public class Inventory_grnController implements Initializable {
                 int productID = Integer.parseInt(tfProductID.getText());
                 Product product = em.find(Product.class, productID);
                 if (product != null) {
-                    this.loadedProduct = product;
-                    tfProductName.setText(product.getProduct());
-                    tfGenericName.setText(product.getGenericName());
-                    tfCostPrice.setText(String.valueOf(product.getCostPrice()));
-                    tfQty.setText("1");
-                    tfCostPrice.setDisable(false);
-                    tfQty.setDisable(false);
-                    tfCostPrice.requestFocus();
+                    if (isParentProduct(product)) {
+                        this.loadedProduct = product;
+                        tfProductName.setText(product.getProduct());
+                        tfGenericName.setText(product.getGenericName());
+                        tfCostPrice.setText(String.valueOf(product.getCostPrice()));
+                        tfQty.setText("1");
+                        tfCostPrice.setDisable(false);
+                        tfQty.setDisable(false);
+                        tfCostPrice.requestFocus();
+                    } else {
+                        displayWarningMessage("Cannot proceed with child product.", false);
+                        clearLoadedTextFields();
+                    }
                 } else {
                     displayWarningMessage("Product not found.", false);
                 }
@@ -519,6 +536,21 @@ public class Inventory_grnController implements Initializable {
     @FXML
     private void handleDiscount(KeyEvent event) {
         calculateTotal();
+    }
+
+    private boolean isParentProduct(Product product) {
+        return JPATransaction.runInTransaction((em) -> {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<ProductHasProductType> cq = cb.createQuery(ProductHasProductType.class);
+            Root<ProductHasProductType> typeTable = cq.from(ProductHasProductType.class);
+
+            Predicate prdcts = cb.equal(typeTable.get("productId"), product);
+            cq.where(prdcts);
+
+            ProductHasProductType productType = em.createQuery(cq).getSingleResult();
+
+            return productType.getProductTypeId().getType().equals("Parent");
+        });
     }
 
 }

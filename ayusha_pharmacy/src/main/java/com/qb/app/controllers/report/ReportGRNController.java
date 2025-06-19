@@ -200,8 +200,7 @@ public class ReportGRNController implements Initializable {
 
                     discount = grn.getDiscount();
                     tfDiscount.setText(String.format("Rs. %,.2f", discount));
-                }
-                System.out.println("GRN DateTime: " + grnDateTimeString);
+                }                
                 double amountd = item.getQty() * item.getCostPrice();
                 totalAmount += amountd;
 

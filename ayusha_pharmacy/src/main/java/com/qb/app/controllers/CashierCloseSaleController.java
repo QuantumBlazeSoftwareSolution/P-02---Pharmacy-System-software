@@ -172,7 +172,6 @@ public class CashierCloseSaleController implements Initializable, ControllerClos
     }
 
     private double calculateTotalCollection() {
-        System.out.println("calculateTotalCollection() method was triggered");
         double total = 0;
 
         // Add each denomination's total value
@@ -188,13 +187,10 @@ public class CashierCloseSaleController implements Initializable, ControllerClos
     }
 
     private double getDenominationTotal(TextField quantityField, int denominationValue) {
-        System.out.println("getDenominationTotal() method was triggered");
         try {
             if (!quantityField.getText().isEmpty()) {
                 int quantity = Integer.parseInt(quantityField.getText());
                 return quantity * denominationValue;
-            } else {
-                System.out.println("It's empty");
             }
         } catch (NumberFormatException e) {
             // Handle invalid number format (optional)

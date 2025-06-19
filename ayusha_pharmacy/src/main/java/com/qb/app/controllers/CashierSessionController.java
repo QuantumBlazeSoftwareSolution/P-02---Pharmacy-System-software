@@ -26,6 +26,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
 import static com.qb.app.model.JPATransaction.runInTransaction;
+import com.qb.app.model.getLogger;
 import com.qb.app.session.ApplicationControllers;
 import java.time.LocalTime;
 import java.util.concurrent.Executors;
@@ -130,6 +131,15 @@ public class CashierSessionController implements Initializable, ControllerClose 
                         signOffMessage.setText("Waiting for sign off.");
                         MessageTransition("Sign in completed.", signInMessage);
                         cleanSignIn();
+
+                        PauseTransition delay = new PauseTransition(Duration.seconds(1));
+                        delay.setOnFinished(event -> {
+                            ApplicationControllers.getPanelCashierController().changePanel(
+                                    "/com/qb/app/cashierInvoice.fxml",
+                                    "Invoice"
+                            );
+                        });
+                        delay.play();
                     } else {
                         signInMessage.setText("Session active: You cannot sign in multiple times per day.");
                         MessageTransition("You're already signed in for today", signInMessage);
@@ -177,7 +187,7 @@ public class CashierSessionController implements Initializable, ControllerClose 
                                     delay.play();
                                 }
                             } catch (NumberFormatException e) {
-                                System.out.println(e.getMessage());
+                                getLogger.logger().warning(e.toString());
                             }
                         });
                     } else {

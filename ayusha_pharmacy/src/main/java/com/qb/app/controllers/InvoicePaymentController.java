@@ -88,7 +88,6 @@ public class InvoicePaymentController implements Initializable {
         setupTextFields();
         closeIcon.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/close-icon.svg"));
         tfCashAmount.requestFocus();
-        System.out.println("Requested");
         Platform.runLater(() -> {
             tfCashAmount.requestFocus();
         });
@@ -304,9 +303,9 @@ public class InvoicePaymentController implements Initializable {
         Map<String, Object> params = new HashMap<>();
 
         if (id != 0) {
-            params.put("ID", String.format("%08d", id));
+            params.put("ID", String.format("INV-%06d", id));
         } else {
-            params.put("ID", "00000000");
+            params.put("ID", "000000");
         }
 
         try {

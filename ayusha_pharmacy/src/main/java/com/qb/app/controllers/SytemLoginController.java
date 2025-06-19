@@ -30,6 +30,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import static com.qb.app.model.JPATransaction.runInTransaction;
 import com.qb.app.model.entity.Session;
+import com.qb.app.model.getLogger;
 import java.time.LocalDate;
 import java.util.Date;
 import javafx.animation.PauseTransition;
@@ -126,13 +127,11 @@ public class SytemLoginController implements Initializable {
                             case "cashier" ->
                                 App.setRoot("panelCashier");
                             case "developer" ->
-                                App.setRoot("panelDeveloper");
-                            default ->
-                                System.out.println("Unknown role: " + role);
+                                App.setRoot("panelDeveloper");                                                            
                         }
                         ApplicationSession.setEmployee(emp); // save in session
                     } catch (IOException e) {
-                        System.out.println("Navigation error: " + e.getMessage());
+                        getLogger.logger().warning(e.toString());
                     }
                 } else {
                     displayLoginMessage("Access Denied", false);
@@ -169,7 +168,6 @@ public class SytemLoginController implements Initializable {
 
     private void loadORM() {
         runInTransaction((em) -> {
-            System.out.println("ORM is Loaded");
             btnLogin.setDisable(false);
         });
     }

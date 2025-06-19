@@ -288,13 +288,7 @@ public class PanelCashierController implements Initializable {
             // 4. Update the UI
             contentBorder.setCenter(FXMLroot);
             controller.setTitle(title);
-
-            // Optional: Log the controller (if needed)
-            if (currentController != null) {
-                System.out.println("New controller: " + currentController.getClass().getSimpleName());
-            }
         } catch (IOException e) {
-            System.out.println("Error while excuting changeCenterPanel() " + e.getMessage());
             e.printStackTrace();
             getLogger.logger().warning(e.toString());
         }

@@ -7,6 +7,7 @@ package com.qb.app.controllers;
 import com.qb.app.App;
 import com.qb.app.model.CustomAlert;
 import com.qb.app.model.JPATransaction;
+import com.qb.app.model.PopUp;
 import com.qb.app.model.SVGIconGroup;
 import com.qb.app.model.entity.Company;
 import com.qb.app.model.getLogger;
@@ -114,7 +115,6 @@ public class Supply_company_managementController implements Initializable {
                         company.setTelephone2(spCompanyMobile_2.getText());
 
                         em.persist(company);
-                        System.out.println("Company added Successful");
                         clearAddCompanyFields();
                         CustomAlert.showStyledAlert(root, "Company added Successful", Alert.AlertType.CONFIRMATION);
 
@@ -193,39 +193,48 @@ public class Supply_company_managementController implements Initializable {
         if (event.getCode() == KeyCode.ENTER) {
             if (companyId.getText().isEmpty()) {
                 try {
-                    FXMLLoader loader = new FXMLLoader(App.class.getResource("popUpCompanyList.fxml"));
-                    Parent root = loader.load();
-
-                    // Create a new stage for the popup
-                    Stage popupStage = new Stage();
-                    popupStage.initOwner(this.root.getScene().getWindow());
-                    popupStage.initModality(Modality.APPLICATION_MODAL);
-
-                    // Get screen dimensions
-                    Screen screen = Screen.getPrimary();
-                    Rectangle2D bounds = screen.getVisualBounds();
-
-                    // Create scene with full width but original height
-                    Scene scene = new Scene(root);
-                    popupStage.setScene(scene);
-
-                    // Set width to screen width and position at x=0
-                    popupStage.setWidth(bounds.getWidth());
-                    popupStage.setX(0); // This ensures no left gap
-
-                    // Set fixed height (adjust as needed)
-                    popupStage.setHeight(600);
-
-                    // Center the popup vertically
-                    popupStage.setY((bounds.getHeight() - popupStage.getHeight()) / 2);
-
-                    popupStage.initStyle(StageStyle.TRANSPARENT);
-
-                    // Get controller reference
-                    PopUpCompanyListController controller = loader.getController();
-                    controller.saveCallingController(this);
-
-                    popupStage.showAndWait();
+                    PopUp.showPopupAndWait(
+                            "popUpCompanyList.fxml",
+                            companyId,
+                            this.root.getScene(),
+                            PopUp.PopupType.CENTERED_80_WIDTH,
+                            (PopUpCompanyListController controller) -> {
+                                controller.saveCallingController(this);
+                            }
+                    );
+//                    FXMLLoader loader = new FXMLLoader(App.class.getResource("popUpCompanyList.fxml"));
+//                    Parent root = loader.load();
+//
+//                    // Create a new stage for the popup
+//                    Stage popupStage = new Stage();
+//                    popupStage.initOwner(this.root.getScene().getWindow());
+//                    popupStage.initModality(Modality.APPLICATION_MODAL);
+//
+//                    // Get screen dimensions
+//                    Screen screen = Screen.getPrimary();
+//                    Rectangle2D bounds = screen.getVisualBounds();
+//
+//                    // Create scene with full width but original height
+//                    Scene scene = new Scene(root);
+//                    popupStage.setScene(scene);
+//
+//                    // Set width to screen width and position at x=0
+//                    popupStage.setWidth(bounds.getWidth());
+//                    popupStage.setX(0); // This ensures no left gap
+//
+//                    // Set fixed height (adjust as needed)
+//                    popupStage.setHeight(600);
+//
+//                    // Center the popup vertically
+//                    popupStage.setY((bounds.getHeight() - popupStage.getHeight()) / 2);
+//
+//                    popupStage.initStyle(StageStyle.TRANSPARENT);
+//
+//                    // Get controller reference
+//                    PopUpCompanyListController controller = loader.getController();
+//                    controller.saveCallingController(this);
+//
+//                    popupStage.showAndWait();
                 } catch (IOException e) {
                     e.printStackTrace();
                     getLogger.logger().warning(e.toString());

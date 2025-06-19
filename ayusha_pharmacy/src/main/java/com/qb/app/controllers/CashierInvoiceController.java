@@ -33,6 +33,7 @@ import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -157,6 +158,8 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
             }
         } else if (event.getSource() == btnProductView) {
             openProductView();
+        } else if (event.getSource() == btnAdd) {
+            addItemToInvoice();
         }
     }
 
@@ -275,38 +278,8 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                         event.consume();
                     }
                     case ENTER -> {
-                        if (isProductLoaded) {
-                            if (this.product.getProductStatusId().getStatus().equals("Enable")) {
-                                if (this.product.getBrandId().getProductStatusId().getStatus().equals("Enable")) {
-                                    addInvoiceItem();
-                                } else {
-                                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                                    alert.setTitle("Brand Disabled - Action Restricted");
-                                    alert.setHeaderText("Product Brand Currently Inactive");
-                                    alert.setContentText("The brand associated with this product has been deactivated.\n\n"
-                                            + "To proceed, please either:\n"
-                                            + "• Reactivate the brand in system settings, or\n"
-                                            + "• Select an alternative product from an active brand");
-
-                                    Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-                                    stage.getIcons().add(new Image(getClass().getResource("/com/qb/app/assets/images/logo.png").toExternalForm()));
-
-                                    alert.show();
-                                }
-                            } else {
-                                Alert alert = new Alert(Alert.AlertType.WARNING);
-                                alert.setTitle("Product Disabled - Action Restricted");
-                                alert.setHeaderText("This Product is Disabled");
-                                alert.setContentText("The selected product is currently disabled and cannot be added to the invoice.\n\nPlease enable the product or choose an alternative.");
-
-                                Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-                                stage.getIcons().add(new Image(getClass().getResource("/com/qb/app/assets/images/logo.png").toExternalForm()));
-
-                                alert.show();
-                            }
-                            clearLoadProduct();
-                            event.consume();
-                        }
+                        addItemToInvoice();
+                        event.consume();
                     }
                     case DIVIDE -> {
                         if (!invoiceItemList.isEmpty()) {
@@ -432,7 +405,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         labelItemPrice.setText("Rs. 0.00");
         itemPrice.setText("Rs. 0.00");
         btnViewQty.setText("0");
-        itemImage.setImage(new Image(getClass().getResource("/com/qb/app/assets/images/new_product_image.png").toExternalForm()));
+        itemImage.setImage(new Image(getClass().getResource("/com/qb/app/assets/images/empty_product.png").toExternalForm()));
         isProductLoaded = false;
         labelItemNewPrice.setText("");
         labelItemPrice.setStyle("-fx-strikethrough: false;");
@@ -488,31 +461,29 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
             FXMLLoader loader = new FXMLLoader(App.class.getResource("fxmlPanel/InvoicePayment.fxml"));
             Parent root = loader.load();
 
-            // Create a new stage for the popup
             Stage popupStage = new Stage();
             popupStage.initOwner(btnPayment.getScene().getWindow());
             popupStage.initModality(Modality.APPLICATION_MODAL);
 
-            // Get screen dimensions
+            Scene mainScene = this.root.getScene();
+            GaussianBlur blur = new GaussianBlur(10);
+            mainScene.getRoot().setEffect(blur);
+            
+            popupStage.setOnHidden(e -> mainScene.getRoot().setEffect(null));
+
             Screen screen = Screen.getPrimary();
             Rectangle2D bounds = screen.getVisualBounds();
 
-            // Create scene with full width but original height
             Scene scene = new Scene(root);
             popupStage.setScene(scene);
 
-            // Set width to screen width and position at x=0
             popupStage.setWidth(bounds.getWidth());
-            popupStage.setX(0); // This ensures no left gap
+            popupStage.setX(0);
 
-            // Set fixed height (adjust as needed)
-//            popupStage.setHeight(600);
-            // Center the popup vertically
             popupStage.setY((bounds.getHeight() - popupStage.getHeight()) / 2);
 
             popupStage.initStyle(StageStyle.TRANSPARENT);
 
-            // Get controller reference
             InvoicePaymentController controller = loader.getController();
             controller.saveProductRegistrationController(this);
             controller.setItems(invoiceItemList);
@@ -606,5 +577,39 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
             Stock stock = em.createQuery(cq).getSingleResult();
             return stock;
         });
+    }
+
+    private void addItemToInvoice() {
+        if (isProductLoaded) {
+            if (this.product.getProductStatusId().getStatus().equals("Enable")) {
+                if (this.product.getBrandId().getProductStatusId().getStatus().equals("Enable")) {
+                    addInvoiceItem();
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Brand Disabled - Action Restricted");
+                    alert.setHeaderText("Product Brand Currently Inactive");
+                    alert.setContentText("The brand associated with this product has been deactivated.\n\n"
+                            + "To proceed, please either:\n"
+                            + "• Reactivate the brand in system settings, or\n"
+                            + "• Select an alternative product from an active brand");
+
+                    Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                    stage.getIcons().add(new Image(getClass().getResource("/com/qb/app/assets/images/logo.png").toExternalForm()));
+
+                    alert.show();
+                }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Product Disabled - Action Restricted");
+                alert.setHeaderText("This Product is Disabled");
+                alert.setContentText("The selected product is currently disabled and cannot be added to the invoice.\n\nPlease enable the product or choose an alternative.");
+
+                Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                stage.getIcons().add(new Image(getClass().getResource("/com/qb/app/assets/images/logo.png").toExternalForm()));
+
+                alert.show();
+            }
+            clearLoadProduct();
+        }
     }
 }

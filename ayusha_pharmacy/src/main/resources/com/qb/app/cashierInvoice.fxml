@@ -175,7 +175,7 @@
                      <children>
                         <HBox alignment="CENTER" maxHeight="-Infinity" prefWidth="200.0" spacing="4.0">
                            <children>
-                              <TextField fx:id="tfBarCode" prefHeight="40.0" promptText="Bar Code" stylesheets="@css/style.css">
+                              <TextField fx:id="tfBarCode" disable="true" prefHeight="40.0" promptText="Bar Code" stylesheets="@css/style.css">
                                  <styleClass>
                                     <String fx:value="bg-white" />
                                     <String fx:value="primary-border-dash" />
@@ -322,7 +322,7 @@
                                  </children>
                               </VBox>
                               <Region HBox.hgrow="ALWAYS" />
-                              <VBox alignment="CENTER" prefWidth="300.0" spacing="6.0">
+                              <VBox alignment="CENTER" spacing="6.0">
                                  <children>
                                     <Button fx:id="itemPrice" mnemonicParsing="false" prefHeight="40.0" stylesheets="@css/style.css" text="Rs. 0.00" VBox.vgrow="ALWAYS">
                                        <padding>
@@ -356,7 +356,7 @@
                                                 <String fx:value="full-width-button" />
                                              </styleClass>
                                           </Button>
-                                          <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#handleActionEvent" prefHeight="40.0" stylesheets="@css/style.css" text="Add" HBox.hgrow="ALWAYS">
+                                          <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#handleActionEvent" prefHeight="40.0" stylesheets="@css/style.css" text="Add (Enter)" HBox.hgrow="ALWAYS">
                                              <padding>
                                                 <Insets left="50.0" right="50.0" />
                                              </padding>
@@ -465,7 +465,7 @@
                               <Insets />
                            </HBox.margin>
                         </Region>
-                        <Button fx:id="btnPayment" maxWidth="300.0" mnemonicParsing="false" onAction="#handleActionEvent" prefHeight="80.0" prefWidth="300.0" stylesheets="@css/style.css" text="Payment">
+                        <Button fx:id="btnPayment" maxWidth="300.0" mnemonicParsing="false" onAction="#handleActionEvent" prefHeight="80.0" prefWidth="300.0" stylesheets="@css/style.css" text="Payment (/)">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>

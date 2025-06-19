@@ -199,12 +199,34 @@ public class Product_registrationController implements Initializable {
                 tfCostPrice.requestFocus();
                 return false;
             }
-        }
 
-        if (!DefaultAPI.isDouble(tfCostPrice.getText())) {
-            displayRegistrationMessage("Invalid cost price format.", false);
-            tfCostPrice.requestFocus();
-            return false;
+            if (!DefaultAPI.isDouble(tfCostPrice.getText())) {
+                displayRegistrationMessage("Invalid cost price format.", false);
+                tfCostPrice.requestFocus();
+                return false;
+            }
+
+            // Additional validations
+            double salePrice = Double.parseDouble(tfSalePrice.getText());
+            double costPrice = Double.parseDouble(tfCostPrice.getText());
+
+            if (salePrice <= 0) {
+                displayRegistrationMessage("Sale price must be greater than 0.", false);
+                tfSalePrice.requestFocus();
+                return false;
+            }
+
+            if (costPrice <= 0) {
+                displayRegistrationMessage("Cost price must be greater than 0.", false);
+                tfCostPrice.requestFocus();
+                return false;
+            }
+
+            if (salePrice < costPrice) {
+                displayRegistrationMessage("Sale price cannot be less than cost price.", false);
+                tfSalePrice.requestFocus();
+                return false;
+            }
         }
 
         if (!tfDiscount.getText().isEmpty() && !DefaultAPI.isDouble(tfDiscount.getText())) {
@@ -234,28 +256,6 @@ public class Product_registrationController implements Initializable {
         if (cbType.getValue() == null) {
             displayRegistrationMessage("Please select a product type.", false);
             cbType.requestFocus();
-            return false;
-        }
-
-        // Additional validations
-        double salePrice = Double.parseDouble(tfSalePrice.getText());
-        double costPrice = Double.parseDouble(tfCostPrice.getText());
-
-        if (salePrice <= 0) {
-            displayRegistrationMessage("Sale price must be greater than 0.", false);
-            tfSalePrice.requestFocus();
-            return false;
-        }
-
-        if (costPrice <= 0) {
-            displayRegistrationMessage("Cost price must be greater than 0.", false);
-            tfCostPrice.requestFocus();
-            return false;
-        }
-
-        if (salePrice < costPrice) {
-            displayRegistrationMessage("Sale price cannot be less than cost price.", false);
-            tfSalePrice.requestFocus();
             return false;
         }
 
@@ -336,7 +336,7 @@ public class Product_registrationController implements Initializable {
         cbBrand.setValue(null);
         cbUnit.setValue(null);
         cbType.setValue(null);
-        cbBrand.setPromptText("Ex: Munche");
+        cbBrand.setPromptText("Select Brand");
         cbUnit.setPromptText("Select Unit");
         cbType.setPromptText("Select Type");
         tfBarCode.setText("");
@@ -353,7 +353,7 @@ public class Product_registrationController implements Initializable {
     private void loadDefaultImage() {
         try {
             // Absolute path from classpath root
-            String imagePath = "/com/qb/app/assets/images/new_product_image.png";
+            String imagePath = "/com/qb/app/assets/images/add_product.png";
             InputStream stream = getClass().getResourceAsStream(imagePath);
 
             if (stream != null) {
@@ -538,6 +538,11 @@ public class Product_registrationController implements Initializable {
 
     @FXML
     private void handleProductType(ActionEvent event) {
+        ProductType selectedType = cbType.getValue();
+        if (selectedType == null) {
+            return; // or handle the null case appropriately
+        }
+
         if (cbType.getValue().getType().equals("Child")) {
             tfParentID.setDisable(false);
             tfCostPrice.setDisable(true);

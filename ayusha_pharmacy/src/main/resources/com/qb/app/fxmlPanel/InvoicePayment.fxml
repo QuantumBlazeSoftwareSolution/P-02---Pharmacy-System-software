@@ -101,7 +101,7 @@
                               </VBox>
                               <VBox maxHeight="-Infinity" minWidth="100.0" spacing="6.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Button minHeight="40.0" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" stylesheets="@../css/style.css" text="Credit">
+                                    <Button disable="true" minHeight="40.0" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" stylesheets="@../css/style.css" text="Credit">
                                        <padding>
                                           <Insets left="50.0" right="50.0" />
                                        </padding>
@@ -115,7 +115,7 @@
                                           <String fx:value="primary-text" />
                                        </styleClass>
                                     </Button>
-                                    <TextField fx:id="tfCreditAmount" minHeight="40.0" onKeyPressed="#handleKeyPressed" prefHeight="40.0" stylesheets="@../css/style.css">
+                                    <TextField fx:id="tfCreditAmount" disable="true" minHeight="40.0" onKeyPressed="#handleKeyPressed" prefHeight="40.0" stylesheets="@../css/style.css">
                                        <styleClass>
                                           <String fx:value="bg-white" />
                                           <String fx:value="primary-border" />
@@ -143,14 +143,14 @@
                   <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                   <VBox maxWidth="400.0" minWidth="-Infinity" prefHeight="200.0" spacing="10.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label minWidth="-Infinity" styleClass="primary-text" stylesheets="@../css/style.css" text="Customer Type">
+                        <Label disable="true" minWidth="-Infinity" styleClass="primary-text" stylesheets="@../css/style.css" text="Customer Type">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
                         <VBox spacing="6.0">
                            <children>
-                              <Button minHeight="40.0" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" stylesheets="@../css/style.css" text="View Creditor(s)">
+                              <Button disable="true" minHeight="40.0" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" stylesheets="@../css/style.css" text="View Creditor(s)">
                                  <padding>
                                     <Insets left="50.0" right="50.0" />
                                  </padding>
@@ -165,13 +165,13 @@
                               </Button>
                               <HBox spacing="6.0">
                                  <children>
-                                    <TextField minHeight="40.0" prefHeight="40.0" promptText="+94712345678" stylesheets="@../css/style.css" HBox.hgrow="ALWAYS">
+                                    <TextField disable="true" minHeight="40.0" prefHeight="40.0" promptText="+94712345678" stylesheets="@../css/style.css" HBox.hgrow="ALWAYS">
                                        <styleClass>
                                           <String fx:value="bg-white" />
                                           <String fx:value="primary-border" />
                                        </styleClass>
                                     </TextField>
-                                    <TextField minHeight="40.0" prefHeight="40.0" promptText="Rs. 6500.00" stylesheets="@../css/style.css" HBox.hgrow="ALWAYS">
+                                    <TextField disable="true" minHeight="40.0" prefHeight="40.0" promptText="Rs. 6500.00" stylesheets="@../css/style.css" HBox.hgrow="ALWAYS">
                                        <styleClass>
                                           <String fx:value="bg-white" />
                                           <String fx:value="primary-border" />

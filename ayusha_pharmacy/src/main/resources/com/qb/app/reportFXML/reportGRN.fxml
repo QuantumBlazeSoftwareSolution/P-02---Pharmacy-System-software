@@ -65,7 +65,7 @@
                                                             <Font size="14.0" />
                                                          </font>
                                                       </Label>
-                                                      <TextField fx:id="TFGrnId" prefHeight="45.0" stylesheets="@../css/adminStyle.css">
+                                                      <TextField fx:id="TFGrnId" onKeyReleased="#GRNIDTextChange" prefHeight="45.0" stylesheets="@../css/adminStyle.css">
                                                          <font>
                                                             <Font size="14.0" />
                                                          </font>

@@ -49,6 +49,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -149,9 +150,7 @@ public class ReportGRNController implements Initializable {
             } else {
                 CustomAlert.showStyledAlert(root, "GRN ID is not valid , Please use valid GRN ID", Alert.AlertType.WARNING);
             }
-
         }
-
     }
 
     private void loadDataToTable() {
@@ -179,7 +178,7 @@ public class ReportGRNController implements Initializable {
             } else if ("Cost Price".equals(selectedSort)) {
                 cq.orderBy(cb.asc(grnItemRoot.get("costPrice")));
             } else if ("ID".equals(selectedSort)) {
-                cq.orderBy(cb.asc(grnItemRoot.get("id"))); // sort by primary key (id)
+                cq.orderBy(cb.desc(grnItemRoot.get("id"))); // sort by primary key (id)
             }
 
             List<GrnItem> resultList = em.createQuery(cq).getResultList();
@@ -278,25 +277,30 @@ public class ReportGRNController implements Initializable {
     }
 
     private void printGrnReport() {
-        Map<String, Object> params = getJRParams();
-        Vector<GrnItemBean> collection = getBeanCollection();
 
-        try {
-            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(
-                    getClass().getResourceAsStream("/com/qb/app/reports/PharmacyGRN.jasper"));
-            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(collection);
-            JasperPrint report = JasperFillManager.fillReport(jasperReport, params, dataSource);
-            JasperViewer.viewReport(report, false);
-        } catch (JRException e) {
-            e.printStackTrace();
-            getLogger.logger().warning(e.toString());
-            CustomAlert.showStyledAlert(root, "Report generation failed: " + e.getMessage(), "Reporting Error", Alert.AlertType.ERROR);
+        if (isEntriesValid()) {
+            if (!grnItemList.isEmpty()) {
+                Map<String, Object> params = getJRParams();
+                Vector<GrnItemBean> collection = getBeanCollection();
+                try {
+                    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(
+                            getClass().getResourceAsStream("/com/qb/app/reports/PharmacyGRN.jasper"));
+                    JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(collection);
+                    JasperPrint report = JasperFillManager.fillReport(jasperReport, params, dataSource);
+                    JasperViewer.viewReport(report, false);
+                } catch (JRException e) {
+                    e.printStackTrace();
+                    getLogger.logger().warning(e.toString());
+                }
+            } else {
+                CustomAlert.showStyledAlert(root, "Report generation failed. Please Load Report First !", Alert.AlertType.WARNING);
+            }
         }
     }
 
     private Map<String, Object> getJRParams() {
+      
         Map<String, Object> params = new HashMap<>();
-
         params.put("GrnTime", grnDateTimeString);
         params.put("GrnID", TFGrnId.getText());
         params.put("Supplier", cbSupplier.getValue().getName());
@@ -311,7 +315,7 @@ public class ReportGRNController implements Initializable {
     }
 
     private Vector<GrnItemBean> getBeanCollection() {
-
+        
         Vector<GrnItemBean> collection = new Vector<>();
         for (ReportGrn_TableRowController item : grnItemList) {
             GrnItemBean bean = new GrnItemBean(
@@ -324,7 +328,6 @@ public class ReportGRNController implements Initializable {
             );
             collection.add(bean);
         }
-
         return collection;
     }
 
@@ -346,7 +349,6 @@ public class ReportGRNController implements Initializable {
         if (event.getSource() == btnVieweReport) {
             printGrnReport();
         }
-
     }
     
     private void setEventListner() {
@@ -359,5 +361,13 @@ public class ReportGRNController implements Initializable {
         });
 
     }
+
+    @FXML
+    private void GRNIDTextChange(KeyEvent event) {
+          tableBody.getChildren().clear();
+            grnItemList.clear();
+    }
+
+ 
 
 }

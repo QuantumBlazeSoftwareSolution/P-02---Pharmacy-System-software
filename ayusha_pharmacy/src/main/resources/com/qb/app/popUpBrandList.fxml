@@ -25,7 +25,7 @@
             <HBox prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
                <children>
                   <Group fx:id="pageIcon" />
-                  <Label styleClass="primary-text" stylesheets="@css/style.css" text="Brand List">
+                  <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Department List">
                      <font>
                         <Font name="Aptos" size="16.0" />
                      </font>
@@ -95,7 +95,7 @@
                                           </BorderPane>
                                           <BorderPane maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="200.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
                                              <left>
-                                                <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Brand" BorderPane.alignment="CENTER">
+                                                <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Department" BorderPane.alignment="CENTER">
                                                    <font>
                                                       <Font name="Aptos" size="14.0" />
                                                    </font>

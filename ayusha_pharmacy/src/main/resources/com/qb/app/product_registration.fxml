@@ -63,7 +63,7 @@
                                     </TextField>
                                  </children>
                               </VBox>
-                              <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
+                              <VBox disable="true" prefWidth="100.0" HBox.hgrow="ALWAYS">
                                  <children>
                                     <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Bar Code">
                                        <font>
@@ -79,12 +79,12 @@
                               </VBox>
                               <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Brand">
+                                    <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Department">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font>
                                     </Label>
-                                    <ComboBox fx:id="cbBrand" maxWidth="1.7976931348623157E308" prefHeight="45.0" prefWidth="230.0" promptText="Select Brand" stylesheets="@css/adminStyle.css" />
+                                    <ComboBox fx:id="cbBrand" maxWidth="1.7976931348623157E308" prefHeight="45.0" prefWidth="230.0" promptText="Select Department" stylesheets="@css/adminStyle.css" />
                                  </children>
                               </VBox>
                            </children>

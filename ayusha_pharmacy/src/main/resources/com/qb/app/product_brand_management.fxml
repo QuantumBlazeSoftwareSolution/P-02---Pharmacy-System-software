@@ -22,7 +22,7 @@
             <HBox alignment="CENTER_LEFT" spacing="10.0" BorderPane.alignment="CENTER">
                <children>
                   <Group fx:id="iconPage" />
-                  <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Brand Management">
+                  <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Department Management">
                      <font>
                         <Font name="Aptos" size="16.0" />
                      </font>
@@ -40,14 +40,14 @@
                      <children>
                         <VBox spacing="10.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Brand Registration">
+                              <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Department Registration">
                                  <font>
                                     <Font name="Aptos" size="16.0" />
                                  </font>
                               </Label>
                               <VBox prefWidth="100.0">
                                  <children>
-                                    <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Brand Name">
+                                    <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Department Name">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font>
@@ -94,7 +94,7 @@
                         <Separator orientation="VERTICAL" prefHeight="200.0" />
                         <VBox spacing="10.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Brand Update">
+                              <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Department Update">
                                  <font>
                                     <Font name="Aptos" size="16.0" />
                                  </font>
@@ -103,7 +103,7 @@
                                  <children>
                                     <VBox prefWidth="100.0">
                                        <children>
-                                          <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Brand ID">
+                                          <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Department ID">
                                              <font>
                                                 <Font name="Aptos" size="14.0" />
                                              </font>
@@ -117,7 +117,7 @@
                                     </VBox>
                                     <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
                                        <children>
-                                          <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Brand Name">
+                                          <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Department Name">
                                              <font>
                                                 <Font name="Aptos" size="14.0" />
                                              </font>
@@ -131,10 +131,10 @@
                                     </VBox>
                                  </children>
                               </HBox>
-                              <Label styleClass="admin-primary-blue" stylesheets="@css/adminStyle.css" text="Enter - View Brand List" />
+                              <Label styleClass="admin-primary-blue" stylesheets="@css/adminStyle.css" text="Enter - View Department List" />
                               <VBox prefWidth="100.0">
                                  <children>
-                                    <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Brand Status">
+                                    <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Department Status">
                                        <font>
                                           <Font name="Aptos" size="14.0" />
                                        </font>

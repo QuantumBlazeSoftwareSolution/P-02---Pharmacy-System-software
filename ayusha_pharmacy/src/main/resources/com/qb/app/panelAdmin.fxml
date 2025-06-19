@@ -118,7 +118,7 @@
                                                         <HBox fx:id="btnProductBrandManagement" alignment="CENTER_LEFT" minHeight="30.0" onMouseClicked="#handleSubMenuItems" spacing="10.0" styleClass="sub-menu-item" stylesheets="@css/adminStyle.css">
                                                             <children>
                                                                 <Group fx:id="iconBrandManagement" />
-                                                                <Label stylesheets="@css/adminStyle.css" text="Brand Management">
+                                                                <Label stylesheets="@css/adminStyle.css" text="Department Management">
                                                                     <font>
                                                                         <Font size="14.0" />
                                                                     </font>

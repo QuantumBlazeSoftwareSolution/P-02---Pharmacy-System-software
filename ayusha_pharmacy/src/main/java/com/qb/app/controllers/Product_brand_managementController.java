@@ -134,7 +134,7 @@ public class Product_brand_managementController implements Initializable {
     }
 
     private ProductStatus getProductStatus(String status) {
-        runInTransaction(em -> {
+        return JPATransaction.runInTransaction(em -> {
             CriteriaBuilder cBuilder = em.getCriteriaBuilder();
             CriteriaQuery<ProductStatus> cQuery = cBuilder.createQuery(ProductStatus.class);
             Root<ProductStatus> productStatusTable = cQuery.from(ProductStatus.class);
@@ -142,21 +142,13 @@ public class Product_brand_managementController implements Initializable {
             Predicate prediction = cBuilder.equal(productStatusTable.get("status"), status);
             cQuery.where(prediction);
 
-            TypedQuery<ProductStatus> query = em.createQuery(cQuery);
-            ProductStatus productStatus = null;
-
             try {
-                productStatus = query.getSingleResult();
+                return em.createQuery(cQuery).getSingleResult();
             } catch (Exception e) {
-                productStatus = null;
-            }
-
-            if (productStatus == null) {
-                CustomAlert.showStyledAlert(root, "Cannot find the product status", Alert.AlertType.WARNING);
-                return;
+                CustomAlert.showStyledAlert(root, "Cannot find the product status: " + status, Alert.AlertType.WARNING);
+                return null;
             }
         });
-        return null;
     }
 
     private void clearPrimary() {

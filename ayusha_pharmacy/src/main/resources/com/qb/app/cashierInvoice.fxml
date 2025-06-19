@@ -213,20 +213,6 @@
                                  </cursor>
                               </Button>
                               <Region HBox.hgrow="ALWAYS" />
-                              <HBox maxHeight="-Infinity" spacing="8.0">
-                                 <children>
-                                    <Label styleClass="primary-text" stylesheets="@css/style.css" text="Invoice Number:">
-                                       <font>
-                                          <Font name="Segoe UI" size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="invoiceNumber" layoutX="10.0" layoutY="10.0" styleClass="primary-text" stylesheets="@css/style.css" text="#12457845">
-                                       <font>
-                                          <Font name="Segoe UI" size="14.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </HBox>
                            </children>
                         </HBox>
                         <HBox alignment="TOP_RIGHT" prefWidth="972.0" spacing="10.0" VBox.vgrow="ALWAYS">

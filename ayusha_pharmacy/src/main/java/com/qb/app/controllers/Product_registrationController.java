@@ -334,16 +334,26 @@ public class Product_registrationController implements Initializable {
     }
 
     private void clearRegistrationField() {
-        cbBrand.setValue(null);
-        cbUnit.setValue(null);
-        cbType.setValue(null);
-        cbBrand.setPromptText("Select Brand");
+        cbBrand.setPromptText("Select Department");
         cbUnit.setPromptText("Select Unit");
         cbType.setPromptText("Select Type");
+        
+        if (!cbBrand.getItems().isEmpty()) {
+            cbBrand.setValue(cbBrand.getItems().get(0)); // Sets the value explicitly
+        }
+        
+        if (!cbUnit.getItems().isEmpty()) {
+            cbUnit.setValue(cbUnit.getItems().get(0)); // Sets the value explicitly
+        }
+        
+        if (!cbType.getItems().isEmpty()) {
+            cbType.setValue(cbType.getItems().get(0)); // Sets the value explicitly
+        }
         tfBarCode.setText("");
         tfCostPrice.setText("");
         tfDiscount.setText("");
         tfItemName.setText("");
+        tfGenericName.setText("");
         tfMeasure.setText("");
         tfParentID.setText("");
         tfSalePrice.setText("");

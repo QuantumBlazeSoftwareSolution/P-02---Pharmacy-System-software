@@ -1,0 +1,12 @@
+Jun 19, 2025 7:58:49 PM com.qb.app.controllers.CashierCloseSaleController lambda$ActionEvent$0
+WARNING: net.sf.jasperreports.engine.util.JRFontNotFoundException: Font "garamond" is not available to the JVM. See the Javadoc for more details.
+Jun 19, 2025 8:13:20 PM com.qb.app.controllers.CashierCloseSaleController lambda$ActionEvent$0
+WARNING: net.sf.jasperreports.engine.util.JRFontNotFoundException: Font "garamond" is not available to the JVM. See the Javadoc for more details.
+Jun 20, 2025 7:47:51 AM com.qb.app.model.UnitTestingVihanga PrintCloseSaleReport
+WARNING: net.sf.jasperreports.engine.JRException: Error loading object from InputStream.
+Jun 20, 2025 7:51:03 AM com.qb.app.model.UnitTestingVihanga PrintCloseSaleReport
+WARNING: net.sf.jasperreports.engine.JRException: Error loading object from InputStream.
+Jun 20, 2025 8:26:31 AM com.qb.app.model.SVGIconGroup loadSVGFromFile
+WARNING: java.lang.IllegalArgumentException: SVG file not found: /com/qb/app/assets/icons/users-solid.svg
+Jun 20, 2025 8:26:31 AM com.qb.app.model.SVGIconGroup loadSVGFromFile
+WARNING: java.lang.IllegalArgumentException: SVG file not found: /com/qb/app/assets/icons/exit-solid.svg

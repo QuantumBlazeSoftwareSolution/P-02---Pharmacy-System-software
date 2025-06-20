@@ -38,11 +38,14 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import net.sf.jasperreports.engine.DefaultJasperReportsContext;
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRPropertiesUtil;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.JasperReportsContext;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
@@ -291,6 +294,10 @@ public class CashierCloseSaleController implements Initializable, ControllerClos
     private void PrintReport() {
         Map<String, Object> params = getJRParams();
         try {
+            JasperReportsContext jasperReportsContext = DefaultJasperReportsContext.getInstance();
+            JRPropertiesUtil.getInstance(jasperReportsContext).setProperty(
+                    "net.sf.jasperreports.awt.ignore.missing.font", "true"
+            );
             JasperReport jasperReport = (JasperReport) JRLoader.loadObject(
                     getClass().getResourceAsStream("/com/qb/app/reports/PharmacyCloseSale.jasper"));
 

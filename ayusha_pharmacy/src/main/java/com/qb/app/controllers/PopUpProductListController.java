@@ -110,7 +110,7 @@ public class PopUpProductListController implements Initializable {
                     item.getProductUnitId().getUnit(),
                     String.valueOf(item.getMeasure()),
                     item.getDiscount(),
-                    item.getBarCode()
+                    item.getProductStatusId().getStatus()
             );
 
             TableBody.getChildren().add(tableRow);

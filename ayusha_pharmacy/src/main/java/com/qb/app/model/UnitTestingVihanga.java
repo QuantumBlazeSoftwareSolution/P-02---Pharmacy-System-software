@@ -25,10 +25,14 @@ import java.util.List;
 import java.util.Map;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import net.sf.jasperreports.engine.DefaultJasperReportsContext;
+import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRPropertiesUtil;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.JasperReportsContext;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
@@ -47,6 +51,7 @@ public class UnitTestingVihanga {
 //        JpaTest();
 //        systemLogin();
 //        testStockBalanceReport();
+        printCloseSale();
     }
 
     private static void testJPA() {
@@ -308,7 +313,7 @@ public class UnitTestingVihanga {
             for (Product product : productList) {
                 productListBean.add(new TestProduct(String.valueOf(product.getId()), product.getProduct(), product.getGenericName(), String.valueOf(product.getSalePrice()), "Stock Quantity", "Total Amount"));
             }
-            
+
             brandListBean.add(new TestBrand(brand.getBrand(), productListBean, String.valueOf(productListBean.size()), "total amount", "total quantity"));
         }
 
@@ -364,5 +369,67 @@ public class UnitTestingVihanga {
             }
 
         });
+    }
+
+    public static void printCloseSale() {
+        PrintCloseSaleReport();
+    }
+
+    private static void PrintCloseSaleReport() {
+        Map<String, Object> params = getJRParams();
+        try {
+            JasperReportsContext jasperReportsContext = DefaultJasperReportsContext.getInstance();
+            JRPropertiesUtil.getInstance(jasperReportsContext).setProperty(
+                    "net.sf.jasperreports.awt.ignore.missing.font", "true"
+            );
+            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(
+                    UnitTestingVihanga.class.getResourceAsStream("/com/qb/app/reports/PharmacyCloseSale.jasper"));
+
+            JREmptyDataSource dataSource = new JREmptyDataSource();
+
+            JasperPrint report = JasperFillManager.fillReport(jasperReport, params, dataSource);
+//            JasperPrintManager.printReport(report, false);
+            JasperViewer.viewReport(report, false);
+        } catch (JRException e) {
+            e.printStackTrace();
+            getLogger.logger().warning(e.toString());
+        }
+    }
+
+    private static Map<String, Object> getJRParams() {
+        Map<String, Object> params = new HashMap<>();
+
+        params.put("Logo", "");
+
+        params.put("CompanyName", CompanyInfo.companyName);
+        params.put("Cashier", "Vihanga Heshan");
+        params.put("Shift", "2022-02-02 04:30 PM - 2022-02-02 04:30 PM");
+        params.put("PettyCash", String.format("Rs. %,.2f", 15000.00));
+        params.put("Collection", String.format("Rs. %,.2f", 15000.00));
+        params.put("Total5000", String.format("Rs. %,.2f", 15000.00));
+        params.put("Total1000", String.format("Rs. %,.2f", 15000.00));
+        params.put("Total500", String.format("Rs. %,.2f", 15000.00));
+        params.put("Total100", String.format("Rs. %,.2f", 15000.00));
+        params.put("Total50", String.format("Rs. %,.2f", 15000.00));
+        params.put("Total20", String.format("Rs. %,.2f", 15000.00));
+        params.put("Total10", String.format("Rs. %,.2f", 15000.00));
+        params.put("Total5", String.format("Rs. %,.2f", 15000.00));
+
+        params.put("Qty5", String.valueOf("23"));
+        params.put("Qty10", String.valueOf("23"));
+        params.put("Qty20", String.valueOf("23"));
+        params.put("Qty50", String.valueOf("23"));
+        params.put("Qty100", String.valueOf("23"));
+        params.put("Qty500", String.valueOf("23"));
+        params.put("Qty1000", String.valueOf("23"));
+        params.put("Qty5000", String.valueOf("23"));
+        params.put("SystemBalance", String.format("Rs. 15,000.00"));
+        params.put("PhysicalBalance", String.format("Rs. 15,000.00"));
+        params.put("CashVariance", String.format("Rs. 15,000.00"));
+        params.put("TotalDiscount", String.format("Rs. 15,000.00"));
+        params.put("TotalSale", String.format("Rs. 15,000.00"));
+        params.put("InvoiceCount", String.valueOf("Rs. 15,000.00"));
+        params.put("TotalCash", String.format("Rs. 15,000.00"));
+        return params;
     }
 }

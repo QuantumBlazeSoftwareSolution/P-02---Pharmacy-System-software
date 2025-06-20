@@ -72,6 +72,12 @@
     -fx-text-fill: #00796F;
 }
 
+.transparent-pane {
+    -fx-background-color: transparent;
+    /* OR use RGBA for partial transparency */
+    /*-fx-background-color: rgba(0, 0, 0, 0);  30% opacity */
+}
+
 .primary-border{
     -fx-border-color: #00796F;
     -fx-border-width: 0.5px;

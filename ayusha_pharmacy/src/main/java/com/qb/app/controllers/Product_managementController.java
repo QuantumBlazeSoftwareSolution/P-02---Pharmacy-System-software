@@ -179,6 +179,7 @@ public class Product_managementController implements Initializable {
                         toggleStatus.setSelected(false);
                     }
                 } else {
+                    clearRegistrationField();
                     displayWarningMessage("Product not found.", false);
                 }
             } catch (Exception e) {
@@ -217,7 +218,7 @@ public class Product_managementController implements Initializable {
         }
 
         // Return default image if none found
-        return getClass().getResource("/com/qb/app/assets/images/new_product_image.png").toExternalForm();
+        return getClass().getResource("/com/qb/app/assets/images/add_product.png").toExternalForm();
     }
 
     private void displayWarningMessage(String message, boolean action) {
@@ -292,7 +293,7 @@ public class Product_managementController implements Initializable {
                         .findFirst()
                         .ifPresent(brand -> cbBrand.getSelectionModel().select(brand));
 
-            } catch (Exception e) {                
+            } catch (Exception e) {
                 getLogger.logger().warning(e.toString());
             }
         });
@@ -377,12 +378,24 @@ public class Product_managementController implements Initializable {
     }
 
     private void clearRegistrationField() {
-        cbBrand.getSelectionModel().clearSelection();
-        cbUnit.getSelectionModel().clearSelection();
-        cbType.getSelectionModel().clearSelection();
-        cbBrand.setPromptText("Ex: GSK");
+        cbBrand.setPromptText("Select Department");
         cbUnit.setPromptText("Select Unit");
         cbType.setPromptText("Select Type");
+        
+        cbBrand.setValue(null);
+        if (!cbBrand.getItems().isEmpty()) {
+            cbBrand.setValue(cbBrand.getItems().get(0)); // Sets the value explicitly
+        }
+        
+        cbUnit.setValue(null);
+        if (!cbUnit.getItems().isEmpty()) {
+            cbUnit.setValue(cbUnit.getItems().get(0)); // Sets the value explicitly
+        }
+        
+        cbType.setValue(null);
+        if (!cbType.getItems().isEmpty()) {
+            cbType.setValue(cbType.getItems().get(0)); // Sets the value explicitly
+        }
         tfBarcode.setText("");
         tfCostPrice.setText("");
         tfDiscount.setText("");
@@ -522,7 +535,8 @@ public class Product_managementController implements Initializable {
         }
 
         if (cbType.getValue() == null) {
-            displayWarningMessage("Please select a product type.", false);
+            displayWarningMessage(
+                    "Please select a product type.", false);
             cbType.requestFocus();
             return false;
         }
@@ -530,7 +544,9 @@ public class Product_managementController implements Initializable {
         if (!tfDiscount.getText().isEmpty()) {
             double discount = Double.parseDouble(tfDiscount.getText());
             if (discount < 0) {
-                displayWarningMessage("Discount must be greater than LKR. 0.00", false);
+                displayWarningMessage(
+                        "Discount must be greater than LKR. 0.00",
+                        false);
                 tfDiscount.requestFocus();
                 return false;
             }
@@ -542,15 +558,21 @@ public class Product_managementController implements Initializable {
     private void mergeProduct(String type) {
         if (!toggleStatus.isSelected()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("");
-            alert.setHeaderText("");
-            alert.setContentText("");
+            alert.setTitle("Disable Product Confirmation");
+            alert.setHeaderText("You are about to disable this product");
+            alert.setContentText("Disabling this product will make it "
+                    + "unavailable for future transactions. Are you sure you "
+                    + "want to proceed?");
 
             Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-            stage.getIcons().add(new Image(getClass().getResource("/com/qb/app/assets/images/logo.png").toExternalForm()));
+            stage.getIcons().add(new Image(getClass().getResource(
+                    "/com/qb/app/assets/images/logo.png").toExternalForm()));
 
-            ButtonType disableButton = new ButtonType("Disable Product", ButtonBar.ButtonData.CANCEL_CLOSE);
-            ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.OK_DONE);
+            ButtonType disableButton = new ButtonType(
+                    "Disable Product", 
+                    ButtonBar.ButtonData.CANCEL_CLOSE);
+            ButtonType cancelButton = new ButtonType(
+                    "Cancel", ButtonBar.ButtonData.OK_DONE);
             alert.getButtonTypes().setAll(disableButton, cancelButton);
 
             Optional<ButtonType> result = alert.showAndWait();

@@ -404,12 +404,12 @@ public class Product_managementController implements Initializable {
                     .findFirst()
                     .ifPresent(unitType -> cbUnit.getSelectionModel().select(unitType));
         });
-        
+
         cbBrand.setValue(null);
         if (!cbBrand.getItems().isEmpty()) {
             cbBrand.setValue(cbBrand.getItems().get(0)); // Sets the value explicitly
         }
-        
+
         tfBarcode.setText("");
         tfCostPrice.setText("");
         tfDiscount.setText("");
@@ -634,24 +634,23 @@ public class Product_managementController implements Initializable {
         JPATransaction.runInTransaction((em) -> {
             try {
                 Product parentProduct = null;
+                double costPrice;
                 if (type.equals("Child")) {
                     parentProduct = em.find(Product.class, tfParentID.getText());
                     if (parentProduct == null) {
                         displayWarningMessage("No parent product found with ID: " + tfParentID.getText(), false);
                         tfParentID.requestFocus();
                         return;
+                    } else {
+                        costPrice = parentProduct.getCostPrice() / parentProduct.getMeasure();
                     }
+                } else {
+                    costPrice = Double.parseDouble(tfCostPrice.getText());
                 }
 
                 Product product = new Product();
                 loadedProduct.setProduct(tfItemName.getText());
                 loadedProduct.setSalePrice(Double.parseDouble(tfSalePrice.getText()));
-                double costPrice;
-                if ("Child".equals(cbType.getValue().getType())) {
-                    costPrice = 0.0;
-                } else {
-                    costPrice = Double.parseDouble(tfCostPrice.getText());
-                }
                 loadedProduct.setCostPrice(costPrice);
                 loadedProduct.setDiscount(tfDiscount.getText().isEmpty()
                         ? 0.0

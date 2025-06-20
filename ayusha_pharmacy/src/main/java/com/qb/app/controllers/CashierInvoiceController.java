@@ -219,7 +219,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                                         hidePreviewMessage();
                                     }
                                 } else {
-                                    showPreviewMessage("(Brand Not Available)");
+                                    showPreviewMessage("(Department Not Available)");
                                 }
                             } else {
                                 showPreviewMessage("(Product Not Available)");
@@ -571,12 +571,12 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                     addInvoiceItem();
                 } else {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle("Brand Disabled - Action Restricted");
-                    alert.setHeaderText("Product Brand Currently Inactive");
-                    alert.setContentText("The brand associated with this product has been deactivated.\n\n"
+                    alert.setTitle("Department Disabled - Action Restricted");
+                    alert.setHeaderText("Product Department Currently Inactive");
+                    alert.setContentText("The department associated with this product has been deactivated.\n\n"
                             + "To proceed, please either:\n"
-                            + "• Reactivate the brand in system settings, or\n"
-                            + "• Select an alternative product from an active brand");
+                            + "• Reactivate the department in system settings, or\n"
+                            + "• Select an alternative product from an active department");
 
                     Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
                     stage.getIcons().add(new Image(getClass().getResource("/com/qb/app/assets/images/logo.png").toExternalForm()));

@@ -327,15 +327,15 @@ public class Product_registrationController implements Initializable {
         cbBrand.setPromptText("Select Department");
         cbUnit.setPromptText("Select Unit");
         cbType.setPromptText("Select Type");
-        
+
         if (!cbBrand.getItems().isEmpty()) {
             cbBrand.setValue(cbBrand.getItems().get(0)); // Sets the value explicitly
         }
-        
+
         if (!cbUnit.getItems().isEmpty()) {
             cbUnit.setValue(cbUnit.getItems().get(0)); // Sets the value explicitly
         }
-        
+
         if (!cbType.getItems().isEmpty()) {
             cbType.setValue(cbType.getItems().get(0)); // Sets the value explicitly
         }
@@ -374,6 +374,7 @@ public class Product_registrationController implements Initializable {
         JPATransaction.runInTransaction((em) -> {
             try {
                 Product parentProduct = null;
+                double costPrice;
                 if (type.equals("Child")) {
                     parentProduct = em.find(Product.class, tfParentID.getText());
                     if (parentProduct == null) {
@@ -381,19 +382,17 @@ public class Product_registrationController implements Initializable {
                         displayRegistrationMessage("No parent product found with ID: " + tfParentID.getText(), false);
                         tfParentID.requestFocus();
                         return;
+                    } else {
+                        costPrice = parentProduct.getCostPrice() / parentProduct.getMeasure();
                     }
+                } else {
+                    costPrice = Double.parseDouble(tfCostPrice.getText());
                 }
 
                 // save new product
                 Product product = new Product();
                 product.setProduct(tfItemName.getText());
                 product.setSalePrice(Double.parseDouble(tfSalePrice.getText()));
-                double costPrice;
-                if ("Child".equals(cbType.getValue().getType())) {
-                    costPrice = 0.0; // Set cost price to 0 for child products
-                } else {
-                    costPrice = Double.parseDouble(tfCostPrice.getText());
-                }
                 product.setCostPrice(costPrice);
                 product.setDiscount(tfDiscount.getText().isEmpty() ? 0.0
                         : Double.parseDouble(tfDiscount.getText()));

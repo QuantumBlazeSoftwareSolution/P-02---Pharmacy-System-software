@@ -50,8 +50,9 @@ public class UnitTestingVihanga {
 //        testSubReport();
 //        JpaTest();
 //        systemLogin();
-//        testStockBalanceReport();
-        printCloseSale();
+        testStockBalanceReport();
+//        printCloseSale();
+//        testRoundUp();
     }
 
     private static void testJPA() {
@@ -431,5 +432,24 @@ public class UnitTestingVihanga {
         params.put("InvoiceCount", String.valueOf("Rs. 15,000.00"));
         params.put("TotalCash", String.format("Rs. 15,000.00"));
         return params;
+    }
+
+    private static void testRoundUp() {
+        System.out.println("Balance 430 / 50 : " + divideWithPharmacyRounding(430, 50));
+        System.out.println("Balance 540 / 50 : " + divideWithPharmacyRounding(540, 50));
+        System.out.println("Balance 220 / 100 : " + divideWithPharmacyRounding(220, 100));
+        System.out.println("Balance 340 / 50 : " + divideWithPharmacyRounding(340, 50));
+        System.out.println("Balance 425 / 50 : " + divideWithPharmacyRounding(425, 50));
+        System.out.println("Balance 289 / 100 : " + divideWithPharmacyRounding(289, 100));
+        System.out.println("Balance 457 / 100 : " + divideWithPharmacyRounding(457, 100));
+        System.out.println("Balance 23 / 100 : " + divideWithPharmacyRounding(23, 100));
+    }
+
+    public static double divideWithPharmacyRounding(double qty, double measure) {
+        int whole = (int) (qty / measure);
+        int remainder = (int) (qty % measure);
+
+        double result = whole + (remainder / 100.0);
+        return result;
     }
 }

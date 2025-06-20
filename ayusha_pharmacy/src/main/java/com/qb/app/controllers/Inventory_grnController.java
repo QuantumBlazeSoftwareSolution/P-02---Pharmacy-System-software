@@ -493,9 +493,9 @@ public class Inventory_grnController implements Initializable {
                     String.valueOf(item.getProduct().getId()),
                     item.getProduct().getProduct(),
                     item.getProduct().getGenericName() != null ? item.getProduct().getGenericName() : "N/A",
-                    String.format("Rs. %,.2f", item.getProduct().getCostPrice()),
+                    String.format("%,.2f", item.getProduct().getCostPrice()),
                     String.valueOf(item.getQty()),
-                    String.format("Rs. %,.2f", item.getItemAmount())
+                    String.format("%,.2f", item.getItemAmount())
             );
             collection.add(bean);
         }

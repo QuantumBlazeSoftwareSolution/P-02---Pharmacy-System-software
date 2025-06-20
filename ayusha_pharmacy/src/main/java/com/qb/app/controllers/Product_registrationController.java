@@ -1,6 +1,5 @@
 package com.qb.app.controllers;
 
-import com.qb.app.App;
 import com.qb.app.model.ComboBoxUtils;
 import com.qb.app.model.CustomAlert;
 import com.qb.app.model.DefaultAPI;
@@ -14,7 +13,6 @@ import com.qb.app.model.entity.ProductStatus;
 import com.qb.app.model.entity.ProductType;
 import com.qb.app.model.entity.ProductUnit;
 import com.qb.app.model.entity.Stock;
-import com.qb.app.model.entity.Store;
 import com.qb.app.model.getLogger;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -34,12 +32,8 @@ import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -51,10 +45,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
-import javafx.stage.Modality;
-import javafx.stage.Screen;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 public class Product_registrationController implements Initializable {

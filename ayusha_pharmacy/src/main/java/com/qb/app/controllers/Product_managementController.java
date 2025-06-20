@@ -31,6 +31,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -258,6 +259,17 @@ public class Product_managementController implements Initializable {
         ComboBoxUtils.loadComboBoxValues(cbBrand, Brand.class, "brand", Brand::getBrand);
         ComboBoxUtils.loadComboBoxValues(cbUnit, ProductUnit.class, "unit", ProductUnit::getUnit);
         ComboBoxUtils.loadComboBoxValues(cbType, ProductType.class, "type", ProductType::getType);
+
+        Platform.runLater(() -> {
+            cbType.getItems().stream()
+                    .filter(type -> "Parent".equals(type.getType()))
+                    .findFirst()
+                    .ifPresent(parentType -> cbType.getSelectionModel().select(parentType));
+            cbUnit.getItems().stream()
+                    .filter(unit -> "PIECE (PCS)".equals(unit.getUnit()))
+                    .findFirst()
+                    .ifPresent(unitType -> cbUnit.getSelectionModel().select(unitType));
+        });
     }
 
     private void setComboBoxData(Product product) {
@@ -381,21 +393,23 @@ public class Product_managementController implements Initializable {
         cbBrand.setPromptText("Select Department");
         cbUnit.setPromptText("Select Unit");
         cbType.setPromptText("Select Type");
+
+        Platform.runLater(() -> {
+            cbType.getItems().stream()
+                    .filter(type -> "Parent".equals(type.getType()))
+                    .findFirst()
+                    .ifPresent(parentType -> cbType.getSelectionModel().select(parentType));
+            cbUnit.getItems().stream()
+                    .filter(unit -> "PIECE (PCS)".equals(unit.getUnit()))
+                    .findFirst()
+                    .ifPresent(unitType -> cbUnit.getSelectionModel().select(unitType));
+        });
         
         cbBrand.setValue(null);
         if (!cbBrand.getItems().isEmpty()) {
             cbBrand.setValue(cbBrand.getItems().get(0)); // Sets the value explicitly
         }
         
-        cbUnit.setValue(null);
-        if (!cbUnit.getItems().isEmpty()) {
-            cbUnit.setValue(cbUnit.getItems().get(0)); // Sets the value explicitly
-        }
-        
-        cbType.setValue(null);
-        if (!cbType.getItems().isEmpty()) {
-            cbType.setValue(cbType.getItems().get(0)); // Sets the value explicitly
-        }
         tfBarcode.setText("");
         tfCostPrice.setText("");
         tfDiscount.setText("");
@@ -569,7 +583,7 @@ public class Product_managementController implements Initializable {
                     "/com/qb/app/assets/images/logo.png").toExternalForm()));
 
             ButtonType disableButton = new ButtonType(
-                    "Disable Product", 
+                    "Disable Product",
                     ButtonBar.ButtonData.CANCEL_CLOSE);
             ButtonType cancelButton = new ButtonType(
                     "Cancel", ButtonBar.ButtonData.OK_DONE);

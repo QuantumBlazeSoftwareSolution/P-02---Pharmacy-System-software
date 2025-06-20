@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXToggleButton;
 import com.qb.app.controllers.report.beans.BrandBean;
 import com.qb.app.controllers.report.beans.ProductBean;
 import com.qb.app.model.ComboBoxUtils;
+import com.qb.app.model.CustomAlert;
 import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.JPATransaction;
 import com.qb.app.model.SVGIconGroup;
@@ -39,11 +40,13 @@ import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -234,26 +237,51 @@ public class ReportStockBalanceController implements Initializable {
     private void printGrnReport() {
         JPATransaction.runInTransaction((em) -> {
             CriteriaBuilder cb = em.getCriteriaBuilder();
+        List<Brand> brandList;
+
+        // ✅ Filter brands based on checkbox and combo box
+        if (!CheckBox.isSelected()) {
+            Brand selectedBrand = cbBrand.getSelectionModel().getSelectedItem();
+            if (selectedBrand == null) {
+                CustomAlert.showStyledAlert(root, "Please select a brand.", Alert.AlertType.WARNING);
+                return;
+            }
+
+            // Only fetch the selected brand
+//            brandList = Collections.singletonList(
+//                em.find(Brand.class, selectedBrand.getId())
+//            );
+            brandList = List.of(selectedBrand); 
+        } else {
+            // Fetch all brands
             CriteriaQuery<Brand> brandQuery = cb.createQuery(Brand.class);
             Root<Brand> brandRoot = brandQuery.from(Brand.class);
             brandQuery.select(brandRoot);
-            List<Brand> brandList = em.createQuery(brandQuery).getResultList();
+            brandList = em.createQuery(brandQuery).getResultList();
+        }
 
             List<BrandBean> brandListBean = new ArrayList<>();
             double grandTotalSaleAmount = 0;
             double grandTotalStockAmount = 0;
             int grandTotalQty = 0;
             for (Brand brand : brandList) {
+
                 CriteriaQuery<Product> productQuery = cb.createQuery(Product.class);
                 Root<Product> productRoot = productQuery.from(Product.class);
-                productQuery.select(productRoot)
+
+                Join<Object, Object> phptJoin = productRoot.join("productHasProductTypeCollection"); // assuming mappedBy in entity
+                Join<Object, Object> ptJoin = phptJoin.join("productTypeId"); // assuming field name in ProductHasProductType entity
+
+                productQuery.select(productRoot).distinct(true)
                         .where(
                                 cb.and(
-                                        cb.equal(productRoot.get("brandId"), brand)
+                                        cb.equal(productRoot.get("brandId"), brand),
+                                        cb.equal(ptJoin.get("type"), "Parent")
                                 )
                         );
 
                 List<Product> productList = em.createQuery(productQuery).getResultList();
+
                 List<ProductBean> productBeanList = new ArrayList<>();
 
                 double brandTotalSaleAmount = 0;

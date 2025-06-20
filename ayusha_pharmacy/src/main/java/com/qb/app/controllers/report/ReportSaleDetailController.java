@@ -9,6 +9,8 @@ import com.qb.app.model.SVGIconGroup;
 import com.qb.app.model.entity.Invoice;
 import com.qb.app.model.entity.InvoiceItem;
 import com.qb.app.model.entity.Product;
+import com.qb.app.model.entity.ProductHasProductType;
+import com.qb.app.model.entity.ProductType;
 import com.qb.app.model.getLogger;
 import com.qb.app.session.CompanyInfo;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -116,7 +118,7 @@ private void loadInvoiceReport() {
 
         Join<InvoiceItem, Invoice> invoiceJoin = itemRoot.join("invoiceId");
         Join<InvoiceItem, Product> productJoin = itemRoot.join("productId");
-
+        
         Predicate datePredicate = cb.between(
             invoiceJoin.get("dateTime"),
             selectedDate.atStartOfDay(),
@@ -167,7 +169,8 @@ private void loadInvoiceReport() {
         TFTotalDiscount.setText(String.format("Rs. %,.2f", Tdiscount));
         TFTotalProfit.setText(String.format("Rs. %,.2f", TSale-(TCost+Tdiscount)));
 
-        });
+        }
+    );
     }
 
     private void LoadReportDetails() {
@@ -215,7 +218,6 @@ private void loadInvoiceReport() {
                     tAmount+=Ramount;
                     tProfit+=Rprofit;
                     
-                    
                     invoiceItemBeanList.add(new InvoiceItemsBean(
                             String.valueOf(invoiceItem.getProductId().getId()),
                             String.valueOf(invoiceItem.getProductId().getProduct()),
@@ -225,7 +227,6 @@ private void loadInvoiceReport() {
                             String.valueOf(invoiceItem.getDiscount()),
                             String.format("Rs. %,.2f",Ramount),
                             String.format("Rs. %,.2f", Rprofit)
-                            
                     ));
                 }
                 
@@ -233,9 +234,7 @@ private void loadInvoiceReport() {
                 GrnadTotalProfitValue+=tProfit;
                 GrnadTotalSaleValue+=tAmount;
                 GrnadTotalStockValue+=tCost;
-                
-                  
-
+ 
                 invoiceListBean.add(new InvoiceBean(
                         String.valueOf(invoice.getId()),
                         invoiceItemBeanList,

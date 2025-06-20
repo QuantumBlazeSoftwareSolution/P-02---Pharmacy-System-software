@@ -14,7 +14,7 @@
       <VBox alignment="CENTER" layoutX="225.0" layoutY="128.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Region prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-            <Label styleClass="primary-text" stylesheets="@css/style.css" text="Welcome to Digital Retail">
+            <Label alignment="CENTER" prefHeight="64.0" styleClass="green-gradient" stylesheets="@css/style.css" text="🛍 Every Click, A Step Toward Healing. 🛒" textAlignment="CENTER">
                <font>
                   <Font name="Aptos Bold" size="36.0" />
                </font>
@@ -32,7 +32,7 @@
                      <children>
                         <BorderPane maxWidth="400.0" prefHeight="150.0" style="-fx-background-radius: 10px;" styleClass="black-gradient" stylesheets="@css/style.css" VBox.vgrow="ALWAYS">
                            <center>
-                              <Label fx:id="labelYear" styleClass="green-gradient" stylesheets="@css/style.css" text="2025" BorderPane.alignment="CENTER">
+                              <Label fx:id="labelYear" styleClass="green-gradient" stylesheets="@css/style.css" text="2025 📆" BorderPane.alignment="CENTER">
                                  <font>
                                     <Font name="Aptos Bold" size="52.0" />
                                  </font>
@@ -72,7 +72,7 @@
                      <font>
                         <Font name="Aptos" size="16.0" />
                      </font></Label>
-                  <Label styleClass="primary-text" stylesheets="@css/style.css" text="Contact: +94712345678 | Email: quantumblaze@gmail.com">
+                  <Label styleClass="primary-text" stylesheets="@css/style.css" text="Contact: +94 78 805 6838 | Email: quantumblazesoftwaresolution@gmail.com">
                      <font>
                         <Font name="Aptos" size="14.0" />
                      </font></Label>

@@ -23,7 +23,7 @@
 }*/
 
 .green-gradient{
-    -fx-text-fill: linear-gradient(to bottom, #237A57, #093028);
+    -fx-text-fill: linear-gradient(to bottom, #0DBC75, #00775F);
 }
 
 .primary-gradient-50{

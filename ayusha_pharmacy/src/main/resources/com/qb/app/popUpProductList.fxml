@@ -53,7 +53,7 @@
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font></Label>
-                              <TextField fx:id="tfSearch" maxWidth="1.7976931348623157E308" onKeyPressed="#handleSearchKeyPressed" prefHeight="40.0" prefWidth="300.0">
+                              <TextField fx:id="tfSearch" maxWidth="1.7976931348623157E308" onKeyReleased="#handleSearchKeyPressed" prefHeight="40.0" prefWidth="300.0">
                                  <font>
                                     <Font name="Aptos" size="12.0" />
                                  </font></TextField>

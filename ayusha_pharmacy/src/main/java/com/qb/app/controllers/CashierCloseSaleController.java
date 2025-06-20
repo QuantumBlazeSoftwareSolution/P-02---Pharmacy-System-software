@@ -355,7 +355,10 @@ public class CashierCloseSaleController implements Initializable, ControllerClos
         params.put("Qty5000", String.valueOf(this.closeSale.getC5000()));
         params.put("SystemBalance", String.format("Rs. %,.2f", ApplicationSession.getSession().getPettyCash() + this.systemBalance));
         params.put("PhysicalBalance", String.format("Rs. %,.2f", this.physicalBalance));
-        params.put("CashVariance", String.format("Rs. %,.2f", getCashVariance()));
+        params.put("CashVariance", String.format("%sRs. %,.2f",
+                getCashVariance() < 0 ? "-" : "", // Add "-" prefix if negative
+                Math.abs(getCashVariance()) // Absolute value for formatting
+        ));
         params.put("TotalDiscount", String.format("Rs. %,d.00", getTotalDiscount()));
         params.put("TotalSale", String.format("Rs. %,.2f", this.systemBalance));
         params.put("InvoiceCount", String.valueOf(getInvoiceCount()));

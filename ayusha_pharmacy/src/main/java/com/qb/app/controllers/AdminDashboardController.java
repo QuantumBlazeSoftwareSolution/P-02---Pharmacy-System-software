@@ -27,39 +27,26 @@ public class AdminDashboardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        XYChart.Series<String, Number> series1 = new XYChart.Series<>();
-        series1.setName("YEAR");
-        series1.getData().add(new XYChart.Data<>("MMM", 80));
-        series1.getData().add(new XYChart.Data<>("MMM", 60));
-        series1.getData().add(new XYChart.Data<>("MMM", 90));
-        series1.getData().add(new XYChart.Data<>("MMM", 40));
-        series1.getData().add(new XYChart.Data<>("MMM", 50));
-        series1.getData().add(new XYChart.Data<>("MMM", 70));
-        series1.getData().add(new XYChart.Data<>("MMM", 30));
-        series1.getData().add(new XYChart.Data<>("MMM", 80));
-        series1.getData().add(new XYChart.Data<>("MMM", 90));
-        series1.getData().add(new XYChart.Data<>("MMM", 40));
-        series1.getData().add(new XYChart.Data<>("MMM", 70));
-        series1.getData().add(new XYChart.Data<>("MMM", 60));
+        Random random = new Random();
 
-        // Create Data Series for 2023
+        // Create Data Series for 2025 with random values
+        XYChart.Series<String, Number> series1 = new XYChart.Series<>();
+        series1.setName("2025");
+        for (String month : new String[]{"Jan", "Feb", "Mar", "Apr", "May", "Jun",
+            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"}) {
+            series1.getData().add(new XYChart.Data<>(month, random.nextInt(200))); // 0-199
+        }
+
+        // Create Data Series for 2024 with random values
         XYChart.Series<String, Number> series2 = new XYChart.Series<>();
-        series2.setName("YEAR");
-        series2.getData().add(new XYChart.Data<>("MMM", 60));
-        series2.getData().add(new XYChart.Data<>("MMM", 70));
-        series2.getData().add(new XYChart.Data<>("MMM", 50));
-        series2.getData().add(new XYChart.Data<>("MMM", 30));
-        series2.getData().add(new XYChart.Data<>("MMM", 60));
-        series2.getData().add(new XYChart.Data<>("MMM", 40));
-        series2.getData().add(new XYChart.Data<>("MMM", 80));
-        series2.getData().add(new XYChart.Data<>("MMM", 50));
-        series2.getData().add(new XYChart.Data<>("MMM", 90));
-        series2.getData().add(new XYChart.Data<>("MMM", 60));
-        series2.getData().add(new XYChart.Data<>("MMM", 40));
-        series2.getData().add(new XYChart.Data<>("MMM", 80));
+        series2.setName("2024");
+        for (String month : new String[]{"Jan", "Feb", "Mar", "Apr", "May", "Jun",
+            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"}) {
+            series2.getData().add(new XYChart.Data<>(month, random.nextInt(200))); // 0-199
+        }
 
         annualChart.getData().addAll(series1, series2);
-        
+
         for (XYChart.Data<String, Number> data : series1.getData()) {
             Text valueLabel = new Text(data.getYValue().toString());
             valueLabel.setStyle("-fx-fill: white; -fx-font-weight: bold;");

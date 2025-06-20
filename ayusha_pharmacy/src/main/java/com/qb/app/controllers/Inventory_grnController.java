@@ -115,6 +115,8 @@ public class Inventory_grnController implements Initializable {
     List<InventoryGRN_TableRowController> grnItemList = new ArrayList<>();
     @FXML
     private TextField tfDiscount;
+    @FXML
+    private Button btnItemAdd;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -136,6 +138,8 @@ public class Inventory_grnController implements Initializable {
     private void actionEvent(ActionEvent event) {
         if (event.getSource() == btnAction) {
             makeGrn();
+        } else if (event.getSource() == btnItemAdd) {
+            validateAndAddItem();
         }
     }
 
@@ -364,19 +368,23 @@ public class Inventory_grnController implements Initializable {
     @FXML
     private void qtyListener(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
-            if (this.readyItemToAdd) {
-                addItemToList();
-            } else {
-                String qty = tfQty.getText();
-                if (qty.isEmpty() || Integer.parseInt(qty) <= 0) {
-                    displayWarningMessage("To proceed, please enter the quantity for this product.", false);
-                    this.readyItemToAdd = false;
-                } else {
-                    calculateLoadedItemAmount();
-                }
-            }
+            validateAndAddItem();
         } else {
             this.readyItemToAdd = false;
+        }
+    }
+
+    private void validateAndAddItem() {
+        if (this.readyItemToAdd) {
+            addItemToList();
+        } else {
+            String qty = tfQty.getText();
+            if (qty.isEmpty() || Integer.parseInt(qty) <= 0) {
+                displayWarningMessage("To proceed, please enter the quantity for this product.", false);
+                this.readyItemToAdd = false;
+            } else {
+                calculateLoadedItemAmount();
+            }
         }
     }
 

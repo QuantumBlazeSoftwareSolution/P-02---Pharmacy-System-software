@@ -278,7 +278,7 @@ public class ReportGRNController implements Initializable {
 
     private void printGrnReport() {
 
-        if (isEntriesValid()) {
+        
             if (!grnItemList.isEmpty()) {
                 Map<String, Object> params = getJRParams();
                 Vector<GrnItemBean> collection = getBeanCollection();
@@ -295,7 +295,7 @@ public class ReportGRNController implements Initializable {
             } else {
                 CustomAlert.showStyledAlert(root, "Report generation failed. Please Load Report First !", Alert.AlertType.WARNING);
             }
-        }
+        
     }
 
     private Map<String, Object> getJRParams() {

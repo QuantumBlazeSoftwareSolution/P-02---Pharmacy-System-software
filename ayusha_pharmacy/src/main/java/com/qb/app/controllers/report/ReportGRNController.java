@@ -267,7 +267,7 @@ public class ReportGRNController implements Initializable {
 
     private void refreshInterface() {
         cbSupplier.setValue(null);
-        cbSupplier.setPromptText("Ex: Munchee - Heshan");
+        cbSupplier.setPromptText("Select Supplier");
         cbFilterBy.setValue(null);
         cbFilterBy.setPromptText("Select Filter");
         TFGrnId.setText("");

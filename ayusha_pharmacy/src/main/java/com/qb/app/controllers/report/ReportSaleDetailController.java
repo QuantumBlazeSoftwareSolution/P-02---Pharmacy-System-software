@@ -335,6 +335,7 @@ private void loadInvoiceReport() {
 
     private void refreshInterface() {
         cbFilter.setValue(null);
+          cbFilter.setPromptText("Select Filter");
         loadTextField();
         DateSelector.setValue(LocalDate.now());
         tableBody.getChildren().clear();

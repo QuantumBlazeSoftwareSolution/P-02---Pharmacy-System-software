@@ -195,6 +195,7 @@ public class ReportStockBalanceController implements Initializable {
 
     private void refreshInterface() {
         cbFilter.setValue(null);
+        cbFilter.setPromptText("Select Filter");
         cbBrand.setValue(null);
         loadTextField();
         tableBody.getChildren().clear();

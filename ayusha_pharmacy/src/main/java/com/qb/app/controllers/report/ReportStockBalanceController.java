@@ -161,7 +161,8 @@ public class ReportStockBalanceController implements Initializable {
                 Product product = stock.getProductId();
                 Brand brand = product.getBrandId();
 
-                double qty = stock.getQty();
+//                double qty = stock.getQty();
+                  double qty = divideWithPharmacyRounding(stock.getQty(),stock.getProductId().getMeasure());
                 double rowCostprice = qty * product.getCostPrice();
                 totalStockValue += rowCostprice;
                 double rowSalePrice = qty * product.getSalePrice();
@@ -286,7 +287,7 @@ public class ReportStockBalanceController implements Initializable {
                     stockQuery.select(stockRoot)
                             .where(cb.equal(stockRoot.get("productId"), product));
                     Stock stockdetails = em.createQuery(stockQuery).getSingleResult();
-                    double qty = stockdetails.getQty();
+                    double qty = divideWithPharmacyRounding(stockdetails.getQty(),stockdetails.getProductId().getMeasure());
                     float measure = stockdetails.getProductId().getMeasure();
                     double tSaleAmount = qty * product.getSalePrice();
                     double tCostAmount = qty * product.getCostPrice();

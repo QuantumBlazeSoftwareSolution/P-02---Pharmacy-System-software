@@ -1,6 +1,5 @@
 package com.qb.app.model;
 
-import com.qb.app.App;
 import static com.qb.app.model.JPATransaction.runInTransaction;
 import com.qb.app.model.entity.Brand;
 import com.qb.app.model.entity.Employee;
@@ -15,7 +14,6 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
-import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -45,7 +43,7 @@ public class UnitTestingVihanga {
 //        getSessionDetails();
 //        loadComboBoxData();
 //        testRun();
-        passwordTest();
+//        passwordTest();
 //        testDatabaseResults();
 //        testSubReport();
 //        JpaTest();
@@ -53,6 +51,7 @@ public class UnitTestingVihanga {
 //        testStockBalanceReport();
 //        printCloseSale();
 //        testRoundUp();
+        System.out.println(String.format("Rs. %,.2f", 15000.45));
     }
 
     private static void testJPA() {

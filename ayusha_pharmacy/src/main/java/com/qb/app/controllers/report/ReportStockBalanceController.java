@@ -286,6 +286,7 @@ public class ReportStockBalanceController implements Initializable {
                             .where(cb.equal(stockRoot.get("productId"), product));
                     Stock stockdetails = em.createQuery(stockQuery).getSingleResult();
                     double qty = stockdetails.getQty();
+                    float measure = stockdetails.getProductId().getMeasure();
                     double tSaleAmount = qty * product.getSalePrice();
                     double tCostAmount = qty * product.getCostPrice();
                     brandTotalQty += qty;
@@ -295,10 +296,10 @@ public class ReportStockBalanceController implements Initializable {
                     productBeanList.add(new ProductBean(
                             String.valueOf(product.getId()),
                             product.getProduct(),
-                            product.getGenericName(),
-                            String.format("Rs. %,.2f", product.getSalePrice()),
-                            String.valueOf(qty),
-                            String.format("Rs. %,.2f", tSaleAmount)
+                           product.getGenericName() != null ?     product.getGenericName() : "N/A",
+                            String.format("%,.2f", product.getSalePrice()),
+                            String.valueOf(divideWithPharmacyRounding(qty,measure)),
+                            String.format("%,.2f", tSaleAmount)
                     ));
                 }
                 grandTotalSaleAmount += brandTotalSaleAmount;
@@ -345,6 +346,14 @@ public class ReportStockBalanceController implements Initializable {
                 getLogger.logger().warning(e.toString());
             }
         });
+    }
+    
+      private  double divideWithPharmacyRounding(double qty, float measure) {
+        int whole = (int) (qty / measure);
+        int remainder = (int) (qty % measure);
+
+        double result = whole + (remainder / 100.0);
+        return result;
     }
 
     @FXML

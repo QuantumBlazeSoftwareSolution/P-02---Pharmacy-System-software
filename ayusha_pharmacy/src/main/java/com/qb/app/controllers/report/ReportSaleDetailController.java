@@ -236,16 +236,16 @@ private void loadInvoiceReport() {
                 GrnadTotalStockValue+=tCost;
  
                 invoiceListBean.add(new InvoiceBean(
-                        String.valueOf(invoice.getId()),
+                        String.format("INV-%", invoice.getId()),
                         invoiceItemBeanList,
                         String.valueOf(invoice.getDateTime()),
                         String.format("Rs. %,.2f", invoice.getBillAmount()),
                         String.format("Rs. %,.2f", invoice.getPaidAmount()),
                         String.format("Rs. %,.2f", invoice.getPaidAmount() - invoice.getBillAmount()),
-                        String.format("Rs. %,.2f",tQty),
-                        String.format("Rs. %,.2f", tDiscount),
-                        String.format("Rs. %,.2f", tAmount),
-                        String.format("Rs. %,.2f", tProfit)
+                        String.format("%,.2f",tQty),
+                        String.format("%,.2f", tDiscount),
+                        String.format("%,.2f", tAmount),
+                        String.format("%,.2f", tProfit)
                 ));
             }
 

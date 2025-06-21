@@ -21,6 +21,9 @@ import jakarta.persistence.criteria.Root;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -174,15 +177,32 @@ private void loadInvoiceReport() {
     }
 
     private void LoadReportDetails() {
-        
-           JPATransaction.runInTransaction((em) -> {
+        LocalDate selectedDate = DateSelector.getValue();
+        if (selectedDate == null) {
+            CustomAlert.showStyledAlert(root, "Please set a date", Alert.AlertType.WARNING);
+            return;
+        }
+
+        JPATransaction.runInTransaction((em) -> {
+
             CriteriaBuilder cb = em.getCriteriaBuilder();
             CriteriaQuery<Invoice> InvoiceQuery = cb.createQuery(Invoice.class);
             Root<Invoice> invoiceRoot = InvoiceQuery.from(Invoice.class);
-            InvoiceQuery.select(invoiceRoot);
-            List<Invoice> invoiceList = em.createQuery(InvoiceQuery).getResultList();
 
+            Predicate datePredicate = cb.between(
+                    invoiceRoot.get("dateTime"),
+                    selectedDate.atStartOfDay(),
+                    selectedDate.plusDays(1).atStartOfDay()
+            );
+            InvoiceQuery.select(invoiceRoot).where(datePredicate);
+
+            List<Invoice> invoiceList = em.createQuery(InvoiceQuery).getResultList();
             List<InvoiceBean> invoiceListBean = new ArrayList<>();
+
+            if (invoiceList.isEmpty()) {
+                CustomAlert.showStyledAlert(root, "No sales records found for the selected date.", Alert.AlertType.WARNING);
+                 return;
+            }
             
             double GrnadTotalStockValue =0;
             double GrnadTotalSaleValue =0;
@@ -221,12 +241,12 @@ private void loadInvoiceReport() {
                     invoiceItemBeanList.add(new InvoiceItemsBean(
                             String.valueOf(invoiceItem.getProductId().getId()),
                             String.valueOf(invoiceItem.getProductId().getProduct()),
-                            String.format("Rs. %,.2f", invoiceItem.getCostPrice()),
-                            String.format("Rs. %,.2f", invoiceItem.getSalePrice()),
+                            String.format("%,.2f", invoiceItem.getCostPrice()),
+                            String.format("%,.2f", invoiceItem.getSalePrice()),
                             String.valueOf(invoiceItem.getQty()),
                             String.valueOf(invoiceItem.getDiscount()),
-                            String.format("Rs. %,.2f",Ramount),
-                            String.format("Rs. %,.2f", Rprofit)
+                            String.format("%,.2f",Ramount),
+                            String.format("%,.2f", Rprofit)
                     ));
                 }
                 
@@ -235,13 +255,18 @@ private void loadInvoiceReport() {
                 GrnadTotalSaleValue+=tAmount;
                 GrnadTotalStockValue+=tCost;
  
+                  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy hh:mm a");
+                  String   DateTimeString = invoice.getDateTime().toInstant()
+                            .atZone(ZoneId.systemDefault())
+                            .format(formatter);
+                
                 invoiceListBean.add(new InvoiceBean(
                         String.format("INV-%06d", invoice.getId()),
                         invoiceItemBeanList,
-                        String.valueOf(invoice.getDateTime()),
-                        String.format("Rs. %,.2f", invoice.getBillAmount()),
-                        String.format("Rs. %,.2f", invoice.getPaidAmount()),
-                        String.format("Rs. %,.2f", invoice.getPaidAmount() - invoice.getBillAmount()),
+                        DateTimeString,
+                        String.format("%,.2f", invoice.getBillAmount()),
+                        String.format("%,.2f", invoice.getPaidAmount()),
+                        String.format("%,.2f", invoice.getPaidAmount() - invoice.getBillAmount()),
                         String.format("%,.2f",tQty),
                         String.format("%,.2f", tDiscount),
                         String.format("%,.2f", tAmount),

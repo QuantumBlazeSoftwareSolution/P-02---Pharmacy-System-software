@@ -642,7 +642,7 @@ public class Product_managementController implements Initializable {
                         tfParentID.requestFocus();
                         return;
                     } else {
-                        costPrice = parentProduct.getCostPrice() / parentProduct.getMeasure();
+                        costPrice = (parentProduct.getCostPrice() / parentProduct.getMeasure()) * Double.parseDouble(tfMeasure.getText());
                     }
                 } else {
                     costPrice = Double.parseDouble(tfCostPrice.getText());

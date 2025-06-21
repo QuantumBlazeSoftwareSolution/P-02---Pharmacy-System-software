@@ -232,6 +232,7 @@ public class ReportStockBalanceController implements Initializable {
     }
 
     private void printGrnReport() {
+         if (!stockItemList.isEmpty()) {
         JPATransaction.runInTransaction((em) -> {
             CriteriaBuilder cb = em.getCriteriaBuilder();
             List<Brand> brandList;
@@ -298,7 +299,7 @@ public class ReportStockBalanceController implements Initializable {
                             product.getProduct(),
                            product.getGenericName() != null ?     product.getGenericName() : "N/A",
                             String.format("%,.2f", product.getSalePrice()),
-                            String.valueOf(divideWithPharmacyRounding(qty,measure)),
+                                String.format("%,.2f", divideWithPharmacyRounding(qty,measure)),
                             String.format("%,.2f", tSaleAmount)
                     ));
                 }
@@ -309,7 +310,7 @@ public class ReportStockBalanceController implements Initializable {
                         brand.getBrand(),
                         productBeanList,
                         String.valueOf(productBeanList.size()),
-                        String.format("Rs. %,.2f", brandTotalSaleAmount),
+                        String.format("%,.2f", brandTotalSaleAmount),
                         String.valueOf(brandTotalQty)
                 ));
             }
@@ -342,10 +343,14 @@ public class ReportStockBalanceController implements Initializable {
                 JasperPrint report = JasperFillManager.fillReport(mainReport, params, dataSource);
                 JasperViewer.viewReport(report, false);
             } catch (JRException e) {
-                e.printStackTrace();
-                getLogger.logger().warning(e.toString());
-            }
-        });
+                    e.printStackTrace();
+                    getLogger.logger().warning(e.toString());
+                }
+            });
+        } else {
+              CustomAlert.showStyledAlert(root, "Report generation failed. Please Load Report First !", Alert.AlertType.WARNING);
+
+        }
     }
     
       private  double divideWithPharmacyRounding(double qty, float measure) {

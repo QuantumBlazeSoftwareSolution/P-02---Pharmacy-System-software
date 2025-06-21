@@ -236,7 +236,7 @@ private void loadInvoiceReport() {
                         double Ramount = (invoiceItem.getQty() * invoiceItem.getSalePrice()) - ( invoiceItem.getQty() * invoiceItem.getDiscount()) ;
                         double Rcost = invoiceItem.getQty() * invoiceItem.getCostPrice();
                         double Rdiscount = invoiceItem.getQty() * invoiceItem.getDiscount();
-                        double Rprofit = Ramount - (Rcost + Rdiscount);
+                        double Rprofit = Ramount - (Rcost );
                         tCost += Rcost;
                         tAmount += Ramount;
                         tProfit += Rprofit;

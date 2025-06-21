@@ -147,7 +147,12 @@ public class Inventory_grnController implements Initializable {
         if (isEntriesValid()) {
             if (isGrnIdAvailable()) {
                 if (grnItemList.isEmpty() || grnItemList.size() == 0 || grnItemList == null) {
-                    CustomAlert.showStyledAlert(root, "messagee.", "No item to GRN", Alert.AlertType.WARNING);
+                    CustomAlert.showStyledAlert(
+                            root,
+                            "Cannot process GRN without any items. Please add at least one product to the GRN list.",
+                            "Empty GRN Items",
+                            Alert.AlertType.WARNING
+                    );
                 } else {
                     createGrn();
                 }
@@ -458,7 +463,10 @@ public class Inventory_grnController implements Initializable {
 
             JasperPrint report = JasperFillManager.fillReport(jasperReport, params, dataSource);
 //            JasperPrintManager.printReport(report, false);
-            JasperViewer.viewReport(report, false);
+//            JasperViewer.viewReport(report, false);
+            JasperViewer viewer = new JasperViewer(report, false);
+            viewer.setAlwaysOnTop(true);
+            viewer.setVisible(true);
         } catch (JRException e) {
             e.printStackTrace();
             getLogger.logger().warning(e.toString());

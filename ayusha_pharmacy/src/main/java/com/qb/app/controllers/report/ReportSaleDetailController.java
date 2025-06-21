@@ -232,8 +232,8 @@ private void loadInvoiceReport() {
                     double tCost = 0;
                     for (InvoiceItem invoiceItem : InvoiceItemList) {
                         tQty += invoiceItem.getQty();
-                        tDiscount += invoiceItem.getDiscount();
-                        double Ramount = (invoiceItem.getQty() * invoiceItem.getSalePrice()) -( invoiceItem.getQty() * invoiceItem.getDiscount()) ;
+                        tDiscount += invoiceItem.getQty()* invoiceItem.getDiscount();
+                        double Ramount = (invoiceItem.getQty() * invoiceItem.getSalePrice()) - ( invoiceItem.getQty() * invoiceItem.getDiscount()) ;
                         double Rcost = invoiceItem.getQty() * invoiceItem.getCostPrice();
                         double Rdiscount = invoiceItem.getQty() * invoiceItem.getDiscount();
                         double Rprofit = Ramount - (Rcost + Rdiscount);

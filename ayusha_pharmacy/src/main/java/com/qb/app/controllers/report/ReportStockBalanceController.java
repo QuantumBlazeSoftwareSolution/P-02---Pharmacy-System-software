@@ -295,10 +295,10 @@ public class ReportStockBalanceController implements Initializable {
                     productBeanList.add(new ProductBean(
                             String.valueOf(product.getId()),
                             product.getProduct(),
-                            product.getGenericName(),
-                            String.format("Rs. %,.2f", product.getSalePrice()),
+                           product.getGenericName() != null ?     product.getGenericName() : "N/A",
+                            String.format("%,.2f", product.getSalePrice()),
                             String.valueOf(qty),
-                            String.format("Rs. %,.2f", tSaleAmount)
+                            String.format("%,.2f", tSaleAmount)
                     ));
                 }
                 grandTotalSaleAmount += brandTotalSaleAmount;

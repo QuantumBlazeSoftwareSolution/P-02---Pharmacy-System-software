@@ -300,7 +300,7 @@ public class ReportStockBalanceController implements Initializable {
                             product.getProduct(),
                            product.getGenericName() != null ?     product.getGenericName() : "N/A",
                             String.format("%,.2f", product.getSalePrice()),
-                                String.format("%,.2f", divideWithPharmacyRounding(qty,measure)),
+                                String.format("%,.2f",qty),
                             String.format("%,.2f", tSaleAmount)
                     ));
                 }

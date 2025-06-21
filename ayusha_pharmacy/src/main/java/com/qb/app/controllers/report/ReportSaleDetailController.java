@@ -232,8 +232,8 @@ private void loadInvoiceReport() {
                     double tCost = 0;
                     for (InvoiceItem invoiceItem : InvoiceItemList) {
                         tQty += invoiceItem.getQty();
-                        tDiscount += invoiceItem.getDiscount();
-                        double Ramount = invoiceItem.getQty() * invoiceItem.getSalePrice();
+                        tDiscount += invoiceItem.getQty()* invoiceItem.getDiscount();
+                        double Ramount = (invoiceItem.getQty() * invoiceItem.getSalePrice()) - ( invoiceItem.getQty() * invoiceItem.getDiscount()) ;
                         double Rcost = invoiceItem.getQty() * invoiceItem.getCostPrice();
                         double Rdiscount = invoiceItem.getQty() * invoiceItem.getDiscount();
                         double Rprofit = Ramount - (Rcost + Rdiscount);
@@ -244,10 +244,10 @@ private void loadInvoiceReport() {
                         invoiceItemBeanList.add(new InvoiceItemsBean(
                                 String.valueOf(invoiceItem.getProductId().getId()),
                                 String.valueOf(invoiceItem.getProductId().getProduct()),
-                                String.format("%,.2f", invoiceItem.getCostPrice()),
-                                String.format("%,.2f", invoiceItem.getSalePrice()),
+                                String.format("%,.2f", invoiceItem.getQty() *invoiceItem.getCostPrice()),
+                                String.format("%,.2f",invoiceItem.getQty() * invoiceItem.getSalePrice()),
                                 String.valueOf(invoiceItem.getQty()),
-                                String.valueOf(invoiceItem.getDiscount()),
+                                String.valueOf(invoiceItem.getQty() * invoiceItem.getDiscount()),
                                 String.format("%,.2f", Ramount),
                                 String.format("%,.2f", Rprofit)
                         ));

@@ -236,7 +236,7 @@ private void loadInvoiceReport() {
                 GrnadTotalStockValue+=tCost;
  
                 invoiceListBean.add(new InvoiceBean(
-                        String.format("INV-%", invoice.getId()),
+                        String.format("INV-%06d", invoice.getId()),
                         invoiceItemBeanList,
                         String.valueOf(invoice.getDateTime()),
                         String.format("Rs. %,.2f", invoice.getBillAmount()),

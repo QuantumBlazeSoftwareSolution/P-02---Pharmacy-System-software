@@ -5,3 +5,4 @@ Other process of the POS system (Admin panel, developer panel, cashier panel)
 Monitoring with mobile app/website
 Bar code scanning (It must show his child products in a pop-up)
 Database auto-backup system
+Trial period management

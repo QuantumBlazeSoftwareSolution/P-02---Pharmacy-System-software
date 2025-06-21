@@ -556,10 +556,15 @@ public class Product_registrationController implements Initializable {
             tfParentID.setDisable(false);
             tfCostPrice.setDisable(true);
             tfCostPrice.setText("");
+            
+            tfInitializeQuantity.setDisable(true);
+            tfInitializeQuantity.setText("");
         } else {
             tfParentID.setDisable(true);
             tfParentID.setText("");
+            
             tfCostPrice.setDisable(false);
+            tfInitializeQuantity.setDisable(false);
         }
     }
 }

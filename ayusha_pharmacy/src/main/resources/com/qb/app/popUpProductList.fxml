@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.Group?>
@@ -45,7 +46,7 @@
          <center>
             <VBox prefHeight="200.0" prefWidth="100.0" styleClass="bg-transparent" stylesheets="@css/adminStyle.css" BorderPane.alignment="CENTER">
                <children>
-                  <HBox prefWidth="200.0">
+                  <HBox alignment="BOTTOM_LEFT" prefWidth="200.0" spacing="10.0">
                      <children>
                         <VBox>
                            <children>
@@ -59,7 +60,8 @@
                                  </font></TextField>
                            </children>
                         </VBox>
-                        <Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                        <JFXToggleButton fx:id="toggleParent" onAction="#handleProductTypeToggle" styleClass="primary-text" text="View Parents" />
+                        <Pane HBox.hgrow="ALWAYS" />
                         <VBox>
                            <children>
                               <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Filter By">

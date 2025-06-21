@@ -41,7 +41,7 @@
          <center>
             <VBox prefHeight="200.0" prefWidth="100.0" spacing="12.0">
                <children>
-                  <HBox alignment="BOTTOM_LEFT" spacing="10.0">
+                  <HBox alignment="BOTTOM_LEFT" spacing="30.0">
                      <children>
                         <VBox spacing="10.0" HBox.hgrow="ALWAYS">
                            <children>
@@ -258,7 +258,8 @@
                               </VBox>
                            </children>
                         </VBox>
-                        <VBox alignment="BOTTOM_LEFT" spacing="20.0">
+                        <Separator maxWidth="1.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="1.0" />
+                        <VBox alignment="BOTTOM_LEFT" maxWidth="350.0" prefWidth="300.0" spacing="20.0">
                            <children>
                               <VBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" spacing="10.0">
                                  <children>

@@ -160,6 +160,7 @@ private void loadInvoiceReport() {
                 Node row = loader.load();
                 ReportSaleDetail_TableRowController controller = loader.getController();
                 controller.setData(invoice,product,item);
+                invoiceItemList.add(controller);
                 tableBody.getChildren().add(row);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -177,136 +178,141 @@ private void loadInvoiceReport() {
     }
 
     private void LoadReportDetails() {
-        LocalDate selectedDate = DateSelector.getValue();
-        if (selectedDate == null) {
-            CustomAlert.showStyledAlert(root, "Please set a date", Alert.AlertType.WARNING);
-            return;
-        }
 
-        JPATransaction.runInTransaction((em) -> {
-
-            CriteriaBuilder cb = em.getCriteriaBuilder();
-            CriteriaQuery<Invoice> InvoiceQuery = cb.createQuery(Invoice.class);
-            Root<Invoice> invoiceRoot = InvoiceQuery.from(Invoice.class);
-
-            Predicate datePredicate = cb.between(
-                    invoiceRoot.get("dateTime"),
-                    selectedDate.atStartOfDay(),
-                    selectedDate.plusDays(1).atStartOfDay()
-            );
-            InvoiceQuery.select(invoiceRoot).where(datePredicate);
-
-            List<Invoice> invoiceList = em.createQuery(InvoiceQuery).getResultList();
-            List<InvoiceBean> invoiceListBean = new ArrayList<>();
-
-            if (invoiceList.isEmpty()) {
-                CustomAlert.showStyledAlert(root, "No sales records found for the selected date.", Alert.AlertType.WARNING);
-                 return;
+        if (!invoiceItemList.isEmpty()) {
+            LocalDate selectedDate = DateSelector.getValue();
+            if (selectedDate == null) {
+                CustomAlert.showStyledAlert(root, "Please set a date", Alert.AlertType.WARNING);
+                return;
             }
-            
-            double GrnadTotalStockValue =0;
-            double GrnadTotalSaleValue =0;
-            double GrnadTotalDiscountValue =0;
-            double GrnadTotalProfitValue =0;
-            
-            for (Invoice invoice : invoiceList) {
-                CriteriaQuery<InvoiceItem> InvoiceItemQuery = cb.createQuery(InvoiceItem.class);
-                Root<InvoiceItem> InvoiceItemRoot = InvoiceItemQuery.from(InvoiceItem.class);
-                InvoiceItemQuery.select(InvoiceItemRoot)
-                        .where(
-                                cb.and(
-                                        cb.equal(InvoiceItemRoot.get("invoiceId"), invoice)
-                                )
-                        );
 
-                List<InvoiceItem> InvoiceItemList = em.createQuery(InvoiceItemQuery).getResultList();
-                List<InvoiceItemsBean> invoiceItemBeanList = new ArrayList<>();
-                
-                double tQty=0;
-                double tDiscount=0;
-                double tAmount=0;
-                double tProfit=0;
-                double tCost=0;
-                for (InvoiceItem invoiceItem : InvoiceItemList) {
-                    tQty+=invoiceItem.getQty();
-                    tDiscount+=invoiceItem.getDiscount();
-                    double Ramount =invoiceItem.getQty()*invoiceItem.getSalePrice();
-                    double Rcost =invoiceItem.getQty()*invoiceItem.getCostPrice();
-                    double Rdiscount =invoiceItem.getQty()*invoiceItem.getDiscount();
-                    double Rprofit =Ramount-(Rcost+Rdiscount);
-                    tCost+=Rcost;
-                    tAmount+=Ramount;
-                    tProfit+=Rprofit;
-                    
-                    invoiceItemBeanList.add(new InvoiceItemsBean(
-                            String.valueOf(invoiceItem.getProductId().getId()),
-                            String.valueOf(invoiceItem.getProductId().getProduct()),
-                            String.format("%,.2f", invoiceItem.getCostPrice()),
-                            String.format("%,.2f", invoiceItem.getSalePrice()),
-                            String.valueOf(invoiceItem.getQty()),
-                            String.valueOf(invoiceItem.getDiscount()),
-                            String.format("%,.2f",Ramount),
-                            String.format("%,.2f", Rprofit)
-                    ));
+            JPATransaction.runInTransaction((em) -> {
+
+                CriteriaBuilder cb = em.getCriteriaBuilder();
+                CriteriaQuery<Invoice> InvoiceQuery = cb.createQuery(Invoice.class);
+                Root<Invoice> invoiceRoot = InvoiceQuery.from(Invoice.class);
+
+                Predicate datePredicate = cb.between(
+                        invoiceRoot.get("dateTime"),
+                        selectedDate.atStartOfDay(),
+                        selectedDate.plusDays(1).atStartOfDay()
+                );
+                InvoiceQuery.select(invoiceRoot).where(datePredicate);
+
+                List<Invoice> invoiceList = em.createQuery(InvoiceQuery).getResultList();
+                List<InvoiceBean> invoiceListBean = new ArrayList<>();
+
+                if (invoiceList.isEmpty()) {
+                    CustomAlert.showStyledAlert(root, "No sales records found for the selected date.", Alert.AlertType.WARNING);
+                    return;
                 }
-                
-                GrnadTotalDiscountValue+=tDiscount;
-                GrnadTotalProfitValue+=tProfit;
-                GrnadTotalSaleValue+=tAmount;
-                GrnadTotalStockValue+=tCost;
- 
-                  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy hh:mm a");
-                  String   DateTimeString = invoice.getDateTime().toInstant()
+
+                double GrnadTotalStockValue = 0;
+                double GrnadTotalSaleValue = 0;
+                double GrnadTotalDiscountValue = 0;
+                double GrnadTotalProfitValue = 0;
+
+                for (Invoice invoice : invoiceList) {
+                    CriteriaQuery<InvoiceItem> InvoiceItemQuery = cb.createQuery(InvoiceItem.class);
+                    Root<InvoiceItem> InvoiceItemRoot = InvoiceItemQuery.from(InvoiceItem.class);
+                    InvoiceItemQuery.select(InvoiceItemRoot)
+                            .where(
+                                    cb.and(
+                                            cb.equal(InvoiceItemRoot.get("invoiceId"), invoice)
+                                    )
+                            );
+
+                    List<InvoiceItem> InvoiceItemList = em.createQuery(InvoiceItemQuery).getResultList();
+                    List<InvoiceItemsBean> invoiceItemBeanList = new ArrayList<>();
+
+                    double tQty = 0;
+                    double tDiscount = 0;
+                    double tAmount = 0;
+                    double tProfit = 0;
+                    double tCost = 0;
+                    for (InvoiceItem invoiceItem : InvoiceItemList) {
+                        tQty += invoiceItem.getQty();
+                        tDiscount += invoiceItem.getDiscount();
+                        double Ramount = invoiceItem.getQty() * invoiceItem.getSalePrice();
+                        double Rcost = invoiceItem.getQty() * invoiceItem.getCostPrice();
+                        double Rdiscount = invoiceItem.getQty() * invoiceItem.getDiscount();
+                        double Rprofit = Ramount - (Rcost + Rdiscount);
+                        tCost += Rcost;
+                        tAmount += Ramount;
+                        tProfit += Rprofit;
+
+                        invoiceItemBeanList.add(new InvoiceItemsBean(
+                                String.valueOf(invoiceItem.getProductId().getId()),
+                                String.valueOf(invoiceItem.getProductId().getProduct()),
+                                String.format("%,.2f", invoiceItem.getCostPrice()),
+                                String.format("%,.2f", invoiceItem.getSalePrice()),
+                                String.valueOf(invoiceItem.getQty()),
+                                String.valueOf(invoiceItem.getDiscount()),
+                                String.format("%,.2f", Ramount),
+                                String.format("%,.2f", Rprofit)
+                        ));
+                    }
+
+                    GrnadTotalDiscountValue += tDiscount;
+                    GrnadTotalProfitValue += tProfit;
+                    GrnadTotalSaleValue += tAmount;
+                    GrnadTotalStockValue += tCost;
+
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy hh:mm a");
+                    String DateTimeString = invoice.getDateTime().toInstant()
                             .atZone(ZoneId.systemDefault())
                             .format(formatter);
-                
-                invoiceListBean.add(new InvoiceBean(
-                        String.format("INV-%06d", invoice.getId()),
-                        invoiceItemBeanList,
-                        DateTimeString,
-                        String.format("%,.2f", invoice.getBillAmount()),
-                        String.format("%,.2f", invoice.getPaidAmount()),
-                        String.format("%,.2f", invoice.getPaidAmount() - invoice.getBillAmount()),
-                        String.format("%,.2f",tQty),
-                        String.format("%,.2f", tDiscount),
-                        String.format("%,.2f", tAmount),
-                        String.format("%,.2f", tProfit)
-                ));
-            }
 
-               Map<String, Object> params = new HashMap<>();
-            params.put("ApplicationName", CompanyInfo.companyName);
-            params.put("Address", CompanyInfo.address);
-            params.put("Contact", CompanyInfo.mobile);
-            params.put("TotalStockValue", String.format("Rs. %,.2f", GrnadTotalStockValue));
-            params.put("TotalSaleValue",String.format("Rs. %,.2f", GrnadTotalSaleValue));
-            params.put("TotalDiscount",String.format("Rs. %,.2f", GrnadTotalDiscountValue));
-            params.put("TotalProfit",String.format("Rs. %,.2f", GrnadTotalProfitValue));
+                    invoiceListBean.add(new InvoiceBean(
+                            String.format("INV-%06d", invoice.getId()),
+                            invoiceItemBeanList,
+                            DateTimeString,
+                            String.format("%,.2f", invoice.getBillAmount()),
+                            String.format("%,.2f", invoice.getPaidAmount()),
+                            String.format("%,.2f", invoice.getPaidAmount() - invoice.getBillAmount()),
+                            String.format("%,.2f", tQty),
+                            String.format("%,.2f", tDiscount),
+                            String.format("%,.2f", tAmount),
+                            String.format("%,.2f", tProfit)
+                    ));
+                }
 
-            try {
-                URL imageUrl = getClass().getResource("/com/qb/app/assets/images/logo.png");
-                params.put("Logo", imageUrl);
-            } catch (Exception e) {
-                e.printStackTrace();
-                getLogger.logger().warning(e.toString());
-            }
+                Map<String, Object> params = new HashMap<>();
+                params.put("ApplicationName", CompanyInfo.companyName);
+                params.put("Address", CompanyInfo.address);
+                params.put("Contact", CompanyInfo.mobile);
+                params.put("TotalStockValue", String.format("Rs. %,.2f", GrnadTotalStockValue));
+                params.put("TotalSaleValue", String.format("Rs. %,.2f", GrnadTotalSaleValue));
+                params.put("TotalDiscount", String.format("Rs. %,.2f", GrnadTotalDiscountValue));
+                params.put("TotalProfit", String.format("Rs. %,.2f", GrnadTotalProfitValue));
 
-            try {
-                JasperReport subReport = (JasperReport) JRLoader.loadObject(
-                        getClass().getResourceAsStream("/com/qb/app/reports/Pharmacy_Detail_Sale_Sub_Report.jasper"));
-                params.put("SUB_REPORT_PATH", subReport);
+                try {
+                    URL imageUrl = getClass().getResource("/com/qb/app/assets/images/logo.png");
+                    params.put("Logo", imageUrl);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    getLogger.logger().warning(e.toString());
+                }
 
-                JasperReport mainReport = (JasperReport) JRLoader.loadObject(
-                        getClass().getResourceAsStream("/com/qb/app/reports/Pharmacy_Detail_Sale.jasper"));
+                try {
+                    JasperReport subReport = (JasperReport) JRLoader.loadObject(
+                            getClass().getResourceAsStream("/com/qb/app/reports/Pharmacy_Detail_Sale_Sub_Report.jasper"));
+                    params.put("SUB_REPORT_PATH", subReport);
 
-                JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(invoiceListBean);
-                JasperPrint report = JasperFillManager.fillReport(mainReport, params, dataSource);
-                JasperViewer.viewReport(report, false);
-            } catch (JRException e) {
-                e.printStackTrace();
-                 getLogger.logger().warning(e.toString());
-            }
-        });
+                    JasperReport mainReport = (JasperReport) JRLoader.loadObject(
+                            getClass().getResourceAsStream("/com/qb/app/reports/Pharmacy_Detail_Sale.jasper"));
+
+                    JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(invoiceListBean);
+                    JasperPrint report = JasperFillManager.fillReport(mainReport, params, dataSource);
+                    JasperViewer.viewReport(report, false);
+                } catch (JRException e) {
+                    e.printStackTrace();
+                    getLogger.logger().warning(e.toString());
+                }
+            });
+        } else {
+            CustomAlert.showStyledAlert(root, "Report generation failed. Please Load Report First !", Alert.AlertType.WARNING);
+        }
     }
 
     private void loadComboBox() {

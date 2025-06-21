@@ -16,11 +16,11 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="root" prefHeight="400.0" prefWidth="720.0" style="-fx-border-radius: 20px;" styleClass="transparent-pane" stylesheets="@css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.AdminVerificationController">
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="440.0" prefWidth="720.0" style="-fx-border-radius: 20px;" styleClass="transparent-pane" stylesheets="@css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.AdminVerificationController">
    <children>
-      <HBox prefHeight="400.0" prefWidth="720.0" styleClass="transparent-pane" stylesheets="@css/adminStyle.css">
+      <HBox prefHeight="400.0" prefWidth="720.0" styleClass="transparent-pane" stylesheets="@css/adminStyle.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox maxWidth="350.0" prefWidth="350.0" style="-fx-background-radius: 0 10 10 0; -fx-view-order: 1;" stylesheets="@css/adminStyle.css">
+            <VBox maxWidth="350.0" prefWidth="350.0" style="-fx-view-order: 1; -fx-background-radius: 10;" stylesheets="@css/adminStyle.css">
                <children>
                   <VBox alignment="CENTER" spacing="12.0">
                      <children>
@@ -61,7 +61,7 @@
             </VBox>
             <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-view-order: 2;" HBox.hgrow="ALWAYS">
                <center>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" style="-fx-background-radius: 0 10 10 0; -fx-view-order: 2;" styleClass="bg-white" stylesheets="@css/adminStyle.css" BorderPane.alignment="CENTER">
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" style="-fx-background-radius: 0 10 10 0;" styleClass="bg-white" stylesheets="@css/adminStyle.css" BorderPane.alignment="CENTER">
                      <children>
                         <VBox alignment="CENTER" prefWidth="100.0" spacing="10.0">
                            <children>
@@ -80,12 +80,12 @@
                                     <Font name="Aptos" size="14.0" />
                                  </font>
                               </Label>
-                              <PasswordField fx:id="tfPinNumber" onKeyPressed="#handleKeyPressed" prefHeight="40.0" styleClass="text-dark" stylesheets="@css/adminStyle.css" />
+                              <PasswordField fx:id="tfPinNumber" minHeight="40.0" onKeyPressed="#handleKeyPressed" prefHeight="40.0" styleClass="text-dark" stylesheets="@css/adminStyle.css" />
                            </children>
                         </VBox>
                         <VBox alignment="CENTER_LEFT" prefWidth="100.0" spacing="4.0">
                            <children>
-                              <Button fx:id="btnVerify" mnemonicParsing="false" onAction="#handleSystemVerification" prefHeight="35.0" stylesheets="@css/adminStyle.css" text="Verify">
+                              <Button fx:id="btnVerify" minHeight="40.0" mnemonicParsing="false" onAction="#handleSystemVerification" prefHeight="35.0" stylesheets="@css/adminStyle.css" text="Verify">
                                  <styleClass>
                                     <String fx:value="full-width-button" />
                                     <String fx:value="button-gradient" />
@@ -98,7 +98,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button fx:id="btnExit" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleSystemVerification" prefHeight="35.0" stylesheets="@css/style.css" text="Exit">
+                              <Button fx:id="btnExit" layoutX="10.0" layoutY="10.0" minHeight="40.0" mnemonicParsing="false" onAction="#handleSystemVerification" prefHeight="35.0" stylesheets="@css/style.css" text="Exit">
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font>
@@ -119,7 +119,7 @@
                         </VBox>
                      </children>
                      <padding>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                        <Insets left="20.0" right="20.0" />
                      </padding>
                   </VBox>
                </center>
@@ -128,9 +128,15 @@
                </padding>
             </BorderPane>
          </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
       </HBox>
    </children>
    <effect>
       <DropShadow />
    </effect>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
 </AnchorPane>

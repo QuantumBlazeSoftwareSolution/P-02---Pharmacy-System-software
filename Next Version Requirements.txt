@@ -1,0 +1,6 @@
+Inter branch management
+Multi Stock Management
+Online System
+Other process of the POS system (Admin panel, developer panel, cashier panel)
+Monitoring with mobile app/website
+Bar code scanning (It must show his child products in a pop-up)

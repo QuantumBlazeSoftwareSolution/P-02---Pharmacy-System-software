@@ -17,11 +17,11 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="root" maxWidth="700.0" prefHeight="400.0" prefWidth="720.0" style="-fx-border-radius: 20px;" styleClass="transparent-pane" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.SytemLoginController">
+<AnchorPane id="AnchorPane" fx:id="root" maxWidth="700.0" prefHeight="440.0" prefWidth="720.0" style="-fx-border-radius: 20px;" styleClass="transparent-pane" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.SytemLoginController">
     <children>
         <HBox maxWidth="700.0" prefHeight="400.0" prefWidth="700.0" styleClass="transparent-pane" stylesheets="@css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <VBox alignment="CENTER" maxWidth="350.0" prefWidth="350.0" style="-fx-view-order: 1;" stylesheets="@css/style.css" HBox.hgrow="ALWAYS">
+                <VBox alignment="CENTER" maxWidth="350.0" prefWidth="350.0" style="-fx-view-order: 1; -fx-background-radius: 10;" stylesheets="@css/style.css" HBox.hgrow="ALWAYS">
                     <children>
                         <VBox alignment="CENTER" spacing="12.0">
                             <children>
@@ -84,7 +84,7 @@
                                                 <Font name="Aptos" size="14.0" />
                                             </font>
                                         </Label>
-                                        <TextField fx:id="tfUsername" onKeyPressed="#handleKeyPressed" prefHeight="40.0" promptText="Ex: John Doe" stylesheets="@css/style.css">
+                                        <TextField fx:id="tfUsername" minHeight="40.0" onKeyPressed="#handleKeyPressed" prefHeight="40.0" promptText="Ex: John Doe" stylesheets="@css/style.css">
                                             <styleClass>
                                                 <String fx:value="bg-white" />
                                                 <String fx:value="primary-border" />
@@ -99,7 +99,7 @@
                                                 <Font name="Aptos" size="14.0" />
                                             </font>
                                         </Label>
-                                        <PasswordField fx:id="tfPassword" onKeyPressed="#handleKeyPressed" prefHeight="40.0" promptText="Ex: Aa12@#" stylesheets="@css/style.css">
+                                        <PasswordField fx:id="tfPassword" minHeight="40.0" onKeyPressed="#handleKeyPressed" prefHeight="40.0" promptText="Ex: Aa12@#" stylesheets="@css/style.css">
                                             <styleClass>
                                                 <String fx:value="bg-white" />
                                                 <String fx:value="primary-border" />
@@ -109,7 +109,7 @@
                                 </VBox>
                                 <VBox alignment="CENTER_LEFT" prefWidth="100.0" spacing="4.0">
                                     <children>
-                                        <Button fx:id="btnLogin" mnemonicParsing="false" onAction="#handleSystemLogin" prefHeight="36.0" stylesheets="@css/style.css" text="Login">
+                                        <Button fx:id="btnLogin" minHeight="40.0" mnemonicParsing="false" onAction="#handleSystemLogin" prefHeight="36.0" stylesheets="@css/style.css" text="Login">
                                             <styleClass>
                                                 <String fx:value="full-width-button" />
                                                 <String fx:value="button-gradient" />
@@ -122,7 +122,7 @@
                                                 <Cursor fx:constant="HAND" />
                                             </cursor>
                                         </Button>
-                                        <Button fx:id="btnExit" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleSystemLogin" prefHeight="36.0" stylesheets="@css/style.css" text="Exit">
+                                        <Button fx:id="btnExit" layoutX="10.0" layoutY="10.0" minHeight="40.0" mnemonicParsing="false" onAction="#handleSystemLogin" prefHeight="36.0" stylesheets="@css/style.css" text="Exit">
                                             <font>
                                                 <Font name="Aptos" size="14.0" />
                                             </font>
@@ -144,7 +144,7 @@
                                 <Label fx:id="loginMessage" stylesheets="@css/style.css" />
                             </children>
                             <padding>
-                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                <Insets left="20.0" right="20.0" top="10.0" />
                             </padding>
                         </VBox>
                     </center>
@@ -157,6 +157,12 @@
          <effect>
             <DropShadow />
          </effect>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
         </HBox>
     </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
 </AnchorPane>

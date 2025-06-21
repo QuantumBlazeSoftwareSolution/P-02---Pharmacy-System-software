@@ -45,12 +45,12 @@ public class UnitTestingVihanga {
 //        getSessionDetails();
 //        loadComboBoxData();
 //        testRun();
-//        passwordTest();
+        passwordTest();
 //        testDatabaseResults();
 //        testSubReport();
 //        JpaTest();
 //        systemLogin();
-        testStockBalanceReport();
+//        testStockBalanceReport();
 //        printCloseSale();
 //        testRoundUp();
     }
@@ -158,7 +158,8 @@ public class UnitTestingVihanga {
 //        System.out.println(PasswordEncryption.hashPassword("ASD123"));
 //        if (PasswordEncryption.verifyPassword("$argon2i$v=19$m=65536,t=10,p=4$eazGlsy3aWcg9pCFadMIzw$w162xY1rop7uRn5fFqCdrSLmviESEO3PXKUr9QgmBow", "asd321")) {
 //        }
-        System.out.println("Your password is: " + PasswordEncryption.hashPassword("asd321"));
+        System.out.println("Your password is 2025: " + PasswordEncryption.hashPassword("2025"));
+        System.out.println("Your password is 1993: " + PasswordEncryption.hashPassword("1993"));
     }
 
     private static void testDatabaseResults() {

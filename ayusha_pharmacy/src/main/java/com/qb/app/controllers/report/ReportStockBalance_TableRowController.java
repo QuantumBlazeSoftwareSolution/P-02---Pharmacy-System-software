@@ -65,8 +65,7 @@ public class ReportStockBalance_TableRowController implements Initializable {
            
            setProduct(product);
            setBrand(brand);
-           
-           
+
            this.ID.setText(String.valueOf(product.getId()));
            Brand.setText(String.valueOf(brand.getBrand()));
            Product.setText(String.valueOf(product.getProduct()));
@@ -77,5 +76,13 @@ public class ReportStockBalance_TableRowController implements Initializable {
            Profit.setText(String.format("Rs. %,.2f", profit));
           
      }
+       
+//             private  double divideWithPharmacyRounding(double qty, float measure) {
+//        int whole = (int) (qty / measure);
+//        int remainder = (int) (qty % measure);
+//
+//        double result = whole + (remainder / 100.0);
+//        return result;
+//    }
     
 }

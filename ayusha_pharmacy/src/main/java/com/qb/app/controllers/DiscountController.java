@@ -4,7 +4,6 @@
  */
 package com.qb.app.controllers;
 
-import com.qb.app.App;
 import com.qb.app.model.CustomAlert;
 import com.qb.app.model.JPATransaction;
 import com.qb.app.model.PopUp;
@@ -16,35 +15,17 @@ import java.util.ResourceBundle;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.Modality;
-import javafx.stage.Screen;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
-/**
- * FXML Controller class
- *
- * @author Vihanga
- */
 public class DiscountController implements Initializable {
-
-    @FXML
-    private Group iconBillDiscountTopic;
-    @FXML
-    private Group iconProductDiscountTopic;
     @FXML
     private TextField tfProductID;
     @FXML
@@ -62,6 +43,8 @@ public class DiscountController implements Initializable {
     private Label displayMessage;
     @FXML
     private TextField tfProductSalePrice;
+    @FXML
+    private Group iconBillDiscountTopic1;
 
     /**
      * Initializes the controller class.
@@ -72,8 +55,7 @@ public class DiscountController implements Initializable {
     }
 
     private void setIcon() {
-        iconBillDiscountTopic.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/page-icon.svg"));
-        iconProductDiscountTopic.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/page-icon.svg"));
+        iconBillDiscountTopic1.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/page-icon.svg"));
     }
 
     @FXML

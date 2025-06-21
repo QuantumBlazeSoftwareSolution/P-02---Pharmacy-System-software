@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.Group?>
@@ -25,7 +26,7 @@
             <HBox prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
                <children>
                   <Group fx:id="pageIcon" />
-                  <Label styleClass="primary-text" stylesheets="@css/style.css" text="Product List">
+                  <Label styleClass="primary-text" text="Product List">
                      <font>
                         <Font name="Aptos" size="16.0" />
                      </font>
@@ -45,7 +46,7 @@
          <center>
             <VBox prefHeight="200.0" prefWidth="100.0" styleClass="bg-transparent" stylesheets="@css/adminStyle.css" BorderPane.alignment="CENTER">
                <children>
-                  <HBox prefWidth="200.0">
+                  <HBox alignment="BOTTOM_LEFT" prefWidth="200.0" spacing="10.0">
                      <children>
                         <VBox>
                            <children>
@@ -53,13 +54,14 @@
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font></Label>
-                              <TextField fx:id="tfSearch" maxWidth="1.7976931348623157E308" onKeyPressed="#handleSearchKeyPressed" prefHeight="40.0" prefWidth="300.0">
+                              <TextField fx:id="tfSearch" maxWidth="1.7976931348623157E308" onKeyReleased="#handleSearchKeyPressed" prefHeight="40.0" prefWidth="300.0">
                                  <font>
                                     <Font name="Aptos" size="12.0" />
                                  </font></TextField>
                            </children>
                         </VBox>
-                        <Pane prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                        <JFXToggleButton fx:id="toggleParent" onAction="#handleProductTypeToggle" styleClass="primary-text" text="View Parents" />
+                        <Pane HBox.hgrow="ALWAYS" />
                         <VBox>
                            <children>
                               <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Filter By">
@@ -180,7 +182,7 @@
                                           </BorderPane>
                                           <BorderPane prefWidth="100.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0 6px  0 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
                                              <left>
-                                                <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Bar code" BorderPane.alignment="CENTER">
+                                                <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Status" BorderPane.alignment="CENTER">
                                                    <font>
                                                       <Font name="Aptos" size="14.0" />
                                                    </font>

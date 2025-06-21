@@ -37,6 +37,12 @@
     -fx-background-radius: 4px 4px 4px 4px;
 }
 
+.transparent-pane {
+    -fx-background-color: transparent;
+    /* OR use RGBA for partial transparency */
+    /*-fx-background-color: rgba(0, 0, 0, 0);  30% opacity */
+}
+
 .sub-menu-item:hover{
     -fx-background-color: rgba(241, 241, 241, 0.1);
 }

@@ -57,12 +57,12 @@
                                                 <Region HBox.hgrow="ALWAYS" />
                                                 <VBox layoutX="10.0" layoutY="10.0" maxWidth="220.0" minWidth="180.0" prefWidth="180.0">
                                                    <children>
-                                                      <Label styleClass="text-field-label" stylesheets="@../css/adminStyle.css" text="Brand">
+                                                      <Label styleClass="text-field-label" stylesheets="@../css/adminStyle.css" text="Department">
                                                          <font>
                                                             <Font size="14.0" />
                                                          </font>
                                                       </Label>
-                                                      <ComboBox fx:id="cbBrand" maxWidth="1.7976931348623157E308" prefHeight="45.0" prefWidth="230.0" promptText="Select Brand" stylesheets="@../css/adminStyle.css" />
+                                                      <ComboBox fx:id="cbBrand" maxWidth="1.7976931348623157E308" prefHeight="45.0" prefWidth="230.0" promptText="Select Department" stylesheets="@../css/adminStyle.css" />
                                                    </children>
                                                 </VBox>
                                                 <VBox maxWidth="220.0" minWidth="180.0" prefWidth="180.0">
@@ -72,7 +72,7 @@
                                                             <Font size="14.0" />
                                                          </font>
                                                       </Label>
-                                                      <ComboBox fx:id="cbFilter" maxWidth="1.7976931348623157E308" prefHeight="45.0" prefWidth="230.0" promptText="Ex: Qty" stylesheets="@../css/adminStyle.css" />
+                                                      <ComboBox fx:id="cbFilter" maxWidth="1.7976931348623157E308" prefHeight="45.0" prefWidth="230.0" promptText="Ex: Quantity" stylesheets="@../css/adminStyle.css" />
                                                    </children>
                                                 </VBox>
                                                 <Button fx:id="LoadReport" maxWidth="200.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#Loadreport" prefHeight="45.0" prefWidth="200.0" stylesheets="@../css/adminStyle.css" text="Load Report">
@@ -112,7 +112,7 @@
                                                             </BorderPane>
                                                             <BorderPane maxWidth="180.0" minWidth="-Infinity" prefWidth="120.0" style="-fx-border-radius: 0px; -fx-border-width: 0.5px 0.5px 0.5px 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
                                                                <center>
-                                                                  <Label styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="Brand" BorderPane.alignment="CENTER">
+                                                                  <Label styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="Department" BorderPane.alignment="CENTER">
                                                                      <font>
                                                                         <Font size="14.0" />
                                                                      </font>

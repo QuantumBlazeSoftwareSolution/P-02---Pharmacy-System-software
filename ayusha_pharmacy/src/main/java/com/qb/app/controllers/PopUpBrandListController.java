@@ -15,11 +15,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -47,6 +49,8 @@ public class PopUpBrandListController implements Initializable {
     private AnchorPane root;
     @FXML
     private TextField tfSearch;
+    @FXML
+    private ComboBox<String> FilterBY;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -54,6 +58,12 @@ public class PopUpBrandListController implements Initializable {
         pageIcon.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/page-icon.svg"));
         closeIcon.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/close-icon.svg"));
         loadBrands(null);
+        loadComboBox();
+    }
+    
+    private void  loadComboBox(){
+        FilterBY.getItems().addAll("ID", "Department Name");
+        FilterBY.setValue("Select Filter");
     }
 
     public void saveCallingController(Product_brand_managementController controller) {
@@ -73,6 +83,13 @@ public class PopUpBrandListController implements Initializable {
                 Predicate searchCondition
                         = cBuilder.like(cBuilder.lower(brand.get("brand")), likePattern);
                 cQuery.where(searchCondition);
+            }
+            // 👉 Sorting
+            String selectedSort = FilterBY.getValue();
+            if ("Department Name".equals(selectedSort)) {
+                cQuery.orderBy(cBuilder.asc(brand.get("brand")));
+            } else if ("ID".equals(selectedSort)) {
+                cQuery.orderBy(cBuilder.asc(brand.get("id")));
             }
 
             cQuery.select(brand);
@@ -117,6 +134,14 @@ public class PopUpBrandListController implements Initializable {
     private void handleSearch(KeyEvent event) {
         String searchTerm = tfSearch.getText().trim();
         loadBrands(searchTerm);
+    }
+
+    @FXML
+    private void FilterChange(ActionEvent event) {
+        
+        String searchTerm = tfSearch.getText().trim(); // keep the current search term if any
+    loadBrands(searchTerm); 
+       
     }
 
 }

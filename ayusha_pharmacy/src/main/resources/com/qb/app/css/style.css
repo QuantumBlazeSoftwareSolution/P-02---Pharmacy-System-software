@@ -23,7 +23,7 @@
 }*/
 
 .green-gradient{
-    -fx-text-fill: linear-gradient(to bottom, #237A57, #093028);
+    -fx-text-fill: linear-gradient(to bottom, #0DBC75, #00775F);
 }
 
 .primary-gradient-50{
@@ -70,6 +70,12 @@
 
 .textFieldColor{
     -fx-text-fill: #00796F;
+}
+
+.transparent-pane {
+    -fx-background-color: transparent;
+    /* OR use RGBA for partial transparency */
+    /*-fx-background-color: rgba(0, 0, 0, 0);  30% opacity */
 }
 
 .primary-border{

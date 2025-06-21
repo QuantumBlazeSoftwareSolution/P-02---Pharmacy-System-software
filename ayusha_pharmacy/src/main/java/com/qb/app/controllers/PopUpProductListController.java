@@ -1,11 +1,14 @@
 package com.qb.app.controllers;
 
+import com.jfoenix.controls.JFXToggleButton;
 import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.InterfaceAction;
 import com.qb.app.model.JPATransaction;
 import com.qb.app.model.SVGIconGroup;
 import com.qb.app.model.entity.Product;
+import com.qb.app.model.entity.ProductHasProductType;
 import com.qb.app.model.entity.ProductStatus;
+import com.qb.app.model.entity.ProductType;
 import com.qb.app.model.getLogger;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -17,6 +20,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -48,20 +52,22 @@ public class PopUpProductListController implements Initializable {
     public static Object callingController;
     @FXML
     private TextField tfSearch;
+    @FXML
+    private JFXToggleButton toggleParent;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         DefaultAPI.bindTableScroll(TableScroller, TableScrollContainer, TableBody);
         pageIcon.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/page-icon.svg"));
         closeIcon.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/close-icon.svg"));
-        loadProducts(null);
+        loadProducts(null, false);
     }
 
     public void saveProductRegistrationController(Object controller) {
         this.callingController = controller;
     }
 
-    private void loadProducts(String searchTerm) {
+    private void loadProducts(String searchTerm, boolean isParent) {
         JPATransaction.runInTransaction((em) -> {
             // Clear existing items
             TableBody.getChildren().clear();
@@ -71,13 +77,33 @@ public class PopUpProductListController implements Initializable {
             Root<Product> product = cQuery.from(Product.class);
             Join<Product, ProductStatus> statusJoin = product.join("productStatusId", JoinType.INNER);
 
+            // Join with ProductHasProductType
+            Join<Product, ProductHasProductType> productTypeJoin = product.join("productHasProductTypeCollection", JoinType.LEFT);
+
+            // If you need to join further to ProductType through ProductHasProductType
+            Join<ProductHasProductType, ProductType> typeJoin = productTypeJoin.join("productTypeId", JoinType.LEFT);
+
+            Predicate finalPredicate = null;
+
+            if (isParent) {
+                finalPredicate = cBuilder.equal(typeJoin.get("type"), "Parent");
+            }
+
             if (searchTerm != null && !searchTerm.isEmpty()) {
                 String likePattern = "%" + searchTerm.toLowerCase() + "%";
                 Predicate searchCondition = cBuilder.or(
                         cBuilder.like(cBuilder.lower(product.get("product")), likePattern),
                         cBuilder.like(cBuilder.lower(product.get("barCode")), likePattern)
                 );
-                cQuery.where(searchCondition);
+                if (finalPredicate != null) {
+                    finalPredicate = cBuilder.and(finalPredicate, searchCondition);
+                } else {
+                    finalPredicate = searchCondition;
+                }
+            }
+
+            if (finalPredicate != null) {
+                cQuery.where(finalPredicate);
             }
 
             cQuery.select(product);
@@ -110,7 +136,7 @@ public class PopUpProductListController implements Initializable {
                     item.getProductUnitId().getUnit(),
                     String.valueOf(item.getMeasure()),
                     item.getDiscount(),
-                    item.getBarCode()
+                    item.getProductStatusId().getStatus()
             );
 
             TableBody.getChildren().add(tableRow);
@@ -132,7 +158,17 @@ public class PopUpProductListController implements Initializable {
     @FXML
     private void handleSearchKeyPressed(KeyEvent event) {
         String searchTerm = tfSearch.getText().trim();
-        loadProducts(searchTerm);
+        loadProducts(searchTerm, false);
+    }
+
+    @FXML
+    private void handleProductTypeToggle(ActionEvent event) {
+        String searchTerm = tfSearch.getText().trim();
+        if (toggleParent.isSelected()) {
+            loadProducts(searchTerm, true);
+        } else {
+            loadProducts(searchTerm, false);
+        }
     }
 
 }

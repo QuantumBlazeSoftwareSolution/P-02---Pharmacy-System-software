@@ -72,7 +72,9 @@ public class Product_brand_managementController implements Initializable {
 
     private Brand loadedBrand;
     @FXML
-    private Label displayMessage;
+    private Label displayMessageRegistration;
+    @FXML
+    private Label displayMessageUpdate;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -97,14 +99,14 @@ public class Product_brand_managementController implements Initializable {
             if (!isBrandExist()) {
                 registerNewBrand();
             } else {
-                CustomAlert.showStyledAlert(root, "This brand name is already registered. Please choose a different name.", Alert.AlertType.WARNING);
+                CustomAlert.showStyledAlert(root, "This department name is already registered. Please choose a different name.", Alert.AlertType.WARNING);
             }
         }
     }
 
     private boolean checkRegistrationValidity() {
         if (tfPrimaryBrandName.getText().isEmpty() || tfPrimaryBrandName.getText().equals("")) {
-            CustomAlert.showStyledAlert(root, "Brand name is required and cannot be blank.", Alert.AlertType.WARNING);
+            displayRegistrationWarningMessage("Department name is required and cannot be blank.", false);
         } else {
             return true;
         }
@@ -130,6 +132,8 @@ public class Product_brand_managementController implements Initializable {
             newBrand.setBrand(tfPrimaryBrandName.getText());
             newBrand.setProductStatusId(getProductStatus("Enable"));
             em.persist(newBrand);
+            displayRegistrationWarningMessage("New department was added.", true);
+            clearPrimary();
         });
     }
 
@@ -221,24 +225,37 @@ public class Product_brand_managementController implements Initializable {
                         toggleBrandStatus.setSelected(false);
                     }
                 } else {
-                    displayWarningMessage("Brand not found.", false);
+                    displayUpdateWarningMessage("Department not found.", false);
                 }
             } catch (Exception e) {
-                displayWarningMessage("Invalid Brand ID.", false);
+                displayUpdateWarningMessage("Invalid Department ID.", false);
             }
         });
     }
 
-    private void displayWarningMessage(String message, boolean action) {
+    private void displayUpdateWarningMessage(String message, boolean action) {
         if (action) {
-            displayMessage.setStyle("-fx-text-fill: #0D9F00;"); // Green
+            displayMessageUpdate.setStyle("-fx-text-fill: #0D9F00;"); // Green
         } else {
-            displayMessage.setStyle("-fx-text-fill: #FF3333;"); // Red
+            displayMessageUpdate.setStyle("-fx-text-fill: #FF3333;"); // Red
         }
-        displayMessage.setText(message);
+        displayMessageUpdate.setText(message);
 
         PauseTransition delay = new PauseTransition(Duration.seconds(10));
-        delay.setOnFinished(event -> displayMessage.setText(""));
+        delay.setOnFinished(event -> displayMessageUpdate.setText(""));
+        delay.play();
+    }
+
+    private void displayRegistrationWarningMessage(String message, boolean action) {
+        if (action) {
+            displayMessageRegistration.setStyle("-fx-text-fill: #0D9F00;"); // Green
+        } else {
+            displayMessageRegistration.setStyle("-fx-text-fill: #FF3333;"); // Red
+        }
+        displayMessageRegistration.setText(message);
+
+        PauseTransition delay = new PauseTransition(Duration.seconds(10));
+        delay.setOnFinished(event -> displayMessageRegistration.setText(""));
         delay.play();
     }
 
@@ -254,16 +271,16 @@ public class Product_brand_managementController implements Initializable {
                 loadedBrand.setBrand(tfSecondaryBrandName.getText());
                 if (!toggleBrandStatus.isSelected()) {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle("Disable Brand - Confirmation Required");
-                    alert.setHeaderText("Warning: This Action Will Disable All Brand Products");
-                    alert.setContentText("You are about to disable '" + loadedBrand.getBrand() + "' brand.\n\n"
-                            + "This will automatically deactivate ALL the products associated with this brand.\n\n"
+                    alert.setTitle("Disable Department - Confirmation Required");
+                    alert.setHeaderText("Warning: This Action Will Disable All Department Products");
+                    alert.setContentText("You are about to disable '" + loadedBrand.getBrand() + "' Department.\n\n"
+                            + "This will automatically deactivate ALL the products associated with this Department.\n\n"
                             + "Are you sure you want to proceed?");
 
                     Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
                     stage.getIcons().add(new Image(getClass().getResource("/com/qb/app/assets/images/logo.png").toExternalForm()));
 
-                    ButtonType disableButton = new ButtonType("Disable Brand", ButtonBar.ButtonData.CANCEL_CLOSE);
+                    ButtonType disableButton = new ButtonType("Disable Department", ButtonBar.ButtonData.CANCEL_CLOSE);
                     ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.OK_DONE);
                     alert.getButtonTypes().setAll(disableButton, cancelButton);
 
@@ -278,14 +295,14 @@ public class Product_brand_managementController implements Initializable {
                 JPATransaction.runInTransaction((em) -> {
                     em.merge(loadedBrand);
                     loadedBrand = null;
-                    displayWarningMessage("Brand update completed", true);
+                    displayUpdateWarningMessage("Department update completed", true);
                     clearSecondary();
                 });
             } else {
-                displayWarningMessage("Brand name cannot be empty.", false);
+                displayUpdateWarningMessage("Department name cannot be empty.", false);
             }
         } else {
-            displayWarningMessage("Please enter a brand by press enter to 'Brand ID' text field.", false);
+            displayUpdateWarningMessage("Please enter a department by press enter to 'Department ID' text field.", false);
         }
     }
 

@@ -1,6 +1,5 @@
 package com.qb.app.controllers;
 
-import com.qb.app.App;
 import com.qb.app.model.ComboBoxUtils;
 import com.qb.app.model.CustomAlert;
 import com.qb.app.model.DefaultAPI;
@@ -14,7 +13,6 @@ import com.qb.app.model.entity.ProductStatus;
 import com.qb.app.model.entity.ProductType;
 import com.qb.app.model.entity.ProductUnit;
 import com.qb.app.model.entity.Stock;
-import com.qb.app.model.entity.Store;
 import com.qb.app.model.getLogger;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -34,12 +32,8 @@ import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -51,10 +45,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
-import javafx.stage.Modality;
-import javafx.stage.Screen;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 public class Product_registrationController implements Initializable {
@@ -334,16 +324,26 @@ public class Product_registrationController implements Initializable {
     }
 
     private void clearRegistrationField() {
-        cbBrand.setValue(null);
-        cbUnit.setValue(null);
-        cbType.setValue(null);
-        cbBrand.setPromptText("Select Brand");
+        cbBrand.setPromptText("Select Department");
         cbUnit.setPromptText("Select Unit");
         cbType.setPromptText("Select Type");
+
+        if (!cbBrand.getItems().isEmpty()) {
+            cbBrand.setValue(cbBrand.getItems().get(0)); // Sets the value explicitly
+        }
+
+        if (!cbUnit.getItems().isEmpty()) {
+            cbUnit.setValue(cbUnit.getItems().get(0)); // Sets the value explicitly
+        }
+
+        if (!cbType.getItems().isEmpty()) {
+            cbType.setValue(cbType.getItems().get(0)); // Sets the value explicitly
+        }
         tfBarCode.setText("");
         tfCostPrice.setText("");
         tfDiscount.setText("");
         tfItemName.setText("");
+        tfGenericName.setText("");
         tfMeasure.setText("");
         tfParentID.setText("");
         tfSalePrice.setText("");
@@ -374,6 +374,7 @@ public class Product_registrationController implements Initializable {
         JPATransaction.runInTransaction((em) -> {
             try {
                 Product parentProduct = null;
+                double costPrice;
                 if (type.equals("Child")) {
                     parentProduct = em.find(Product.class, tfParentID.getText());
                     if (parentProduct == null) {
@@ -381,19 +382,17 @@ public class Product_registrationController implements Initializable {
                         displayRegistrationMessage("No parent product found with ID: " + tfParentID.getText(), false);
                         tfParentID.requestFocus();
                         return;
+                    } else {
+                        costPrice = (parentProduct.getCostPrice() / parentProduct.getMeasure()) * Double.parseDouble(tfMeasure.getText());
                     }
+                } else {
+                    costPrice = Double.parseDouble(tfCostPrice.getText());
                 }
 
                 // save new product
                 Product product = new Product();
                 product.setProduct(tfItemName.getText());
                 product.setSalePrice(Double.parseDouble(tfSalePrice.getText()));
-                double costPrice;
-                if ("Child".equals(cbType.getValue().getType())) {
-                    costPrice = 0.0; // Set cost price to 0 for child products
-                } else {
-                    costPrice = Double.parseDouble(tfCostPrice.getText());
-                }
                 product.setCostPrice(costPrice);
                 product.setDiscount(tfDiscount.getText().isEmpty() ? 0.0
                         : Double.parseDouble(tfDiscount.getText()));
@@ -557,10 +556,15 @@ public class Product_registrationController implements Initializable {
             tfParentID.setDisable(false);
             tfCostPrice.setDisable(true);
             tfCostPrice.setText("");
+
+            tfInitializeQuantity.setDisable(true);
+            tfInitializeQuantity.setText("");
         } else {
             tfParentID.setDisable(true);
             tfParentID.setText("");
+
             tfCostPrice.setDisable(false);
+            tfInitializeQuantity.setDisable(false);
         }
     }
 }

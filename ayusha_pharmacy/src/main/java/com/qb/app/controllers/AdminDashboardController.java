@@ -27,39 +27,26 @@ public class AdminDashboardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Random random = new Random();
+
+        // Create Data Series for 2025 with random values
         XYChart.Series<String, Number> series1 = new XYChart.Series<>();
         series1.setName("2025");
-        series1.getData().add(new XYChart.Data<>("Jan", 80));
-        series1.getData().add(new XYChart.Data<>("Feb", 60));
-        series1.getData().add(new XYChart.Data<>("Mar", 90));
-        series1.getData().add(new XYChart.Data<>("Apr", 40));
-        series1.getData().add(new XYChart.Data<>("May", 50));
-        series1.getData().add(new XYChart.Data<>("Jun", 70));
-        series1.getData().add(new XYChart.Data<>("Jul", 30));
-        series1.getData().add(new XYChart.Data<>("Aug", 80));
-        series1.getData().add(new XYChart.Data<>("Sep", 90));
-        series1.getData().add(new XYChart.Data<>("Oct", 40));
-        series1.getData().add(new XYChart.Data<>("Nov", 70));
-        series1.getData().add(new XYChart.Data<>("Dec", 60));
+        for (String month : new String[]{"Jan", "Feb", "Mar", "Apr", "May", "Jun",
+            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"}) {
+            series1.getData().add(new XYChart.Data<>(month, random.nextInt(200))); // 0-199
+        }
 
-        // Create Data Series for 2023
+        // Create Data Series for 2024 with random values
         XYChart.Series<String, Number> series2 = new XYChart.Series<>();
         series2.setName("2024");
-        series2.getData().add(new XYChart.Data<>("Jan", 60));
-        series2.getData().add(new XYChart.Data<>("Feb", 70));
-        series2.getData().add(new XYChart.Data<>("Mar", 50));
-        series2.getData().add(new XYChart.Data<>("Apr", 30));
-        series2.getData().add(new XYChart.Data<>("May", 60));
-        series2.getData().add(new XYChart.Data<>("Jun", 40));
-        series2.getData().add(new XYChart.Data<>("Jul", 80));
-        series2.getData().add(new XYChart.Data<>("Aug", 50));
-        series2.getData().add(new XYChart.Data<>("Sep", 90));
-        series2.getData().add(new XYChart.Data<>("Oct", 60));
-        series2.getData().add(new XYChart.Data<>("Nov", 40));
-        series2.getData().add(new XYChart.Data<>("Dec", 80));
+        for (String month : new String[]{"Jan", "Feb", "Mar", "Apr", "May", "Jun",
+            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"}) {
+            series2.getData().add(new XYChart.Data<>(month, random.nextInt(200))); // 0-199
+        }
 
         annualChart.getData().addAll(series1, series2);
-        
+
         for (XYChart.Data<String, Number> data : series1.getData()) {
             Text valueLabel = new Text(data.getYValue().toString());
             valueLabel.setStyle("-fx-fill: white; -fx-font-weight: bold;");
@@ -75,14 +62,14 @@ public class AdminDashboardController implements Initializable {
 
         XYChart.Series<Number, String> series3 = new XYChart.Series<>();
         series3.setName("2024");
-        series3.getData().add(new XYChart.Data<>(60, "Munchee"));
-        series3.getData().add(new XYChart.Data<>(70, "Keels"));
-        series3.getData().add(new XYChart.Data<>(50, "Maggie"));
-        series3.getData().add(new XYChart.Data<>(30, "Fruit & Nut"));
-        series3.getData().add(new XYChart.Data<>(60, "Maliban"));
-        series3.getData().add(new XYChart.Data<>(40, "MD"));
-        series3.getData().add(new XYChart.Data<>(80, "Prima"));
-        series3.getData().add(new XYChart.Data<>(50, "Nipuna"));
+        series3.getData().add(new XYChart.Data<>(60, "Product A"));
+        series3.getData().add(new XYChart.Data<>(70, "Product B"));
+        series3.getData().add(new XYChart.Data<>(50, "Product C"));
+        series3.getData().add(new XYChart.Data<>(30, "Product D"));
+        series3.getData().add(new XYChart.Data<>(60, "Product E"));
+        series3.getData().add(new XYChart.Data<>(40, "Product F"));
+        series3.getData().add(new XYChart.Data<>(80, "Product G"));
+        series3.getData().add(new XYChart.Data<>(50, "Product H"));
 
         brandChart.getData().add(series3);
 

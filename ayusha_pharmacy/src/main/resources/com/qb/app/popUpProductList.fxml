@@ -68,7 +68,7 @@
                                  <font>
                                     <Font name="Aptos" size="14.0" />
                                  </font></Label>
-                              <ComboBox maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="300.0" />
+                              <ComboBox fx:id="FilterBy" maxWidth="1.7976931348623157E308" onAction="#FilterChange" prefHeight="40.0" prefWidth="300.0" />
                            </children>
                         </VBox>
                      </children>
@@ -110,7 +110,7 @@
                                           </BorderPane>
                                           <BorderPane minWidth="-Infinity" prefWidth="100.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
                                              <left>
-                                                <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Brand" BorderPane.alignment="CENTER">
+                                                <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Department" BorderPane.alignment="CENTER">
                                                    <font>
                                                       <Font name="Aptos" size="14.0" />
                                                    </font>

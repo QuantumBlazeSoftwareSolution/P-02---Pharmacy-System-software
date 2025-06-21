@@ -14,11 +14,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -45,6 +47,8 @@ public class PopUpSupplierListController implements Initializable {
     private AnchorPane root;
 
     public Supply_supplier_managementController callingController;
+    @FXML
+    private ComboBox<String> FilterBy;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -52,6 +56,11 @@ public class PopUpSupplierListController implements Initializable {
         pageIcon.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/page-icon.svg"));
         closeIcon.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/close-icon.svg"));
         loadSuppliers(null);
+        loadComboBox();
+    }
+    private void loadComboBox() {
+        FilterBy.getItems().addAll("ID", "Supplier Name", "Company Name");
+        FilterBy.setValue("Select Filter");
     }
 
     public void saveCallingController(Supply_supplier_managementController controller) {
@@ -72,6 +81,14 @@ public class PopUpSupplierListController implements Initializable {
                         = cBuilder.like(cBuilder.lower(supplier.get("name")), likePattern);
                 cQuery.where(searchCondition);
             }
+                    String selectedSort = FilterBy.getValue();
+        if ("Supplier Name".equals(selectedSort)) {
+            cQuery.orderBy(cBuilder.asc(supplier.get("name")));
+        } else if ("Company Name".equals(selectedSort)) {
+            cQuery.orderBy(cBuilder.asc(supplier.get("companyId")));
+        } else if ("ID".equals(selectedSort)) {
+            cQuery.orderBy(cBuilder.asc(supplier.get("id")));
+        }
 
             cQuery.select(supplier);
             List<Supplier> brandList = em.createQuery(cQuery).getResultList();
@@ -116,5 +133,11 @@ public class PopUpSupplierListController implements Initializable {
         String searchTerm = tfSearch.getText().trim();
         loadSuppliers(searchTerm);
     }
+
+    @FXML
+    private void FilterActiion(ActionEvent event) {
+          String searchTerm = tfSearch.getText().trim();
+    loadSuppliers(searchTerm);
+    } 
 
 }

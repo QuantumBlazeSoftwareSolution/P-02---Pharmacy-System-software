@@ -195,6 +195,7 @@ public class ReportStockBalanceController implements Initializable {
 
     private void refreshInterface() {
         cbFilter.setValue(null);
+        cbFilter.setPromptText("Select Filter");
         cbBrand.setValue(null);
         loadTextField();
         tableBody.getChildren().clear();
@@ -342,7 +343,11 @@ public class ReportStockBalanceController implements Initializable {
 
                 JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(brandListBean);
                 JasperPrint report = JasperFillManager.fillReport(mainReport, params, dataSource);
-                JasperViewer.viewReport(report, false);
+//                JasperViewer.viewReport(report, false);
+
+                JasperViewer viewer = new JasperViewer(report, false);
+                viewer.setAlwaysOnTop(true);
+                viewer.setVisible(true);
             } catch (JRException e) {
                     e.printStackTrace();
                     getLogger.logger().warning(e.toString());

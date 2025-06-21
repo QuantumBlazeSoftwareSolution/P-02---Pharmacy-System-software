@@ -304,7 +304,10 @@ private void loadInvoiceReport() {
 
                     JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(invoiceListBean);
                     JasperPrint report = JasperFillManager.fillReport(mainReport, params, dataSource);
-                    JasperViewer.viewReport(report, false);
+//                    JasperViewer.viewReport(report, false);
+                    JasperViewer viewer = new JasperViewer(report, false);
+                    viewer.setAlwaysOnTop(true);
+                    viewer.setVisible(true);
                 } catch (JRException e) {
                     e.printStackTrace();
                     getLogger.logger().warning(e.toString());
@@ -332,6 +335,7 @@ private void loadInvoiceReport() {
 
     private void refreshInterface() {
         cbFilter.setValue(null);
+          cbFilter.setPromptText("Select Filter");
         loadTextField();
         DateSelector.setValue(LocalDate.now());
         tableBody.getChildren().clear();

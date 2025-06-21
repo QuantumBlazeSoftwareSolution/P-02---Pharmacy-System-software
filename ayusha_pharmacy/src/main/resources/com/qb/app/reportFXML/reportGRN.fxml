@@ -55,7 +55,7 @@
                                                             <Font size="14.0" />
                                                          </font>
                                                       </Label>
-                                                      <ComboBox fx:id="cbSupplier" maxWidth="1.7976931348623157E308" prefHeight="45.0" prefWidth="230.0" stylesheets="@../css/adminStyle.css" />
+                                                      <ComboBox fx:id="cbSupplier" maxWidth="1.7976931348623157E308" prefHeight="45.0" prefWidth="230.0" promptText="Select Supplier" stylesheets="@../css/adminStyle.css" />
                                                    </children>
                                                 </VBox>
                                                 <VBox prefWidth="160.0">
@@ -160,7 +160,7 @@
                                                 </ScrollPane>
                                                 <ScrollPane fx:id="tableScrollContainer" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" stylesheets="@../css/adminStyle.css" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
                                                    <content>
-                                                      <VBox fx:id="tableBody" prefWidth="100.0" style="-fx-border-radius: 0 0 6px 6px; -fx-border-width: 0 0.5 0.5 0;" stylesheets="@../css/adminStyle.css" />
+                                                      <VBox fx:id="tableBody" prefWidth="100.0" style="-fx-border-radius: 0 0 6px 6px; -fx-border-width: 0 0.5 0.5 0.5;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" />
                                                    </content>
                                                 </ScrollPane>
                                              </children>

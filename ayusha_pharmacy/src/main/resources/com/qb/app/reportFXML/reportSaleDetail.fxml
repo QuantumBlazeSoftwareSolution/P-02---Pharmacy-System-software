@@ -67,7 +67,7 @@
                                                             <Font size="14.0" />
                                                          </font>
                                                       </Label>
-                                                      <ComboBox fx:id="cbFilter" maxWidth="1.7976931348623157E308" prefHeight="45.0" prefWidth="230.0" promptText="Ex: Qty" stylesheets="@../css/adminStyle.css" />
+                                                      <ComboBox fx:id="cbFilter" maxWidth="1.7976931348623157E308" prefHeight="45.0" prefWidth="230.0" stylesheets="@../css/adminStyle.css" />
                                                    </children>
                                                 </VBox>
                                                 <HBox alignment="BOTTOM_LEFT" spacing="10.0">

@@ -72,7 +72,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <ComboBox maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="300.0" stylesheets="@css/style.css">
+                              <ComboBox fx:id="FilterBy" maxWidth="1.7976931348623157E308" onAction="#FilterByAction" prefHeight="40.0" prefWidth="300.0" stylesheets="@css/style.css">
                                  <styleClass>
                                     <String fx:value="primary-border" />
                                     <String fx:value="bg-primary-5" />

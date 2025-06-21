@@ -26,6 +26,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -54,6 +55,8 @@ public class PopUpProductListController implements Initializable {
     private TextField tfSearch;
     @FXML
     private JFXToggleButton toggleParent;
+    @FXML
+    private ComboBox<String> FilterBy;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -61,60 +64,67 @@ public class PopUpProductListController implements Initializable {
         pageIcon.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/page-icon.svg"));
         closeIcon.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/close-icon.svg"));
         loadProducts(null, false);
+        LoadComboBox();
     }
 
+    private void LoadComboBox() {
+        FilterBy.getItems().addAll("ID", "Brand Name","Product Name");
+        FilterBy.setValue("Select Filter");
+
+    }
     public void saveProductRegistrationController(Object controller) {
         this.callingController = controller;
     }
 
-    private void loadProducts(String searchTerm, boolean isParent) {
-        JPATransaction.runInTransaction((em) -> {
-            // Clear existing items
-            TableBody.getChildren().clear();
+private void loadProducts(String searchTerm, boolean isParent) {
+    JPATransaction.runInTransaction((em) -> {
+        TableBody.getChildren().clear();
 
-            CriteriaBuilder cBuilder = em.getCriteriaBuilder();
-            CriteriaQuery<Product> cQuery = cBuilder.createQuery(Product.class);
-            Root<Product> product = cQuery.from(Product.class);
-            Join<Product, ProductStatus> statusJoin = product.join("productStatusId", JoinType.INNER);
+        CriteriaBuilder cBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<Product> cQuery = cBuilder.createQuery(Product.class);
+        Root<Product> product = cQuery.from(Product.class);
+        Join<Product, ProductStatus> statusJoin = product.join("productStatusId", JoinType.INNER);
+        Join<Product, ProductHasProductType> productTypeJoin = product.join("productHasProductTypeCollection", JoinType.LEFT);
+        Join<ProductHasProductType, ProductType> typeJoin = productTypeJoin.join("productTypeId", JoinType.LEFT);
 
-            // Join with ProductHasProductType
-            Join<Product, ProductHasProductType> productTypeJoin = product.join("productHasProductTypeCollection", JoinType.LEFT);
+        Predicate finalPredicate = null;
 
-            // If you need to join further to ProductType through ProductHasProductType
-            Join<ProductHasProductType, ProductType> typeJoin = productTypeJoin.join("productTypeId", JoinType.LEFT);
+        if (isParent) {
+            finalPredicate = cBuilder.equal(typeJoin.get("type"), "Parent");
+        }
 
-            Predicate finalPredicate = null;
+        if (searchTerm != null && !searchTerm.isEmpty()) {
+            String likePattern = "%" + searchTerm.toLowerCase() + "%";
+            Predicate searchCondition = cBuilder.or(
+                    cBuilder.like(cBuilder.lower(product.get("product")), likePattern),
+                    cBuilder.like(cBuilder.lower(product.get("barCode")), likePattern)
+            );
+            finalPredicate = finalPredicate != null ? cBuilder.and(finalPredicate, searchCondition) : searchCondition;
+        }
 
-            if (isParent) {
-                finalPredicate = cBuilder.equal(typeJoin.get("type"), "Parent");
-            }
+        if (finalPredicate != null) {
+            cQuery.where(finalPredicate);
+        }
 
-            if (searchTerm != null && !searchTerm.isEmpty()) {
-                String likePattern = "%" + searchTerm.toLowerCase() + "%";
-                Predicate searchCondition = cBuilder.or(
-                        cBuilder.like(cBuilder.lower(product.get("product")), likePattern),
-                        cBuilder.like(cBuilder.lower(product.get("barCode")), likePattern)
-                );
-                if (finalPredicate != null) {
-                    finalPredicate = cBuilder.and(finalPredicate, searchCondition);
-                } else {
-                    finalPredicate = searchCondition;
-                }
-            }
+        // 👉 Apply sorting based on ComboBox selection
+        String selectedSort = FilterBy.getValue();
+        if ("Product Name".equals(selectedSort)) {
+            cQuery.orderBy(cBuilder.asc(product.get("product")));
+        } else if ("Brand Name".equals(selectedSort)) {
+            cQuery.orderBy(cBuilder.asc(product.get("brandId").get("brand")));
+        } else if ("ID".equals(selectedSort)) {
+            cQuery.orderBy(cBuilder.asc(product.get("id")));
+        }
 
-            if (finalPredicate != null) {
-                cQuery.where(finalPredicate);
-            }
+        cQuery.select(product);
+        List<Product> productList = em.createQuery(cQuery).getResultList();
 
-            cQuery.select(product);
-            List<Product> productList = em.createQuery(cQuery).getResultList();
+        for (Product item : productList) {
+            createProductTableRow(item);
+        }
+    });
+}
 
-            // Create table rows for each product
-            for (Product item : productList) {
-                createProductTableRow(item);
-            }
-        });
-    }
 
     private void createProductTableRow(Product item) {
         try {
@@ -169,6 +179,13 @@ public class PopUpProductListController implements Initializable {
         } else {
             loadProducts(searchTerm, false);
         }
+    }
+
+    @FXML
+    private void FilterChange(ActionEvent event) {
+         String searchTerm = tfSearch.getText().trim();
+    boolean isParent = toggleParent.isSelected();
+    loadProducts(searchTerm, isParent);
     }
 
 }

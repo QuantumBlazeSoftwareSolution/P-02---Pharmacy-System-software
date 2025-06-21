@@ -14,11 +14,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -45,6 +47,8 @@ public class PopUpCompanyListController implements Initializable {
     private AnchorPane root;
 
     public Supply_company_managementController callingController;
+    @FXML
+    private ComboBox<String> FilterBY;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -52,6 +56,11 @@ public class PopUpCompanyListController implements Initializable {
         pageIcon.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/page-icon.svg"));
         closeIcon.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/close-icon.svg"));
         loadCompanies(null);
+        LoadComboBox();
+    }
+    private void LoadComboBox(){
+        FilterBY.getItems().addAll("ID", "Company Name");
+        FilterBY.setValue("Select Filter");
     }
 
     public void saveCallingController(Supply_company_managementController controller) {
@@ -74,6 +83,12 @@ public class PopUpCompanyListController implements Initializable {
                         = cBuilder.like(cBuilder.lower(companny.get("name")), likePattern);
                 cQuery.where(searchCondition);
             }
+              String selectedSort = FilterBY.getValue();
+        if ("Company Name".equals(selectedSort)) {
+            cQuery.orderBy(cBuilder.asc(companny.get("name")));
+        } else if ("ID".equals(selectedSort)) {
+            cQuery.orderBy(cBuilder.asc(companny.get("id")));
+        }
 
             cQuery.select(companny);
             List<Company> companyList = em.createQuery(cQuery).getResultList();
@@ -118,5 +133,12 @@ public class PopUpCompanyListController implements Initializable {
         String searchTerm = tfSearch.getText().trim();
         loadCompanies(searchTerm);
     }
+
+    @FXML
+    private void FilterBYAction(ActionEvent event) {
+    String searchTerm = tfSearch.getText().trim();
+    loadCompanies(searchTerm);
+    } 
+    
 
 }

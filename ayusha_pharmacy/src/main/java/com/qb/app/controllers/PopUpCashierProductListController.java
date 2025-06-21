@@ -17,11 +17,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -48,6 +50,8 @@ public class PopUpCashierProductListController implements Initializable {
     private TextField tfSearch;
     
     public static CashierInvoiceController callingController;
+    @FXML
+    private ComboBox<String> FilterBy;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -55,6 +59,13 @@ public class PopUpCashierProductListController implements Initializable {
         pageIcon.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/page-icon.svg"));
         closeIcon.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/close-icon.svg"));
         loadProducts(null);
+        loadComboBox();
+    }
+    
+    private void loadComboBox() {
+        FilterBy.getItems().addAll("ID", "Brand Name", "Product Name");
+        FilterBy.setValue("Select Filter");
+
     }
 
     private void loadProducts(String searchTerm) {
@@ -81,6 +92,15 @@ public class PopUpCashierProductListController implements Initializable {
             } else {
                 cQuery.where(baseCondition);
             }
+            
+                 String selectedSort = FilterBy.getValue();
+        if ("Product Name".equals(selectedSort)) {
+            cQuery.orderBy(cBuilder.asc(product.get("product")));
+        } else if ("Brand Name".equals(selectedSort)) {
+            cQuery.orderBy(cBuilder.asc(product.get("brandId").get("brand")));
+        } else if ("ID".equals(selectedSort)) {
+            cQuery.orderBy(cBuilder.asc(product.get("id")));
+        }
 
             cQuery.select(product);
             List<Product> productList = em.createQuery(cQuery).getResultList();
@@ -139,6 +159,12 @@ public class PopUpCashierProductListController implements Initializable {
 
     public void saveCallingController(CashierInvoiceController controller) {
         this.callingController = controller;
+    }
+
+    @FXML
+    private void FilterByAction(ActionEvent event) {
+         String searchTerm = tfSearch.getText().trim();
+    loadProducts(searchTerm);
     }
 
 }

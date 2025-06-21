@@ -287,7 +287,10 @@ public class ReportGRNController implements Initializable {
                             getClass().getResourceAsStream("/com/qb/app/reports/PharmacyGRN.jasper"));
                     JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(collection);
                     JasperPrint report = JasperFillManager.fillReport(jasperReport, params, dataSource);
-                    JasperViewer.viewReport(report, false);
+//                    JasperViewer.viewReport(report, false);
+                    JasperViewer viewer = new JasperViewer(report, false);
+                    viewer.setAlwaysOnTop(true);
+            viewer.setVisible(true);
                 } catch (JRException e) {
                     e.printStackTrace();
                     getLogger.logger().warning(e.toString());
@@ -367,7 +370,5 @@ public class ReportGRNController implements Initializable {
           tableBody.getChildren().clear();
             grnItemList.clear();
     }
-
- 
 
 }

@@ -65,7 +65,7 @@
                                     <Font name="Aptos" size="14.0" />
                                  </font>
                               </Label>
-                              <ComboBox maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="300.0" />
+                              <ComboBox fx:id="FilterBy" maxWidth="1.7976931348623157E308" onAction="#FilterActiion" prefHeight="40.0" prefWidth="300.0" />
                            </children>
                         </VBox>
                      </children>

@@ -72,7 +72,7 @@
                                                             <Font size="14.0" />
                                                          </font>
                                                       </Label>
-                                                      <ComboBox fx:id="cbFilter" maxWidth="1.7976931348623157E308" prefHeight="45.0" prefWidth="230.0" promptText="Ex: Quantity" stylesheets="@../css/adminStyle.css" />
+                                                      <ComboBox fx:id="cbFilter" maxWidth="1.7976931348623157E308" prefHeight="45.0" prefWidth="230.0" stylesheets="@../css/adminStyle.css" />
                                                    </children>
                                                 </VBox>
                                                 <Button fx:id="LoadReport" maxWidth="200.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#Loadreport" prefHeight="45.0" prefWidth="200.0" stylesheets="@../css/adminStyle.css" text="Load Report">

@@ -161,7 +161,16 @@ public class Inventory_grnController implements Initializable {
             }
         }
     }
+    
+    public void removeInvoiceItem(InventoryGRN_TableRowController itemToRemove) {
+        Node nodeToRemove = itemToRemove.getRootNode();
 
+        grnItemList.remove(itemToRemove);
+        grnTableBody.getChildren().remove(nodeToRemove);
+
+        calculateTotal();
+    }
+    
     private boolean isEntriesValid() {
         if (cbCompany.getValue() == null) {
             displayWarningMessage("Please select the supply company", false);
@@ -412,7 +421,14 @@ public class Inventory_grnController implements Initializable {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/qb/app/fxmlComponent/InventoryGRN_TableRow.fxml"));
                     Node grnItem = loader.load();
                     InventoryGRN_TableRowController controller = loader.getController();
-                    controller.setData(loadedProduct, loadedProduct.getId(), loadedProduct.getProduct(), Double.parseDouble(tfCostPrice.getText()), itemQty);
+                    controller.setData(
+                            loadedProduct, 
+                            loadedProduct.getId(), 
+                            loadedProduct.getProduct(), 
+                            Double.parseDouble(tfCostPrice.getText()), itemQty,
+                            grnItem,
+                            this
+                    );
 
                     loadedProduct.setCostPrice(Double.parseDouble(tfCostPrice.getText()));
 

@@ -165,6 +165,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         } else {
             if (event.getCode() == KeyCode.ENTER) {
                 openProductView();
+                isProductLoaded = false;
             }
         }
     }
@@ -285,6 +286,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                             }
                         } else {
                             openProductView();
+                            isProductLoaded = false;
                         }
                         event.consume();
                     }
@@ -301,6 +303,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                     case F1 -> {
                         openProductView();
                         event.consume();
+                        isProductLoaded = false;
                     }
                     default -> {
 

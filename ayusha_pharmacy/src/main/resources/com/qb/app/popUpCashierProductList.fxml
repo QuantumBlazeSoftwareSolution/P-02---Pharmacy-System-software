@@ -190,7 +190,7 @@
                                           </BorderPane>
                                           <BorderPane maxWidth="140.0" prefWidth="100.0" style="-fx-border-radius: 0; -fx-border-width: 0 0 0 0;" styleClass="primary-border" stylesheets="@css/style.css" HBox.hgrow="ALWAYS">
                                              <left>
-                                                <Label styleClass="primary-text" stylesheets="@css/style.css" text="Bar code" BorderPane.alignment="CENTER">
+                                                <Label styleClass="primary-text" stylesheets="@css/style.css" text="Staus" BorderPane.alignment="CENTER">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>

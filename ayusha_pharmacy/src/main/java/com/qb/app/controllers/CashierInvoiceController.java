@@ -215,12 +215,16 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                             if (product.getProductStatusId().getStatus().equals("Enable")) {
                                 if (this.product.getBrandId().getProductStatusId().getStatus().equals("Enable")) {
                                     Stock stock = getProductStock(product);
-                                    if (stock.getQty() <= 0) {
-                                        showPreviewMessage("(Out of stock)");
-                                    } else if (stock.getQty() < 20) {
-                                        showPreviewMessage("(Low stock amount)");
-                                    } else {
+                                    if (stock == null) {
                                         hidePreviewMessage();
+                                    } else {
+                                        if (stock.getQty() <= 0) {
+                                            showPreviewMessage("(Out of stock)");
+                                        } else if (stock.getQty() < 20) {
+                                            showPreviewMessage("(Low stock amount)");
+                                        } else {
+                                            hidePreviewMessage();
+                                        }
                                     }
                                 } else {
                                     showPreviewMessage("(Department Not Available)");
@@ -583,8 +587,12 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
             Predicate prdct = cb.equal(stockTable.get("productId"), product);
             cq.where(prdct);
 
-            Stock stock = em.createQuery(cq).getSingleResult();
-            return stock;
+            try {
+                Stock stock = em.createQuery(cq).getSingleResult();
+                return stock;
+            } catch (Exception e) {
+                return null;
+            }
         });
     }
 

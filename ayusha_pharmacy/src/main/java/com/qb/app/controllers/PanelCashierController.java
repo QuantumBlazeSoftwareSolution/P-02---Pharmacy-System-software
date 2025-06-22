@@ -4,7 +4,6 @@ import com.jfoenix.controls.JFXToggleButton;
 import com.qb.app.App;
 import com.qb.app.model.ControllerClose;
 import com.qb.app.model.CustomAlert;
-import com.qb.app.model.InterfaceAction;
 import com.qb.app.model.JPATransaction;
 import com.qb.app.model.SVGIconGroup;
 import com.qb.app.model.entity.CloseSale;
@@ -84,7 +83,7 @@ public class PanelCashierController implements Initializable {
     @FXML
     private AnchorPane root;
     @FXML
-    private JFXToggleButton trainingModeToggle;
+    public JFXToggleButton trainingModeToggle;
     // </editor-fold>
 
     // <editor-fold desc="Initial Variables" defaultstate="collapsed">
@@ -92,6 +91,7 @@ public class PanelCashierController implements Initializable {
     private Cashier_top_panelController controller;
     private Object currentController;
     // </editor-fold>
+    public boolean isTrainingOpened;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -281,6 +281,10 @@ public class PanelCashierController implements Initializable {
             // 2. Load the new FXML file
             FXMLLoader panel = new FXMLLoader(getClass().getResource(fxml));
             Parent FXMLroot = panel.load(); // Must load FIRST before getting controller
+            if (title.equals("Invoice")) {
+                CashierInvoiceController cashierInvoice = panel.getController();
+                cashierInvoice.setPanelCashier(this);
+            }
 
             // 3. Store the new controller
             currentController = panel.getController(); // Now safe to access
@@ -296,9 +300,11 @@ public class PanelCashierController implements Initializable {
 
     @FXML
     private void handleTrainingModeToggle(ActionEvent event) {
-        if (!trainingModeToggle.isSelected() == false) {
+        if (trainingModeToggle.isSelected()) {
             disableTrainingMode();
-            openVerificationInterface();
+            if (!this.isTrainingOpened) {
+                openVerificationInterface();
+            }
         } else {
             disableTrainingMode();
         }
@@ -307,7 +313,8 @@ public class PanelCashierController implements Initializable {
 
     private void openVerificationInterface() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/qb/app/fxmlPanel/TrainingVerification.fxml"));
+            this.isTrainingOpened = true;
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("fxmlPanel/TrainingVerification.fxml"));
             Parent root = loader.load();
 
             // Get the verification controller

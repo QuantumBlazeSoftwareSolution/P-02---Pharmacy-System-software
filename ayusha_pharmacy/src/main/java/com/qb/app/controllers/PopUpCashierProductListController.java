@@ -48,7 +48,7 @@ public class PopUpCashierProductListController implements Initializable {
     private AnchorPane root;
     @FXML
     private TextField tfSearch;
-    
+
     public static CashierInvoiceController callingController;
     @FXML
     private ComboBox<String> FilterBy;
@@ -61,7 +61,7 @@ public class PopUpCashierProductListController implements Initializable {
         loadProducts(null);
         loadComboBox();
     }
-    
+
     private void loadComboBox() {
         FilterBy.getItems().addAll("ID", "Brand Name", "Product Name");
         FilterBy.setValue("Select Filter");
@@ -92,15 +92,15 @@ public class PopUpCashierProductListController implements Initializable {
             } else {
                 cQuery.where(baseCondition);
             }
-            
-                 String selectedSort = FilterBy.getValue();
-        if ("Product Name".equals(selectedSort)) {
-            cQuery.orderBy(cBuilder.asc(product.get("product")));
-        } else if ("Brand Name".equals(selectedSort)) {
-            cQuery.orderBy(cBuilder.asc(product.get("brandId").get("brand")));
-        } else if ("ID".equals(selectedSort)) {
-            cQuery.orderBy(cBuilder.asc(product.get("id")));
-        }
+
+            String selectedSort = FilterBy.getValue();
+            if ("Product Name".equals(selectedSort)) {
+                cQuery.orderBy(cBuilder.asc(product.get("product")));
+            } else if ("Brand Name".equals(selectedSort)) {
+                cQuery.orderBy(cBuilder.asc(product.get("brandId").get("brand")));
+            } else if ("ID".equals(selectedSort)) {
+                cQuery.orderBy(cBuilder.asc(product.get("id")));
+            }
 
             cQuery.select(product);
             List<Product> productList = em.createQuery(cQuery).getResultList();
@@ -132,7 +132,7 @@ public class PopUpCashierProductListController implements Initializable {
                     item.getProductUnitId().getUnit(),
                     String.valueOf(item.getMeasure()),
                     item.getDiscount(),
-                    item.getBarCode()
+                    item.getProductStatusId().getStatus()
             );
 
             tableBody.getChildren().add(tableRow);
@@ -163,8 +163,8 @@ public class PopUpCashierProductListController implements Initializable {
 
     @FXML
     private void FilterByAction(ActionEvent event) {
-         String searchTerm = tfSearch.getText().trim();
-    loadProducts(searchTerm);
+        String searchTerm = tfSearch.getText().trim();
+        loadProducts(searchTerm);
     }
 
 }

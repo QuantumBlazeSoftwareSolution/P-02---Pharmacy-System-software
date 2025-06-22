@@ -3,6 +3,7 @@ package com.qb.app.controllers;
 import com.qb.app.model.CustomAlert;
 import com.qb.app.model.InterfaceMortion;
 import com.qb.app.model.SVGIconGroup;
+import com.qb.app.session.CompanyInfo;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -47,10 +48,10 @@ public class TrainingVerificationController implements Initializable {
     @FXML
     private void handlePinVerification() {
         String enteredPin = tfPin.getText();
-        String correctPin = "1234";
 
-        if (enteredPin.equals(correctPin)) {
+        if (enteredPin.equals(CompanyInfo.authenticationNumber)) {
             // PIN is correct, enable training mode
+            panelCashierController.isTrainingOpened = false;
             panelCashierController.enableTrainingMode();
             stage.close();
         } else {
@@ -64,6 +65,7 @@ public class TrainingVerificationController implements Initializable {
 
     @FXML
     private void closeWindow() {
+        panelCashierController.isTrainingOpened = false;
         stage.close();
     }
 }

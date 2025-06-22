@@ -46,10 +46,13 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import net.sf.jasperreports.engine.DefaultJasperReportsContext;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRPropertiesUtil;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.JasperReportsContext;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
@@ -295,6 +298,10 @@ private void loadInvoiceReport() {
                 }
 
                 try {
+                      JasperReportsContext jasperReportsContext = DefaultJasperReportsContext.getInstance();
+            JRPropertiesUtil.getInstance(jasperReportsContext).setProperty(
+                    "net.sf.jasperreports.awt.ignore.missing.font", "true"
+            );
                     JasperReport subReport = (JasperReport) JRLoader.loadObject(
                             getClass().getResourceAsStream("/com/qb/app/reports/Pharmacy_Detail_Sale_Sub_Report.jasper"));
                     params.put("SUB_REPORT_PATH", subReport);

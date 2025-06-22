@@ -38,11 +38,14 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import net.sf.jasperreports.engine.DefaultJasperReportsContext;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRPropertiesUtil;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.JasperReportsContext;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
@@ -263,6 +266,10 @@ public class InvoicePaymentController implements Initializable {
         Vector<InvoiceItemBean> collection = getBeanCollection();
 
         try {
+              JasperReportsContext jasperReportsContext = DefaultJasperReportsContext.getInstance();
+            JRPropertiesUtil.getInstance(jasperReportsContext).setProperty(
+                    "net.sf.jasperreports.awt.ignore.missing.font", "true"
+            );
             JasperReport jasperReport = (JasperReport) JRLoader.loadObject(
                     getClass().getResourceAsStream("/com/qb/app/reports/PharmacyInvoice.jasper"));
 

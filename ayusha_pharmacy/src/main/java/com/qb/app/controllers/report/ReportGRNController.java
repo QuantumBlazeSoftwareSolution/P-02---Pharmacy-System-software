@@ -56,10 +56,13 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import net.sf.jasperreports.engine.DefaultJasperReportsContext;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRPropertiesUtil;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.JasperReportsContext;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
@@ -283,6 +286,10 @@ public class ReportGRNController implements Initializable {
                 Map<String, Object> params = getJRParams();
                 Vector<GrnItemBean> collection = getBeanCollection();
                 try {
+                      JasperReportsContext jasperReportsContext = DefaultJasperReportsContext.getInstance();
+            JRPropertiesUtil.getInstance(jasperReportsContext).setProperty(
+                    "net.sf.jasperreports.awt.ignore.missing.font", "true"
+            );
                     JasperReport jasperReport = (JasperReport) JRLoader.loadObject(
                             getClass().getResourceAsStream("/com/qb/app/reports/PharmacyGRN.jasper"));
                     JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(collection);

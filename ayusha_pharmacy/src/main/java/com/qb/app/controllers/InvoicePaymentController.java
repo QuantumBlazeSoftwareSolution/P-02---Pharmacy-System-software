@@ -225,10 +225,13 @@ public class InvoicePaymentController implements Initializable {
             invoice.setPaidAmount(paidAmount);
             invoice.setCreditAmount(creditAmount);
             invoice.setSessionId(ApplicationSession.getSession());
-            em.persist(invoice);
-
-            em.flush();
-            invoiceID = invoice.getId();
+            if (!this.controller.panelCashierController.trainingModeToggle.isSelected()) {
+                em.persist(invoice);
+                em.flush();
+                invoiceID = invoice.getId();
+            } else {
+                invoiceID = 000000;
+            }
 
             CriteriaBuilder cb = em.getCriteriaBuilder();
             CriteriaQuery<InvoiceItemType> cq = cb.createQuery(InvoiceItemType.class);
@@ -247,9 +250,11 @@ public class InvoicePaymentController implements Initializable {
                 invoiceItem.setCostPrice(item.getProduct().getCostPrice());
                 invoiceItem.setInvoiceId(invoice);
                 invoiceItem.setInvoiceItemTypeId(sellItemType);
-                em.persist(invoiceItem);
+                if (!this.controller.panelCashierController.trainingModeToggle.isSelected()) {
+                    em.persist(invoiceItem);
+                    manageStock(item);
+                }
 
-                manageStock(item);
             }
             InterfaceAction.closeWindow(root);
         });
@@ -272,6 +277,8 @@ public class InvoicePaymentController implements Initializable {
             CustomAlert.showStyledAlert(root, "Report generation failed: " + e.getMessage(), "Reporting Error", Alert.AlertType.ERROR);
         }
         controller.removeAll();
+        controller.panelCashierController.trainingModeToggle.setSelected(false);
+        controller.panelCashierController.isTrainingOpened = false;
     }
 
     private Map<String, Object> getJRParams(int id) {
@@ -302,12 +309,6 @@ public class InvoicePaymentController implements Initializable {
 
         Map<String, Object> params = new HashMap<>();
 
-        if (id != 0) {
-            params.put("ID", String.format("INV-%06d", id));
-        } else {
-            params.put("ID", "000000");
-        }
-
         try {
             URL imageUrl = getClass().getResource("/com/qb/app/assets/images/logo.png");
             params.put("Logo", imageUrl);
@@ -315,6 +316,8 @@ public class InvoicePaymentController implements Initializable {
             e.printStackTrace();
             getLogger.logger().warning(e.toString());
         }
+
+        params.put("ID", String.format("INV-%06d", id));
         params.put("ItemCount", String.valueOf(invoiceItemList.size()));
         params.put("CompanyName", CompanyInfo.companyName);
         params.put("Cashier", ApplicationSession.getEmployee().getName());

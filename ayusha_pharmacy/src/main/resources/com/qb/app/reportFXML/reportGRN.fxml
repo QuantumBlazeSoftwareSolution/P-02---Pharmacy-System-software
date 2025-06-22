@@ -107,11 +107,11 @@
                                              <children>
                                                 <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" minHeight="-Infinity" vbarPolicy="NEVER">
                                                    <content>
-                                                      <HBox maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="200.0">
+                                                      <HBox maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="200.0" style="-fx-border-width: 0 0.5; -fx-border-radius: 6;" stylesheets="@../css/adminStyle.css">
                                                          <children>
-                                                            <BorderPane maxWidth="100.0" minWidth="80.0" prefWidth="80.0" style="-fx-border-radius: 6px 0 0 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                                            <BorderPane maxWidth="100.0" minWidth="80.0" prefWidth="80.0" style="-fx-border-radius: 6px 0 0 6;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
                                                                <center>
-                                                                  <Label styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="ID" BorderPane.alignment="CENTER">
+                                                                  <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="ID" BorderPane.alignment="CENTER">
                                                                      <font>
                                                                         <Font size="14.0" />
                                                                      </font>
@@ -120,7 +120,7 @@
                                                             </BorderPane>
                                                             <BorderPane minWidth="-Infinity" prefWidth="120.0" style="-fx-border-radius: 0px; -fx-border-width: 0.5px 0.5px 0.5px 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
                                                                <center>
-                                                                  <Label styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="Product Name" BorderPane.alignment="CENTER">
+                                                                  <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Product Name" BorderPane.alignment="CENTER">
                                                                      <font>
                                                                         <Font size="14.0" />
                                                                      </font>
@@ -129,7 +129,7 @@
                                                             </BorderPane>
                                                             <BorderPane maxWidth="250.0" prefWidth="200.0" style="-fx-border-radius: 0px; -fx-border-width: 0.5px 0.5px 0.5px 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
                                                                <center>
-                                                                  <Label styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="Cost Price" BorderPane.alignment="CENTER">
+                                                                  <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Cost Price" BorderPane.alignment="CENTER">
                                                                      <font>
                                                                         <Font size="14.0" />
                                                                      </font>
@@ -138,16 +138,16 @@
                                                             </BorderPane>
                                                             <BorderPane maxWidth="100.0" minWidth="-Infinity" prefWidth="80.0" style="-fx-border-radius: 0px; -fx-border-width: 0.5px 0.5px 0.5px 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
                                                                <center>
-                                                                  <Label styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="Qty" BorderPane.alignment="CENTER">
+                                                                  <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Qty" BorderPane.alignment="CENTER">
                                                                      <font>
                                                                         <Font size="14.0" />
                                                                      </font>
                                                                   </Label>
                                                                </center>
                                                             </BorderPane>
-                                                            <BorderPane maxWidth="250.0" minWidth="120.0" prefWidth="200.0" style="-fx-border-radius: 0 6px 0 0; -fx-border-width: 0.5px 0.5px 0.5px 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                                            <BorderPane maxWidth="250.0" minWidth="120.0" prefWidth="200.0" style="-fx-border-radius: 0 6px 6 0; -fx-border-width: 0.5px 0.5px 0.5px 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
                                                                <center>
-                                                                  <Label styleClass="primary-text" stylesheets="@../css/adminStyle.css" text="Amount" BorderPane.alignment="CENTER">
+                                                                  <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Amount" BorderPane.alignment="CENTER">
                                                                      <font>
                                                                         <Font size="14.0" />
                                                                      </font>
@@ -155,12 +155,16 @@
                                                                </center>
                                                             </BorderPane>
                                                          </children>
+                                                         <styleClass>
+                                                            <String fx:value="primary-border" />
+                                                            <String fx:value="table-header" />
+                                                         </styleClass>
                                                       </HBox>
                                                    </content>
                                                 </ScrollPane>
                                                 <ScrollPane fx:id="tableScrollContainer" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" stylesheets="@../css/adminStyle.css" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
                                                    <content>
-                                                      <VBox fx:id="tableBody" prefWidth="100.0" style="-fx-border-radius: 0 0 6px 6px; -fx-border-width: 0 0.5 0.5 0.5;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" />
+                                                      <VBox fx:id="tableBody" prefWidth="100.0" style="-fx-border-radius: 0 0 6 6;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" />
                                                    </content>
                                                 </ScrollPane>
                                              </children>

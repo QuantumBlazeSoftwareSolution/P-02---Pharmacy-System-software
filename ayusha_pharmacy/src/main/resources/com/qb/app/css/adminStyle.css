@@ -2,8 +2,15 @@
     -fx-background-color: linear-gradient(to bottom, #00899B, #002F35);
 }
 
+
 .primary-bg{
     -fx-background-color: #00899B;
+}
+
+.table-header{
+    -fx-background-color: rgba(0, 137, 155, 0.75);
+    -fx-background-radius: 4;
+    -fx-text-fill: #f1f1f1;
 }
 
 .primary-10{

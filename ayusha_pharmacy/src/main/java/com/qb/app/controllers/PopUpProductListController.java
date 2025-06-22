@@ -68,63 +68,65 @@ public class PopUpProductListController implements Initializable {
     }
 
     private void LoadComboBox() {
-        FilterBy.getItems().addAll("ID", "Brand Name","Product Name");
+        FilterBy.getItems().addAll("ID", "Brand Name", "Product Name");
         FilterBy.setValue("Select Filter");
 
     }
+
     public void saveProductRegistrationController(Object controller) {
         this.callingController = controller;
     }
 
-private void loadProducts(String searchTerm, boolean isParent) {
-    JPATransaction.runInTransaction((em) -> {
-        TableBody.getChildren().clear();
+    private void loadProducts(String searchTerm, boolean isParent) {
+        JPATransaction.runInTransaction((em) -> {
+            TableBody.getChildren().clear();
 
-        CriteriaBuilder cBuilder = em.getCriteriaBuilder();
-        CriteriaQuery<Product> cQuery = cBuilder.createQuery(Product.class);
-        Root<Product> product = cQuery.from(Product.class);
-        Join<Product, ProductStatus> statusJoin = product.join("productStatusId", JoinType.INNER);
-        Join<Product, ProductHasProductType> productTypeJoin = product.join("productHasProductTypeCollection", JoinType.LEFT);
-        Join<ProductHasProductType, ProductType> typeJoin = productTypeJoin.join("productTypeId", JoinType.LEFT);
+            CriteriaBuilder cBuilder = em.getCriteriaBuilder();
+            CriteriaQuery<Product> cQuery = cBuilder.createQuery(Product.class);
+            Root<Product> product = cQuery.from(Product.class);
+            Join<Product, ProductStatus> statusJoin = product.join("productStatusId", JoinType.INNER);
+            Join<Product, ProductHasProductType> productTypeJoin = product.join("productHasProductTypeCollection", JoinType.LEFT);
+            Join<ProductHasProductType, ProductType> typeJoin = productTypeJoin.join("productTypeId", JoinType.LEFT);
 
-        Predicate finalPredicate = null;
+            Predicate finalPredicate = null;
 
-        if (isParent) {
-            finalPredicate = cBuilder.equal(typeJoin.get("type"), "Parent");
-        }
+            if (isParent) {
+                finalPredicate = cBuilder.equal(typeJoin.get("type"), "Parent");
+            }
 
-        if (searchTerm != null && !searchTerm.isEmpty()) {
-            String likePattern = "%" + searchTerm.toLowerCase() + "%";
-            Predicate searchCondition = cBuilder.or(
-                    cBuilder.like(cBuilder.lower(product.get("product")), likePattern),
-                    cBuilder.like(cBuilder.lower(product.get("barCode")), likePattern)
-            );
-            finalPredicate = finalPredicate != null ? cBuilder.and(finalPredicate, searchCondition) : searchCondition;
-        }
+            if (searchTerm != null && !searchTerm.isEmpty()) {
+                String likePattern = "%" + searchTerm.toLowerCase() + "%";
+                Predicate searchCondition = cBuilder.or(
+                        cBuilder.like(cBuilder.lower(product.get("product")), likePattern),
+                        cBuilder.like(cBuilder.lower(product.get("barCode")), likePattern)
+                );
+                finalPredicate = finalPredicate != null ? cBuilder.and(finalPredicate, searchCondition) : searchCondition;
+            }
 
-        if (finalPredicate != null) {
-            cQuery.where(finalPredicate);
-        }
+            if (finalPredicate != null) {
+                cQuery.where(finalPredicate);
+            }
 
-        // 👉 Apply sorting based on ComboBox selection
-        String selectedSort = FilterBy.getValue();
-        if ("Product Name".equals(selectedSort)) {
-            cQuery.orderBy(cBuilder.asc(product.get("product")));
-        } else if ("Brand Name".equals(selectedSort)) {
-            cQuery.orderBy(cBuilder.asc(product.get("brandId").get("brand")));
-        } else if ("ID".equals(selectedSort)) {
-            cQuery.orderBy(cBuilder.asc(product.get("id")));
-        }
+            // 👉 Apply sorting based on ComboBox selection
+            String selectedSort = FilterBy.getValue();
+            if ("Product Name".equals(selectedSort)) {
+                cQuery.orderBy(cBuilder.asc(product.get("product")));
+            } else if ("Brand Name".equals(selectedSort)) {
+                cQuery.orderBy(cBuilder.asc(product.get("brandId").get("brand")));
+            } else if ("ID".equals(selectedSort)) {
+                cQuery.orderBy(cBuilder.asc(product.get("id")));
+            }
 
-        cQuery.select(product);
-        List<Product> productList = em.createQuery(cQuery).getResultList();
+            cQuery.select(product);
+            List<Product> productList = em.createQuery(cQuery).getResultList();
+            
+            System.out.println(cQuery.toString());
 
-        for (Product item : productList) {
-            createProductTableRow(item);
-        }
-    });
-}
-
+            for (Product item : productList) {
+                createProductTableRow(item);
+            }
+        });
+    }
 
     private void createProductTableRow(Product item) {
         try {
@@ -174,18 +176,13 @@ private void loadProducts(String searchTerm, boolean isParent) {
     @FXML
     private void handleProductTypeToggle(ActionEvent event) {
         String searchTerm = tfSearch.getText().trim();
-        if (toggleParent.isSelected()) {
-            loadProducts(searchTerm, true);
-        } else {
-            loadProducts(searchTerm, false);
-        }
+        loadProducts(searchTerm, toggleParent.isSelected());
     }
 
     @FXML
     private void FilterChange(ActionEvent event) {
-         String searchTerm = tfSearch.getText().trim();
-    boolean isParent = toggleParent.isSelected();
-    loadProducts(searchTerm, isParent);
+        String searchTerm = tfSearch.getText().trim();
+        loadProducts(searchTerm, toggleParent.isSelected());
     }
 
 }

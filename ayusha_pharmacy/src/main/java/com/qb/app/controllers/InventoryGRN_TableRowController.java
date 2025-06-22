@@ -5,9 +5,13 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 
 public class InventoryGRN_TableRowController implements Initializable {
+
+    private Inventory_grnController GrnController;
 
     public double getItemAmount() {
         return itemAmount;
@@ -49,13 +53,23 @@ public class InventoryGRN_TableRowController implements Initializable {
     public double cost;
     public Product product;
     public double itemAmount;
+    private Node rootNode;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
 
-    public void setData(Product product, Integer id, String productName, double costPrice, double itemQty) {
+    public void setData(
+            Product product,
+            Integer id,
+            String productName,
+            double costPrice,
+            double itemQty,
+            Node node,
+            Inventory_grnController controller) {
+        this.GrnController = controller;
+        this.rootNode = node;
         setProduct(product);
         setProductID(id);
         setQty(itemQty);
@@ -88,6 +102,17 @@ public class InventoryGRN_TableRowController implements Initializable {
         setQty(qty);
         labelQty.setText(String.valueOf(qty));
         labelAmount.setText(String.format("Rs. %,.2f", getCost() * getQty()));
+    }
+
+    public Node getRootNode() {
+        return rootNode;
+    }
+
+    @FXML
+    private void handleMouseClick(MouseEvent event) {
+        if (event.getClickCount() == 2) {
+            GrnController.removeInvoiceItem(this);
+        }
     }
 
 }

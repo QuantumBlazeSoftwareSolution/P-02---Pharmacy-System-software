@@ -1,6 +1,5 @@
 package com.qb.app.controllers;
 
-import com.qb.app.App;
 import com.qb.app.model.ControllerClose;
 import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.JPATransaction;
@@ -22,10 +21,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -33,7 +29,6 @@ import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -42,10 +37,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class CashierInvoiceController implements Initializable, ControllerClose {
 
@@ -106,6 +98,11 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
     private double itemQty = 1;
     private boolean isProductLoaded;
     private Product product;
+    public PanelCashierController panelCashierController;
+
+    public void setPanelCashier(PanelCashierController controller) {
+        this.panelCashierController = controller;
+    }
 
     public double getUnitPrice() {
         return unitPrice;
@@ -161,8 +158,15 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
 
     @FXML
     private void itemCodePressed(KeyEvent event) {
-        if (event.getCode() == KeyCode.MULTIPLY) {
-            loadPreviewProduct();
+        if (!tfItemCode.getText().isEmpty()) {
+            if (event.getCode() == KeyCode.ENTER) {
+                loadPreviewProduct();
+            }
+        } else {
+            if (event.getCode() == KeyCode.ENTER) {
+                openProductView();
+                isProductLoaded = false;
+            }
         }
     }
 
@@ -274,7 +278,16 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                         event.consume();
                     }
                     case ENTER -> {
-                        addItemToInvoice();
+                        if (!tfItemCode.getText().isEmpty()) {
+                            if (isProductLoaded) {
+                                addItemToInvoice();
+                            } else {
+                                loadPreviewProduct();
+                            }
+                        } else {
+                            openProductView();
+                            isProductLoaded = false;
+                        }
                         event.consume();
                     }
                     case DIVIDE -> {
@@ -290,6 +303,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                     case F1 -> {
                         openProductView();
                         event.consume();
+                        isProductLoaded = false;
                     }
                     default -> {
 
@@ -506,39 +520,49 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
 
     private void openProductView() {
         try {
-            FXMLLoader loader = new FXMLLoader(App.class.getResource("popUpCashierProductList.fxml"));
-            Parent root = loader.load();
+            PopUp.showPopupAndWait(
+                    "popUpCashierProductList.fxml",
+                    root,
+                    this.root.getScene(),
+                    PopUp.PopupType.CENTERED_80_WIDTH,
+                    (PopUpCashierProductListController controller) -> {
+                        controller.saveCallingController(this);
+                    }
+            );
 
-            // Create a new stage for the popup
-            Stage popupStage = new Stage();
-            popupStage.initOwner(this.root.getScene().getWindow());
-            popupStage.initModality(Modality.APPLICATION_MODAL);
-
-            // Get screen dimensions
-            Screen screen = Screen.getPrimary();
-            Rectangle2D bounds = screen.getVisualBounds();
-
-            // Create scene with full width but original height
-            Scene scene = new Scene(root);
-            popupStage.setScene(scene);
-
-            // Set width to screen width and position at x=0
-            popupStage.setWidth(bounds.getWidth());
-            popupStage.setX(0); // This ensures no left gap
-
-            // Set fixed height (adjust as needed)
-            popupStage.setHeight(600);
-
-            // Center the popup vertically
-            popupStage.setY((bounds.getHeight() - popupStage.getHeight()) / 2);
-
-            popupStage.initStyle(StageStyle.TRANSPARENT);
-
-            // Get controller reference
-            PopUpCashierProductListController controller = loader.getController();
-            controller.saveCallingController(this);
-
-            popupStage.showAndWait();
+//            FXMLLoader loader = new FXMLLoader(App.class.getResource("popUpCashierProductList.fxml"));
+//            Parent root = loader.load();
+//
+//            // Create a new stage for the popup
+//            Stage popupStage = new Stage();
+//            popupStage.initOwner(this.root.getScene().getWindow());
+//            popupStage.initModality(Modality.APPLICATION_MODAL);
+//
+//            // Get screen dimensions
+//            Screen screen = Screen.getPrimary();
+//            Rectangle2D bounds = screen.getVisualBounds();
+//
+//            // Create scene with full width but original height
+//            Scene scene = new Scene(root);
+//            popupStage.setScene(scene);
+//
+//            // Set width to screen width and position at x=0
+//            popupStage.setWidth(bounds.getWidth());
+//            popupStage.setX(0); // This ensures no left gap
+//
+//            // Set fixed height (adjust as needed)
+//            popupStage.setHeight(600);
+//
+//            // Center the popup vertically
+//            popupStage.setY((bounds.getHeight() - popupStage.getHeight()) / 2);
+//
+//            popupStage.initStyle(StageStyle.TRANSPARENT);
+//
+//            // Get controller reference
+//            PopUpCashierProductListController controller = loader.getController();
+//            controller.saveCallingController(this);
+//
+//            popupStage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
             getLogger.logger().warning(e.toString());

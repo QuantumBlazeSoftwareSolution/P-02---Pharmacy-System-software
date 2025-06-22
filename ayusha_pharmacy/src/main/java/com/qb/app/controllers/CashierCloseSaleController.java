@@ -44,6 +44,7 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRPropertiesUtil;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.JasperReportsContext;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -304,8 +305,8 @@ public class CashierCloseSaleController implements Initializable, ControllerClos
             JREmptyDataSource dataSource = new JREmptyDataSource();
 
             JasperPrint report = JasperFillManager.fillReport(jasperReport, params, dataSource);
-//            JasperPrintManager.printReport(report, false);
-            JasperViewer.viewReport(report, false);
+            JasperPrintManager.printReport(report, false);
+//            JasperViewer.viewReport(report, false);
         } catch (JRException e) {
             e.printStackTrace();
             getLogger.logger().warning(e.toString());

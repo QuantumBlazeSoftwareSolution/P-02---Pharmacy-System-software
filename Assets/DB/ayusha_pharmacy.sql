@@ -27,14 +27,13 @@ CREATE TABLE IF NOT EXISTS `brand` (
   PRIMARY KEY (`id`),
   KEY `fk_category_product_status1_idx` (`product_status_id`),
   CONSTRAINT `fk_category_product_status1` FOREIGN KEY (`product_status_id`) REFERENCES `product_status` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table ayusha_pharmacy.brand: ~4 rows (approximately)
+-- Dumping data for table ayusha_pharmacy.brand: ~2 rows (approximately)
 INSERT INTO `brand` (`id`, `brand`, `product_status_id`) VALUES
-	(1, 'GlaxoSmithKline', 1),
-	(2, 'GSK', 1),
-	(3, 'Reckitt Benckiser', 1),
-	(4, 'Mundipharma', 1);
+	(6, 'Medicine', 1),
+	(7, 'Grocery', 1),
+	(8, 'Herbal', 1);
 
 -- Dumping structure for table ayusha_pharmacy.cash_withdrawal
 CREATE TABLE IF NOT EXISTS `cash_withdrawal` (
@@ -66,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `close_sale` (
   PRIMARY KEY (`id`),
   KEY `fk_close_sale_session1_idx` (`session_id`),
   CONSTRAINT `fk_close_sale_session1` FOREIGN KEY (`session_id`) REFERENCES `session` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 
 -- Dumping data for table ayusha_pharmacy.close_sale: ~0 rows (approximately)
 
@@ -74,13 +73,15 @@ CREATE TABLE IF NOT EXISTS `close_sale` (
 CREATE TABLE IF NOT EXISTS `company` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
-  `address` varchar(150) NOT NULL,
-  `telephone_1` varchar(10) NOT NULL,
-  `telephone_2` varchar(10) NOT NULL,
+  `address` varchar(150) DEFAULT NULL,
+  `telephone_1` varchar(10) DEFAULT NULL,
+  `telephone_2` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
 
 -- Dumping data for table ayusha_pharmacy.company: ~0 rows (approximately)
+INSERT INTO `company` (`id`, `name`, `address`, `telephone_1`, `telephone_2`) VALUES
+	(7, 'United Pharma', '', '', '');
 
 -- Dumping structure for table ayusha_pharmacy.costing
 CREATE TABLE IF NOT EXISTS `costing` (
@@ -198,17 +199,17 @@ CREATE TABLE IF NOT EXISTS `employee` (
   KEY `fk_employee_employee_status1_idx` (`employee_status_id`),
   CONSTRAINT `fk_employee_employee_role1` FOREIGN KEY (`employee_role_id`) REFERENCES `employee_role` (`id`),
   CONSTRAINT `fk_employee_employee_status1` FOREIGN KEY (`employee_status_id`) REFERENCES `employee_status` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table ayusha_pharmacy.employee: ~0 rows (approximately)
+-- Dumping data for table ayusha_pharmacy.employee: ~2 rows (approximately)
 INSERT INTO `employee` (`id`, `name`, `employee_role_id`, `employee_status_id`, `username`, `password`) VALUES
-	(1, 'Vihaga Heshan', 2, 1, 'Cashier', '$argon2i$v=19$m=65536,t=10,p=4$AvccWTN7r6poTvSXh8UgmA$mOoCOKhQcjfOkhXyjGgz4p8YI4WDBAfBlMju/zVbHWs'),
-	(2, 'Vihanga Heshan', 1, 1, 'Admin', '$argon2i$v=19$m=65536,t=10,p=4$AvccWTN7r6poTvSXh8UgmA$mOoCOKhQcjfOkhXyjGgz4p8YI4WDBAfBlMju/zVbHWs');
+	(1, 'Milani Wijewardhana', 2, 1, 'Minu', '$argon2i$v=19$m=65536,t=10,p=4$YO0u8leBg+6rrTB56TfPgw$3ZaB8+F45B+53rob/k44zCA7XStlNpU0dcGHBd2Me8Q'),
+	(2, 'Milani Wijewardhana', 1, 1, 'Ayusha', '$argon2i$v=19$m=65536,t=10,p=4$wfX29KjUEvW7kD6qBC+0FQ$WqbSALsuO9NW2qE3sSUlJlbBT9Qrh+DP/ClRx4XXoCU');
 
 -- Dumping structure for table ayusha_pharmacy.employee_role
 CREATE TABLE IF NOT EXISTS `employee_role` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `role` varchar(45) NOT NULL,
+  `role` varchar(45) NOT NULL COMMENT 'Admin, Cashier',
   `employee_role_type_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_employee_role_employee_role_type1_idx` (`employee_role_type_id`),
@@ -235,7 +236,7 @@ CREATE TABLE IF NOT EXISTS `employee_role_has_interface` (
 -- Dumping structure for table ayusha_pharmacy.employee_role_type
 CREATE TABLE IF NOT EXISTS `employee_role_type` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `type` varchar(45) NOT NULL,
+  `type` varchar(45) NOT NULL COMMENT 'admin, cashier',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 
@@ -247,7 +248,7 @@ INSERT INTO `employee_role_type` (`id`, `type`) VALUES
 -- Dumping structure for table ayusha_pharmacy.employee_status
 CREATE TABLE IF NOT EXISTS `employee_status` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `status` varchar(45) NOT NULL COMMENT 'active, inactive',
+  `status` varchar(45) NOT NULL COMMENT 'Active, Inactive',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 
@@ -262,12 +263,15 @@ CREATE TABLE IF NOT EXISTS `grn` (
   `grn_code` varchar(20) NOT NULL,
   `date_time` datetime NOT NULL,
   `supplier_id` int NOT NULL,
+  `discount` double NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_grn_supplier1_idx` (`supplier_id`),
   CONSTRAINT `fk_grn_supplier1` FOREIGN KEY (`supplier_id`) REFERENCES `supplier` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb3;
 
 -- Dumping data for table ayusha_pharmacy.grn: ~0 rows (approximately)
+INSERT INTO `grn` (`id`, `grn_code`, `date_time`, `supplier_id`, `discount`) VALUES
+	(15, '124578', '2025-06-20 19:28:16', 3, 0);
 
 -- Dumping structure for table ayusha_pharmacy.grn_item
 CREATE TABLE IF NOT EXISTS `grn_item` (
@@ -281,9 +285,19 @@ CREATE TABLE IF NOT EXISTS `grn_item` (
   KEY `fk_grn_item_grn1_idx` (`grn_id`),
   CONSTRAINT `fk_grn_item_grn1` FOREIGN KEY (`grn_id`) REFERENCES `grn` (`id`),
   CONSTRAINT `fk_grn_item_product1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table ayusha_pharmacy.grn_item: ~0 rows (approximately)
+-- Dumping data for table ayusha_pharmacy.grn_item: ~9 rows (approximately)
+INSERT INTO `grn_item` (`id`, `product_id`, `grn_id`, `cost_price`, `qty`) VALUES
+	(59, 6, 15, 257, 4),
+	(60, 7, 15, 617, 8),
+	(61, 8, 15, 3647, 2),
+	(62, 9, 15, 860, 5),
+	(63, 10, 15, 1345, 3),
+	(64, 11, 15, 1765, 2),
+	(65, 12, 15, 925, 2),
+	(66, 13, 15, 2500, 2),
+	(67, 14, 15, 370, 8);
 
 -- Dumping structure for table ayusha_pharmacy.invoice
 CREATE TABLE IF NOT EXISTS `invoice` (
@@ -296,11 +310,17 @@ CREATE TABLE IF NOT EXISTS `invoice` (
   PRIMARY KEY (`id`),
   KEY `fk_invoice_session1_idx` (`session_id`),
   CONSTRAINT `fk_invoice_session1` FOREIGN KEY (`session_id`) REFERENCES `session` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table ayusha_pharmacy.invoice: ~0 rows (approximately)
+-- Dumping data for table ayusha_pharmacy.invoice: ~4 rows (approximately)
 INSERT INTO `invoice` (`id`, `date_time`, `bill_amount`, `paid_amount`, `credit_amount`, `session_id`) VALUES
-	(12, '2025-06-05 11:52:32', 4650, 5000, 0, 4);
+	(44, '2025-06-20 23:42:53', 1680, 2000, 0, 23),
+	(45, '2025-06-21 12:04:31', 1092, 1100, 0, 24),
+	(46, '2025-06-21 14:35:55', 600, 1000, 0, 24),
+	(47, '2025-06-21 16:04:42', 185, 200, 0, 24),
+	(48, '2025-06-21 16:15:10', 185, 200, 0, 24),
+	(49, '2025-06-22 05:08:09', 1580, 2000, 0, 25),
+	(50, '2025-06-22 05:23:57', 1580, 2000, 0, 25);
 
 -- Dumping structure for table ayusha_pharmacy.invoice_item
 CREATE TABLE IF NOT EXISTS `invoice_item` (
@@ -308,6 +328,7 @@ CREATE TABLE IF NOT EXISTS `invoice_item` (
   `product_id` int NOT NULL,
   `qty` double NOT NULL,
   `sale_price` double NOT NULL,
+  `discount` double NOT NULL,
   `cost_price` double NOT NULL,
   `invoice_id` int NOT NULL,
   `invoice_item_type_id` int NOT NULL,
@@ -318,12 +339,18 @@ CREATE TABLE IF NOT EXISTS `invoice_item` (
   CONSTRAINT `fk_invoice_item_invoice1` FOREIGN KEY (`invoice_id`) REFERENCES `invoice` (`id`),
   CONSTRAINT `fk_invoice_item_invoice_item_type1` FOREIGN KEY (`invoice_item_type_id`) REFERENCES `invoice_item_type` (`id`),
   CONSTRAINT `fk_invoice_item_product1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table ayusha_pharmacy.invoice_item: ~0 rows (approximately)
-INSERT INTO `invoice_item` (`id`, `product_id`, `qty`, `sale_price`, `cost_price`, `invoice_id`, `invoice_item_type_id`) VALUES
-	(26, 2, 8, 450, 380, 12, 1),
-	(27, 3, 3, 350, 280, 12, 1);
+-- Dumping data for table ayusha_pharmacy.invoice_item: ~6 rows (approximately)
+INSERT INTO `invoice_item` (`id`, `product_id`, `qty`, `sale_price`, `discount`, `cost_price`, `invoice_id`, `invoice_item_type_id`) VALUES
+	(90, 16, 4, 420, 0, 0, 44, 1),
+	(91, 15, 6, 42, 0, 0, 45, 1),
+	(92, 16, 2, 420, 0, 0, 45, 1),
+	(93, 18, 5, 120, 0, 8.6, 46, 1),
+	(94, 15, 5, 42, 5, 36.47, 47, 1),
+	(95, 15, 5, 42, 5, 36.47, 48, 1),
+	(96, 10, 1, 1580, 0, 1345, 49, 1),
+	(97, 10, 1, 1580, 0, 1345, 50, 1);
 
 -- Dumping structure for table ayusha_pharmacy.invoice_item_type
 CREATE TABLE IF NOT EXISTS `invoice_item_type` (
@@ -421,15 +448,23 @@ CREATE TABLE IF NOT EXISTS `product` (
   CONSTRAINT `fk_product_brand1` FOREIGN KEY (`brand_id`) REFERENCES `brand` (`id`),
   CONSTRAINT `fk_product_product_status1` FOREIGN KEY (`product_status_id`) REFERENCES `product_status` (`id`),
   CONSTRAINT `fk_product_product_unit1` FOREIGN KEY (`product_unit_id`) REFERENCES `product_unit` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table ayusha_pharmacy.product: ~4 rows (approximately)
+-- Dumping data for table ayusha_pharmacy.product: ~12 rows (approximately)
 INSERT INTO `product` (`id`, `product`, `generic_name`, `sale_price`, `cost_price`, `discount`, `measure`, `bar_code`, `product_unit_id`, `brand_id`, `product_status_id`) VALUES
-	(1, 'Panadol Tablet', 'Paracetamol', 5, 2.5, 0, 1, NULL, 1, 1, 1),
-	(2, 'Ventolin Inhaler', 'Ventolin Inhaler', 450, 380, 0, 1, NULL, 1, 2, 1),
-	(3, 'Dettol Antiseptic Liquid', NULL, 350, 280, 0, 1, NULL, 1, 3, 1),
-	(4, 'Betadine Solution', 'Povidone-Iodine', 220, 180, 0, 1, NULL, 1, 4, 1),
-	(5, 'asd', NULL, 123, 100, 0, 1, NULL, 1, 2, 1);
+	(6, 'Betelab Cream 15g', 'Betelab Cream 15g', 330, 257, 0, 1, NULL, 1, 6, 1),
+	(7, 'CLARITEK 250mg TAB', 'CLARITEK 250mg TAB', 663, 617, 0, 10, NULL, 5, 6, 1),
+	(8, 'CLARITHROMYCIN 250mg TAB', 'CLARITHROMYCIN 250mg TAB', 4200, 3647, 0, 100, NULL, 5, 6, 1),
+	(9, 'DERIPHYLIN 300mg TAB', 'DERIPHYLIN 300mg TAB', 1010, 860, 0, 100, NULL, 5, 6, 1),
+	(10, 'DERIPHYLIN 150mg TAB', 'DERIPHYLIN 150mg TAB', 1580, 1345, 0, 300, NULL, 5, 7, 1),
+	(11, 'FLUCLOXACILLIN 500mg CAP', 'FLUCLOXACILLIN 500mg CAP', 2250, 1765, 0, 100, NULL, 6, 7, 1),
+	(12, 'L-TRIM TAB', 'L-TRIM TAB', 1150, 925, 0, 100, NULL, 5, 7, 1),
+	(13, 'LIVOX 500mg TAB', 'LIVOX 500mg TAB', 3400, 2500, 0, 100, NULL, 5, 7, 1),
+	(14, 'LORATADINE 10mg', 'LORATADINE 10mg', 650, 370, 0, 100, NULL, 5, 8, 1),
+	(15, 'CLARITHROMYCIN  250mg 1pcs', 'CLARITHROMYCIN', 42, 36.47, 5, 1, NULL, 5, 8, 1),
+	(16, 'CLARYTHROMYCIN 250mg card', 'CLARYTHROMYCIN', 420, 364, 0, 10, NULL, 5, 8, 1),
+	(17, 'FLUCLOXACILLIN 500mg card', 'FLUCLOXACILLIN', 250, 176, 0, 10, NULL, 6, 8, 1),
+	(18, 'DERIPHYLIN 300mg card', 'DERIPHYLIN', 120, 86, 0, 10, NULL, 5, 6, 1);
 
 -- Dumping structure for table ayusha_pharmacy.product_distribute
 CREATE TABLE IF NOT EXISTS `product_distribute` (
@@ -490,16 +525,28 @@ CREATE TABLE IF NOT EXISTS `product_has_product_type` (
   CONSTRAINT `fk_product_has_product_type_product1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
   CONSTRAINT `fk_product_has_product_type_product2` FOREIGN KEY (`reference_id`) REFERENCES `product` (`id`),
   CONSTRAINT `fk_product_has_product_type_product_type1` FOREIGN KEY (`product_type_id`) REFERENCES `product_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table ayusha_pharmacy.product_has_product_type: ~0 rows (approximately)
+-- Dumping data for table ayusha_pharmacy.product_has_product_type: ~11 rows (approximately)
 INSERT INTO `product_has_product_type` (`id`, `product_id`, `product_type_id`, `reference_id`) VALUES
-	(1, 5, 1, 5);
+	(8, 6, 1, 6),
+	(9, 7, 1, 7),
+	(10, 8, 1, 8),
+	(11, 9, 1, 9),
+	(12, 10, 1, 10),
+	(13, 11, 1, 11),
+	(14, 12, 1, 12),
+	(15, 13, 1, 13),
+	(16, 14, 1, 14),
+	(17, 15, 2, 8),
+	(18, 16, 2, 8),
+	(19, 17, 2, 11),
+	(20, 18, 2, 9);
 
 -- Dumping structure for table ayusha_pharmacy.product_status
 CREATE TABLE IF NOT EXISTS `product_status` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `status` varchar(45) NOT NULL COMMENT 'active, inactive',
+  `status` varchar(45) NOT NULL COMMENT 'Enable, Disable',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 
@@ -525,13 +572,16 @@ CREATE TABLE IF NOT EXISTS `product_unit` (
   `id` int NOT NULL AUTO_INCREMENT,
   `unit` varchar(45) DEFAULT NULL COMMENT 'g, ml, units, piece',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table ayusha_pharmacy.product_unit: ~2 rows (approximately)
+-- Dumping data for table ayusha_pharmacy.product_unit: ~5 rows (approximately)
 INSERT INTO `product_unit` (`id`, `unit`) VALUES
-	(1, 'item'),
-	(2, 'mg'),
-	(3, 'ml');
+	(1, 'PIECE (PCS)'),
+	(2, 'MILLIGRAM (MG)'),
+	(3, 'MILLILITER (ML)'),
+	(4, 'GRAM (G)'),
+	(5, 'TAB (T)'),
+	(6, 'CAPSULE (C)');
 
 -- Dumping structure for table ayusha_pharmacy.refund
 CREATE TABLE IF NOT EXISTS `refund` (
@@ -586,11 +636,13 @@ CREATE TABLE IF NOT EXISTS `session` (
   PRIMARY KEY (`id`),
   KEY `fk_session_employee_idx` (`employee_id`),
   CONSTRAINT `fk_session_employee` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table ayusha_pharmacy.session: ~1 rows (approximately)
+-- Dumping data for table ayusha_pharmacy.session: ~2 rows (approximately)
 INSERT INTO `session` (`id`, `day_in_time`, `day_out_time`, `petty_cash`, `collection`, `employee_id`, `status`) VALUES
-	(4, '2025-06-05 11:50:16', '2025-06-05 12:02:27', 45000, 125000, 1, 'OFF');
+	(23, '2025-06-20 23:41:29', '2025-06-20 23:56:32', 12000, 6000, 1, 'OFF'),
+	(24, '2025-06-21 11:58:03', '2025-06-21 12:05:21', 12500, 13600, 1, 'ON'),
+	(25, '2025-06-22 04:10:38', NULL, 6500, NULL, 1, 'ON');
 
 -- Dumping structure for table ayusha_pharmacy.stock
 CREATE TABLE IF NOT EXISTS `stock` (
@@ -600,11 +652,19 @@ CREATE TABLE IF NOT EXISTS `stock` (
   PRIMARY KEY (`id`),
   KEY `fk_stock_product1_idx` (`product_id`),
   CONSTRAINT `fk_stock_product1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table ayusha_pharmacy.stock: ~0 rows (approximately)
+-- Dumping data for table ayusha_pharmacy.stock: ~8 rows (approximately)
 INSERT INTO `stock` (`id`, `qty`, `product_id`) VALUES
-	(1, 0, 5);
+	(6, 120, 6),
+	(7, 80, 7),
+	(8, 118, 8),
+	(9, 450, 9),
+	(10, 600, 10),
+	(11, 200, 11),
+	(12, 200, 12),
+	(13, 200, 13),
+	(14, 800, 14);
 
 -- Dumping structure for table ayusha_pharmacy.stock_adjustment
 CREATE TABLE IF NOT EXISTS `stock_adjustment` (
@@ -646,14 +706,12 @@ CREATE TABLE IF NOT EXISTS `store` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 
 -- Dumping data for table ayusha_pharmacy.store: ~0 rows (approximately)
-INSERT INTO `store` (`id`, `qty`, `product_id`) VALUES
-	(1, 0, 5);
 
 -- Dumping structure for table ayusha_pharmacy.supplier
 CREATE TABLE IF NOT EXISTS `supplier` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
-  `telephone` varchar(10) NOT NULL,
+  `telephone` varchar(10) DEFAULT NULL,
   `supplier_status_id` int NOT NULL,
   `company_id` int NOT NULL,
   PRIMARY KEY (`id`),
@@ -661,9 +719,11 @@ CREATE TABLE IF NOT EXISTS `supplier` (
   KEY `fk_supplier_company1_idx` (`company_id`),
   CONSTRAINT `fk_supplier_company1` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`),
   CONSTRAINT `fk_supplier_supplier_status1` FOREIGN KEY (`supplier_status_id`) REFERENCES `supplier_status` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
 
 -- Dumping data for table ayusha_pharmacy.supplier: ~0 rows (approximately)
+INSERT INTO `supplier` (`id`, `name`, `telephone`, `supplier_status_id`, `company_id`) VALUES
+	(3, 'Vihanga Heshan', '', 1, 7);
 
 -- Dumping structure for table ayusha_pharmacy.supplier_damage_return
 CREATE TABLE IF NOT EXISTS `supplier_damage_return` (
@@ -729,9 +789,12 @@ CREATE TABLE IF NOT EXISTS `supplier_status` (
   `id` int NOT NULL AUTO_INCREMENT,
   `status` varchar(45) NOT NULL COMMENT 'active, inactive',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table ayusha_pharmacy.supplier_status: ~0 rows (approximately)
+-- Dumping data for table ayusha_pharmacy.supplier_status: ~2 rows (approximately)
+INSERT INTO `supplier_status` (`id`, `status`) VALUES
+	(1, 'Active'),
+	(2, 'Inactive');
 
 -- Dumping structure for table ayusha_pharmacy.supply_damage_return_status
 CREATE TABLE IF NOT EXISTS `supply_damage_return_status` (

@@ -1,0 +1,95 @@
+.primary-gradient{
+    -fx-background-color: linear-gradient(to top, #0F0C29, #302B63, #24243E);
+}
+
+.primary-gradient-right{
+    -fx-background-color: linear-gradient(to right, #0F0C29, #302B63, #24243E);
+}
+
+.bg-primary{
+    -fx-background-color: #5E50DD;
+}
+
+.text-primary{
+    -fx-text-fill: #5E50DD;
+}
+
+.sub-menu-item{
+    -fx-background-radius: 4px 4px 4px 4px;
+}
+
+.sub-menu-item:hover{
+    -fx-background-color: rgba(241, 241, 241, 0.1);
+}
+
+.subMenuHover:hover{
+    -fx-text-fill: #5E50DD;
+}
+
+.primary-white{
+    -fx-text-fill: #f1f1f1;
+}
+
+.dashboard-item-hover{
+    -fx-background-color:  #1A163B;
+}
+
+.dashboard-item-hover:hover{
+    -fx-background-color:  #231D52;
+}
+
+.text-field,
+.combo-box{
+    -fx-border-color: #5E50DD;
+    -fx-border-width: 0.5px;
+    -fx-border-style: solid;
+    -fx-border-radius: 4px;
+    -fx-text-fill: #f1f1f1;
+    -fx-background-color: transparent;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: #5E50DD;
+}
+
+.button-primary{
+    -fx-background-color: #5E50DD;
+        -fx-text-fill: #f1f1f1;
+}
+
+.button-primary-outline{
+    -fx-background-color: transparent;
+    -fx-text-fill: #5E50DD;
+    -fx-border-color: #5E50DD;
+    -fx-border-width: 0.5px;
+    -fx-border-style: solid;
+    -fx-border-radius: 4px;
+}
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-pane .content {
+    -fx-padding: 0;
+}
+
+.radio-button .radio {
+    -fx-background-color: transparent;
+    -fx-border-color: #5E50DD; 
+    -fx-border-width: 2px;
+    -fx-border-radius: 50%;
+}
+
+.radio-button:selected .radio {
+    -fx-background-color: #5E50DD; 
+}
+.radio-button:selected .radio .dot {
+    -fx-background-color: white; 
+}

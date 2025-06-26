@@ -6,3 +6,6 @@ Monitoring with mobile app/website
 Bar code scanning (It must show his child products in a pop-up)
 Database auto-backup system
 Trial period management
+
+Centralize database to manage this software from two places (Doctor to nurce)
+Doctors can be able to add a drugs bill and send it to the nurce interface. Then a nurce can give the drugs to the customers

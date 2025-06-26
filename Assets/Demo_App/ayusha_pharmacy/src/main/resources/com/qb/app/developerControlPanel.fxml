@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" styleClass="primary-gradient" stylesheets="@css/developerStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.DeveloperControlPanelController">
+   <padding>
+      <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+   </padding>
+   <children>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <center>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="30.0" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox prefWidth="300.0" spacing="10.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <HBox prefWidth="200.0">
+                           <children>
+                              <Label styleClass="primary-white" stylesheets="@css/developerStyle.css" text="System Access">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <children>
+                              <Label minWidth="-Infinity" styleClass="primary-white" stylesheets="@css/developerStyle.css" text="Cash withdrawal">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <BorderPane HBox.hgrow="ALWAYS">
+                                 <right>
+                                    <RadioButton alignment="CENTER_RIGHT" mnemonicParsing="false" BorderPane.alignment="CENTER" />
+                                 </right>
+                              </BorderPane>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="36.0" spacing="10.0">
+                           <children>
+                              <Label minWidth="-Infinity" styleClass="primary-white" stylesheets="@css/developerStyle.css" text="Credit Payment">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <BorderPane HBox.hgrow="ALWAYS">
+                                 <right>
+                                    <RadioButton alignment="CENTER_RIGHT" mnemonicParsing="false" BorderPane.alignment="CENTER" />
+                                 </right>
+                              </BorderPane>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="56.0" spacing="10.0">
+                           <children>
+                              <Label minWidth="-Infinity" styleClass="primary-white" stylesheets="@css/developerStyle.css" text="Discount">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <BorderPane HBox.hgrow="ALWAYS">
+                                 <right>
+                                    <RadioButton alignment="CENTER_RIGHT" mnemonicParsing="false" BorderPane.alignment="CENTER" />
+                                 </right>
+                              </BorderPane>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="76.0" spacing="10.0">
+                           <children>
+                              <Label minWidth="-Infinity" styleClass="primary-white" stylesheets="@css/developerStyle.css" text="Employee Managemnt">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <BorderPane HBox.hgrow="ALWAYS">
+                                 <right>
+                                    <RadioButton alignment="CENTER_RIGHT" mnemonicParsing="false" BorderPane.alignment="CENTER" />
+                                 </right>
+                              </BorderPane>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="96.0" spacing="10.0">
+                           <children>
+                              <Label minWidth="-Infinity" styleClass="primary-white" stylesheets="@css/developerStyle.css" text="Inventory management">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <BorderPane HBox.hgrow="ALWAYS">
+                                 <right>
+                                    <RadioButton alignment="CENTER_RIGHT" mnemonicParsing="false" BorderPane.alignment="CENTER" />
+                                 </right>
+                              </BorderPane>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="116.0" spacing="10.0">
+                           <children>
+                              <Label minWidth="-Infinity" styleClass="primary-white" stylesheets="@css/developerStyle.css" text="Refund">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <BorderPane HBox.hgrow="ALWAYS">
+                                 <right>
+                                    <RadioButton alignment="CENTER_RIGHT" mnemonicParsing="false" BorderPane.alignment="CENTER" />
+                                 </right>
+                              </BorderPane>
+                           </children>
+                        </HBox>
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" styleClass="button-primary" stylesheets="@css/developerStyle.css" text="Update Changes">
+                           <font>
+                              <Font name="Aptos" size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox prefWidth="300.0" spacing="10.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <HBox prefWidth="200.0">
+                           <children>
+                              <Label styleClass="primary-white" stylesheets="@css/developerStyle.css" text="Report Access">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <children>
+                              <Label minWidth="-Infinity" styleClass="primary-white" stylesheets="@css/developerStyle.css" text="Bin Card Report">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <BorderPane HBox.hgrow="ALWAYS">
+                                 <right>
+                                    <RadioButton alignment="CENTER_RIGHT" mnemonicParsing="false" BorderPane.alignment="CENTER" />
+                                 </right>
+                              </BorderPane>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="36.0" spacing="10.0">
+                           <children>
+                              <Label minWidth="-Infinity" styleClass="primary-white" stylesheets="@css/developerStyle.css" text="Cash Withdrawal Report">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <BorderPane HBox.hgrow="ALWAYS">
+                                 <right>
+                                    <RadioButton alignment="CENTER_RIGHT" mnemonicParsing="false" BorderPane.alignment="CENTER" />
+                                 </right>
+                              </BorderPane>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <children>
+                              <Label minWidth="-Infinity" styleClass="primary-white" stylesheets="@css/developerStyle.css" text="Close Sale Report">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <BorderPane HBox.hgrow="ALWAYS">
+                                 <right>
+                                    <RadioButton alignment="CENTER_RIGHT" mnemonicParsing="false" BorderPane.alignment="CENTER" />
+                                 </right>
+                              </BorderPane>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <children>
+                              <Label minWidth="-Infinity" styleClass="primary-white" stylesheets="@css/developerStyle.css" text="Customer Report">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <BorderPane HBox.hgrow="ALWAYS">
+                                 <right>
+                                    <RadioButton alignment="CENTER_RIGHT" mnemonicParsing="false" BorderPane.alignment="CENTER" />
+                                 </right>
+                              </BorderPane>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <children>
+                              <Label minWidth="-Infinity" styleClass="primary-white" stylesheets="@css/developerStyle.css" text="Damage Report">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <BorderPane HBox.hgrow="ALWAYS">
+                                 <right>
+                                    <RadioButton alignment="CENTER_RIGHT" mnemonicParsing="false" BorderPane.alignment="CENTER" />
+                                 </right>
+                              </BorderPane>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <children>
+                              <Label minWidth="-Infinity" styleClass="primary-white" stylesheets="@css/developerStyle.css" text="Distribute Report">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <BorderPane HBox.hgrow="ALWAYS">
+                                 <right>
+                                    <RadioButton alignment="CENTER_RIGHT" mnemonicParsing="false" BorderPane.alignment="CENTER" />
+                                 </right>
+                              </BorderPane>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <children>
+                              <Label minWidth="-Infinity" styleClass="primary-white" stylesheets="@css/developerStyle.css" text="GRN Report">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <BorderPane HBox.hgrow="ALWAYS">
+                                 <right>
+                                    <RadioButton alignment="CENTER_RIGHT" mnemonicParsing="false" BorderPane.alignment="CENTER" />
+                                 </right>
+                              </BorderPane>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <children>
+                              <Label minWidth="-Infinity" styleClass="primary-white" stylesheets="@css/developerStyle.css" text="Location Return Report">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <BorderPane HBox.hgrow="ALWAYS">
+                                 <right>
+                                    <RadioButton alignment="CENTER_RIGHT" mnemonicParsing="false" BorderPane.alignment="CENTER" />
+                                 </right>
+                              </BorderPane>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <children>
+                              <Label minWidth="-Infinity" styleClass="primary-white" stylesheets="@css/developerStyle.css" text="Product List Report">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <BorderPane HBox.hgrow="ALWAYS">
+                                 <right>
+                                    <RadioButton alignment="CENTER_RIGHT" mnemonicParsing="false" BorderPane.alignment="CENTER" />
+                                 </right>
+                              </BorderPane>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <children>
+                              <Label minWidth="-Infinity" styleClass="primary-white" stylesheets="@css/developerStyle.css" text="Profit Report">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <BorderPane HBox.hgrow="ALWAYS">
+                                 <right>
+                                    <RadioButton alignment="CENTER_RIGHT" mnemonicParsing="false" BorderPane.alignment="CENTER" />
+                                 </right>
+                              </BorderPane>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <children>
+                              <Label minWidth="-Infinity" styleClass="primary-white" stylesheets="@css/developerStyle.css" text="Sale Report (Detailed)">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <BorderPane HBox.hgrow="ALWAYS">
+                                 <right>
+                                    <RadioButton alignment="CENTER_RIGHT" mnemonicParsing="false" BorderPane.alignment="CENTER" />
+                                 </right>
+                              </BorderPane>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="236.0" spacing="10.0">
+                           <children>
+                              <Label minWidth="-Infinity" styleClass="primary-white" stylesheets="@css/developerStyle.css" text="Sale Report (Summary)">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <BorderPane HBox.hgrow="ALWAYS">
+                                 <right>
+                                    <RadioButton alignment="CENTER_RIGHT" mnemonicParsing="false" BorderPane.alignment="CENTER" />
+                                 </right>
+                              </BorderPane>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="256.0" spacing="10.0">
+                           <children>
+                              <Label minWidth="-Infinity" styleClass="primary-white" stylesheets="@css/developerStyle.css" text="Sale Report (Product Wise)">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <BorderPane HBox.hgrow="ALWAYS">
+                                 <right>
+                                    <RadioButton alignment="CENTER_RIGHT" mnemonicParsing="false" BorderPane.alignment="CENTER" />
+                                 </right>
+                              </BorderPane>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="276.0" spacing="10.0">
+                           <children>
+                              <Label minWidth="-Infinity" styleClass="primary-white" stylesheets="@css/developerStyle.css" text="Session Report">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <BorderPane HBox.hgrow="ALWAYS">
+                                 <right>
+                                    <RadioButton alignment="CENTER_RIGHT" mnemonicParsing="false" BorderPane.alignment="CENTER" />
+                                 </right>
+                              </BorderPane>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="296.0" spacing="10.0">
+                           <children>
+                              <Label minWidth="-Infinity" styleClass="primary-white" stylesheets="@css/developerStyle.css" text="Stock Balance Report">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <BorderPane HBox.hgrow="ALWAYS">
+                                 <right>
+                                    <RadioButton alignment="CENTER_RIGHT" mnemonicParsing="false" BorderPane.alignment="CENTER" />
+                                 </right>
+                              </BorderPane>
+                           </children>
+                        </HBox>
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" styleClass="button-primary" stylesheets="@css/developerStyle.css" text="Update Changes">
+                           <font>
+                              <Font name="Aptos" size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox prefWidth="350.0" spacing="10.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <HBox prefWidth="200.0">
+                           <children>
+                              <Label styleClass="primary-white" stylesheets="@css/developerStyle.css" text="System License">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefWidth="200.0" spacing="10.0">
+                           <children>
+                              <Label styleClass="primary-white" stylesheets="@css/developerStyle.css" text="Life Time License">
+                                 <font>
+                                    <Font name="Aptos" size="16.0" />
+                                 </font>
+                              </Label>
+                              <BorderPane HBox.hgrow="ALWAYS">
+                                 <right>
+                                    <RadioButton alignment="CENTER_RIGHT" mnemonicParsing="false" BorderPane.alignment="CENTER" />
+                                 </right>
+                              </BorderPane>
+                           </children>
+                        </HBox>
+                        <VBox prefWidth="100.0">
+                           <children>
+                              <Label styleClass="text-primary" stylesheets="@css/developerStyle.css" text="Time period (in months)">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField maxWidth="1.7976931348623157E308" prefHeight="40.0">
+                                 <font>
+                                    <Font name="Aptos" size="12.0" />
+                                 </font>
+                              </TextField>
+                           </children>
+                        </VBox>
+                        <VBox layoutX="10.0" layoutY="82.0" prefWidth="100.0">
+                           <children>
+                              <Label styleClass="text-primary" stylesheets="@css/developerStyle.css" text="License Charge">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField maxWidth="1.7976931348623157E308" prefHeight="40.0">
+                                 <font>
+                                    <Font name="Aptos" size="12.0" />
+                                 </font>
+                              </TextField>
+                           </children>
+                        </VBox>
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" styleClass="button-primary" stylesheets="@css/developerStyle.css" text="Update License">
+                           <font>
+                              <Font name="Aptos" size="14.0" />
+                           </font>
+                        </Button>
+                        <HBox layoutX="10.0" layoutY="10.0" prefWidth="200.0">
+                           <children>
+                              <Label styleClass="primary-white" stylesheets="@css/developerStyle.css" text="Stock Adjustment">
+                                 <font>
+                                    <Font name="Aptos" size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="273.0" prefWidth="200.0">
+                           <children>
+                              <Label styleClass="primary-white" stylesheets="@css/developerStyle.css" text="Remaining Count" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Pane HBox.hgrow="ALWAYS" />
+                              <Label layoutX="10.0" layoutY="10.0" styleClass="primary-white" stylesheets="@css/developerStyle.css" text="02">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </HBox>
+                        <VBox layoutX="10.0" layoutY="152.0" prefWidth="100.0">
+                           <children>
+                              <Label styleClass="text-primary" stylesheets="@css/developerStyle.css" text="Add temporary chance">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField maxWidth="1.7976931348623157E308" prefHeight="40.0">
+                                 <font>
+                                    <Font name="Aptos" size="12.0" />
+                                 </font>
+                              </TextField>
+                           </children>
+                        </VBox>
+                        <Button layoutX="10.0" layoutY="223.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="40.0" styleClass="button-primary" stylesheets="@css/developerStyle.css" text="Update Adjustment">
+                           <font>
+                              <Font name="Aptos" size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

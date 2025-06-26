@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="800.0" styleClass="primary-gradient" stylesheets="@css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.Employee_registrationController">
+   <children>
+      <VBox layoutX="35.0" layoutY="50.0" prefHeight="527.0" spacing="15.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+               <children>
+                  <Group fx:id="IconEmployeeRegistrationTopic" />
+                  <Label text="Employee Registration" textFill="WHITE">
+                     <font>
+                        <Font name="Aptos" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <VBox spacing="15.0">
+               <children>
+                  <VBox spacing="10.0">
+                     <children>
+                        <Label text="Personal Details" textFill="WHITE">
+                           <font>
+                              <Font name="Aptos" size="14.0" />
+                           </font>
+                        </Label>
+                        <VBox alignment="CENTER_LEFT" maxHeight="-Infinity">
+                           <children>
+                              <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Name">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="nameTextField" maxWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" styleClass="primary-white" stylesheets="@css/adminStyle.css" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+                  <VBox spacing="10.0">
+                     <children>
+                        <Label text="Employee Details" textFill="WHITE">
+                           <font>
+                              <Font name="Aptos" size="14.0" />
+                           </font>
+                        </Label>
+                        <HBox spacing="10.0">
+                           <children>
+                              <VBox>
+                                 <children>
+                                    <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Role">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <ComboBox prefHeight="40.0" prefWidth="300.0" stylesheets="@css/adminStyle.css" />
+                                 </children>
+                              </VBox>
+                              <VBox HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Panel">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <ComboBox prefHeight="40.0" prefWidth="300.0" styleClass="combo-box" stylesheets="@css/adminStyle.css" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox spacing="10.0">
+                     <children>
+                        <Label text="System Credentials" textFill="WHITE">
+                           <font>
+                              <Font name="Aptos" size="14.0" />
+                           </font>
+                        </Label>
+                        <HBox spacing="10.0">
+                           <children>
+                              <VBox>
+                                 <children>
+                                    <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Username">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField prefHeight="40.0" prefWidth="300.0" styleClass="primary-white" stylesheets="@css/adminStyle.css" />
+                                 </children>
+                              </VBox>
+                              <VBox>
+                                 <children>
+                                    <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Password">
+                                       <font>
+                                          <Font name="Aptos" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField prefHeight="40.0" prefWidth="300.0" styleClass="primary-white" stylesheets="@css/adminStyle.css" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <VBox>
+                           <children>
+                              <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="PIN Number">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField maxWidth="-Infinity" prefHeight="40.0" prefWidth="300.0" styleClass="primary-white" stylesheets="@css/adminStyle.css" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+                  <HBox spacing="10.0">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="300.0" stylesheets="@css/adminStyle.css" text="Recruit" HBox.hgrow="ALWAYS">
+                           <styleClass>
+                              <String fx:value="button-primary" />
+                              <String fx:value="primary-white" />
+                           </styleClass>
+                           <font>
+                              <Font name="Aptos" size="14.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="300.0" styleClass="button-primary-outline" stylesheets="@css/adminStyle.css" text="Clear" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font name="Aptos" size="14.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

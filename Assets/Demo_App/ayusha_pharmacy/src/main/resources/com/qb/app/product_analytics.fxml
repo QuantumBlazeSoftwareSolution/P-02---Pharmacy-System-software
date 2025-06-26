@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" styleClass="primary-gradient" stylesheets="@css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.Product_analyticsController">
+   <children>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <HBox alignment="CENTER_LEFT" spacing="14.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Group fx:id="iconPage" />
+                  <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Product Analytics">
+                     <font>
+                        <Font name="Aptos" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </top>
+         <padding>
+            <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+         </padding>
+         <center>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="12.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox spacing="12.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <HBox prefWidth="200.0" spacing="10.0">
+                                 <children>
+                                    <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Brand">
+                                             <font>
+                                                <Font name="Aptos" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <ComboBox fx:id="cbBrand1" maxWidth="1.7976931348623157E308" prefHeight="45.0" prefWidth="230.0" promptText="Ex: Munchee" stylesheets="@css/adminStyle.css" />
+                                       </children>
+                                    </VBox>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Filter By">
+                                             <font>
+                                                <Font name="Aptos" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <ComboBox fx:id="cbBrand" maxWidth="1.7976931348623157E308" prefHeight="45.0" prefWidth="230.0" promptText="Ex: Sale" stylesheets="@css/adminStyle.css" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" minHeight="-Infinity" vbarPolicy="NEVER">
+                                             <content>
+                                                <HBox maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="200.0">
+                                                   <children>
+                                                      <BorderPane maxWidth="120.0" minWidth="-Infinity" prefWidth="100.0" style="-fx-border-radius: 6px 0 0 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                                         <center>
+                                                            <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="ID" BorderPane.alignment="CENTER">
+                                                               <font>
+                                                                  <Font name="Aptos" size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </center>
+                                                      </BorderPane>
+                                                      <BorderPane minWidth="-Infinity" prefWidth="200.0" style="-fx-border-radius: 0px; -fx-border-width: 0.5px 0.5px 0.5px 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                                         <center>
+                                                            <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Product" BorderPane.alignment="CENTER">
+                                                               <font>
+                                                                  <Font name="Aptos" size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </center>
+                                                      </BorderPane>
+                                                      <BorderPane maxWidth="220.0" minWidth="-Infinity" prefWidth="120.0" style="-fx-border-radius: 0px; -fx-border-width: 0.5px 0.5px 0.5px 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                                         <center>
+                                                            <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Brand" BorderPane.alignment="CENTER">
+                                                               <font>
+                                                                  <Font name="Aptos" size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </center>
+                                                      </BorderPane>
+                                                      <BorderPane maxWidth="180.0" minWidth="-Infinity" prefWidth="100.0" style="-fx-border-radius: 0px; -fx-border-width: 0.5px 0.5px 0.5px 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                                         <center>
+                                                            <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Sale" BorderPane.alignment="CENTER">
+                                                               <font>
+                                                                  <Font name="Aptos" size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </center>
+                                                      </BorderPane>
+                                                      <BorderPane maxWidth="350.0" prefWidth="200.0" style="-fx-border-radius: 0 6px 0 0; -fx-border-width: 0.5px 0.5px 0.5px 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                                         <center>
+                                                            <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Analytics (From Yesterday)" BorderPane.alignment="CENTER">
+                                                               <font>
+                                                                  <Font name="Aptos" size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </center>
+                                                      </BorderPane>
+                                                   </children>
+                                                </HBox>
+                                             </content>
+                                          </ScrollPane>
+                                          <ScrollPane fx:id="tableScrollContainer" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" stylesheets="@css/adminStyle.css" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+                                             <content>
+                                                <VBox fx:id="tableBody" prefWidth="100.0" style="-fx-border-radius: 0 0 6px 6px; -fx-border-width: 0 0.5 0.5 0.5;" styleClass="primary-border" stylesheets="@css/adminStyle.css" />
+                                             </content>
+                                          </ScrollPane>
+                                       </children>
+                                    </VBox>
+                                    <ScrollBar fx:id="tableScroller" orientation="VERTICAL" styleClass="transparent-scroll-pane" stylesheets="@css/style.css" visibleAmount="20.0">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </ScrollBar>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets left="50.0" right="50.0" />
+               </padding>
+               <BorderPane.margin>
+                  <Insets top="20.0" />
+               </BorderPane.margin>
+            </VBox>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

@@ -1,0 +1,279 @@
+.primary-gradient{
+    -fx-background-color: linear-gradient(to bottom, #00899B, #002F35);
+}
+
+
+.primary-bg{
+    -fx-background-color: #00899B;
+}
+
+.table-header{
+    -fx-background-color: rgba(0, 137, 155, 0.75);
+    -fx-background-radius: 4;
+    -fx-text-fill: #f1f1f1;
+}
+
+.primary-10{
+    -fx-background-color: rgba(0, 137, 155, 0.1);
+}
+
+.primary-white{
+    -fx-text-fill: #f1f1f1;
+}
+
+.admin-primary-blue{
+    -fx-text-fill: #00899B;
+}
+
+.text-field-label{
+    -fx-text-fill: #00899B;
+}
+
+.bg-white{
+    -fx-background-color: #fff;
+}
+
+.tooltip {
+    -fx-background-color: #3278fa;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.sub-menu-item{
+    -fx-background-radius: 4px 4px 4px 4px;
+}
+
+.transparent-pane {
+    -fx-background-color: transparent;
+    /* OR use RGBA for partial transparency */
+    /*-fx-background-color: rgba(0, 0, 0, 0);  30% opacity */
+}
+
+.sub-menu-item:hover{
+    -fx-background-color: rgba(241, 241, 241, 0.1);
+}
+
+.primary-border{
+    -fx-border-color: #009589;
+    -fx-border-width: 0.5px;
+    -fx-border-style: solid;
+    -fx-border-radius: 4px;
+}
+
+
+.primary-text{
+    -fx-text-fill: #00899B;
+}
+
+.bg-transparent{
+    -fx-background-color: transparent;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: white;
+}
+
+.combo-box-popup .list-cell:hover {
+    -fx-text-fill: #00899B;
+    -fx-background-color: #BDE1D3; /* Light gray on hover */
+}
+
+.text-field,
+.combo-box{
+    -fx-border-color: #00899B;
+    -fx-border-width: 0.5px;
+    -fx-border-style: solid;
+    -fx-border-radius: 4px;
+    -fx-text-fill: #00899B;
+    -fx-background-color: transparent;
+}
+
+.text-dark{
+    -fx-text-fill: #00796F;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: #00899B;
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar:vertical,
+.scroll-bar:vertical{
+    -fx-pref-width: 20px; /* Set the width of the vertical scroll bar */
+}
+
+.scroll-pane .scroll-bar:vertical .thumb,
+.scroll-bar:vertical .thumb{
+    -fx-background-color: #00899B;
+    /*-fx-background-radius: 10px;*/
+}
+
+.scroll-pane .scroll-bar:vertical .track,
+.scroll-bar:vertical .track{
+    /*-fx-background-color: #f0f0f0;  Color of the scroll bar track */
+}
+
+.transparent-scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.transparent-scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.transparent-scroll-pane .scroll-bar:vertical,
+.transparent-scroll-pane .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+}
+
+.transparent-scroll-pane .scroll-bar:vertical .track,
+.transparent-scroll-pane .scroll-bar:horizontal .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+}
+
+.transparent-scroll-pane .scroll-bar:vertical .thumb,
+.transparent-scroll-pane .scroll-bar:horizontal .thumb {
+    -fx-background-color: rgba(0, 0, 0, 0.2);
+    -fx-background-insets: 2, 0, 0;
+    -fx-background-radius: 2em;
+}
+
+.button-primary{
+    -fx-background-color: #00899B;
+}
+.button-gradient {
+    -fx-background-color: linear-gradient(to left, #00899B, #002F35);
+}
+
+.button-primary-outline{
+    -fx-background-color: transparent;
+    -fx-text-fill: #00899B;
+    -fx-border-color: #00899B;
+    -fx-border-width: 0.5px;
+    -fx-border-style: solid;
+    -fx-border-radius: 4px;
+}
+
+.full-width-button {
+    -fx-max-width: infinity;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-pane .content {
+    -fx-padding: 0;
+}
+
+.primary-text-green{
+    -fx-text-fill: #0D9F00;
+}
+
+.primary-text-red{
+    -fx-text-fill: #FF3333;
+}
+
+.hover-white-bg:hover{
+    /*-fx-background-color: rgba(255, 255, 255, 0.05);*/
+    -fx-background-color: rgba(0, 137, 155, 0.11);
+}
+
+.separator .line {
+    -fx-border-color: red;
+    -fx-border-width: 1;
+}
+
+/* For a horizontal separator */
+.separator:horizontal .line {
+    -fx-border-color: #00796F;
+    -fx-border-width: 1;
+}
+
+/* For a vertical separator */
+.separator:vertical .line {
+    -fx-border-color: #00796F;
+    -fx-border-width: 1;
+}
+
+.date-picker {
+    -fx-border-color: #00899B;
+    -fx-border-width: 0.5px;
+    -fx-border-style: solid;
+    -fx-border-radius: 4px;
+    -fx-background-color: transparent;
+}
+
+.date-picker .text-field {
+    -fx-text-fill: #00899B;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.date-picker .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.date-picker .arrow-button .arrow {
+    -fx-background-color: #00899B;
+}
+
+/* Style for the popup content */
+.date-picker-popup {
+    -fx-background-color: #ffffff; /* White background */
+    -fx-border-color: #004E92; /* Blue border */
+    -fx-border-radius: 4px;
+}
+
+/* DatePicker's calendar header (month and year) */
+.date-picker-popup .month-year-pane {
+    -fx-background-color: #004E92; /* Blue background */
+}
+
+.date-picker-popup .month-year-pane .label {
+    -fx-text-fill: #f1f1f1; /* White text */
+}
+
+/* DatePicker's calendar days */
+.date-picker-popup .day-cell {
+    -fx-background-color: #ffffff; /* White background */
+    -fx-text-fill: #004E92; /* Blue text */
+    -fx-border-color: transparent;
+}
+
+.date-picker-popup .day-cell:hover {
+    -fx-background-color: hsba(208, 100%, 57%, 0.2); /* Light blue on hover */
+}
+
+.date-picker-popup .day-cell:selected {
+    -fx-background-color: #004E92; /* Blue background for selected date */
+    -fx-text-fill: #f1f1f1; /* White text for selected date */
+}
+
+/* DatePicker's week number cells */
+.date-picker-popup .week-number-cell {
+    -fx-text-fill: #004E92; /* Blue text */
+}
+
+/* DatePicker's today cell */
+.date-picker-popup .today {
+    -fx-background-color: hsba(208, 100%, 57%, 0.05); /* Light blue background for today */
+    -fx-text-fill: #004E92; /* Blue text */
+}
+
+.date-picker-popup .today:selected {
+    -fx-background-color: #004E92; /* Blue background for selected today */
+    -fx-text-fill: #f1f1f1; /* White text for selected today */
+}
+

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.Cashier_top_panelController">
+   <children>
+      <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="800.0" styleClass="primary-gradient-toLeft" stylesheets="@../css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <StackPane fx:id="iconMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#toggleMenu" prefHeight="40.0" prefWidth="40.0" styleClass="titleBarIcon" stylesheets="@../css/style.css">
+               <children>
+                  <Group stylesheets="@../css/style.css" StackPane.alignment="CENTER" />
+               </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </StackPane>
+            <Label styleClass="primary-white" stylesheets="@../css/style.css" text="Menu">
+               <font>
+                  <Font name="Aptos" size="16.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="6.0" />
+               </HBox.margin>
+            </Label>
+            <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+            <Label fx:id="panelTitle" styleClass="primary-white" stylesheets="@../css/style.css" text="Title Here...">
+               <font>
+                  <Font name="Aptos" size="16.0" />
+               </font>
+            </Label>
+            <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+            <HBox alignment="CENTER">
+               <children>
+                  <StackPane fx:id="iconMinimize" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#titleBarActionHandler" prefHeight="40.0" prefWidth="40.0" styleClass="titleBarIcon" stylesheets="@../css/style.css">
+                     <children>
+                        <Group stylesheets="@../css/style.css" StackPane.alignment="CENTER" />
+                     </children>
+                  </StackPane>
+                  <StackPane fx:id="iconClose" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#titleBarActionHandler" prefHeight="40.0" prefWidth="40.0" styleClass="titleBarIcon" stylesheets="@../css/style.css">
+                     <children>
+                        <Group stylesheets="@../css/style.css" StackPane.alignment="CENTER" />
+                     </children>
+                  </StackPane>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

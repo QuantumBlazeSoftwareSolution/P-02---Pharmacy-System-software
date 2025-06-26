@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="800.0" styleClass="primary-gradient" stylesheets="@css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.Supply_company_overviewController">
+   <children>
+      <VBox layoutX="117.0" layoutY="72.0" spacing="15.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+               <children>
+                  <Group fx:id="iconCompanyOrverview" />
+                  <Label text="Company Overview" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox spacing="40.0">
+               <children>
+                  <Pane styleClass="primary-gradient" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
+                     <children>
+                        <PieChart fx:id="conpanyOrverviewChart" />
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="350.0" prefWidth="350.0" styleClass="primary-gradient" stylesheets="@css/adminStyle.css" />
+               </children>
+            </HBox>
+            <HBox alignment="BOTTOM_LEFT">
+               <children>
+                  <Label text="Supply History" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Pane HBox.hgrow="ALWAYS" />
+                  <VBox>
+                     <children>
+                        <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Role" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <ComboBox prefHeight="40.0" prefWidth="150.0" styleClass="custom-combobox" stylesheets="@css/adminStyle.css" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <BarChart fx:id="supplyHistoryBarchart">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </BarChart>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

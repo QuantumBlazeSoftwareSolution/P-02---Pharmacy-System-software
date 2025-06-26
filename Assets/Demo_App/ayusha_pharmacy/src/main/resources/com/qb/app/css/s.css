@@ -1,0 +1,22 @@
+.primary-gradient{
+    -fx-background-color: linear-gradient(to bottom, #243B55, #141E30);
+}
+
+.rounded-borderpane {
+    -fx-background-color: #234063; 
+    -fx-border-color: #234063; 
+    -fx-border-width: 2px;
+    -fx-background-radius: 15px; 
+    -fx-border-radius: 15px; 
+    -fx-padding: 10px; 
+}
+
+.admin-primary{
+    -fx-text-fill: #2C58A6;
+}
+
+
+
+
+
+

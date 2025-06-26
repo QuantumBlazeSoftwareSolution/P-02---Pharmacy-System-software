@@ -1,0 +1,70 @@
+.chart-plot-background{
+    -fx-background-color: transparent;
+}
+
+.chart-vertical-grid-lines{
+    -fx-stroke: #3278fa;
+}
+
+.chart-horizontal-grid-lines{
+    -fx-stroke: #3278fa;
+}
+
+.chart-alternative-row-fill{
+    -fx-fill: transparent;
+}
+
+.default-color0.chart-bar {
+    -fx-bar-fill: #8979FF;
+}
+
+.default-color0.chart-series-area-fill {
+    -fx-fill: rgba(50, 120, 250, 0.3); /* Fill color for the first series */
+}
+
+.default-color1.chart-series-area-fill {
+    -fx-fill: rgba(255, 87, 51, 0.3); /* Fill color for the second series */
+}
+
+/*.default-color0.chart-series-area-line {
+    -fx-stroke: #3278fa;  Line color for the first series 
+}*/
+
+/*.default-color1.chart-series-area-line {
+    -fx-stroke: #ff5733;  Line color for the second series 
+}*/
+
+.axis {
+    -fx-tick-label-fill: #3278fa; /* Color of the axis labels */
+    -fx-tick-mark-stroke: #3278fa; /* Color of the tick marks */
+    -fx-axis-label-fill: #3278fa; /* Color of the axis title */
+}
+
+.axis-tick-mark {
+    -fx-stroke: #3278fa; /* Color of the tick marks */
+}
+
+.axis-tick-label {
+    -fx-font-size: 16px; /* Increase the font size of the axis tick labels */
+}
+
+.axis-minor-tick-mark {
+    -fx-stroke: #3278fa; /* Color of the minor tick marks */
+}
+
+.chart-legend {
+    -fx-background-color: transparent; /* Transparent background */
+    -fx-border-color: #3278fa; /* Border color */
+}
+
+.chart-legend-item {
+    -fx-text-fill: #fff; /* Font color for legend items */
+}
+
+.chart-title {
+    -fx-text-fill: #3278fa; /* Color of the chart title */
+}
+
+.chart-pie-label {
+    -fx-fill: white; /* Change label color to white */
+}

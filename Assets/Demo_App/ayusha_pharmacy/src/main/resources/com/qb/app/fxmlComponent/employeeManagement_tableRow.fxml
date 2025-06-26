@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.EmployeeManagement_tableRowController">
+   <children>
+      <BorderPane maxWidth="100.0" minWidth="-Infinity" prefWidth="80.0" style="-fx-border-width: 0 0.5px 0.5px 0.5px; -fx-border-radius: 0 0 0 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
+         <center>
+            <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="ID" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </center>
+      </BorderPane>
+      <BorderPane minWidth="-Infinity" prefWidth="200.0" style="-fx-border-width: 0 0.5px 0.5px 0; -fx-border-radius: 0 0 0 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
+         <center>
+            <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Name" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </center>
+      </BorderPane>
+      <BorderPane maxWidth="220.0" minWidth="-Infinity" prefWidth="120.0" style="-fx-border-width: 0 0.5px 0.5px 0; -fx-border-radius: 0 0 0 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
+         <center>
+            <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Role" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </center>
+      </BorderPane>
+      <BorderPane maxWidth="180.0" minWidth="-Infinity" prefWidth="100.0" style="-fx-border-width: 0 0.5px 0.5px 0; -fx-border-radius: 0 0 0 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
+         <center>
+            <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Status" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </center>
+      </BorderPane>
+      <BorderPane maxWidth="350.0" prefWidth="200.0" style="-fx-border-width: 0 0.5px 0.5px 0; -fx-border-radius: 0 0 0 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css" HBox.hgrow="ALWAYS">
+         <center>
+            <Label styleClass="primary-white" stylesheets="@../css/adminStyle.css" text="Username" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </center>
+      </BorderPane>
+      <BorderPane maxWidth="350.0" prefWidth="200.0" style="-fx-border-width: 0 0.5px 0.5px 0; -fx-border-radius: 0 0 0 0;" styleClass="primary-border" stylesheets="@../css/adminStyle.css">
+         <center>
+            <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Group fx:id="editIcon" />
+                  <Group fx:id="visibleIcon" />
+               </children>
+            </HBox>
+         </center>
+      </BorderPane>
+   </children>
+</HBox>

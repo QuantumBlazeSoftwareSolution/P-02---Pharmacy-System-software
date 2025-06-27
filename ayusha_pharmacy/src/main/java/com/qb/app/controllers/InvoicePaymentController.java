@@ -317,7 +317,7 @@ public class InvoicePaymentController implements Initializable {
         Map<String, Object> params = new HashMap<>();
 
         try {
-            URL imageUrl = getClass().getResource("/com/qb/app/assets/images/logo.png");
+            URL imageUrl = getClass().getResource("/com/qb/app/assets/images/logo bw.png");
             params.put("Logo", imageUrl);
         } catch (Exception e) {
             e.printStackTrace();

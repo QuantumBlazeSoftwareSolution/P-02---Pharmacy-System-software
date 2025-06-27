@@ -58,9 +58,9 @@ public class SytemLoginController implements Initializable {
     private Rectangle quantumBlazeIcon;
     @FXML
     private Group iconUser;
-    //    </editor-fold>
     @FXML
     private Label loginMessage;
+    //    </editor-fold>
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -116,7 +116,7 @@ public class SytemLoginController implements Initializable {
 
             if (PasswordEncryption.verifyPassword(emp.getPassword(), enteredPassword)) {
                 String role = emp.getEmployeeRoleId().getRole().toLowerCase(); // Assuming employeeRoleId is the FK
-                displayLoginMessage("Login successful. Welcome " + role + ": " + emp.getName(), false);
+                displayLoginMessage("Login successful. Welcome " + role + ": " + emp.getName(), true);
                 String status = emp.getEmployeeStatusId().getStatus();
 
                 if (status.equals("Active")) {
@@ -127,7 +127,7 @@ public class SytemLoginController implements Initializable {
                             case "cashier" ->
                                 App.setRoot("panelCashier");
                             case "developer" ->
-                                App.setRoot("panelDeveloper");                                                            
+                                App.setRoot("panelDeveloper");
                         }
                         ApplicationSession.setEmployee(emp); // save in session
                     } catch (IOException e) {

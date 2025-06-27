@@ -7,17 +7,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class JpaUtil {
+
     private static final String PERSISTENCE_UNIT_NAME = "quantumRetailDBUnit";
     private static EntityManagerFactory factory;
 
     static {
         try {
             Map<String, String> properties = new HashMap<>();
-            
+
             // Get credentials from system environment variables
             String dbUser = System.getenv("DB_USER");
             String dbPassword = System.getenv("DB_PASSWORD");
-            
+
             // Validate and add credentials to properties
             if (dbUser != null && !dbUser.isEmpty()) {
                 properties.put("jakarta.persistence.jdbc.user", dbUser);
@@ -25,7 +26,7 @@ public class JpaUtil {
             if (dbPassword != null && !dbPassword.isEmpty()) {
                 properties.put("jakarta.persistence.jdbc.password", dbPassword);
             }
-            
+
             factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME, properties);
         } catch (Exception e) {
             e.printStackTrace();

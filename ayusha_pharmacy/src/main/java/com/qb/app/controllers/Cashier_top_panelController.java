@@ -47,17 +47,12 @@ public class Cashier_top_panelController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         setIcons();
-        setInitialState();
     }
 
     private void setIcons() {
         iconMenu.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/menu-icon.svg"));
         iconClose.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/close-icon.svg"));
         iconMinimize.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/minimize-icon.svg"));
-    }
-
-    private void setInitialState() {
-
     }
 
     public void setTitle(String title) {

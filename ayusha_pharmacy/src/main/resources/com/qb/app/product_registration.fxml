@@ -29,7 +29,7 @@
                   <Group fx:id="iconPage" />
                   <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Product Registration">
                      <font>
-                        <Font name="Aptos" size="16.0" />
+                        <Font name="Aptos" size="20.0" />
                      </font>
                   </Label>
                </children>
@@ -47,7 +47,7 @@
                            <children>
                               <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Product Information">
                                  <font>
-                                    <Font name="Aptos" size="16.0" />
+                                    <Font name="Aptos" size="18.0" />
                                  </font>
                               </Label>
                               <HBox prefWidth="200.0" spacing="10.0">
@@ -56,12 +56,12 @@
                                        <children>
                                           <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Item Name">
                                              <font>
-                                                <Font name="Aptos" size="14.0" />
+                                                <Font name="Aptos" size="16.0" />
                                              </font>
                                           </Label>
                                           <TextField fx:id="tfItemName" minHeight="45.0" prefHeight="45.0" styleClass="text-field" stylesheets="@css/adminStyle.css">
                                              <font>
-                                                <Font name="Aptos" size="12.0" />
+                                                <Font name="Aptos" size="14.0" />
                                              </font>
                                           </TextField>
                                        </children>
@@ -70,12 +70,12 @@
                                        <children>
                                           <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Bar Code">
                                              <font>
-                                                <Font name="Aptos" size="14.0" />
+                                                <Font name="Aptos" size="16.0" />
                                              </font>
                                           </Label>
                                           <TextField fx:id="tfBarCode" minHeight="45.0" prefHeight="45.0" stylesheets="@css/adminStyle.css">
                                              <font>
-                                                <Font name="Aptos" size="12.0" />
+                                                <Font name="Aptos" size="14.0" />
                                              </font>
                                           </TextField>
                                        </children>
@@ -84,7 +84,7 @@
                                        <children>
                                           <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Department">
                                              <font>
-                                                <Font name="Aptos" size="14.0" />
+                                                <Font name="Aptos" size="16.0" />
                                              </font>
                                           </Label>
                                           <ComboBox fx:id="cbBrand" maxWidth="1.7976931348623157E308" minHeight="45.0" prefHeight="45.0" prefWidth="230.0" promptText="Select Department" stylesheets="@css/adminStyle.css" />
@@ -98,12 +98,12 @@
                                        <children>
                                           <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Generic Name">
                                              <font>
-                                                <Font name="Aptos" size="14.0" />
+                                                <Font name="Aptos" size="16.0" />
                                              </font>
                                           </Label>
                                           <TextField fx:id="tfGenericName" minHeight="45.0" prefHeight="45.0" stylesheets="@css/adminStyle.css">
                                              <font>
-                                                <Font name="Aptos" size="12.0" />
+                                                <Font name="Aptos" size="14.0" />
                                              </font>
                                           </TextField>
                                        </children>
@@ -112,12 +112,12 @@
                                        <children>
                                           <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Initialize Quantity">
                                              <font>
-                                                <Font name="Aptos" size="14.0" />
+                                                <Font name="Aptos" size="16.0" />
                                              </font>
                                           </Label>
                                           <TextField fx:id="tfInitializeQuantity" minHeight="45.0" prefHeight="45.0" stylesheets="@css/adminStyle.css">
                                              <font>
-                                                <Font name="Aptos" size="12.0" />
+                                                <Font name="Aptos" size="14.0" />
                                              </font>
                                           </TextField>
                                        </children>
@@ -138,12 +138,12 @@
                                        <children>
                                           <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Sale Price">
                                              <font>
-                                                <Font name="Aptos" size="14.0" />
+                                                <Font name="Aptos" size="16.0" />
                                              </font>
                                           </Label>
                                           <TextField fx:id="tfSalePrice" minHeight="45.0" prefHeight="45.0" stylesheets="@css/adminStyle.css">
                                              <font>
-                                                <Font name="Aptos" size="12.0" />
+                                                <Font name="Aptos" size="14.0" />
                                              </font>
                                           </TextField>
                                        </children>
@@ -152,12 +152,12 @@
                                        <children>
                                           <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Cost Price">
                                              <font>
-                                                <Font name="Aptos" size="14.0" />
+                                                <Font name="Aptos" size="16.0" />
                                              </font>
                                           </Label>
                                           <TextField fx:id="tfCostPrice" minHeight="45.0" prefHeight="45.0" stylesheets="@css/adminStyle.css">
                                              <font>
-                                                <Font name="Aptos" size="12.0" />
+                                                <Font name="Aptos" size="14.0" />
                                              </font>
                                           </TextField>
                                        </children>
@@ -166,12 +166,12 @@
                                        <children>
                                           <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Discount">
                                              <font>
-                                                <Font name="Aptos" size="14.0" />
+                                                <Font name="Aptos" size="16.0" />
                                              </font>
                                           </Label>
                                           <TextField fx:id="tfDiscount" minHeight="45.0" prefHeight="45.0" stylesheets="@css/adminStyle.css">
                                              <font>
-                                                <Font name="Aptos" size="12.0" />
+                                                <Font name="Aptos" size="14.0" />
                                              </font>
                                           </TextField>
                                        </children>
@@ -180,7 +180,7 @@
                               </HBox>
                               <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Stock Information">
                                  <font>
-                                    <Font name="Aptos" size="16.0" />
+                                    <Font name="Aptos" size="18.0" />
                                  </font>
                                  <VBox.margin>
                                     <Insets top="10.0" />
@@ -194,7 +194,7 @@
                                              <children>
                                                 <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Unit">
                                                    <font>
-                                                      <Font name="Aptos" size="14.0" />
+                                                      <Font name="Aptos" size="16.0" />
                                                    </font>
                                                 </Label>
                                                 <ComboBox fx:id="cbUnit" maxWidth="1.7976931348623157E308" minHeight="45.0" prefHeight="45.0" prefWidth="230.0" promptText="Select Unit" stylesheets="@css/adminStyle.css" />
@@ -204,12 +204,12 @@
                                              <children>
                                                 <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Measure">
                                                    <font>
-                                                      <Font name="Aptos" size="14.0" />
+                                                      <Font name="Aptos" size="16.0" />
                                                    </font>
                                                 </Label>
                                                 <TextField fx:id="tfMeasure" minHeight="45.0" prefHeight="45.0" stylesheets="@css/adminStyle.css">
                                                    <font>
-                                                      <Font name="Aptos" size="12.0" />
+                                                      <Font name="Aptos" size="14.0" />
                                                    </font>
                                                 </TextField>
                                              </children>
@@ -222,7 +222,7 @@
                                              <children>
                                                 <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Type">
                                                    <font>
-                                                      <Font name="Aptos" size="14.0" />
+                                                      <Font name="Aptos" size="16.0" />
                                                    </font>
                                                 </Label>
                                                 <ComboBox fx:id="cbType" maxWidth="1.7976931348623157E308" minHeight="45.0" onAction="#handleProductType" prefHeight="45.0" prefWidth="230.0" promptText="Select Type" stylesheets="@css/adminStyle.css" />
@@ -234,20 +234,20 @@
                                                    <children>
                                                       <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Parent ID">
                                                          <font>
-                                                            <Font name="Aptos" size="14.0" />
+                                                            <Font name="Aptos" size="16.0" />
                                                          </font>
                                                       </Label>
                                                       <Region HBox.hgrow="ALWAYS" />
                                                       <Label styleClass="admin-primary-blue" stylesheets="@css/adminStyle.css" text="(Enter - View Product List)">
                                                          <font>
-                                                            <Font name="Aptos" size="12.0" />
+                                                            <Font name="Aptos" size="14.0" />
                                                          </font>
                                                       </Label>
                                                    </children>
                                                 </HBox>
                                                 <TextField fx:id="tfParentID" disable="true" minHeight="45.0" onKeyPressed="#handlePopUpProductView" prefHeight="45.0" stylesheets="@css/adminStyle.css">
                                                    <font>
-                                                      <Font name="Aptos" size="12.0" />
+                                                      <Font name="Aptos" size="14.0" />
                                                    </font>
                                                 </TextField>
                                              </children>
@@ -292,7 +292,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                        <font>
-                                          <Font name="Aptos" size="14.0" />
+                                          <Font name="Aptos" size="16.0" />
                                        </font>
                                     </Button>
                                  </children>
@@ -310,7 +310,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                        <font>
-                                          <Font name="Aptos" size="14.0" />
+                                          <Font name="Aptos" size="16.0" />
                                        </font>
                                     </Button>
                                     <Button fx:id="btnRegister" maxWidth="220.0" minHeight="45.0" mnemonicParsing="false" onAction="#handleActionEvent" prefHeight="45.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Register">
@@ -323,7 +323,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                        <font>
-                                          <Font name="Aptos" size="14.0" />
+                                          <Font name="Aptos" size="16.0" />
                                        </font>
                                     </Button>
                                  </children>

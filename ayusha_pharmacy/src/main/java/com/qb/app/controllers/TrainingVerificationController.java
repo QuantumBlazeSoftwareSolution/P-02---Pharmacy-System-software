@@ -68,4 +68,5 @@ public class TrainingVerificationController implements Initializable {
         panelCashierController.isTrainingOpened = false;
         stage.close();
     }
+    
 }

@@ -28,7 +28,7 @@
                         <Group fx:id="GrnIcon" />
                         <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="GRN">
                            <font>
-                              <Font name="Aptos" size="16.0" />
+                              <Font name="Aptos" size="18.0" />
                            </font>
                         </Label>
                      </children>
@@ -39,7 +39,7 @@
                            <children>
                               <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Company">
                                  <font>
-                                    <Font name="Aptos" size="14.0" />
+                                    <Font name="Aptos" size="16.0" />
                                  </font></Label>
                               <ComboBox fx:id="cbCompany" prefHeight="40.0" prefWidth="230.0" promptText="Ex: ABC Company" styleClass="primary-text" stylesheets="@css/adminStyle.css">
                                  <cursor>
@@ -52,7 +52,7 @@
                            <children>
                               <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Supplier">
                                  <font>
-                                    <Font name="Aptos" size="14.0" />
+                                    <Font name="Aptos" size="16.0" />
                                  </font></Label>
                               <ComboBox fx:id="cbSupplier" prefHeight="40.0" prefWidth="230.0" promptText="Ex: John Doe" styleClass="primary-text" stylesheets="@css/adminStyle.css">
                                  <cursor>
@@ -69,7 +69,7 @@
                            <children>
                               <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="GRN ID">
                                  <font>
-                                    <Font name="Aptos" size="14.0" />
+                                    <Font name="Aptos" size="16.0" />
                                  </font></Label>
                               <TextField fx:id="tfGRNID" prefHeight="40.0" prefWidth="200.0" promptText="Ex: 12457823" styleClass="primary-text" stylesheets="@css/adminStyle.css">
                                  <VBox.margin>
@@ -106,7 +106,7 @@
                                  <children>
                                     <Label minWidth="-Infinity" styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="ID">
                                        <font>
-                                          <Font name="Aptos" size="14.0" />
+                                          <Font name="Aptos" size="16.0" />
                                        </font>
                                     </Label>
                                     <TextField fx:id="tfProductID" onKeyPressed="#handlePopUpProductView" prefHeight="40.0" prefWidth="100.0" styleClass="primary-text" stylesheets="@css/adminStyle.css" VBox.vgrow="ALWAYS">
@@ -123,7 +123,7 @@
                                  <children>
                                     <Label minWidth="-Infinity" styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Product Name">
                                        <font>
-                                          <Font name="Aptos" size="14.0" />
+                                          <Font name="Aptos" size="16.0" />
                                        </font>
                                     </Label>
                                     <TextField fx:id="tfProductName" editable="false" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="200.0" styleClass="primary-text" stylesheets="@css/adminStyle.css">
@@ -140,7 +140,7 @@
                                  <children>
                                     <Label minWidth="-Infinity" styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Generic Name">
                                        <font>
-                                          <Font name="Aptos" size="14.0" />
+                                          <Font name="Aptos" size="16.0" />
                                        </font>
                                     </Label>
                                     <TextField fx:id="tfGenericName" editable="false" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="200.0" styleClass="primary-text" stylesheets="@css/adminStyle.css">
@@ -157,7 +157,7 @@
                                  <children>
                                     <Label minWidth="-Infinity" styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Cost Price">
                                        <font>
-                                          <Font name="Aptos" size="14.0" />
+                                          <Font name="Aptos" size="16.0" />
                                        </font>
                                     </Label>
                                     <TextField fx:id="tfCostPrice" disable="true" onKeyPressed="#costPriceListener" prefHeight="40.0" prefWidth="120.0" styleClass="primary-text" stylesheets="@css/adminStyle.css">
@@ -174,7 +174,7 @@
                                  <children>
                                     <Label minWidth="-Infinity" styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Qty">
                                        <font>
-                                          <Font name="Aptos" size="14.0" />
+                                          <Font name="Aptos" size="16.0" />
                                        </font>
                                     </Label>
                                     <TextField fx:id="tfQty" disable="true" onKeyPressed="#qtyListener" prefHeight="40.0" styleClass="primary-text" stylesheets="@css/adminStyle.css">
@@ -191,7 +191,7 @@
                                  <children>
                                     <Label minWidth="-Infinity" styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Amount">
                                        <font>
-                                          <Font name="Aptos" size="14.0" />
+                                          <Font name="Aptos" size="16.0" />
                                        </font>
                                     </Label>
                                     <TextField fx:id="tfAmount" editable="false" prefHeight="40.0" prefWidth="200.0" styleClass="primary-text" stylesheets="@css/adminStyle.css">
@@ -243,7 +243,7 @@
                            <children>
                               <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Discount">
                                  <font>
-                                    <Font name="Aptos" size="14.0" />
+                                    <Font name="Aptos" size="16.0" />
                                  </font>
                               </Label>
                               <TextField fx:id="tfDiscount" onKeyReleased="#handleDiscount" prefHeight="40.0" prefWidth="200.0" styleClass="primary-text" stylesheets="@css/adminStyle.css">
@@ -261,7 +261,7 @@
                            <children>
                               <Label styleClass="text-field-label" stylesheets="@css/adminStyle.css" text="Total">
                                  <font>
-                                    <Font name="Aptos" size="14.0" />
+                                    <Font name="Aptos" size="16.0" />
                                  </font>
                               </Label>
                               <TextField fx:id="tfTotal" editable="false" prefHeight="40.0" prefWidth="200.0" styleClass="primary-text" stylesheets="@css/adminStyle.css">
@@ -276,7 +276,7 @@
                         </VBox>
                         <Button fx:id="btnAction" alignment="CENTER" mnemonicParsing="false" onAction="#actionEvent" prefHeight="40.0" prefWidth="200.0" stylesheets="@css/adminStyle.css" text="Apply">
                            <font>
-                              <Font name="Aptos" size="14.0" />
+                              <Font name="Aptos" size="16.0" />
                            </font>
                            <styleClass>
                               <String fx:value="button-primary" />
@@ -308,7 +308,7 @@
                                        <center>
                                           <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="ID" BorderPane.alignment="CENTER">
                                              <font>
-                                                <Font name="Aptos" size="14.0" />
+                                                <Font name="Aptos" size="16.0" />
                                              </font>
                                           </Label>
                                        </center>
@@ -317,7 +317,7 @@
                                        <center>
                                           <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Product" BorderPane.alignment="CENTER">
                                              <font>
-                                                <Font name="Aptos" size="14.0" />
+                                                <Font name="Aptos" size="16.0" />
                                              </font>
                                           </Label>
                                        </center>
@@ -326,7 +326,7 @@
                                        <center>
                                           <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Cost Price" BorderPane.alignment="CENTER">
                                              <font>
-                                                <Font name="Aptos" size="14.0" />
+                                                <Font name="Aptos" size="16.0" />
                                              </font>
                                           </Label>
                                        </center>
@@ -335,7 +335,7 @@
                                        <center>
                                           <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Qty" BorderPane.alignment="CENTER">
                                              <font>
-                                                <Font name="Aptos" size="14.0" />
+                                                <Font name="Aptos" size="16.0" />
                                              </font>
                                           </Label>
                                        </center>
@@ -344,7 +344,7 @@
                                        <center>
                                           <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Amount" BorderPane.alignment="CENTER">
                                              <font>
-                                                <Font name="Aptos" size="14.0" />
+                                                <Font name="Aptos" size="16.0" />
                                              </font>
                                           </Label>
                                        </center>

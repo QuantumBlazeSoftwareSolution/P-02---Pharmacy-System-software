@@ -266,7 +266,7 @@ public class InvoicePaymentController implements Initializable {
         Vector<InvoiceItemBean> collection = getBeanCollection();
 
         try {
-              JasperReportsContext jasperReportsContext = DefaultJasperReportsContext.getInstance();
+            JasperReportsContext jasperReportsContext = DefaultJasperReportsContext.getInstance();
             JRPropertiesUtil.getInstance(jasperReportsContext).setProperty(
                     "net.sf.jasperreports.awt.ignore.missing.font", "true"
             );
@@ -327,7 +327,7 @@ public class InvoicePaymentController implements Initializable {
         params.put("ID", String.format("INV-%06d", id));
         params.put("ItemCount", String.valueOf(invoiceItemList.size()));
         params.put("CompanyName", CompanyInfo.companyName);
-        params.put("Cashier", ApplicationSession.getEmployee().getName());
+        params.put("Cashier", (ApplicationSession.getEmployee().getName()).split(" ")[0]);
         params.put("SubTotal", String.format("Rs. %, .2f", subTotal));
         params.put("Discount", String.format("Rs. %, .2f", discount));
         params.put("TotalAmount", String.format("Rs. %, .2f", total));
@@ -344,10 +344,10 @@ public class InvoicePaymentController implements Initializable {
         for (InvoiceItemController item : invoiceItemList) {
             InvoiceItemBean bean = new InvoiceItemBean(
                     item.getProduct().getProduct(),
-                    String.format("Rs. %,.2f", item.getProduct().getSalePrice() - item.getProduct().getDiscount()),
+                    String.format("%,.2f", item.getProduct().getSalePrice() - item.getProduct().getDiscount()),
                     String.valueOf(item.getProductQty()),
-                    String.format("Rs. %,.2f", (item.getProduct().getSalePrice() * item.getProductQty()) - (item.getProductQty() * item.getProduct().getDiscount())),
-                    String.format("Rs. %,.2f", item.getProductQty() * item.getProduct().getDiscount())
+                    String.format("%,.2f", (item.getProduct().getSalePrice() * item.getProductQty()) - (item.getProductQty() * item.getProduct().getDiscount())),
+                    String.format("%,.2f", item.getProductQty() * item.getProduct().getDiscount())
             );
             collection.add(bean);
         }

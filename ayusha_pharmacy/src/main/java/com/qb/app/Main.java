@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.qb.app;
 
 import com.qb.app.model.AppLogger;
@@ -9,14 +5,9 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Vihanga
- */
 public class Main extends Application {
 
     private static final Logger logger = AppLogger.getLogger();

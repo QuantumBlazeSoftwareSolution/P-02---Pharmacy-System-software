@@ -305,8 +305,8 @@ public class CashierCloseSaleController implements Initializable, ControllerClos
             JREmptyDataSource dataSource = new JREmptyDataSource();
 
             JasperPrint report = JasperFillManager.fillReport(jasperReport, params, dataSource);
-//            JasperPrintManager.printReport(report, false);
-            JasperViewer.viewReport(report, false);
+            JasperPrintManager.printReport(report, false);
+//            JasperViewer.viewReport(report, false);
         } catch (JRException e) {
             e.printStackTrace();
             getLogger.logger().warning(e.toString());

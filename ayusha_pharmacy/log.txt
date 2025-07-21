@@ -1,0 +1,28 @@
+Jul 21, 2025 12:05:20 PM com.qb.app.controllers.Product_managementController lambda$setComboBoxData$13
+WARNING: jakarta.persistence.NoResultException: No result found for query [<criteria>]
+Jul 21, 2025 12:06:37 PM com.qb.app.controllers.Product_managementController lambda$setComboBoxData$13
+WARNING: jakarta.persistence.NoResultException: No result found for query [<criteria>]
+Jul 21, 2025 12:29:19 PM com.qb.app.controllers.Product_managementController lambda$setComboBoxData$13
+WARNING: jakarta.persistence.NoResultException: No result found for query [<criteria>]
+Jul 21, 2025 12:29:24 PM com.qb.app.controllers.Product_managementController lambda$setComboBoxData$13
+WARNING: jakarta.persistence.NoResultException: No result found for query [<criteria>]
+Jul 21, 2025 12:32:48 PM com.qb.app.controllers.Inventory_grnController lambda$loadProductDetails$4
+WARNING: java.lang.RuntimeException: Transaction error
+Jul 21, 2025 12:33:03 PM com.qb.app.controllers.Inventory_grnController lambda$loadProductDetails$4
+WARNING: java.lang.RuntimeException: Transaction error
+Jul 21, 2025 12:33:06 PM com.qb.app.controllers.Inventory_grnController lambda$loadProductDetails$4
+WARNING: java.lang.RuntimeException: Transaction error
+Jul 21, 2025 12:33:11 PM com.qb.app.controllers.Inventory_grnController lambda$loadProductDetails$4
+WARNING: java.lang.RuntimeException: Transaction error
+Jul 21, 2025 12:33:16 PM com.qb.app.controllers.Inventory_grnController lambda$loadProductDetails$4
+WARNING: java.lang.RuntimeException: Transaction error
+Jul 21, 2025 12:33:19 PM com.qb.app.controllers.Inventory_grnController lambda$loadProductDetails$4
+WARNING: java.lang.RuntimeException: Transaction error
+Jul 21, 2025 12:33:22 PM com.qb.app.controllers.Inventory_grnController lambda$loadProductDetails$4
+WARNING: java.lang.RuntimeException: Transaction error
+Jul 21, 2025 12:33:34 PM com.qb.app.controllers.Inventory_grnController lambda$loadProductDetails$4
+WARNING: java.lang.RuntimeException: Transaction error
+Jul 21, 2025 1:17:28 PM com.qb.app.controllers.Inventory_grnController handlePopUpProductView
+WARNING: javafx.fxml.LoadException: 
+/E:/Quantum%20Blaze/Projects/Client%20Project/P%2302%20-%20Pharmacy%20System%20software/ayusha_pharmacy/target/classes/com/qb/app/popUpProductList.fxml
+

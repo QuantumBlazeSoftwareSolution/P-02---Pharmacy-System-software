@@ -1,11 +1,13 @@
 package com.qb.app.model;
 
 import com.qb.app.App;
+import com.qb.app.model.entity.Product;
 import java.io.IOException;
 import java.util.function.Consumer;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextFormatter;
@@ -25,6 +27,21 @@ public class DefaultAPI {
     }
 
     public static void bindTableScroll(ScrollBar scrollBar, ScrollPane scrollPane, VBox vBox) {
+        scrollBar.valueProperty().bindBidirectional(scrollPane.vvalueProperty());
+
+        // Configure the ScrollBar range to match the ScrollPane
+        scrollBar.setMin(0);
+        scrollBar.setMax(1);
+        scrollBar.setVisibleAmount(0.1); // Adjust as needed
+
+        // If you want the ScrollBar to control the viewport size
+        scrollBar.visibleAmountProperty().bind(
+                scrollPane.viewportBoundsProperty()
+                        .map(bounds -> bounds.getHeight() / vBox.getHeight())
+        );
+    }
+    
+    public static void bindTableScroll(ScrollBar scrollBar, ScrollPane scrollPane, ListView<Product> vBox) {
         scrollBar.valueProperty().bindBidirectional(scrollPane.vvalueProperty());
 
         // Configure the ScrollBar range to match the ScrollPane

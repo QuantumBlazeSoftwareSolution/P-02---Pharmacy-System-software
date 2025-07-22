@@ -51,8 +51,7 @@ public class UnitTestingVihanga {
 //        testStockBalanceReport();
 //        printCloseSale();
 //        testRoundUp();
-//        System.out.println(String.format("Rs. %,.2f", 15000.45));
-        printProduct();
+        System.out.println(String.format("Rs. %,.2f", 15000.45));
     }
 
     private static void testJPA() {
@@ -452,21 +451,5 @@ public class UnitTestingVihanga {
 
         double result = whole + (remainder / 100.0);
         return result;
-    }
-
-    private static void printProduct() {
-        runInTransaction((em) -> {
-//            CriteriaBuilder cb = em.getCriteriaBuilder();
-//            CriteriaQuery<Product> cq = cb.createQuery(Product.class);
-//            Root<Product> root = cq.from(Product.class);
-//            
-//            cb.equa
-            Product product = em.find(Product.class, 999);
-            if(product!=null){
-                System.out.println("THE PRODUCT: "+ product.getProduct());
-            }else{
-                System.out.println("CANNOT FIND THE PRODUCT");
-            }
-        });
     }
 }

@@ -277,29 +277,3 @@
     -fx-text-fill: #f1f1f1; /* White text for selected today */
 }
 
-/* Remove all scrollbars from the header ListView */
-#tableHeaderContainer .scroll-bar:vertical,
-#tableHeaderContainer .scroll-bar:horizontal,
-#tableHeaderContainer .scroll-bar .track,
-#tableHeaderContainer .scroll-bar .thumb {
-    -fx-pref-width: 0;
-    -fx-pref-height: 0;
-    -fx-opacity: 0;
-    -fx-padding: 0;
-}
-
-/* Match ListView height to HBox */
-#tableHeaderContainer {
-    -fx-fixed-cell-size: 50px; /* Match your HBox height */
-    -fx-pref-height: 50px;
-    -fx-max-height: 50px;
-    -fx-min-height: 50px;
-    -fx-background-color: transparent;
-    -fx-border-width: 0;
-}
-
-/* Ensure the HBox takes full width */
-#tableHeader {
-    -fx-pref-width: 100%;
-    -fx-max-width: 100%;
-}

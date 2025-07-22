@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -37,7 +36,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 
 public class PopUpProductListController implements Initializable {
 
@@ -49,7 +47,8 @@ public class PopUpProductListController implements Initializable {
     private ScrollPane TableScrollContainer;
     @FXML
     private ListView<Product> TableBody;
-//    private ScrollBar TableScroller;
+    @FXML
+    private ScrollBar TableScroller;
     @FXML
     private AnchorPane root;
 
@@ -63,18 +62,18 @@ public class PopUpProductListController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        TableBody.setCellFactory(lv -> new ProductListCell());
 //        DefaultAPI.bindTableScroll(TableScroller, TableScrollContainer, TableBody);
         pageIcon.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/page-icon.svg"));
         closeIcon.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/close-icon.svg"));
-
+        
+        TableBody.setCellFactory(lv -> new ProductListCell());
+        
         loadProducts(null, false);
         LoadComboBox();
+
     }
 
     private class ProductListCell extends ListCell<Product> {
-
-        private final Map<Integer, Node> rowCache = new HashMap<>();
 
         @Override
         protected void updateItem(Product item, boolean empty) {
@@ -82,31 +81,29 @@ public class PopUpProductListController implements Initializable {
             if (empty || item == null) {
                 setGraphic(null);
             } else {
-                Node tableRow = rowCache.computeIfAbsent(item.getId(), k -> {
-                    try {
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource(
-                                "/com/qb/app/fxmlComponent/popUp_ProductList_TableRow.fxml"));
-                        Node row = loader.load();
-                        PopUp_ProductList_TableRowController controller = loader.getController();
-                        controller.setPopUpController(PopUpProductListController.this);
-                        controller.setItems(
-                                item.getId().toString(),
-                                item.getProduct(),
-                                item.getBrandId().getBrand(),
-                                item.getSalePrice(),
-                                item.getCostPrice(),
-                                item.getProductUnitId().getUnit(),
-                                String.valueOf(item.getMeasure()),
-                                item.getDiscount(),
-                                item.getProductStatusId().getStatus()
-                        );
-                        return row;
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        return null;
-                    }
-                });
-                setGraphic(tableRow);
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                            "/com/qb/app/fxmlComponent/popUp_ProductList_TableRow.fxml"));
+                    Node tableRow = loader.load();
+                    PopUp_ProductList_TableRowController controller = loader.getController();
+
+                    controller.setPopUpController(PopUpProductListController.this);
+                    controller.setItems(
+                            item.getId().toString(),
+                            item.getProduct(),
+                            item.getBrandId().getBrand(),
+                            item.getSalePrice(),
+                            item.getCostPrice(),
+                            item.getProductUnitId().getUnit(),
+                            String.valueOf(item.getMeasure()),
+                            item.getDiscount(),
+                            item.getProductStatusId().getStatus()
+                    );
+
+                    setGraphic(tableRow);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -114,6 +111,7 @@ public class PopUpProductListController implements Initializable {
     private void LoadComboBox() {
         FilterBy.getItems().addAll("ID", "Brand Name", "Product Name");
         FilterBy.setValue("Select Filter");
+
     }
 
     public void saveProductRegistrationController(Object controller) {
@@ -123,7 +121,6 @@ public class PopUpProductListController implements Initializable {
     private void loadProducts(String searchTerm, boolean isParent) {
         ProgressIndicator progress = new ProgressIndicator();
         progress.setMaxSize(50, 50);
-
         TableBody.setPlaceholder(progress);
 
         // Create a task for background processing
@@ -163,15 +160,13 @@ public class PopUpProductListController implements Initializable {
                         cQuery.where(finalPredicate);
                     }
 
+                    // Sorting
                     String selectedSort = FilterBy.getValue();
-                    if (selectedSort != null) {
-                        switch (selectedSort) {
-                            case "Product Name" -> cQuery.orderBy(cBuilder.asc(product.get("product")));
-                            case "Brand Name" -> cQuery.orderBy(cBuilder.asc(product.get("brandId").get("brand")));
-                            case "ID" -> cQuery.orderBy(cBuilder.asc(product.get("id")));
-                            default -> cQuery.orderBy(cBuilder.asc(product.get("id")));
-                        }
-                    } else {
+                    if ("Product Name".equals(selectedSort)) {
+                        cQuery.orderBy(cBuilder.asc(product.get("product")));
+                    } else if ("Brand Name".equals(selectedSort)) {
+                        cQuery.orderBy(cBuilder.asc(product.get("brandId").get("brand")));
+                    } else if ("ID".equals(selectedSort)) {
                         cQuery.orderBy(cBuilder.asc(product.get("id")));
                     }
 
@@ -180,10 +175,10 @@ public class PopUpProductListController implements Initializable {
             }
         };
 
-        // Update UI when task succeeds
         loadTask.setOnSucceeded(e -> {
+            List<Product> products = loadTask.getValue();
             Platform.runLater(() -> {
-                TableBody.getItems().setAll(loadTask.getValue());
+                TableBody.getItems().setAll(products); // Set all items at once
             });
         });
 
@@ -195,6 +190,10 @@ public class PopUpProductListController implements Initializable {
         // Start the task in a new thread
         new Thread(loadTask).start();
     }
+
+    private final Map<Integer, Node> rowCache = new HashMap<>();
+
+
 
     @FXML
     private void closePopUp(MouseEvent event) {

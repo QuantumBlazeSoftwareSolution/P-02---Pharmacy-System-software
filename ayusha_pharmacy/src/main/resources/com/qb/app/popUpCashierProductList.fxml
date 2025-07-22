@@ -6,7 +6,7 @@
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -207,19 +207,22 @@
                                        </styleClass>
                                     </HBox>
                                  </content>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
                               </ScrollPane>
                               <ScrollPane fx:id="TableScrollContainer" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="transparent-scroll-pane" stylesheets="@css/style.css" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
                                  <content>
-                                    <VBox fx:id="tableBody" style="-fx-border-radius: 0 0 4 4;" styleClass="primary-border" stylesheets="@css/style.css" />
+                                    <ListView fx:id="tableBody" prefHeight="200.0" prefWidth="200.0" style="-fx-border-radius: 0 0 4 4;">
+                                       <styleClass>
+                                          <String fx:value="primary-border" />
+                                          <String fx:value="transparent-pane" />
+                                       </styleClass>
+                                    </ListView>
                                  </content>
                               </ScrollPane>
                            </children>
                         </VBox>
-                        <ScrollBar fx:id="TableScroller" orientation="VERTICAL" styleClass="transparent-scroll-pane" stylesheets="@css/style.css" visibleAmount="20.0">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </ScrollBar>
                      </children>
                   </HBox>
                </children>

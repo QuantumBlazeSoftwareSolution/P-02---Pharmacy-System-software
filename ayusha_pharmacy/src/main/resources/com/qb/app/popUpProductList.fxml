@@ -18,79 +18,72 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" fx:id="root" prefHeight="600.0" prefWidth="1000.0" styleClass="primary-10" stylesheets="@css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.PopUpProductListController">
-    <padding>
-        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-    </padding>
-    <children>
-        <BorderPane layoutX="200.0" layoutY="233.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <top>
-                <HBox prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
-                    <children>
-                        <Group fx:id="pageIcon" />
-                        <Label styleClass="primary-text" text="Product List">
-                            <font>
-                                <Font name="Aptos" size="16.0" />
-                            </font>
-                        </Label>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+   <children>
+      <BorderPane layoutX="200.0" layoutY="233.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <HBox prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Group fx:id="pageIcon" />
+                  <Label styleClass="primary-text" text="Product List">
+                     <font>
+                        <Font name="Aptos" size="16.0" />
+                     </font>
+                  </Label>
+                  <Pane HBox.hgrow="ALWAYS" />
+                  <BorderPane onMouseClicked="#closePopUp" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 5px;" styleClass="close" stylesheets="@css/r.css">
+                     <center>
+                        <Group fx:id="closeIcon" BorderPane.alignment="CENTER" />
+                     </center>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </BorderPane>
+               </children>
+            </HBox>
+         </top>
+         <center>
+            <VBox prefHeight="200.0" prefWidth="100.0" styleClass="bg-transparent" stylesheets="@css/adminStyle.css" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="BOTTOM_LEFT" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <VBox>
+                           <children>
+                              <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Search">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font></Label>
+                              <TextField fx:id="tfSearch" maxWidth="1.7976931348623157E308" onKeyReleased="#handleSearchKeyPressed" prefHeight="40.0" prefWidth="300.0">
+                                 <font>
+                                    <Font name="Aptos" size="12.0" />
+                                 </font></TextField>
+                           </children>
+                        </VBox>
+                        <JFXToggleButton fx:id="toggleParent" onAction="#handleProductTypeToggle" styleClass="primary-text" text="View Parents" />
                         <Pane HBox.hgrow="ALWAYS" />
-                        <BorderPane onMouseClicked="#closePopUp" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 5px;" styleClass="close" stylesheets="@css/r.css">
-                            <center>
-                                <Group fx:id="closeIcon" BorderPane.alignment="CENTER" />
-                            </center>
-                            <cursor>
-                                <Cursor fx:constant="HAND" />
-                            </cursor>
-                        </BorderPane>
-                    </children>
-                </HBox>
-            </top>
-            <center>
-                <VBox prefHeight="200.0" prefWidth="100.0" styleClass="bg-transparent" stylesheets="@css/adminStyle.css" BorderPane.alignment="CENTER">
-                    <children>
-                        <HBox alignment="BOTTOM_LEFT" prefWidth="200.0" spacing="10.0">
-                            <children>
-                                <VBox>
-                                    <children>
-                                        <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Search">
-                                            <font>
-                                                <Font name="Aptos" size="14.0" />
-                                            </font>
-                                        </Label>
-                                        <TextField fx:id="tfSearch" maxWidth="1.7976931348623157E308" onKeyReleased="#handleSearchKeyPressed" prefHeight="40.0" prefWidth="300.0">
-                                            <font>
-                                                <Font name="Aptos" size="12.0" />
-                                            </font>
-                                        </TextField>
-                                    </children>
-                                </VBox>
-                                <JFXToggleButton fx:id="toggleParent" onAction="#handleProductTypeToggle" styleClass="primary-text" text="View Parents" />
-                                <Pane HBox.hgrow="ALWAYS" />
-                                <VBox>
-                                    <children>
-                                        <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Filter By">
-                                            <font>
-                                                <Font name="Aptos" size="14.0" />
-                                            </font>
-                                        </Label>
-                                        <ComboBox fx:id="FilterBy" maxWidth="1.7976931348623157E308" onAction="#FilterChange" prefHeight="40.0" prefWidth="300.0" />
-                                    </children>
-                                </VBox>
-                            </children>
-                            <VBox.margin>
-                                <Insets bottom="10.0" right="20.0" />
-                            </VBox.margin>
-                        </HBox>
-                        <HBox VBox.vgrow="ALWAYS">
-                            <children>
-                                <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
-                                    <children>
-                                        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="50.0" prefHeight="50.0" vbarPolicy="NEVER">
+                        <VBox>
+                           <children>
+                              <Label styleClass="primary-text" stylesheets="@css/adminStyle.css" text="Filter By">
+                                 <font>
+                                    <Font name="Aptos" size="14.0" />
+                                 </font></Label>
+                              <ComboBox fx:id="FilterBy" maxWidth="1.7976931348623157E308" onAction="#FilterChange" prefHeight="40.0" prefWidth="300.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" right="20.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" minHeight="-Infinity" vbarPolicy="NEVER">
                                  <content>
-                                    <HBox prefHeight="100.0" prefWidth="200.0">
-                                       <styleClass>
-                                          <String fx:value="primary-border" />
-                                          <String fx:value="table-header" />
-                                       </styleClass>
+                                    <HBox maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="200.0" style="-fx-border-radius: 6px; -fx-border-width: 0 0.5 0 0.5;" stylesheets="@css/adminStyle.css">
                                        <children>
                                           <BorderPane minWidth="-Infinity" prefWidth="60.0" style="-fx-border-radius: 6px 0 0 6;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
                                              <left>
@@ -128,7 +121,7 @@
                                                 <Insets left="10.0" />
                                              </padding>
                                           </BorderPane>
-                                          <BorderPane minWidth="-Infinity" prefWidth="100.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                          <BorderPane layoutX="310.0" layoutY="10.0" minWidth="-Infinity" prefWidth="100.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
                                              <left>
                                                 <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Sale Price" BorderPane.alignment="CENTER">
                                                    <font>
@@ -140,7 +133,7 @@
                                                 <Insets left="10.0" />
                                              </padding>
                                           </BorderPane>
-                                          <BorderPane minWidth="-Infinity" prefWidth="100.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                          <BorderPane layoutX="430.0" layoutY="10.0" minWidth="-Infinity" prefWidth="100.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
                                              <left>
                                                 <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Cost Price" BorderPane.alignment="CENTER">
                                                    <font>
@@ -164,7 +157,7 @@
                                                 <Insets left="10.0" />
                                              </padding>
                                           </BorderPane>
-                                          <BorderPane minWidth="-Infinity" prefWidth="100.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                          <BorderPane layoutX="550.0" layoutY="10.0" minWidth="-Infinity" prefWidth="100.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
                                              <left>
                                                 <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Measure" BorderPane.alignment="CENTER">
                                                    <font>
@@ -176,7 +169,7 @@
                                                 <Insets left="10.0" />
                                              </padding>
                                           </BorderPane>
-                                          <BorderPane minWidth="-Infinity" prefWidth="60.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
+                                          <BorderPane layoutX="430.0" layoutY="10.0" minWidth="-Infinity" prefWidth="60.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
                                              <left>
                                                 <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Discount" wrapText="true" BorderPane.alignment="CENTER">
                                                    <font>
@@ -201,35 +194,39 @@
                                              </padding>
                                           </BorderPane>
                                        </children>
+                                       <styleClass>
+                                          <String fx:value="primary-border" />
+                                          <String fx:value="table-header" />
+                                       </styleClass>
                                        <padding>
                                           <Insets left="8.5" right="28.5" />
                                        </padding>
                                     </HBox>
                                  </content>
-                                        </ScrollPane>
-                                        <ScrollPane fx:id="TableScrollContainer" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" stylesheets="@css/adminStyle.css" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
-                                            <content>
-                                                <ListView fx:id="TableBody" prefHeight="200.0" prefWidth="200.0" style="-fx-border-radius: 0 0 4 4;" stylesheets="@css/adminStyle.css">
-                                                    <styleClass>
-                                                        <String fx:value="primary-border" />
-                                                        <String fx:value="transparent-pane" />
-                                                    </styleClass>
-                                                </ListView>
-                                            </content>
-                                        </ScrollPane>
-                                    </children>
-                                </VBox>
-                            </children>
-                        </HBox>
-                    </children>
-                    <BorderPane.margin>
-                        <Insets />
-                    </BorderPane.margin>
-                    <padding>
-                        <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
-                    </padding>
-                </VBox>
-            </center>
-        </BorderPane>
-    </children>
+                              </ScrollPane>
+                              <ScrollPane fx:id="TableScrollContainer" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" stylesheets="@css/adminStyle.css" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+                                 <content>
+                                    <ListView fx:id="TableBody" prefHeight="200.0" prefWidth="200.0">
+                                       <styleClass>
+                                          <String fx:value="primary-border" />
+                                          <String fx:value="transparent-pane" />
+                                       </styleClass>
+                                    </ListView>
+                                 </content>
+                              </ScrollPane>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+               <padding>
+                  <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
+               </padding>
+            </VBox>
+         </center>
+      </BorderPane>
+   </children>
 </AnchorPane>

@@ -1,5 +1,6 @@
 package com.qb.app.controllers;
 
+import com.qb.app.App;
 import com.qb.app.controllers.report.beans.GrnItemBean;
 import com.qb.app.model.ComboBoxUtils;
 import com.qb.app.model.CustomAlert;
@@ -12,12 +13,12 @@ import com.qb.app.model.entity.Grn;
 import com.qb.app.model.entity.GrnItem;
 import com.qb.app.model.entity.Product;
 import com.qb.app.model.entity.ProductHasProductType;
+import com.qb.app.model.entity.ProductStatus;
 import com.qb.app.model.entity.Stock;
 import com.qb.app.model.entity.Supplier;
 import com.qb.app.model.getLogger;
 import com.qb.app.session.ApplicationSession;
 import com.qb.app.session.CompanyInfo;
-import jakarta.persistence.NoResultException;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
@@ -38,8 +39,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -47,10 +51,15 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -152,7 +161,7 @@ public class Inventory_grnController implements Initializable {
             }
         }
     }
-
+    
     public void removeInvoiceItem(InventoryGRN_TableRowController itemToRemove) {
         Node nodeToRemove = itemToRemove.getRootNode();
 
@@ -161,7 +170,7 @@ public class Inventory_grnController implements Initializable {
 
         calculateTotal();
     }
-
+    
     private boolean isEntriesValid() {
         if (cbCompany.getValue() == null) {
             displayWarningMessage("Please select the supply company", false);
@@ -344,16 +353,14 @@ public class Inventory_grnController implements Initializable {
                         tfQty.setDisable(false);
                         tfCostPrice.requestFocus();
                     } else {
-                        displayWarningMessage("This product is not a parent product or has no type assigned.", false);
+                        displayWarningMessage("Cannot proceed with child product.", false);
                         clearLoadedTextFields();
                     }
                 } else {
                     displayWarningMessage("Product not found.", false);
                 }
             } catch (Exception e) {
-                getLogger.logger().warning(e.toString());
                 displayWarningMessage("Invalid Product ID.", false);
-                e.printStackTrace();
             }
         });
     }
@@ -415,9 +422,9 @@ public class Inventory_grnController implements Initializable {
                     Node grnItem = loader.load();
                     InventoryGRN_TableRowController controller = loader.getController();
                     controller.setData(
-                            loadedProduct,
-                            loadedProduct.getId(),
-                            loadedProduct.getProduct(),
+                            loadedProduct, 
+                            loadedProduct.getId(), 
+                            loadedProduct.getProduct(), 
                             Double.parseDouble(tfCostPrice.getText()), itemQty,
                             grnItem,
                             this
@@ -565,19 +572,16 @@ public class Inventory_grnController implements Initializable {
 
     private boolean isParentProduct(Product product) {
         return JPATransaction.runInTransaction((em) -> {
-            try {
-                CriteriaBuilder cb = em.getCriteriaBuilder();
-                CriteriaQuery<ProductHasProductType> cq = cb.createQuery(ProductHasProductType.class);
-                Root<ProductHasProductType> typeTable = cq.from(ProductHasProductType.class);
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<ProductHasProductType> cq = cb.createQuery(ProductHasProductType.class);
+            Root<ProductHasProductType> typeTable = cq.from(ProductHasProductType.class);
 
-                Predicate prdcts = cb.equal(typeTable.get("productId"), product);
-                cq.where(prdcts);
+            Predicate prdcts = cb.equal(typeTable.get("productId"), product);
+            cq.where(prdcts);
 
-                ProductHasProductType productType = em.createQuery(cq).getSingleResult();
-                return productType != null && "Parent".equals(productType.getProductTypeId().getType());
-            } catch (NoResultException e) {
-                return false; // If no product type is found, it's not a parent product
-            }
+            ProductHasProductType productType = em.createQuery(cq).getSingleResult();
+
+            return productType.getProductTypeId().getType().equals("Parent");
         });
     }
 

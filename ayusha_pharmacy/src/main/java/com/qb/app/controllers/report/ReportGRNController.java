@@ -1,17 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package com.qb.app.controllers.report;
 
-import com.qb.app.controllers.InventoryGRN_TableRowController;
 import com.qb.app.controllers.report.beans.GrnItemBean;
 import com.qb.app.model.ComboBoxUtils;
 import com.qb.app.model.CustomAlert;
-import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.JPATransaction;
 import com.qb.app.model.SVGIconGroup;
-import com.qb.app.model.entity.Employee;
+import static com.qb.app.model.TableConfig.formatDecimalColumn;
+import com.qb.app.model.TableModels.ReportGRNDetailModel;
 import com.qb.app.model.entity.Grn;
 import com.qb.app.model.entity.GrnItem;
 import com.qb.app.model.entity.Product;
@@ -24,9 +19,7 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
-import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -35,27 +28,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Vector;
-import javafx.animation.PauseTransition;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ScrollBar;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.util.Duration;
 import net.sf.jasperreports.engine.DefaultJasperReportsContext;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRPropertiesUtil;
@@ -67,22 +55,10 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
-/**
- * FXML Controller class
- *
- * @author Vihanga
- */
 public class ReportGRNController implements Initializable {
 
     @FXML
     private Group iconPage;
-    @FXML
-    private ScrollPane tableScrollContainer;
-    @FXML
-    private VBox tableBody;
-    @FXML
-    private ScrollBar tableScroller;
-  
     @FXML
     private ComboBox<Supplier> cbSupplier;
     @FXML
@@ -97,33 +73,53 @@ public class ReportGRNController implements Initializable {
     private Button btnVieweReport;
     @FXML
     private AnchorPane root;
-  
+
     @FXML
     private TextField tfTotalAmount;
     @FXML
     private TextField tfDiscount;
 
-
-    /**
-     * Initializes the controller class.
-     */
-    
     private Grn savedGrn;
     List<ReportGrn_TableRowController> grnItemList = new ArrayList<>();
     String grnDateTimeString;
     double discount;
+    @FXML
+    private TableView<ReportGRNDetailModel> table;
+    @FXML
+    private TableColumn<ReportGRNDetailModel, Integer> olId;
+    @FXML
+    private TableColumn<ReportGRNDetailModel, String> colItemName;
+    @FXML
+    private TableColumn<ReportGRNDetailModel, Double> colCostPrice;
+    @FXML
+    private TableColumn<ReportGRNDetailModel, Double> colQty;
+    @FXML
+    private TableColumn<ReportGRNDetailModel, Double> colAmount;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        DefaultAPI.bindTableScroll(tableScroller, tableScrollContainer, tableBody);
+        configureTableColumns();
+//        DefaultAPI.bindTableScroll(tableScroller, tableScrollContainer, tableBody);
         iconPage.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/page-icon.svg"));
         LoadComboBox();
         LoadFilterComboBox();
-        setEventListner();
         loadTextField();
-
+        setEventListner();
     }
-    
+
+    private void configureTableColumns() {
+        olId.setCellValueFactory(cell -> new javafx.beans.property.SimpleIntegerProperty(cell.getValue().getId()).asObject());
+        colItemName.setCellValueFactory(cell -> new javafx.beans.property.SimpleStringProperty(cell.getValue().getProduct()));
+        colCostPrice.setCellValueFactory(cell -> new javafx.beans.property.SimpleDoubleProperty(cell.getValue().getCostPrice()).asObject());
+        colQty.setCellValueFactory(cell -> new javafx.beans.property.SimpleDoubleProperty(cell.getValue().getQty()).asObject());
+        colAmount.setCellValueFactory(cell -> new javafx.beans.property.SimpleDoubleProperty(cell.getValue().getAmount()).asObject());
+
+        // Optional: Format double columns to 2 decimal places
+        formatDecimalColumn(colCostPrice);
+        formatDecimalColumn(colQty);
+        formatDecimalColumn(colAmount);
+    }
+
     private void loadTextField() {
         tfTotalAmount.setText(String.format("Rs. %,.2f", 0.00));
         tfDiscount.setText(String.format("Rs. %,.2f", 0.00));
@@ -158,70 +154,113 @@ public class ReportGRNController implements Initializable {
 
     private void loadDataToTable() {
         grnItemList.clear();
+        table.getItems().clear();
+        tfTotalAmount.setText("Loading...");
+        tfDiscount.setText("Loading...");
 
-        JPATransaction.runInTransaction((em) -> {
-            CriteriaBuilder cb = em.getCriteriaBuilder();
-            CriteriaQuery<GrnItem> cq = cb.createQuery(GrnItem.class);
-            Root<GrnItem> grnItemRoot = cq.from(GrnItem.class);
+        ProgressIndicator progress = new ProgressIndicator();
+        progress.setMaxSize(50, 50);
+        table.setPlaceholder(progress);
 
-            Join<GrnItem, Grn> grnJoin = grnItemRoot.join("grnId");
-            Join<GrnItem, Product> productJoin = grnItemRoot.join("productId"); // same here
+        Task<List<ReportGRNDetailModel>> task = new Task<>() {
+            @Override
+            protected List<ReportGRNDetailModel> call() {
+                return JPATransaction.runInTransaction(em -> {
+                    CriteriaBuilder cb = em.getCriteriaBuilder();
+                    CriteriaQuery<GrnItem> cq = cb.createQuery(GrnItem.class);
+                    Root<GrnItem> root = cq.from(GrnItem.class);
 
-            Predicate supplierCondition = cb.equal(grnJoin.get("supplierId"), cbSupplier.getValue());
-            Predicate grnIdCondition = cb.equal(grnJoin.get("grnCode"), TFGrnId.getText());
+                    Join<GrnItem, Grn> grnJoin = root.join("grnId");
+                    Join<GrnItem, Product> productJoin = root.join("productId");
 
-            cq.select(grnItemRoot).where(cb.and(supplierCondition, grnIdCondition));
+                    Predicate supplierCondition = cb.equal(grnJoin.get("supplierId"), cbSupplier.getValue());
+                    Predicate grnIdCondition = cb.equal(grnJoin.get("grnCode"), TFGrnId.getText());
+                    cq.select(root).where(cb.and(supplierCondition, grnIdCondition));
 
-            // 👉 Apply sorting based on ComboBox selection
-            String selectedSort = cbFilterBy.getValue();
-            if ("Product Name".equals(selectedSort)) {
-                cq.orderBy(cb.asc(productJoin.get("product"))); // assuming getProduct() is the name
-            } else if ("Quantity".equals(selectedSort)) {
-                cq.orderBy(cb.asc(grnItemRoot.get("qty")));
-            } else if ("Cost Price".equals(selectedSort)) {
-                cq.orderBy(cb.asc(grnItemRoot.get("costPrice")));
-            } else if ("ID".equals(selectedSort)) {
-                cq.orderBy(cb.desc(grnItemRoot.get("id"))); // sort by primary key (id)
+                    String selectedSort = cbFilterBy.getValue();
+                    if ("Product Name".equals(selectedSort)) {
+                        cq.orderBy(cb.asc(productJoin.get("product")));
+                    } else if ("Quantity".equals(selectedSort)) {
+                        cq.orderBy(cb.asc(root.get("qty")));
+                    } else if ("Cost Price".equals(selectedSort)) {
+                        cq.orderBy(cb.asc(root.get("costPrice")));
+                    } else {
+                        cq.orderBy(cb.desc(root.get("id")));
+                    }
+
+                    List<GrnItem> grnItems = em.createQuery(cq).getResultList();
+                    List<ReportGRNDetailModel> models = new ArrayList<>();
+                    int index = 1;
+                    for (GrnItem item : grnItems) {
+                        Product product = item.getProductId();
+                        if (product == null) {
+                            continue;
+                        }
+
+                        double amount = item.getQty() * item.getCostPrice();
+                        ReportGRNDetailModel model = new ReportGRNDetailModel(
+                                index++,
+                                product.getProduct(),
+                                item.getCostPrice(),
+                                item.getQty(),
+                                amount
+                        );
+                        models.add(model);
+                    }
+
+                    return models;
+                });
             }
+        };
 
-            List<GrnItem> resultList = em.createQuery(cq).getResultList();
-            tableBody.getChildren().clear(); // Clear previous data
-            double totalAmount = 0.0;
-            for (GrnItem item : resultList) {
-                Product product = item.getProductId(); // Correct field name is getProductId()
-                String productName = (product != null) ? product.getProduct() : "No Product"; // Correct getter: getProduct()
+        task.setOnSucceeded(e -> {
+            List<ReportGRNDetailModel> models = task.getValue();
+            table.getItems().addAll(models);
 
-           
-                Grn grn = item.getGrnId();
-                grnDateTimeString = "No Date";
-                if (grn != null && grn.getDateTime() != null) {
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy hh:mm a");
-                    grnDateTimeString = grn.getDateTime().toInstant()
-                            .atZone(ZoneId.systemDefault())
-                            .format(formatter);
+            double totalAmount = models.stream()
+                    .mapToDouble(ReportGRNDetailModel::getAmount)
+                    .sum();
+            tfTotalAmount.setText(String.format("Rs. %,.2f", totalAmount));
 
+            // Fetch discount and date from one of the items
+            if (!models.isEmpty()) {
+                Grn grn = JPATransaction.runInTransaction(em -> {
+                    CriteriaBuilder cb = em.getCriteriaBuilder();
+                    CriteriaQuery<Grn> cq = cb.createQuery(Grn.class);
+                    Root<Grn> root = cq.from(Grn.class);
+                    cq.select(root).where(
+                            cb.equal(root.get("grnCode"), TFGrnId.getText()),
+                            cb.equal(root.get("supplierId"), cbSupplier.getValue())
+                    );
+                    return em.createQuery(cq).getSingleResult();
+                });
+
+                if (grn != null) {
+                    if (grn.getDateTime() != null) {
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy hh:mm a");
+                        grnDateTimeString = grn.getDateTime().toInstant()
+                                .atZone(ZoneId.systemDefault())
+                                .format(formatter);
+                    }
                     discount = grn.getDiscount();
                     tfDiscount.setText(String.format("Rs. %,.2f", discount));
-                }                
-                double amountd = item.getQty() * item.getCostPrice();
-                totalAmount += amountd;
-
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/qb/app/fxmlComponent/reportGrn_TableRow.fxml"));
-                    Node grndata = loader.load();
-                    ReportGrn_TableRowController controller = loader.getController();
-                    controller.setData(product, product.getId(), productName, item.getCostPrice(), item.getQty());
-                    grnItemList.add(controller);
-                    tableBody.getChildren().add(grndata);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                  getLogger.logger().warning(e.toString());
                 }
+            } else {
+                tfTotalAmount.setText("No data found");
+                tfDiscount.setText("N/A");
+                table.setPlaceholder(new Label("No GRN records found."));
             }
-            tfTotalAmount.setText(String.format("Rs. %,.2f", totalAmount));
         });
 
+        task.setOnFailed(e -> {
+            tfTotalAmount.setText("Failed to load");
+            tfDiscount.setText("Failed to load");
+            Throwable ex = task.getException();
+            ex.printStackTrace();
+            getLogger.logger().warning("GRN Load Failed: " + ex);
+        });
+
+        new Thread(task).start();
     }
 
     private boolean isEntriesValid() {
@@ -274,42 +313,41 @@ public class ReportGRNController implements Initializable {
         cbFilterBy.setValue(null);
         cbFilterBy.setPromptText("Select Filter");
         TFGrnId.setText("");
-       loadTextField();
-        tableBody.getChildren().clear();
+        loadTextField();
+        table.getItems().clear();
 
     }
 
     private void printGrnReport() {
 
-        
-            if (!grnItemList.isEmpty()) {
-                Map<String, Object> params = getJRParams();
-                Vector<GrnItemBean> collection = getBeanCollection();
-                try {
-                      JasperReportsContext jasperReportsContext = DefaultJasperReportsContext.getInstance();
-            JRPropertiesUtil.getInstance(jasperReportsContext).setProperty(
-                    "net.sf.jasperreports.awt.ignore.missing.font", "true"
-            );
-                    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(
-                            getClass().getResourceAsStream("/com/qb/app/reports/PharmacyGRN.jasper"));
-                    JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(collection);
-                    JasperPrint report = JasperFillManager.fillReport(jasperReport, params, dataSource);
+        if (!grnItemList.isEmpty()) {
+            Map<String, Object> params = getJRParams();
+            Vector<GrnItemBean> collection = getBeanCollection();
+            try {
+                JasperReportsContext jasperReportsContext = DefaultJasperReportsContext.getInstance();
+                JRPropertiesUtil.getInstance(jasperReportsContext).setProperty(
+                        "net.sf.jasperreports.awt.ignore.missing.font", "true"
+                );
+                JasperReport jasperReport = (JasperReport) JRLoader.loadObject(
+                        getClass().getResourceAsStream("/com/qb/app/reports/PharmacyGRN.jasper"));
+                JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(collection);
+                JasperPrint report = JasperFillManager.fillReport(jasperReport, params, dataSource);
 //                    JasperViewer.viewReport(report, false);
-                    JasperViewer viewer = new JasperViewer(report, false);
-                    viewer.setAlwaysOnTop(true);
-            viewer.setVisible(true);
-                } catch (JRException e) {
-                    e.printStackTrace();
-                    getLogger.logger().warning(e.toString());
-                }
-            } else {
-                CustomAlert.showStyledAlert(root, "Report generation failed. Please Load Report First !", Alert.AlertType.WARNING);
+                JasperViewer viewer = new JasperViewer(report, false);
+                viewer.setAlwaysOnTop(true);
+                viewer.setVisible(true);
+            } catch (JRException e) {
+                e.printStackTrace();
+                getLogger.logger().warning(e.toString());
             }
-        
+        } else {
+            CustomAlert.showStyledAlert(root, "Report generation failed. Please Load Report First !", Alert.AlertType.WARNING);
+        }
+
     }
 
     private Map<String, Object> getJRParams() {
-      
+
         Map<String, Object> params = new HashMap<>();
         params.put("GrnTime", grnDateTimeString);
         params.put("GrnID", TFGrnId.getText());
@@ -325,7 +363,7 @@ public class ReportGRNController implements Initializable {
     }
 
     private Vector<GrnItemBean> getBeanCollection() {
-        
+
         Vector<GrnItemBean> collection = new Vector<>();
         for (ReportGrn_TableRowController item : grnItemList) {
             GrnItemBean bean = new GrnItemBean(
@@ -360,7 +398,7 @@ public class ReportGRNController implements Initializable {
             printGrnReport();
         }
     }
-    
+
     private void setEventListner() {
         root.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (null != event.getCode()) {
@@ -374,8 +412,8 @@ public class ReportGRNController implements Initializable {
 
     @FXML
     private void GRNIDTextChange(KeyEvent event) {
-          tableBody.getChildren().clear();
-            grnItemList.clear();
+        table.getItems().clear();
+        grnItemList.clear();
     }
 
 }

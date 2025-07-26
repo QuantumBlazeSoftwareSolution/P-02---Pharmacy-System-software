@@ -1,4 +1,3 @@
-
 package com.qb.app.controllers.report;
 
 import com.jfoenix.controls.JFXToggleButton;
@@ -9,9 +8,8 @@ import com.qb.app.model.CustomAlert;
 import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.JPATransaction;
 import com.qb.app.model.SVGIconGroup;
-import com.qb.app.model.TestBrand;
-import com.qb.app.model.TestProduct;
-import com.qb.app.model.UnitTestingVihanga;
+import com.qb.app.model.TableConfig;
+import com.qb.app.model.TableModels.ReportStockBalanceModel;
 import com.qb.app.model.entity.Brand;
 import com.qb.app.model.entity.Product;
 import com.qb.app.model.entity.ProductStatus;
@@ -38,16 +36,21 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
+import javafx.application.Platform;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.concurrent.Task;
 import javafx.scene.control.Alert;
-import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import net.sf.jasperreports.engine.DefaultJasperReportsContext;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRPropertiesUtil;
@@ -68,13 +71,6 @@ public class ReportStockBalanceController implements Initializable {
     @FXML
     private Button LoadReport;
     @FXML
-    private ScrollPane tableScrollContainer;
-    @FXML
-    private VBox tableBody;
-    @FXML
-    private ScrollBar tableScroller;
-    private TextField TFTotalValue;
-    @FXML
     private TextField TFTotalProfit;
     @FXML
     private Button btnRefresh;
@@ -86,17 +82,32 @@ public class ReportStockBalanceController implements Initializable {
     private TextField TFTotalStockValue;
     @FXML
     private TextField TFTotalSaleValue;
-     @FXML
+    @FXML
     private ComboBox<Brand> cbBrand;
     @FXML
     private JFXToggleButton CheckBox;
 
     List<ReportStockBalance_TableRowController> stockItemList = new ArrayList<>();
+    @FXML
+    private TableView<ReportStockBalanceModel> table;
+    @FXML
+    private TableColumn<ReportStockBalanceModel, Integer> colId;
+    @FXML
+    private TableColumn<ReportStockBalanceModel, String> colDepartment;
+    @FXML
+    private TableColumn<ReportStockBalanceModel, String> colItemName;
+    @FXML
+    private TableColumn<ReportStockBalanceModel, Double> colQty;
+    @FXML
+    private TableColumn<ReportStockBalanceModel, Double> colCostPrice;
+    @FXML
+    private TableColumn<ReportStockBalanceModel, Double> colSalePrice;
+    @FXML
+    private TableColumn<ReportStockBalanceModel, Double> colProfit;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         iconPage.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/page-icon.svg"));
-        DefaultAPI.bindTableScroll(tableScroller, tableScrollContainer, tableBody);
         CheckBox.selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
             cbBrand.setDisable(isNowSelected);
         });
@@ -104,6 +115,21 @@ public class ReportStockBalanceController implements Initializable {
         loadFilterCombo();
         loadBandCombo();
         loadTextField();
+        configTable();
+    }
+
+    private void configTable() {
+        colId.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().getId()).asObject());
+        colDepartment.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getBrand()));
+        colItemName.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getProduct()));
+        colQty.setCellValueFactory(data -> new SimpleDoubleProperty(data.getValue().getQty()).asObject());
+        colCostPrice.setCellValueFactory(data -> new SimpleDoubleProperty(data.getValue().getCostPrice()).asObject());
+        colSalePrice.setCellValueFactory(data -> new SimpleDoubleProperty(data.getValue().getSalePrice()).asObject());
+        colProfit.setCellValueFactory(data -> new SimpleDoubleProperty(data.getValue().getProfit()).asObject());
+        TableConfig.formatDecimalColumn(colQty);
+        TableConfig.formatDecimalColumn(colCostPrice);
+        TableConfig.formatDecimalColumn(colSalePrice);
+        TableConfig.formatDecimalColumn(colProfit);
     }
 
     private void loadTextField() {
@@ -117,78 +143,113 @@ public class ReportStockBalanceController implements Initializable {
     }
 
     private void loadData() {
-        stockItemList.clear();
-        JPATransaction.runInTransaction((em) -> {
-            CriteriaBuilder cb = em.getCriteriaBuilder();
-            CriteriaQuery<Stock> cq = cb.createQuery(Stock.class);
-            Root<Stock> stockRoot = cq.from(Stock.class);
+        ProgressIndicator progress = new ProgressIndicator();
+        progress.setMaxSize(50, 50);
+        table.setPlaceholder(progress);
 
-            Join<Stock, Product> productJoin = stockRoot.join("productId");
-            Join<Product, Brand> brandJoin = productJoin.join("brandId");
-            Join<Product, ProductStatus> PstatusJoin = productJoin.join("productStatusId");
+        Task<List<ReportStockBalanceModel>> loadTask = new Task<>() {
+            @Override
+            protected List<ReportStockBalanceModel> call() throws Exception {
+                return JPATransaction.runInTransaction(em -> {
+                    CriteriaBuilder cb = em.getCriteriaBuilder();
+                    CriteriaQuery<Stock> cq = cb.createQuery(Stock.class);
+                    Root<Stock> stockRoot = cq.from(Stock.class);
 
-            List<Predicate> predicates = new ArrayList<>();
+                    Join<Stock, Product> productJoin = stockRoot.join("productId");
+                    Join<Product, Brand> brandJoin = productJoin.join("brandId");
+                    Join<Product, ProductStatus> PstatusJoin = productJoin.join("productStatusId");
 
-            Predicate productStatusEnabled = cb.equal(PstatusJoin.get("status"), "Enable");
-            predicates.add(productStatusEnabled);
+                    List<Predicate> predicates = new ArrayList<>();
+                    predicates.add(cb.equal(PstatusJoin.get("status"), "Enable"));
 
-            if (!CheckBox.isSelected()) {
-                Brand selectedBrand = cbBrand.getSelectionModel().getSelectedItem();
-                if (selectedBrand != null) {
-                    predicates.add(cb.equal(brandJoin.get("id"), selectedBrand.getId()));
-                } else {
-                    CustomAlert.showStyledAlert(root, "Please select a brand.", Alert.AlertType.WARNING);
-                    return;
-                }
+                    if (!CheckBox.isSelected()) {
+                        Brand selectedBrand = cbBrand.getSelectionModel().getSelectedItem();
+                        if (selectedBrand != null) {
+                            predicates.add(cb.equal(brandJoin.get("id"), selectedBrand.getId()));
+                        } else {
+                            // Still return empty data so the task finishes safely
+                            return Collections.emptyList();
+                        }
+                    }
+
+                    cq.select(stockRoot).where(cb.and(predicates.toArray(new Predicate[0])));
+
+                    String selectedSort = cbFilter.getValue();
+                    if ("Product Name".equals(selectedSort)) {
+                        cq.orderBy(cb.asc(productJoin.get("product")));
+                    } else if ("Quantity".equals(selectedSort)) {
+                        cq.orderBy(cb.asc(stockRoot.get("qty")));
+                    } else if ("Department Name".equals(selectedSort)) {
+                        cq.orderBy(cb.asc(brandJoin.get("brand")));
+                    } else if ("ID".equals(selectedSort)) {
+                        cq.orderBy(cb.asc(stockRoot.get("id")));
+                    }
+
+                    List<Stock> stockList = em.createQuery(cq).getResultList();
+                    List<ReportStockBalanceModel> models = new ArrayList<>();
+
+                    double totalStockValue = 0;
+                    double totalSaleValue = 0;
+                    double totalProfit = 0;
+
+                    for (Stock stock : stockList) {
+                        Product product = stock.getProductId();
+                        Brand brand = product.getBrandId();
+
+                        double qty = divideWithPharmacyRounding(stock.getQty(), product.getMeasure());
+                        double costPrice = product.getCostPrice();
+                        double salePrice = product.getSalePrice();
+
+                        double rowCostPrice = qty * costPrice;
+                        double rowSalePrice = qty * salePrice;
+                        double rowProfit = rowSalePrice - rowCostPrice;
+
+                        totalStockValue += rowCostPrice;
+                        totalSaleValue += rowSalePrice;
+                        totalProfit += rowProfit;
+
+                        models.add(new ReportStockBalanceModel(
+                                product.getId(),
+                                brand.getBrand(),
+                                product.getProduct(),
+                                qty,
+                                costPrice,
+                                salePrice
+                        ));
+                    }
+
+                    // Use Platform.runLater() to update total labels
+                    final double finalStock = totalStockValue;
+                    final double finalSale = totalSaleValue;
+                    final double finalProfit = totalProfit;
+
+                    Platform.runLater(() -> {
+                        TFTotalProfit.setText(String.format("Rs. %,.2f", finalProfit));
+                        TFTotalSaleValue.setText(String.format("Rs. %,.2f", finalSale));
+                        TFTotalStockValue.setText(String.format("Rs. %,.2f", finalStock));
+                    });
+
+                    return models;
+                });
             }
+        };
 
-            cq.select(stockRoot).where(cb.and(predicates.toArray(new Predicate[0])));
+        loadTask.setOnSucceeded(e -> {
+            List<ReportStockBalanceModel> models = loadTask.getValue();
+            table.getItems().setAll(models);  // Refresh table
 
-            String selectedSort = cbFilter.getValue();
-            if ("Product Name".equals(selectedSort)) {
-                cq.orderBy(cb.asc(productJoin.get("product")));
-            } else if ("Quantity".equals(selectedSort)) {
-                cq.orderBy(cb.asc(stockRoot.get("qty")));
-            } else if ("Department Name".equals(selectedSort)) {
-                cq.orderBy(cb.asc(brandJoin.get("brand")));
-            } else if ("ID".equals(selectedSort)) {
-                cq.orderBy(cb.asc(stockRoot.get("id")));
+            if (models.isEmpty()) {
+                table.setPlaceholder(new Label("No stock records fouund"));
             }
-            List<Stock> stockList = em.createQuery(cq).getResultList();
-            tableBody.getChildren().clear();
-            double totalStockValue = 0;
-            double totalSaleValue = 0;
-            double totalProfit = 0;
-
-            for (Stock stock : stockList) {
-                Product product = stock.getProductId();
-                Brand brand = product.getBrandId();
-
-//                double qty = stock.getQty();
-                  double qty = divideWithPharmacyRounding(stock.getQty(),stock.getProductId().getMeasure());
-                double rowCostprice = qty * product.getCostPrice();
-                totalStockValue += rowCostprice;
-                double rowSalePrice = qty * product.getSalePrice();
-                totalSaleValue += rowSalePrice;
-                double rowProfilt = rowSalePrice - rowCostprice;
-                totalProfit += rowProfilt;
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/qb/app/fxmlComponent/ReportStockBalance_TableRow.fxml"));
-                    Node stockdata = loader.load();
-                    ReportStockBalance_TableRowController controller = loader.getController();
-                    controller.setData(product, brand, qty);
-                    stockItemList.add(controller);
-                    tableBody.getChildren().add(stockdata);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    getLogger.logger().warning(e.toString());
-                }
-            }
-            TFTotalProfit.setText(String.format("Rs. %,.2f", totalProfit));
-            TFTotalSaleValue.setText(String.format("Rs. %,.2f", totalSaleValue));
-            TFTotalStockValue.setText(String.format("Rs. %,.2f", totalStockValue));
         });
 
+        loadTask.setOnFailed(e -> {
+            Throwable ex = loadTask.getException();
+            getLogger.logger().warning("Failed to load stock data: " + ex.getMessage());
+            ex.printStackTrace();
+        });
+
+        new Thread(loadTask).start();
     }
 
     private void loadFilterCombo() {
@@ -201,7 +262,7 @@ public class ReportStockBalanceController implements Initializable {
         cbFilter.setPromptText("Select Filter");
         cbBrand.setValue(null);
         loadTextField();
-        tableBody.getChildren().clear();
+        table.getItems().clear();
     }
 
     @FXML
@@ -236,90 +297,201 @@ public class ReportStockBalanceController implements Initializable {
         }
     }
 
+//    private void printGrnReport() {
+//        if (!stockItemList.isEmpty()) {
+//            JPATransaction.runInTransaction((em) -> {
+//                CriteriaBuilder cb = em.getCriteriaBuilder();
+//                List<Brand> brandList;
+//
+//                if (!CheckBox.isSelected()) {
+//                    Brand selectedBrand = cbBrand.getSelectionModel().getSelectedItem();
+//                    if (selectedBrand == null) {
+//                        CustomAlert.showStyledAlert(root, "Please select a brand.", Alert.AlertType.WARNING);
+//                        return;
+//                    }
+//
+//                    brandList = List.of(selectedBrand);
+//                } else {
+//
+//                    CriteriaQuery<Brand> brandQuery = cb.createQuery(Brand.class);
+//                    Root<Brand> brandRoot = brandQuery.from(Brand.class);
+//                    brandQuery.select(brandRoot);
+//                    brandList = em.createQuery(brandQuery).getResultList();
+//                }
+//
+//                List<BrandBean> brandListBean = new ArrayList<>();
+//                double grandTotalSaleAmount = 0;
+//                double grandTotalStockAmount = 0;
+//                int grandTotalQty = 0;
+//                for (Brand brand : brandList) {
+//
+//                    CriteriaQuery<Product> productQuery = cb.createQuery(Product.class);
+//                    Root<Product> productRoot = productQuery.from(Product.class);
+//
+//                    Join<Object, Object> phptJoin = productRoot.join("productHasProductTypeCollection");
+//                    Join<Object, Object> ptJoin = phptJoin.join("productTypeId");
+//                    productQuery.select(productRoot).distinct(true)
+//                            .where(
+//                                    cb.and(
+//                                            cb.equal(productRoot.get("brandId"), brand),
+//                                            cb.equal(ptJoin.get("type"), "Parent")
+//                                    )
+//                            );
+//
+//                    List<Product> productList = em.createQuery(productQuery).getResultList();
+//
+//                    List<ProductBean> productBeanList = new ArrayList<>();
+//
+//                    double brandTotalSaleAmount = 0;
+//                    double brandTotalStockAmount = 0;
+//                    int brandTotalQty = 0;
+//
+//                    for (Product product : productList) {
+//                        CriteriaQuery<Stock> stockQuery = cb.createQuery(Stock.class);
+//                        Root<Stock> stockRoot = stockQuery.from(Stock.class);
+//                        stockQuery.select(stockRoot)
+//                                .where(cb.equal(stockRoot.get("productId"), product));
+//                        Stock stockdetails = em.createQuery(stockQuery).getSingleResult();
+//                        double qty = divideWithPharmacyRounding(stockdetails.getQty(), stockdetails.getProductId().getMeasure());
+//                        float measure = stockdetails.getProductId().getMeasure();
+//                        double tSaleAmount = qty * product.getSalePrice();
+//                        double tCostAmount = qty * product.getCostPrice();
+//                        brandTotalQty += qty;
+//                        brandTotalSaleAmount += tSaleAmount;
+//                        brandTotalStockAmount += tCostAmount;
+//
+//                        productBeanList.add(new ProductBean(
+//                                String.valueOf(product.getId()),
+//                                product.getProduct(),
+//                                product.getGenericName() != null ? product.getGenericName() : "N/A",
+//                                String.format("%,.2f", product.getSalePrice()),
+//                                String.format("%,.2f", qty),
+//                                String.format("%,.2f", tSaleAmount)
+//                        ));
+//                    }
+//                    grandTotalSaleAmount += brandTotalSaleAmount;
+//                    grandTotalStockAmount += brandTotalStockAmount;
+//
+//                    brandListBean.add(new BrandBean(
+//                            brand.getBrand(),
+//                            productBeanList,
+//                            String.valueOf(productBeanList.size()),
+//                            String.format("%,.2f", brandTotalSaleAmount),
+//                            String.valueOf(brandTotalQty)
+//                    ));
+//                }
+//
+//                Map<String, Object> params = new HashMap<>();
+//                params.put("companyName", CompanyInfo.companyName);
+//                params.put("Address", CompanyInfo.address);
+//                params.put("Contact", CompanyInfo.mobile);
+//                params.put("ExpectedProfit", String.format("Rs. %,.2f", grandTotalSaleAmount - grandTotalStockAmount));
+//                params.put("TotalSaleValue", String.format("Rs. %,.2f", grandTotalSaleAmount));
+//                params.put("TotalStockValue", String.format("Rs. %,.2f", grandTotalStockAmount));
+//
+//                try {
+//                    URL imageUrl = getClass().getResource("/com/qb/app/assets/images/logo.png");
+//                    params.put("Logo", imageUrl);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                    getLogger.logger().warning(e.toString());
+//                }
+//
+//                try {
+//                    JasperReportsContext jasperReportsContext = DefaultJasperReportsContext.getInstance();
+//                    JRPropertiesUtil.getInstance(jasperReportsContext).setProperty(
+//                            "net.sf.jasperreports.awt.ignore.missing.font", "true"
+//                    );
+//                    JasperReport subReport = (JasperReport) JRLoader.loadObject(
+//                            getClass().getResourceAsStream("/com/qb/app/reports/Pharmacy_Stock_Balance_Sub_Report.jasper"));
+//                    params.put("SUB_REPORT_PATH", subReport);
+//
+//                    JasperReport mainReport = (JasperReport) JRLoader.loadObject(
+//                            getClass().getResourceAsStream("/com/qb/app/reports/Pharmacy_Stock_Balance.jasper"));
+//
+//                    JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(brandListBean);
+//                    JasperPrint report = JasperFillManager.fillReport(mainReport, params, dataSource);
+////                JasperViewer.viewReport(report, false);
+//
+//                    JasperViewer viewer = new JasperViewer(report, false);
+//                    viewer.setAlwaysOnTop(true);
+//                    viewer.setVisible(true);
+//                } catch (JRException e) {
+//                    e.printStackTrace();
+//                    getLogger.logger().warning(e.toString());
+//                }
+//            });
+//        } else {
+//            CustomAlert.showStyledAlert(root, "Report generation failed. Please Load Report First !", Alert.AlertType.WARNING);
+//
+//        }
+//    }
     private void printGrnReport() {
-         if (!stockItemList.isEmpty()) {
-        JPATransaction.runInTransaction((em) -> {
-            CriteriaBuilder cb = em.getCriteriaBuilder();
-            List<Brand> brandList;
+        List<ReportStockBalanceModel> tableData = table.getItems();
 
-            if (!CheckBox.isSelected()) {
-                Brand selectedBrand = cbBrand.getSelectionModel().getSelectedItem();
-                if (selectedBrand == null) {
-                    CustomAlert.showStyledAlert(root, "Please select a brand.", Alert.AlertType.WARNING);
-                    return;
-                }
+        if (tableData.isEmpty()) {
+            CustomAlert.showStyledAlert(root, "No data to generate report. Please load data first.", Alert.AlertType.WARNING);
+            return;
+        }
 
-                brandList = List.of(selectedBrand);
-            } else {
-
-                CriteriaQuery<Brand> brandQuery = cb.createQuery(Brand.class);
-                Root<Brand> brandRoot = brandQuery.from(Brand.class);
-                brandQuery.select(brandRoot);
-                brandList = em.createQuery(brandQuery).getResultList();
-            }
-
-            List<BrandBean> brandListBean = new ArrayList<>();
+        try {
+            // Group data by brand
+            Map<String, List<ProductBean>> brandProductMap = new HashMap<>();
             double grandTotalSaleAmount = 0;
             double grandTotalStockAmount = 0;
-            int grandTotalQty = 0;
-            for (Brand brand : brandList) {
+            double grandTotalQty = 0;
 
-                CriteriaQuery<Product> productQuery = cb.createQuery(Product.class);
-                Root<Product> productRoot = productQuery.from(Product.class);
+            // Process each row in the table
+            for (ReportStockBalanceModel model : tableData) {
+                String brandName = model.getBrand();
+                List<ProductBean> productList = brandProductMap.computeIfAbsent(brandName, k -> new ArrayList<>());
 
-                Join<Object, Object> phptJoin = productRoot.join("productHasProductTypeCollection");
-                Join<Object, Object> ptJoin = phptJoin.join("productTypeId");
-                productQuery.select(productRoot).distinct(true)
-                        .where(
-                                cb.and(
-                                        cb.equal(productRoot.get("brandId"), brand),
-                                        cb.equal(ptJoin.get("type"), "Parent")
-                                )
-                        );
+                double qty = model.getQty();
+                double salePrice = model.getSalePrice();
+                double costPrice = model.getCostPrice();
+                double tSaleAmount = qty * salePrice;
+                double tCostAmount = qty * costPrice;
 
-                List<Product> productList = em.createQuery(productQuery).getResultList();
+                grandTotalQty += qty;
+                grandTotalSaleAmount += tSaleAmount;
+                grandTotalStockAmount += tCostAmount;
 
-                List<ProductBean> productBeanList = new ArrayList<>();
-
-                double brandTotalSaleAmount = 0;
-                double brandTotalStockAmount = 0;
-                int brandTotalQty = 0;
-
-                for (Product product : productList) {
-                    CriteriaQuery<Stock> stockQuery = cb.createQuery(Stock.class);
-                    Root<Stock> stockRoot = stockQuery.from(Stock.class);
-                    stockQuery.select(stockRoot)
-                            .where(cb.equal(stockRoot.get("productId"), product));
-                    Stock stockdetails = em.createQuery(stockQuery).getSingleResult();
-                    double qty = divideWithPharmacyRounding(stockdetails.getQty(),stockdetails.getProductId().getMeasure());
-                    float measure = stockdetails.getProductId().getMeasure();
-                    double tSaleAmount = qty * product.getSalePrice();
-                    double tCostAmount = qty * product.getCostPrice();
-                    brandTotalQty += qty;
-                    brandTotalSaleAmount += tSaleAmount;
-                    brandTotalStockAmount += tCostAmount;
-
-                    productBeanList.add(new ProductBean(
-                            String.valueOf(product.getId()),
-                            product.getProduct(),
-                           product.getGenericName() != null ?     product.getGenericName() : "N/A",
-                            String.format("%,.2f", product.getSalePrice()),
-                                String.format("%,.2f",qty),
-                            String.format("%,.2f", tSaleAmount)
-                    ));
-                }
-                grandTotalSaleAmount += brandTotalSaleAmount;
-                grandTotalStockAmount += brandTotalStockAmount;
-
-                brandListBean.add(new BrandBean(
-                        brand.getBrand(),
-                        productBeanList,
-                        String.valueOf(productBeanList.size()),
-                        String.format("%,.2f", brandTotalSaleAmount),
-                        String.valueOf(brandTotalQty)
+                // Create ProductBean for each product
+                productList.add(new ProductBean(
+                        String.valueOf(model.getId()), // item_id
+                        model.getProduct(), // item_name
+                        "N/A", // item_generic (not available in table model)
+                        String.format("%,.2f", salePrice), // unit_price
+                        String.format("%,.2f", qty), // balance_stock
+                        String.format("%,.2f", tSaleAmount) // amount
                 ));
             }
 
+            // Convert to BrandBean list
+            List<BrandBean> brandListBean = new ArrayList<>();
+            for (Map.Entry<String, List<ProductBean>> entry : brandProductMap.entrySet()) {
+                String brandName = entry.getKey();
+                List<ProductBean> products = entry.getValue();
+
+                // Calculate brand totals
+                double brandTotalSaleAmount = products.stream()
+                        .mapToDouble(p -> Double.parseDouble(p.getAmount().replace(",", "")))
+                        .sum();
+                double brandTotalQty = products.stream()
+                        .mapToDouble(p -> Double.parseDouble(p.getBalance_stock().replace(",", "")))
+                        .sum();
+
+                // Create BrandBean for each brand
+                brandListBean.add(new BrandBean(
+                        brandName, // brands
+                        products, // products
+                        String.valueOf(products.size()), // brandCount
+                        String.format("%,.2f", brandTotalSaleAmount), // totalAmount
+                        String.format("%,.0f", brandTotalQty) // totalQty
+                ));
+            }
+
+            // Prepare report parameters
             Map<String, Object> params = new HashMap<>();
             params.put("companyName", CompanyInfo.companyName);
             params.put("Address", CompanyInfo.address);
@@ -336,37 +508,38 @@ public class ReportStockBalanceController implements Initializable {
                 getLogger.logger().warning(e.toString());
             }
 
-            try {
-                  JasperReportsContext jasperReportsContext = DefaultJasperReportsContext.getInstance();
+            // Load and display report
+            JasperReportsContext jasperReportsContext = DefaultJasperReportsContext.getInstance();
             JRPropertiesUtil.getInstance(jasperReportsContext).setProperty(
                     "net.sf.jasperreports.awt.ignore.missing.font", "true"
             );
-                JasperReport subReport = (JasperReport) JRLoader.loadObject(
-                        getClass().getResourceAsStream("/com/qb/app/reports/Pharmacy_Stock_Balance_Sub_Report.jasper"));
-                params.put("SUB_REPORT_PATH", subReport);
 
-                JasperReport mainReport = (JasperReport) JRLoader.loadObject(
-                        getClass().getResourceAsStream("/com/qb/app/reports/Pharmacy_Stock_Balance.jasper"));
+            JasperReport subReport = (JasperReport) JRLoader.loadObject(
+                    getClass().getResourceAsStream("/com/qb/app/reports/Pharmacy_Stock_Balance_Sub_Report.jasper"));
+            params.put("SUB_REPORT_PATH", subReport);
 
-                JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(brandListBean);
-                JasperPrint report = JasperFillManager.fillReport(mainReport, params, dataSource);
-//                JasperViewer.viewReport(report, false);
+            JasperReport mainReport = (JasperReport) JRLoader.loadObject(
+                    getClass().getResourceAsStream("/com/qb/app/reports/Pharmacy_Stock_Balance.jasper"));
 
-                JasperViewer viewer = new JasperViewer(report, false);
-                viewer.setAlwaysOnTop(true);
-                viewer.setVisible(true);
-            } catch (JRException e) {
-                    e.printStackTrace();
-                    getLogger.logger().warning(e.toString());
-                }
-            });
-        } else {
-              CustomAlert.showStyledAlert(root, "Report generation failed. Please Load Report First !", Alert.AlertType.WARNING);
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(brandListBean);
+            JasperPrint report = JasperFillManager.fillReport(mainReport, params, dataSource);
 
+            JasperViewer viewer = new JasperViewer(report, false);
+            viewer.setAlwaysOnTop(true);
+            viewer.setVisible(true);
+
+        } catch (JRException e) {
+            e.printStackTrace();
+            getLogger.logger().warning(e.toString());
+            CustomAlert.showStyledAlert(root, "Error generating report: " + e.getMessage(), Alert.AlertType.ERROR);
+        } catch (Exception e) {
+            e.printStackTrace();
+            getLogger.logger().warning(e.toString());
+            CustomAlert.showStyledAlert(root, "Unexpected error generating report", Alert.AlertType.ERROR);
         }
     }
-    
-      private  double divideWithPharmacyRounding(double qty, float measure) {
+
+    private double divideWithPharmacyRounding(double qty, float measure) {
         int whole = (int) (qty / measure);
         int remainder = (int) (qty % measure);
 
@@ -377,4 +550,5 @@ public class ReportStockBalanceController implements Initializable {
     @FXML
     private void checkBoxAction(ActionEvent event) {
     }
+
 }

@@ -1,10 +1,10 @@
 package com.qb.app.controllers;
 
 import com.jfoenix.controls.JFXToggleButton;
-import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.InterfaceAction;
 import com.qb.app.model.JPATransaction;
 import com.qb.app.model.SVGIconGroup;
+import com.qb.app.model.TableModels.ProductPopUpModel;
 import com.qb.app.model.entity.Product;
 import com.qb.app.model.getLogger;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -12,26 +12,23 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.JoinType;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
-import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
-import javafx.scene.control.ScrollBar;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -44,68 +41,82 @@ public class PopUpProductListController implements Initializable {
     @FXML
     private Group closeIcon;
     @FXML
-    private ScrollPane TableScrollContainer;
-    @FXML
-    private ListView<Product> TableBody;
-    @FXML
-    private ScrollBar TableScroller;
-    @FXML
     private AnchorPane root;
 
-    public static Object callingController;
     @FXML
     private TextField tfSearch;
     @FXML
     private JFXToggleButton toggleParent;
     @FXML
     private ComboBox<String> FilterBy;
+    @FXML
+    private TableView<ProductPopUpModel> tableProduct;
+    @FXML
+    private TableColumn<ProductPopUpModel, Integer> colId;
+    @FXML
+    private TableColumn<ProductPopUpModel, String> colProduct;
+    @FXML
+    private TableColumn<ProductPopUpModel, String> colDepartment;
+    @FXML
+    private TableColumn<ProductPopUpModel, Double> colSalePrice;
+    @FXML
+    private TableColumn<ProductPopUpModel, Double> colCostPrice;
+    @FXML
+    private TableColumn<ProductPopUpModel, String> colUnit;
+    @FXML
+    private TableColumn<ProductPopUpModel, String> colMeasure;
+    @FXML
+    private TableColumn<ProductPopUpModel, Double> colDiscount;
+    @FXML
+    private TableColumn<ProductPopUpModel, String> colStatus;
+
+    public static Object callingController;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//        DefaultAPI.bindTableScroll(TableScroller, TableScrollContainer, TableBody);
+        //        DefaultAPI.bindTableScroll(TableScroller, TableScrollContainer, TableBody);
         pageIcon.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/page-icon.svg"));
         closeIcon.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/close-icon.svg"));
-        
-        TableBody.setCellFactory(lv -> new ProductListCell());
-        
+
+        tableConfiguration();
+
         loadProducts(null, false);
         LoadComboBox();
-
     }
 
-    private class ProductListCell extends ListCell<Product> {
+    private void tableConfiguration() {
+        colId.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().getProduct().getId()).asObject());
+        colProduct.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getProduct().getProduct()));
+        colDepartment.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getProduct().getBrandId().getBrand()));
+        colSalePrice.setCellValueFactory(data -> new SimpleDoubleProperty(data.getValue().getProduct().getSalePrice()).asObject());
+        colCostPrice.setCellValueFactory(data -> new SimpleDoubleProperty(data.getValue().getProduct().getCostPrice()).asObject());
+        colUnit.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getProduct().getProductUnitId().getUnit()));
+        colMeasure.setCellValueFactory(data -> new SimpleStringProperty(String.valueOf(data.getValue().getProduct().getMeasure())));
+        colDiscount.setCellValueFactory(data -> new SimpleDoubleProperty(data.getValue().getProduct().getDiscount()).asObject());
+        colStatus.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getProduct().getProductStatusId().getStatus()));
 
-        @Override
-        protected void updateItem(Product item, boolean empty) {
-            super.updateItem(item, empty);
-            if (empty || item == null) {
-                setGraphic(null);
-            } else {
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource(
-                            "/com/qb/app/fxmlComponent/popUp_ProductList_TableRow.fxml"));
-                    Node tableRow = loader.load();
-                    PopUp_ProductList_TableRowController controller = loader.getController();
+        tableProduct.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2 && !tableProduct.getSelectionModel().isEmpty()) {
+                ProductPopUpModel selectedModel = tableProduct.getSelectionModel().getSelectedItem();
+                int productId = selectedModel.getProduct().getId();
 
-                    controller.setPopUpController(PopUpProductListController.this);
-                    controller.setItems(
-                            item.getId().toString(),
-                            item.getProduct(),
-                            item.getBrandId().getBrand(),
-                            item.getSalePrice(),
-                            item.getCostPrice(),
-                            item.getProductUnitId().getUnit(),
-                            String.valueOf(item.getMeasure()),
-                            item.getDiscount(),
-                            item.getProductStatusId().getStatus()
-                    );
-
-                    setGraphic(tableRow);
-                } catch (IOException e) {
-                    e.printStackTrace();
+                // Pass to calling controller
+                if (callingController != null) {
+                    try {
+                        callingController
+                                .getClass()
+                                .getMethod("setParentID", String.class)
+                                .invoke(callingController, String.valueOf(productId));
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                        getLogger.logger().warning("Failed to pass product ID: " + ex.getMessage());
+                    }
                 }
+
+                closeWindow();
             }
-        }
+        });
+
     }
 
     private void LoadComboBox() {
@@ -121,7 +132,7 @@ public class PopUpProductListController implements Initializable {
     private void loadProducts(String searchTerm, boolean isParent) {
         ProgressIndicator progress = new ProgressIndicator();
         progress.setMaxSize(50, 50);
-        TableBody.setPlaceholder(progress);
+        tableProduct.setPlaceholder(progress);
 
         // Create a task for background processing
         Task<List<Product>> loadTask = new Task<>() {
@@ -177,8 +188,16 @@ public class PopUpProductListController implements Initializable {
 
         loadTask.setOnSucceeded(e -> {
             List<Product> products = loadTask.getValue();
+            List<ProductPopUpModel> models = products.stream()
+                    .map(ProductPopUpModel::new)
+                    .toList();
+
             Platform.runLater(() -> {
-                TableBody.getItems().setAll(products); // Set all items at once
+                tableProduct.getItems().setAll(models);
+
+                if (models.isEmpty()) {
+                    tableProduct.setPlaceholder(new Label("No products found."));
+                }
             });
         });
 
@@ -190,10 +209,6 @@ public class PopUpProductListController implements Initializable {
         // Start the task in a new thread
         new Thread(loadTask).start();
     }
-
-    private final Map<Integer, Node> rowCache = new HashMap<>();
-
-
 
     @FXML
     private void closePopUp(MouseEvent event) {

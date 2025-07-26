@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXToggleButton?>
-<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -77,147 +76,22 @@
                         <Insets bottom="10.0" right="20.0" />
                      </VBox.margin>
                   </HBox>
-                  <HBox VBox.vgrow="ALWAYS">
-                     <children>
-                        <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
-                           <children>
-                              <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" minHeight="-Infinity" vbarPolicy="NEVER">
-                                 <content>
-                                    <HBox maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="200.0" style="-fx-border-radius: 6px; -fx-border-width: 0 0.5 0 0.5;" stylesheets="@css/adminStyle.css">
-                                       <children>
-                                          <BorderPane minWidth="-Infinity" prefWidth="60.0" style="-fx-border-radius: 6px 0 0 6;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
-                                             <left>
-                                                <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="ID" BorderPane.alignment="CENTER">
-                                                   <font>
-                                                      <Font name="Aptos" size="14.0" />
-                                                   </font>
-                                                </Label>
-                                             </left>
-                                             <padding>
-                                                <Insets left="10.0" />
-                                             </padding>
-                                          </BorderPane>
-                                          <BorderPane minWidth="-Infinity" prefWidth="175.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
-                                             <left>
-                                                <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Product" BorderPane.alignment="CENTER">
-                                                   <font>
-                                                      <Font name="Aptos" size="14.0" />
-                                                   </font>
-                                                </Label>
-                                             </left>
-                                             <padding>
-                                                <Insets left="10.0" />
-                                             </padding>
-                                          </BorderPane>
-                                          <BorderPane minWidth="-Infinity" prefWidth="100.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
-                                             <left>
-                                                <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Department" BorderPane.alignment="CENTER">
-                                                   <font>
-                                                      <Font name="Aptos" size="14.0" />
-                                                   </font>
-                                                </Label>
-                                             </left>
-                                             <padding>
-                                                <Insets left="10.0" />
-                                             </padding>
-                                          </BorderPane>
-                                          <BorderPane layoutX="310.0" layoutY="10.0" minWidth="-Infinity" prefWidth="100.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
-                                             <left>
-                                                <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Sale Price" BorderPane.alignment="CENTER">
-                                                   <font>
-                                                      <Font name="Aptos" size="14.0" />
-                                                   </font>
-                                                </Label>
-                                             </left>
-                                             <padding>
-                                                <Insets left="10.0" />
-                                             </padding>
-                                          </BorderPane>
-                                          <BorderPane layoutX="430.0" layoutY="10.0" minWidth="-Infinity" prefWidth="100.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
-                                             <left>
-                                                <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Cost Price" BorderPane.alignment="CENTER">
-                                                   <font>
-                                                      <Font name="Aptos" size="14.0" />
-                                                   </font>
-                                                </Label>
-                                             </left>
-                                             <padding>
-                                                <Insets left="10.0" />
-                                             </padding>
-                                          </BorderPane>
-                                          <BorderPane minWidth="-Infinity" prefWidth="70.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
-                                             <left>
-                                                <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Unit" BorderPane.alignment="CENTER">
-                                                   <font>
-                                                      <Font name="Aptos" size="14.0" />
-                                                   </font>
-                                                </Label>
-                                             </left>
-                                             <padding>
-                                                <Insets left="10.0" />
-                                             </padding>
-                                          </BorderPane>
-                                          <BorderPane layoutX="550.0" layoutY="10.0" minWidth="-Infinity" prefWidth="100.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
-                                             <left>
-                                                <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Measure" BorderPane.alignment="CENTER">
-                                                   <font>
-                                                      <Font name="Aptos" size="14.0" />
-                                                   </font>
-                                                </Label>
-                                             </left>
-                                             <padding>
-                                                <Insets left="10.0" />
-                                             </padding>
-                                          </BorderPane>
-                                          <BorderPane layoutX="430.0" layoutY="10.0" minWidth="-Infinity" prefWidth="60.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
-                                             <left>
-                                                <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Discount" wrapText="true" BorderPane.alignment="CENTER">
-                                                   <font>
-                                                      <Font name="Aptos" size="14.0" />
-                                                   </font>
-                                                </Label>
-                                             </left>
-                                             <padding>
-                                                <Insets left="10.0" />
-                                             </padding>
-                                          </BorderPane>
-                                          <BorderPane prefWidth="100.0" style="-fx-border-width: 0.5px 0.5px 0.5px 0; -fx-border-radius: 0 6px  6 0;" styleClass="primary-border" stylesheets="@css/adminStyle.css" HBox.hgrow="ALWAYS">
-                                             <left>
-                                                <Label styleClass="primary-white" stylesheets="@css/adminStyle.css" text="Status" BorderPane.alignment="CENTER">
-                                                   <font>
-                                                      <Font name="Aptos" size="14.0" />
-                                                   </font>
-                                                </Label>
-                                             </left>
-                                             <padding>
-                                                <Insets left="10.0" />
-                                             </padding>
-                                          </BorderPane>
-                                       </children>
-                                       <styleClass>
-                                          <String fx:value="primary-border" />
-                                          <String fx:value="table-header" />
-                                       </styleClass>
-                                       <padding>
-                                          <Insets left="8.5" right="28.5" />
-                                       </padding>
-                                    </HBox>
-                                 </content>
-                              </ScrollPane>
-                              <ScrollPane fx:id="TableScrollContainer" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" stylesheets="@css/adminStyle.css" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
-                                 <content>
-                                    <ListView fx:id="TableBody" prefHeight="200.0" prefWidth="200.0">
-                                       <styleClass>
-                                          <String fx:value="primary-border" />
-                                          <String fx:value="transparent-pane" />
-                                       </styleClass>
-                                    </ListView>
-                                 </content>
-                              </ScrollPane>
-                           </children>
-                        </VBox>
-                     </children>
-                  </HBox>
+                  <TableView fx:id="tableProduct" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                    <columns>
+                      <TableColumn fx:id="colId" maxWidth="80.0" prefWidth="75.0" text="ID" />
+                      <TableColumn fx:id="colProduct" prefWidth="75.0" text="Product" />
+                        <TableColumn fx:id="colDepartment" maxWidth="200.0" prefWidth="75.0" text="Department" />
+                        <TableColumn fx:id="colSalePrice" maxWidth="120.0" prefWidth="75.0" text="Sale Price" />
+                        <TableColumn fx:id="colCostPrice" maxWidth="120.0" prefWidth="75.0" text="Cost Price" />
+                        <TableColumn fx:id="colUnit" maxWidth="120.0" prefWidth="75.0" text="Unit" />
+                        <TableColumn fx:id="colMeasure" maxWidth="120.0" prefWidth="75.0" text="Measure" />
+                        <TableColumn fx:id="colDiscount" maxWidth="120.0" prefWidth="75.0" text="Discount" />
+                        <TableColumn fx:id="colStatus" maxWidth="100.0" prefWidth="75.0" text="Status" />
+                    </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
                </children>
                <BorderPane.margin>
                   <Insets />

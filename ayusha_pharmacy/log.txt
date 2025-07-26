@@ -1,0 +1,12 @@
+Jul 25, 2025 9:50:43 AM com.qb.app.controllers.PopUpProductListController passIdToParentController
+WARNING: Failed to pass product ID to parent: com.qb.app.controllers.Product_managementController.setParentID(int)
+Jul 25, 2025 10:03:36 AM com.qb.app.controllers.PopUpProductListController lambda$tableConfiguration$9
+WARNING: Failed to pass product ID: com.qb.app.controllers.Product_managementController.setParentID(int)
+Jul 25, 2025 11:01:39 AM com.qb.app.controllers.PanelAdminController loadCenterPanel
+WARNING: javafx.fxml.LoadException: 
+/E:/Quantum%20Blaze/Projects/Client%20Project/P%2302%20-%20Pharmacy%20System%20software/ayusha_pharmacy/target/classes/com/qb/app/reportFXML/reportSaleDetail.fxml
+
+Jul 25, 2025 6:09:54 PM com.qb.app.controllers.PanelAdminController loadCenterPanel
+WARNING: javafx.fxml.LoadException: 
+/E:/Quantum%20Blaze/Projects/Client%20Project/P%2302%20-%20Pharmacy%20System%20software/ayusha_pharmacy/target/classes/com/qb/app/reportFXML/reportStockBalance.fxml
+

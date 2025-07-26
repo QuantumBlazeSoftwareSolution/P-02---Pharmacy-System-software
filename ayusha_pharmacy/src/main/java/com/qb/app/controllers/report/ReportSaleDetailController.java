@@ -3,56 +3,41 @@ package com.qb.app.controllers.report;
 import com.qb.app.controllers.report.beans.InvoiceBean;
 import com.qb.app.controllers.report.beans.InvoiceItemsBean;
 import com.qb.app.model.CustomAlert;
-import com.qb.app.model.DefaultAPI;
 import com.qb.app.model.JPATransaction;
 import com.qb.app.model.SVGIconGroup;
+import static com.qb.app.model.TableConfig.formatDecimalColumn;
+import com.qb.app.model.TableModels.ReportSaleDetailModel;
 import com.qb.app.model.entity.Invoice;
 import com.qb.app.model.entity.InvoiceItem;
 import com.qb.app.model.entity.Product;
-import com.qb.app.model.entity.ProductHasProductType;
-import com.qb.app.model.entity.ProductType;
 import com.qb.app.model.getLogger;
 import com.qb.app.session.CompanyInfo;
+
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
-import java.io.IOException;
+
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.ScrollBar;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import net.sf.jasperreports.engine.DefaultJasperReportsContext;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRPropertiesUtil;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.JasperReportsContext;
+
+import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
@@ -68,304 +53,288 @@ public class ReportSaleDetailController implements Initializable {
     @FXML
     private ComboBox<String> cbFilter;
     @FXML
-    private Button LoadReportBtn;
+    private Button LoadReportBtn, RefreshBtn, ViewRepoetBtn;
     @FXML
-    private ScrollPane tableScrollContainer;
+    private TextField TFTotalSale, TFTotalProfit, TFTotalCost, TFTotalDiscount;
     @FXML
-    private VBox tableBody;
+    private TableView<ReportSaleDetailModel> tableInvoiceItems;
     @FXML
-    private ScrollBar tableScroller;
+    private TableColumn<ReportSaleDetailModel, Integer> colId;
     @FXML
-    private TextField TFTotalSale;
+    private TableColumn<ReportSaleDetailModel, String> colInvoiceNo, colProduct;
     @FXML
-    private TextField TFTotalProfit;
-    @FXML
-    private Button RefreshBtn;
-    @FXML
-    private Button ViewRepoetBtn;
-    @FXML
-    private TextField TFTotalCost;
-    @FXML
-    private TextField TFTotalDiscount;
+    private TableColumn<ReportSaleDetailModel, Double> colQty, colUnitPrice, colAmount, colDiscount, colProfit;
 
-  List<ReportSaleDetail_TableRowController> invoiceItemList = new ArrayList<>();
+    private final List<ReportSaleDetailModel> invoiceItemList = new ArrayList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-          iconPage.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/page-icon.svg"));
-        DefaultAPI.bindTableScroll(tableScroller, tableScrollContainer, tableBody);
+        iconPage.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/page-icon.svg"));
         DateSelector.setValue(LocalDate.now());
         setEventListner();
         loadComboBox();
         loadTextField();
-    }
-   
-    private void  loadTextField(){
-        TFTotalCost.setText(String.format("Rs. %,.2f", 0.00));
-        TFTotalDiscount.setText(String.format("Rs. %,.2f", 0.00));
-        TFTotalProfit.setText(String.format("Rs. %,.2f", 0.00));
-        TFTotalSale.setText(String.format("Rs. %,.2f", 0.00));
-    
-    }
-    
-private void loadInvoiceReport() {
-    tableBody.getChildren().clear();
-
-    LocalDate selectedDate = DateSelector.getValue();
-    if (selectedDate == null) {
-         CustomAlert.showStyledAlert(root, "Please set a date", Alert.AlertType.WARNING);
-        return;
+        configureTableColumns();
     }
 
-    JPATransaction.runInTransaction(em -> {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<InvoiceItem> cq = cb.createQuery(InvoiceItem.class);
-        Root<InvoiceItem> itemRoot = cq.from(InvoiceItem.class);
+    private void configureTableColumns() {
+        colId.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().getId()).asObject());
+        colInvoiceNo.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getInvoiceNo()));
+        colProduct.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getProduct()));
+        colQty.setCellValueFactory(data -> new SimpleDoubleProperty(data.getValue().getQty()).asObject());
+        colUnitPrice.setCellValueFactory(data -> new SimpleDoubleProperty(data.getValue().getUnitPrice()).asObject());
+        colAmount.setCellValueFactory(data -> new SimpleDoubleProperty(data.getValue().getSale()).asObject());
+        colDiscount.setCellValueFactory(data -> new SimpleDoubleProperty(data.getValue().getDiscount()).asObject());
+        colProfit.setCellValueFactory(data -> new SimpleDoubleProperty(data.getValue().getProfit()).asObject());
 
-        Join<InvoiceItem, Invoice> invoiceJoin = itemRoot.join("invoiceId");
-        Join<InvoiceItem, Product> productJoin = itemRoot.join("productId");
-        
-        Predicate datePredicate = cb.between(
-            invoiceJoin.get("dateTime"),
-            selectedDate.atStartOfDay(),
-            selectedDate.plusDays(1).atStartOfDay()
-        );
-        cq.select(itemRoot).where(datePredicate).orderBy(cb.asc(invoiceJoin.get("id")));
-        String selectedSort = cbFilter.getValue(); 
+        formatDecimalColumn(colQty);
+        formatDecimalColumn(colUnitPrice);
+        formatDecimalColumn(colAmount);
+        formatDecimalColumn(colDiscount);
+        formatDecimalColumn(colProfit);
+    }
 
-        if ("ID".equals(selectedSort)) {
-            cq.orderBy(cb.asc(productJoin.get("id")));
-        } else if ("Invoice Number".equals(selectedSort)) {
-            cq.orderBy(cb.asc(invoiceJoin.get("id"))); 
-        } else if ("Product Name".equals(selectedSort)) {
-            cq.orderBy(cb.asc(productJoin.get("product")));
-        } else if ("Quantity".equals(selectedSort)) {
-            cq.orderBy(cb.asc(itemRoot.get("qty")));
+    private void loadTextField() {
+        TFTotalCost.setText("Rs. 0.00");
+        TFTotalSale.setText("Rs. 0.00");
+        TFTotalDiscount.setText("Rs. 0.00");
+        TFTotalProfit.setText("Rs. 0.00");
+    }
+
+    private void loadInvoiceReport() {
+        LocalDate selectedDate = DateSelector.getValue();
+        if (selectedDate == null) {
+            CustomAlert.showStyledAlert(root, "Please set a date", Alert.AlertType.WARNING);
+            return;
         }
-        List<InvoiceItem> invoiceItems = em.createQuery(cq).getResultList();
-        if (invoiceItems.isEmpty()) {
-             CustomAlert.showStyledAlert(root, "No sales records found for the selected date.", Alert.AlertType.WARNING);
-        }
-        double Tdiscount =0;
-        double TSale =0;
-        double TCost =0;
 
-        for (InvoiceItem item : invoiceItems) {
-            Product product = item.getProductId();
-            Invoice invoice = item.getInvoiceId();
-            
-            Tdiscount += item.getDiscount()* item.getQty();
-            TSale +=   item.getSalePrice()* item.getQty();
-            TCost += item.getCostPrice()* item.getQty();
+        ProgressIndicator progress = new ProgressIndicator();
+        progress.setMaxSize(50, 50);
+        tableInvoiceItems.setPlaceholder(progress);
 
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/qb/app/fxmlComponent/reportSaleDetail_TableRow.fxml"));
-                Node row = loader.load();
-                ReportSaleDetail_TableRowController controller = loader.getController();
-                controller.setData(invoice,product,item);
-                invoiceItemList.add(controller);
-                tableBody.getChildren().add(row);
-            } catch (IOException e) {
-                e.printStackTrace();
-                 getLogger.logger().warning(e.toString());
+        Task<List<ReportSaleDetailModel>> loadTask = new Task<>() {
+            @Override
+            protected List<ReportSaleDetailModel> call() {
+                return JPATransaction.runInTransaction(em -> {
+                    List<ReportSaleDetailModel> models = new ArrayList<>();
+
+                    CriteriaBuilder cb = em.getCriteriaBuilder();
+                    CriteriaQuery<InvoiceItem> cq = cb.createQuery(InvoiceItem.class);
+                    Root<InvoiceItem> itemRoot = cq.from(InvoiceItem.class);
+                    Join<InvoiceItem, Invoice> invoiceJoin = itemRoot.join("invoiceId");
+                    Join<InvoiceItem, Product> productJoin = itemRoot.join("productId");
+
+                    Predicate datePredicate = cb.between(
+                            invoiceJoin.get("dateTime"),
+                            selectedDate.atStartOfDay(),
+                            selectedDate.plusDays(1).atStartOfDay()
+                    );
+
+                    cq.select(itemRoot).where(datePredicate);
+
+                    String selectedSort = cbFilter.getValue();
+                    if ("ID".equals(selectedSort)) {
+                        cq.orderBy(cb.asc(productJoin.get("id")));
+                    } else if ("Invoice Number".equals(selectedSort)) {
+                        cq.orderBy(cb.asc(invoiceJoin.get("id")));
+                    } else if ("Product Name".equals(selectedSort)) {
+                        cq.orderBy(cb.asc(productJoin.get("product")));
+                    } else if ("Quantity".equals(selectedSort)) {
+                        cq.orderBy(cb.asc(itemRoot.get("qty")));
+                    }
+
+                    List<InvoiceItem> invoiceItems = em.createQuery(cq).getResultList();
+                    for (InvoiceItem item : invoiceItems) {
+                        Invoice invoice = item.getInvoiceId();
+                        Product product = item.getProductId();
+                        ReportSaleDetailModel model = new ReportSaleDetailModel(invoice, product, item);
+                        models.add(model);
+                    }
+
+                    return models;
+                });
             }
-        }
-        
-        TFTotalSale.setText(String.format("Rs. %,.2f", TSale));
-        TFTotalCost.setText(String.format("Rs. %,.2f", TCost));
-        TFTotalDiscount.setText(String.format("Rs. %,.2f", Tdiscount));
-        TFTotalProfit.setText(String.format("Rs. %,.2f", TSale-(TCost+Tdiscount)));
+        };
 
-        }
-    );
+        loadTask.setOnSucceeded(e -> {
+            List<ReportSaleDetailModel> models = loadTask.getValue();
+            System.out.println("List size: " + models.size());
+            invoiceItemList.clear();
+            invoiceItemList.addAll(models);
+            tableInvoiceItems.getItems().setAll(models);
+
+            if (models.isEmpty()) {
+                tableInvoiceItems.setPlaceholder(new Label("No sales records found."));
+            }
+
+            double totalCost = models.stream().mapToDouble(ReportSaleDetailModel::getCost).sum();
+            double totalSale = models.stream().mapToDouble(ReportSaleDetailModel::getSale).sum();
+            double totalDiscount = models.stream().mapToDouble(ReportSaleDetailModel::getDiscount).sum();
+            double totalProfit = models.stream().mapToDouble(ReportSaleDetailModel::getProfit).sum();
+
+            TFTotalCost.setText(String.format("Rs. %,.2f", totalCost));
+            TFTotalSale.setText(String.format("Rs. %,.2f", totalSale));
+            TFTotalDiscount.setText(String.format("Rs. %,.2f", totalDiscount));
+            TFTotalProfit.setText(String.format("Rs. %,.2f", totalProfit));
+        });
+
+        new Thread(loadTask).start();
     }
 
     private void LoadReportDetails() {
+        if (invoiceItemList.isEmpty()) {
+            CustomAlert.showStyledAlert(root, "Report generation failed. Please Load Report First!", Alert.AlertType.WARNING);
+            return;
+        }
 
-        if (!invoiceItemList.isEmpty()) {
-            LocalDate selectedDate = DateSelector.getValue();
-            if (selectedDate == null) {
-                CustomAlert.showStyledAlert(root, "Please set a date", Alert.AlertType.WARNING);
+        LocalDate selectedDate = DateSelector.getValue();
+        if (selectedDate == null) {
+            CustomAlert.showStyledAlert(root, "Please set a date", Alert.AlertType.WARNING);
+            return;
+        }
+
+        JPATransaction.runInTransaction(em -> {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Invoice> InvoiceQuery = cb.createQuery(Invoice.class);
+            Root<Invoice> invoiceRoot = InvoiceQuery.from(Invoice.class);
+            Predicate datePredicate = cb.between(
+                    invoiceRoot.get("dateTime"),
+                    selectedDate.atStartOfDay(),
+                    selectedDate.plusDays(1).atStartOfDay()
+            );
+            InvoiceQuery.select(invoiceRoot).where(datePredicate);
+            List<Invoice> invoiceList = em.createQuery(InvoiceQuery).getResultList();
+
+            if (invoiceList.isEmpty()) {
+                CustomAlert.showStyledAlert(root, "No sales records found for the selected date.", Alert.AlertType.WARNING);
                 return;
             }
 
-            JPATransaction.runInTransaction((em) -> {
+            List<InvoiceBean> invoiceListBean = new ArrayList<>();
+            double totalCost = 0, totalSale = 0, totalDiscount = 0, totalProfit = 0;
 
-                CriteriaBuilder cb = em.getCriteriaBuilder();
-                CriteriaQuery<Invoice> InvoiceQuery = cb.createQuery(Invoice.class);
-                Root<Invoice> invoiceRoot = InvoiceQuery.from(Invoice.class);
+            for (Invoice invoice : invoiceList) {
+                CriteriaQuery<InvoiceItem> itemQuery = cb.createQuery(InvoiceItem.class);
+                Root<InvoiceItem> itemRoot = itemQuery.from(InvoiceItem.class);
+                itemQuery.select(itemRoot).where(cb.equal(itemRoot.get("invoiceId"), invoice));
+                List<InvoiceItem> items = em.createQuery(itemQuery).getResultList();
 
-                Predicate datePredicate = cb.between(
-                        invoiceRoot.get("dateTime"),
-                        selectedDate.atStartOfDay(),
-                        selectedDate.plusDays(1).atStartOfDay()
-                );
-                InvoiceQuery.select(invoiceRoot).where(datePredicate);
+                List<InvoiceItemsBean> beans = new ArrayList<>();
+                double tQty = 0, tAmount = 0, tDisc = 0, tCost = 0, tProfit = 0;
 
-                List<Invoice> invoiceList = em.createQuery(InvoiceQuery).getResultList();
-                List<InvoiceBean> invoiceListBean = new ArrayList<>();
+                for (InvoiceItem item : items) {
+                    double qty = item.getQty();
+                    double cost = qty * item.getCostPrice();
+                    double sale = qty * item.getSalePrice();
+                    double discount = qty * item.getDiscount();
+                    double netSale = sale - discount;
+                    double profit = netSale - cost;
 
-                if (invoiceList.isEmpty()) {
-                    CustomAlert.showStyledAlert(root, "No sales records found for the selected date.", Alert.AlertType.WARNING);
-                    return;
-                }
+                    tQty += qty;
+                    tCost += cost;
+                    tAmount += netSale;
+                    tDisc += discount;
+                    tProfit += profit;
 
-                double GrnadTotalStockValue = 0;
-                double GrnadTotalSaleValue = 0;
-                double GrnadTotalDiscountValue = 0;
-                double GrnadTotalProfitValue = 0;
-
-                for (Invoice invoice : invoiceList) {
-                    CriteriaQuery<InvoiceItem> InvoiceItemQuery = cb.createQuery(InvoiceItem.class);
-                    Root<InvoiceItem> InvoiceItemRoot = InvoiceItemQuery.from(InvoiceItem.class);
-                    InvoiceItemQuery.select(InvoiceItemRoot)
-                            .where(
-                                    cb.and(
-                                            cb.equal(InvoiceItemRoot.get("invoiceId"), invoice)
-                                    )
-                            );
-
-                    List<InvoiceItem> InvoiceItemList = em.createQuery(InvoiceItemQuery).getResultList();
-                    List<InvoiceItemsBean> invoiceItemBeanList = new ArrayList<>();
-
-                    double tQty = 0;
-                    double tDiscount = 0;
-                    double tAmount = 0;
-                    double tProfit = 0;
-                    double tCost = 0;
-                    for (InvoiceItem invoiceItem : InvoiceItemList) {
-                        tQty += invoiceItem.getQty();
-                        tDiscount += invoiceItem.getQty()* invoiceItem.getDiscount();
-                        double Ramount = (invoiceItem.getQty() * invoiceItem.getSalePrice()) - ( invoiceItem.getQty() * invoiceItem.getDiscount()) ;
-                        double Rcost = invoiceItem.getQty() * invoiceItem.getCostPrice();
-                        double Rdiscount = invoiceItem.getQty() * invoiceItem.getDiscount();
-                        double Rprofit = Ramount - (Rcost );
-                        tCost += Rcost;
-                        tAmount += Ramount;
-                        tProfit += Rprofit;
-
-                        invoiceItemBeanList.add(new InvoiceItemsBean(
-                                String.valueOf(invoiceItem.getProductId().getId()),
-                                String.valueOf(invoiceItem.getProductId().getProduct()),
-                                String.format("%,.2f", invoiceItem.getQty() *invoiceItem.getCostPrice()),
-                                String.format("%,.2f",invoiceItem.getQty() * invoiceItem.getSalePrice()),
-                                String.valueOf(invoiceItem.getQty()),
-                                String.valueOf(invoiceItem.getQty() * invoiceItem.getDiscount()),
-                                String.format("%,.2f", Ramount),
-                                String.format("%,.2f", Rprofit)
-                        ));
-                    }
-
-                    GrnadTotalDiscountValue += tDiscount;
-                    GrnadTotalProfitValue += tProfit;
-                    GrnadTotalSaleValue += tAmount;
-                    GrnadTotalStockValue += tCost;
-
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy hh:mm a");
-                    String DateTimeString = invoice.getDateTime().toInstant()
-                            .atZone(ZoneId.systemDefault())
-                            .format(formatter);
-
-                    invoiceListBean.add(new InvoiceBean(
-                            String.format("INV-%06d", invoice.getId()),
-                            invoiceItemBeanList,
-                            DateTimeString,
-                            String.format("%,.2f", invoice.getBillAmount()),
-                            String.format("%,.2f", invoice.getPaidAmount()),
-                            String.format("%,.2f", invoice.getPaidAmount() - invoice.getBillAmount()),
-                            String.format("%,.2f", tQty),
-                            String.format("%,.2f", tDiscount),
-                            String.format("%,.2f", tAmount),
-                            String.format("%,.2f", tProfit)
+                    beans.add(new InvoiceItemsBean(
+                            String.valueOf(item.getProductId().getId()),
+                            item.getProductId().getProduct(),
+                            String.format("%,.2f", cost),
+                            String.format("%,.2f", sale),
+                            String.valueOf((int) qty),
+                            String.format("%,.2f", discount),
+                            String.format("%,.2f", netSale),
+                            String.format("%,.2f", profit)
                     ));
                 }
 
-                Map<String, Object> params = new HashMap<>();
-                params.put("ApplicationName", CompanyInfo.companyName);
-                params.put("Address", CompanyInfo.address);
-                params.put("Contact", CompanyInfo.mobile);
-                params.put("TotalStockValue", String.format("Rs. %,.2f", GrnadTotalStockValue));
-                params.put("TotalSaleValue", String.format("Rs. %,.2f", GrnadTotalSaleValue));
-                params.put("TotalDiscount", String.format("Rs. %,.2f", GrnadTotalDiscountValue));
-                params.put("TotalProfit", String.format("Rs. %,.2f", GrnadTotalProfitValue));
+                invoiceListBean.add(new InvoiceBean(
+                        String.format("INV-%06d", invoice.getId()),
+                        beans,
+                        invoice.getDateTime().toInstant().atZone(ZoneId.systemDefault())
+                                .format(DateTimeFormatter.ofPattern("MMM dd, yyyy hh:mm a")),
+                        String.format("%,.2f", invoice.getBillAmount()),
+                        String.format("%,.2f", invoice.getPaidAmount()),
+                        String.format("%,.2f", invoice.getPaidAmount() - invoice.getBillAmount()),
+                        String.format("%,.2f", tQty),
+                        String.format("%,.2f", tDisc),
+                        String.format("%,.2f", tAmount),
+                        String.format("%,.2f", tProfit)
+                ));
 
-                try {
-                    URL imageUrl = getClass().getResource("/com/qb/app/assets/images/logo.png");
-                    params.put("Logo", imageUrl);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    getLogger.logger().warning(e.toString());
-                }
+                totalCost += tCost;
+                totalSale += tAmount;
+                totalDiscount += tDisc;
+                totalProfit += tProfit;
+            }
 
-                try {
-                      JasperReportsContext jasperReportsContext = DefaultJasperReportsContext.getInstance();
-            JRPropertiesUtil.getInstance(jasperReportsContext).setProperty(
-                    "net.sf.jasperreports.awt.ignore.missing.font", "true"
-            );
-                    JasperReport subReport = (JasperReport) JRLoader.loadObject(
-                            getClass().getResourceAsStream("/com/qb/app/reports/Pharmacy_Detail_Sale_Sub_Report.jasper"));
-                    params.put("SUB_REPORT_PATH", subReport);
+            Map<String, Object> params = new HashMap<>();
+            params.put("ApplicationName", CompanyInfo.companyName);
+            params.put("Address", CompanyInfo.address);
+            params.put("Contact", CompanyInfo.mobile);
+            params.put("TotalStockValue", String.format("Rs. %,.2f", totalCost));
+            params.put("TotalSaleValue", String.format("Rs. %,.2f", totalSale));
+            params.put("TotalDiscount", String.format("Rs. %,.2f", totalDiscount));
+            params.put("TotalProfit", String.format("Rs. %,.2f", totalProfit));
 
-                    JasperReport mainReport = (JasperReport) JRLoader.loadObject(
-                            getClass().getResourceAsStream("/com/qb/app/reports/Pharmacy_Detail_Sale.jasper"));
+            try {
+                params.put("Logo", getClass().getResource("/com/qb/app/assets/images/logo.png"));
+                JasperReport subReport = (JasperReport) JRLoader.loadObject(
+                        getClass().getResourceAsStream("/com/qb/app/reports/Pharmacy_Detail_Sale_Sub_Report.jasper"));
+                params.put("SUB_REPORT_PATH", subReport);
 
-                    JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(invoiceListBean);
-                    JasperPrint report = JasperFillManager.fillReport(mainReport, params, dataSource);
-//                    JasperViewer.viewReport(report, false);
-                    JasperViewer viewer = new JasperViewer(report, false);
-                    viewer.setAlwaysOnTop(true);
-                    viewer.setVisible(true);
-                } catch (JRException e) {
-                    e.printStackTrace();
-                    getLogger.logger().warning(e.toString());
-                }
-            });
-        } else {
-            CustomAlert.showStyledAlert(root, "Report generation failed. Please Load Report First !", Alert.AlertType.WARNING);
-        }
+                JasperReport mainReport = (JasperReport) JRLoader.loadObject(
+                        getClass().getResourceAsStream("/com/qb/app/reports/Pharmacy_Detail_Sale.jasper"));
+
+                JasperPrint print = JasperFillManager.fillReport(mainReport, params, new JRBeanCollectionDataSource(invoiceListBean));
+                JasperViewer viewer = new JasperViewer(print, false);
+                viewer.setAlwaysOnTop(true);
+                viewer.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+                getLogger.logger().warning(e.toString());
+            }
+        });
     }
 
     private void loadComboBox() {
         cbFilter.getItems().addAll("ID", "Invoice Number", "Product Name", "Quantity");
-        cbFilter.setValue("Select Filter");
+        cbFilter.setValue("ID");
     }
 
     private void setEventListner() {
         root.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (null != event.getCode()) {
-                if (event.getCode() == KeyCode.F5) {
-                    refreshInterface();
-                }
+            if (event.getCode() == KeyCode.F5) {
+                refreshInterface();
             }
         });
     }
 
     private void refreshInterface() {
-        cbFilter.setValue(null);
-          cbFilter.setPromptText("Select Filter");
-        loadTextField();
+        cbFilter.setValue("ID");
         DateSelector.setValue(LocalDate.now());
-        tableBody.getChildren().clear();
+        loadTextField();
+        tableInvoiceItems.getItems().clear();
     }
 
     @FXML
     private void LoadReport(ActionEvent event) {
-          if (event.getSource() == LoadReportBtn) {
-              loadInvoiceReport();
-         }
+        if (event.getSource() == LoadReportBtn) {
+            loadInvoiceReport();
+        }
     }
 
     @FXML
     private void ViewReport(ActionEvent event) {
         if (event.getSource() == ViewRepoetBtn) {
-              LoadReportDetails();
-         }
+            LoadReportDetails();
+        }
     }
 
     @FXML
     private void Refresh(ActionEvent event) {
-           if (event.getSource() == RefreshBtn) {
-              refreshInterface();
-         }
+        if (event.getSource() == RefreshBtn) {
+            refreshInterface();
+        }
     }
 }

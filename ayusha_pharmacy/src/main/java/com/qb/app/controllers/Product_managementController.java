@@ -322,39 +322,6 @@ public class Product_managementController implements Initializable {
                         controller.saveProductRegistrationController(this);
                     }
             );
-//            FXMLLoader loader = new FXMLLoader(App.class.getResource("popUpProductList.fxml"));
-//            Parent root = loader.load();
-//
-//            // Create a new stage for the popup
-//            Stage popupStage = new Stage();
-//            popupStage.initOwner(tfItemID.getScene().getWindow());
-//            popupStage.initModality(Modality.APPLICATION_MODAL);
-//
-//            // Get screen dimensions
-//            Screen screen = Screen.getPrimary();
-//            Rectangle2D bounds = screen.getVisualBounds();
-//
-//            // Create scene with full width but original height
-//            Scene scene = new Scene(root);
-//            popupStage.setScene(scene);
-//
-//            // Set width to screen width and position at x=0
-//            popupStage.setWidth(bounds.getWidth());
-//            popupStage.setX(0); // This ensures no left gap
-//
-//            // Set fixed height (adjust as needed)
-//            popupStage.setHeight(600);
-//
-//            // Center the popup vertically
-//            popupStage.setY((bounds.getHeight() - popupStage.getHeight()) / 2);
-//
-//            popupStage.initStyle(StageStyle.TRANSPARENT);
-//
-//            // Get controller reference
-//            PopUpProductListController controller = loader.getController();
-//            controller.saveProductRegistrationController(this);
-//
-//            popupStage.showAndWait();
         } catch (Exception e) {
             e.printStackTrace();
             getLogger.logger().warning(e.toString());

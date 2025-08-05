@@ -35,7 +35,8 @@ import java.util.Date;
     @NamedQuery(name = "Invoice.findByDateTime", query = "SELECT i FROM Invoice i WHERE i.dateTime = :dateTime"),
     @NamedQuery(name = "Invoice.findByBillAmount", query = "SELECT i FROM Invoice i WHERE i.billAmount = :billAmount"),
     @NamedQuery(name = "Invoice.findByPaidAmount", query = "SELECT i FROM Invoice i WHERE i.paidAmount = :paidAmount"),
-    @NamedQuery(name = "Invoice.findByCreditAmount", query = "SELECT i FROM Invoice i WHERE i.creditAmount = :creditAmount")})
+    @NamedQuery(name = "Invoice.findByCreditAmount", query = "SELECT i FROM Invoice i WHERE i.creditAmount = :creditAmount"),
+    @NamedQuery(name = "Invoice.findByBillDiscount", query = "SELECT i FROM Invoice i WHERE i.billDiscount = :billDiscount")})
 public class Invoice implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -57,6 +58,9 @@ public class Invoice implements Serializable {
     @Basic(optional = false)
     @Column(name = "credit_amount")
     private double creditAmount;
+    @Basic(optional = false)
+    @Column(name = "bill_discount")
+    private double billDiscount;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoiceId")
     private Collection<InvoiceItem> invoiceItemCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoiceId")
@@ -72,12 +76,13 @@ public class Invoice implements Serializable {
         this.id = id;
     }
 
-    public Invoice(Integer id, Date dateTime, double billAmount, double paidAmount, double creditAmount) {
+    public Invoice(Integer id, Date dateTime, double billAmount, double paidAmount, double creditAmount, double billDiscount) {
         this.id = id;
         this.dateTime = dateTime;
         this.billAmount = billAmount;
         this.paidAmount = paidAmount;
         this.creditAmount = creditAmount;
+        this.billDiscount = billDiscount;
     }
 
     public Integer getId() {
@@ -118,6 +123,14 @@ public class Invoice implements Serializable {
 
     public void setCreditAmount(double creditAmount) {
         this.creditAmount = creditAmount;
+    }
+
+    public double getBillDiscount() {
+        return billDiscount;
+    }
+
+    public void setBillDiscount(double billDiscount) {
+        this.billDiscount = billDiscount;
     }
 
     public Collection<InvoiceItem> getInvoiceItemCollection() {

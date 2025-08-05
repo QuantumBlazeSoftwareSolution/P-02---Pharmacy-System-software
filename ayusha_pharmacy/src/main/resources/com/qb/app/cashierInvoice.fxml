@@ -286,11 +286,11 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                           </Button>
-                                          <Button fx:id="btnViewQty" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" style="-fx-background-radius: 6px;" styleClass="buttonHover" stylesheets="@css/style.css" text="1">
+                                          <TextField fx:id="btnViewQty" alignment="CENTER" maxHeight="35.0" prefHeight="30.0" prefWidth="60.0" style="-fx-background-radius: 6;" styleClass="buttonHover" text="1">
                                              <font>
-                                                <Font name="Segoe UI Bold" size="18.0" />
+                                                <Font name="System Bold" size="16.0" />
                                              </font>
-                                          </Button>
+                                          </TextField>
                                           <Button fx:id="btnIncreaseQty" mnemonicParsing="false" onAction="#handleQuantityAmount" prefHeight="30.0" prefWidth="50.0" style="-fx-background-radius: 6px;" stylesheets="@css/style.css" text="+">
                                              <font>
                                                 <Font name="Segoe UI Bold" size="18.0" />

@@ -1,6 +1,7 @@
 package com.qb.app.model.TableModels;
 
 public class ReportStockBalanceModel {
+
     private final int id;
     private final String brand;
     private final String product;
@@ -8,8 +9,9 @@ public class ReportStockBalanceModel {
     private final double costPrice;
     private final double salePrice;
     private final double profit;
+    private final String genericName;
 
-    public ReportStockBalanceModel(int id, String brand, String product, double qty, double costPrice, double salePrice) {
+    public ReportStockBalanceModel(int id, String brand, String product, double qty, double costPrice, double salePrice, String genericName) {
         this.id = id;
         this.brand = brand;
         this.product = product;
@@ -17,13 +19,38 @@ public class ReportStockBalanceModel {
         this.costPrice = costPrice;
         this.salePrice = salePrice;
         this.profit = (salePrice * qty) - (costPrice * qty);
+        this.genericName = genericName;
     }
 
-    public int getId() { return id; }
-    public String getBrand() { return brand; }
-    public String getProduct() { return product; }
-    public double getQty() { return qty; }
-    public double getCostPrice() { return costPrice; }
-    public double getSalePrice() { return salePrice; }
-    public double getProfit() { return profit; }
+    public int getId() {
+        return id;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public String getProduct() {
+        return product;
+    }
+
+    public double getQty() {
+        return qty;
+    }
+
+    public double getCostPrice() {
+        return costPrice;
+    }
+
+    public double getSalePrice() {
+        return salePrice;
+    }
+
+    public double getProfit() {
+        return profit;
+    }
+
+    public String getGenericName() {
+        return genericName;
+    }
 }

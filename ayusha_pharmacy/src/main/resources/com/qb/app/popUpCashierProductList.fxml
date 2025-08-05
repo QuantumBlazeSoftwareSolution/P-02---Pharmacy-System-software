@@ -6,8 +6,8 @@
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -84,147 +84,22 @@
                         <Insets bottom="10.0" right="20.0" />
                      </VBox.margin>
                   </HBox>
-                  <HBox VBox.vgrow="ALWAYS">
-                     <children>
-                        <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
-                           <children>
-                              <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" minHeight="50.0" styleClass="transparent-scroll-pane" stylesheets="@css/style.css" vbarPolicy="NEVER">
-                                 <content>
-                                    <HBox maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="200.0" style="-fx-border-radius: 4 4 0 0;" stylesheets="@css/style.css">
-                                       <children>
-                                          <BorderPane maxWidth="80.0" minWidth="-Infinity" prefWidth="60.0" style="-fx-border-radius: 0; -fx-border-width: 0 0.5 0 0;" styleClass="primary-border" stylesheets="@css/style.css" HBox.hgrow="ALWAYS">
-                                             <left>
-                                                <Label styleClass="primary-text" stylesheets="@css/style.css" text="ID" BorderPane.alignment="CENTER">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </Label>
-                                             </left>
-                                             <padding>
-                                                <Insets left="10.0" />
-                                             </padding>
-                                          </BorderPane>
-                                          <BorderPane minWidth="-Infinity" prefWidth="175.0" style="-fx-border-radius: 0; -fx-border-width: 0 0.5 0 0;" styleClass="primary-border" stylesheets="@css/style.css" HBox.hgrow="ALWAYS">
-                                             <left>
-                                                <Label styleClass="primary-text" stylesheets="@css/style.css" text="Product" BorderPane.alignment="CENTER">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </Label>
-                                             </left>
-                                             <padding>
-                                                <Insets left="10.0" />
-                                             </padding>
-                                          </BorderPane>
-                                          <BorderPane minWidth="-Infinity" prefWidth="100.0" style="-fx-border-radius: 0; -fx-border-width: 0 0.5 0 0;" styleClass="primary-border" stylesheets="@css/style.css" HBox.hgrow="ALWAYS">
-                                             <left>
-                                                <Label styleClass="primary-text" stylesheets="@css/style.css" text="Brand" BorderPane.alignment="CENTER">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </Label>
-                                             </left>
-                                             <padding>
-                                                <Insets left="10.0" />
-                                             </padding>
-                                          </BorderPane>
-                                          <BorderPane layoutX="310.0" layoutY="10.0" maxWidth="140.0" minWidth="-Infinity" prefWidth="100.0" style="-fx-border-radius: 0; -fx-border-width: 0 0.5 0 0;" styleClass="primary-border" stylesheets="@css/style.css" HBox.hgrow="ALWAYS">
-                                             <left>
-                                                <Label styleClass="primary-text" stylesheets="@css/style.css" text="Sale Price" BorderPane.alignment="CENTER">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </Label>
-                                             </left>
-                                             <padding>
-                                                <Insets left="10.0" />
-                                             </padding>
-                                          </BorderPane>
-                                          <BorderPane layoutX="430.0" layoutY="10.0" maxWidth="140.0" minWidth="-Infinity" prefWidth="100.0" style="-fx-border-radius: 0; -fx-border-width: 0 0.5 0 0;" styleClass="primary-border" stylesheets="@css/style.css" HBox.hgrow="ALWAYS">
-                                             <left>
-                                                <Label styleClass="primary-text" stylesheets="@css/style.css" text="Cost Price" BorderPane.alignment="CENTER">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </Label>
-                                             </left>
-                                             <padding>
-                                                <Insets left="10.0" />
-                                             </padding>
-                                          </BorderPane>
-                                          <BorderPane maxWidth="140.0" minWidth="-Infinity" prefWidth="70.0" style="-fx-border-radius: 0; -fx-border-width: 0 0.5 0 0;" styleClass="primary-border" stylesheets="@css/style.css" HBox.hgrow="ALWAYS">
-                                             <left>
-                                                <Label styleClass="primary-text" stylesheets="@css/style.css" text="Unit" BorderPane.alignment="CENTER">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </Label>
-                                             </left>
-                                             <padding>
-                                                <Insets left="10.0" />
-                                             </padding>
-                                          </BorderPane>
-                                          <BorderPane layoutX="550.0" layoutY="10.0" maxWidth="140.0" minWidth="-Infinity" prefWidth="80.0" style="-fx-border-radius: 0; -fx-border-width: 0 0.5 0 0;" styleClass="primary-border" stylesheets="@css/style.css" HBox.hgrow="ALWAYS">
-                                             <left>
-                                                <Label styleClass="primary-text" stylesheets="@css/style.css" text="Measure" BorderPane.alignment="CENTER">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </Label>
-                                             </left>
-                                             <padding>
-                                                <Insets left="10.0" />
-                                             </padding>
-                                          </BorderPane>
-                                          <BorderPane layoutX="430.0" layoutY="10.0" maxWidth="140.0" minWidth="-Infinity" prefWidth="60.0" style="-fx-border-radius: 0; -fx-border-width: 0 0.5 0 0;" styleClass="primary-border" stylesheets="@css/style.css" HBox.hgrow="ALWAYS">
-                                             <left>
-                                                <Label styleClass="primary-text" stylesheets="@css/style.css" text="Discount" wrapText="true" BorderPane.alignment="CENTER">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </Label>
-                                             </left>
-                                             <padding>
-                                                <Insets left="10.0" />
-                                             </padding>
-                                          </BorderPane>
-                                          <BorderPane maxWidth="140.0" prefWidth="100.0" style="-fx-border-radius: 0; -fx-border-width: 0 0 0 0;" styleClass="primary-border" stylesheets="@css/style.css" HBox.hgrow="ALWAYS">
-                                             <left>
-                                                <Label styleClass="primary-text" stylesheets="@css/style.css" text="Staus" BorderPane.alignment="CENTER">
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font>
-                                                </Label>
-                                             </left>
-                                             <padding>
-                                                <Insets left="10.0" />
-                                             </padding>
-                                          </BorderPane>
-                                       </children>
-                                       <styleClass>
-                                          <String fx:value="primary-border" />
-                                          <String fx:value="bg-primary-20" />
-                                       </styleClass>
-                                    </HBox>
-                                 </content>
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                              </ScrollPane>
-                              <ScrollPane fx:id="TableScrollContainer" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="transparent-scroll-pane" stylesheets="@css/style.css" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
-                                 <content>
-                                    <ListView fx:id="tableBody" prefHeight="200.0" prefWidth="200.0" style="-fx-border-radius: 0 0 4 4;">
-                                       <styleClass>
-                                          <String fx:value="primary-border" />
-                                          <String fx:value="transparent-pane" />
-                                       </styleClass>
-                                    </ListView>
-                                 </content>
-                              </ScrollPane>
-                           </children>
-                        </VBox>
-                     </children>
-                  </HBox>
+                  <TableView fx:id="table" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                    <columns>
+                      <TableColumn fx:id="colId" maxWidth="100.0" prefWidth="75.0" text="ID" />
+                      <TableColumn fx:id="colProduct" prefWidth="75.0" text="Item Name" />
+                        <TableColumn fx:id="colDepartment" prefWidth="75.0" text="Department" />
+                        <TableColumn fx:id="colSalePrice" maxWidth="160.0" prefWidth="75.0" text="Sale Price" />
+                        <TableColumn fx:id="colCostPrice" maxWidth="160.0" prefWidth="75.0" text="Cost Price" />
+                        <TableColumn fx:id="colUnit" maxWidth="120.0" prefWidth="75.0" text="Unit" />
+                        <TableColumn fx:id="colMeasure" maxWidth="120.0" prefWidth="75.0" text="Measure" />
+                        <TableColumn fx:id="colDiscount" maxWidth="160.0" prefWidth="75.0" text="Discount" />
+                        <TableColumn fx:id="colStatus" maxWidth="120.0" prefWidth="75.0" text="Status" />
+                    </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
                </children>
                <BorderPane.margin>
                   <Insets />

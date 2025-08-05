@@ -208,13 +208,18 @@ public class ReportStockBalanceController implements Initializable {
                         totalSaleValue += rowSalePrice;
                         totalProfit += rowProfit;
 
+                        String genericName = (product.getGenericName() == null || product.getGenericName().trim().isEmpty())
+                                ? "N/A"
+                                : product.getGenericName();
+
                         models.add(new ReportStockBalanceModel(
                                 product.getId(),
                                 brand.getBrand(),
                                 product.getProduct(),
                                 qty,
                                 costPrice,
-                                salePrice
+                                salePrice,
+                                genericName
                         ));
                     }
 
@@ -460,7 +465,7 @@ public class ReportStockBalanceController implements Initializable {
                 productList.add(new ProductBean(
                         String.valueOf(model.getId()), // item_id
                         model.getProduct(), // item_name
-                        "N/A", // item_generic (not available in table model)
+                        model.getGenericName(),
                         String.format("%,.2f", salePrice), // unit_price
                         String.format("%,.2f", qty), // balance_stock
                         String.format("%,.2f", tSaleAmount) // amount

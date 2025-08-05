@@ -10,3 +10,9 @@ Jul 25, 2025 6:09:54 PM com.qb.app.controllers.PanelAdminController loadCenterPa
 WARNING: javafx.fxml.LoadException: 
 /E:/Quantum%20Blaze/Projects/Client%20Project/P%2302%20-%20Pharmacy%20System%20software/ayusha_pharmacy/target/classes/com/qb/app/reportFXML/reportStockBalance.fxml
 
+Jul 26, 2025 1:23:24 PM com.qb.app.controllers.CashierInvoiceController openProductView
+WARNING: javafx.fxml.LoadException: 
+/E:/Quantum%20Blaze/Projects/Client%20Project/P%2302%20-%20Pharmacy%20System%20software/ayusha_pharmacy/target/classes/com/qb/app/popUpCashierProductList.fxml
+
+Aug 05, 2025 11:26:10 AM com.qb.app.model.JpaUtil <clinit>
+WARNING: org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment] due to: Error calling Driver#connect [null]

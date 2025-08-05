@@ -197,13 +197,18 @@ public class ReportGRNController implements Initializable {
                             continue;
                         }
 
+                        String genericName = (product.getGenericName() == null || product.getGenericName().trim().isEmpty())
+                                ? "N/A"
+                                : product.getGenericName();
+
                         double amount = item.getQty() * item.getCostPrice();
                         ReportGRNDetailModel model = new ReportGRNDetailModel(
                                 index++,
                                 product.getProduct(),
                                 item.getCostPrice(),
                                 item.getQty(),
-                                amount
+                                amount,
+                                genericName
                         );
                         models.add(model);
                     }
@@ -318,32 +323,103 @@ public class ReportGRNController implements Initializable {
 
     }
 
+//    private void printGrnReport() {
+//
+//        if (!grnItemList.isEmpty()) {
+//            Map<String, Object> params = getJRParams();
+//            Vector<GrnItemBean> collection = getBeanCollection();
+//            try {
+//                JasperReportsContext jasperReportsContext = DefaultJasperReportsContext.getInstance();
+//                JRPropertiesUtil.getInstance(jasperReportsContext).setProperty(
+//                        "net.sf.jasperreports.awt.ignore.missing.font", "true"
+//                );
+//                JasperReport jasperReport = (JasperReport) JRLoader.loadObject(
+//                        getClass().getResourceAsStream("/com/qb/app/reports/PharmacyGRN.jasper"));
+//                JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(collection);
+//                JasperPrint report = JasperFillManager.fillReport(jasperReport, params, dataSource);
+////                    JasperViewer.viewReport(report, false);
+//                JasperViewer viewer = new JasperViewer(report, false);
+//                viewer.setAlwaysOnTop(true);
+//                viewer.setVisible(true);
+//            } catch (JRException e) {
+//                e.printStackTrace();
+//                getLogger.logger().warning(e.toString());
+//            }
+//        } else {
+//            CustomAlert.showStyledAlert(root, "Report generation failed. Please Load Report First !", Alert.AlertType.WARNING);
+//        }
+//
+//    }
     private void printGrnReport() {
+        List<ReportGRNDetailModel> tableData = table.getItems();
 
-        if (!grnItemList.isEmpty()) {
-            Map<String, Object> params = getJRParams();
-            Vector<GrnItemBean> collection = getBeanCollection();
-            try {
-                JasperReportsContext jasperReportsContext = DefaultJasperReportsContext.getInstance();
-                JRPropertiesUtil.getInstance(jasperReportsContext).setProperty(
-                        "net.sf.jasperreports.awt.ignore.missing.font", "true"
-                );
-                JasperReport jasperReport = (JasperReport) JRLoader.loadObject(
-                        getClass().getResourceAsStream("/com/qb/app/reports/PharmacyGRN.jasper"));
-                JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(collection);
-                JasperPrint report = JasperFillManager.fillReport(jasperReport, params, dataSource);
-//                    JasperViewer.viewReport(report, false);
-                JasperViewer viewer = new JasperViewer(report, false);
-                viewer.setAlwaysOnTop(true);
-                viewer.setVisible(true);
-            } catch (JRException e) {
-                e.printStackTrace();
-                getLogger.logger().warning(e.toString());
-            }
-        } else {
-            CustomAlert.showStyledAlert(root, "Report generation failed. Please Load Report First !", Alert.AlertType.WARNING);
+        if (tableData.isEmpty()) {
+            CustomAlert.showStyledAlert(root, "No data to generate report. Please load data first.", Alert.AlertType.WARNING);
+            return;
         }
 
+        try {
+            // Prepare report parameters
+            Map<String, Object> params = new HashMap<>();
+            params.put("GrnTime", grnDateTimeString);
+            params.put("GrnID", TFGrnId.getText());
+            params.put("Supplier", cbSupplier.getValue().getName());
+            params.put("CompanyName", CompanyInfo.companyName);
+            params.put("Contact", CompanyInfo.mobile);
+            params.put("Address", CompanyInfo.address);
+            params.put("Employee", ApplicationSession.getEmployee().getName());
+
+            // Calculate totals
+            double subtotal = tableData.stream()
+                    .mapToDouble(ReportGRNDetailModel::getAmount)
+                    .sum();
+            double finalTotal = subtotal - discount;
+
+            params.put("SubTotal", String.format("Rs. %,.2f", subtotal));
+            params.put("Discount", String.format("Rs. %,.2f", discount));
+            params.put("Total", String.format("Rs. %,.2f", finalTotal));
+            params.put("TotalQty", String.valueOf(tableData.size()));
+
+            // Create data source for the report
+            Vector<GrnItemBean> collection = new Vector<>();
+            for (ReportGRNDetailModel item : tableData) {
+                // Create GrnItemBean for each table row
+                // Note: Generic name is not available in the table model, using "N/A"
+                collection.add(new GrnItemBean(
+                        String.valueOf(item.getId()),
+                        item.getProduct(),
+                        item.getGenericName(),
+                        String.format("%,.2f", item.getCostPrice()),
+                        String.format("%,.2f", item.getQty()),
+                        String.format("%,.2f", item.getAmount())
+                ));
+            }
+
+            // Load and display report
+            JasperReportsContext jasperReportsContext = DefaultJasperReportsContext.getInstance();
+            JRPropertiesUtil.getInstance(jasperReportsContext).setProperty(
+                    "net.sf.jasperreports.awt.ignore.missing.font", "true"
+            );
+
+            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(
+                    getClass().getResourceAsStream("/com/qb/app/reports/PharmacyGRN.jasper"));
+
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(collection);
+            JasperPrint report = JasperFillManager.fillReport(jasperReport, params, dataSource);
+
+            JasperViewer viewer = new JasperViewer(report, false);
+            viewer.setAlwaysOnTop(true);
+            viewer.setVisible(true);
+
+        } catch (JRException e) {
+            e.printStackTrace();
+            getLogger.logger().warning(e.toString());
+            CustomAlert.showStyledAlert(root, "Error generating report: " + e.getMessage(), Alert.AlertType.ERROR);
+        } catch (Exception e) {
+            e.printStackTrace();
+            getLogger.logger().warning(e.toString());
+            CustomAlert.showStyledAlert(root, "Unexpected error generating report", Alert.AlertType.ERROR);
+        }
     }
 
     private Map<String, Object> getJRParams() {

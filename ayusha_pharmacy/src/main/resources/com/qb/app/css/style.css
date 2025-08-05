@@ -314,3 +314,122 @@
     -fx-font-size: 14px;
     -fx-text-fill: #333;
 }
+
+
+
+
+
+
+/* Add this to your style.css file */
+
+/* TableView Main Styling */
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: #00796F;
+    -fx-border-width: 0.5px;
+    -fx-border-radius: 4px;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+}
+
+/* Table Header Styling */
+.table-view .column-header-background {
+    -fx-background-color: linear-gradient(to bottom, #00796F, #009589);
+    -fx-background-radius: 4px 4px 0 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0 0 5px 0;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-pref-height: 40px;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #E5FFF5;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 0 0 0 10px;
+}
+
+/* Table Row Styling */
+.table-view .table-row-cell {
+    -fx-background-color: #F5FFFB;
+    -fx-cell-size: 40px;
+    -fx-border-color: transparent;
+}
+
+.table-view .table-row-cell:odd {
+    -fx-background-color: #E5FFF5;
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: hsba(175, 100%, 47%, 0.2);
+    -fx-text-fill: #00796F;
+}
+
+/* Table Cell Styling */
+.table-view .table-cell {
+    -fx-text-fill: #00796F;
+    -fx-border-color: transparent;
+    -fx-padding: 0 10px;
+    -fx-font-size: 14px;
+}
+
+/* Numeric Columns - Right Aligned */
+.table-view .table-column[text="Sale Price"],
+.table-view .table-column[text="Cost Price"],
+.table-view .table-column[text="Discount"],
+.table-view .table-column[text="Measure"] {
+    -fx-alignment: CENTER_RIGHT;
+}
+
+/* ID Column - Center Aligned */
+.table-view .table-column[text="ID"] {
+    -fx-alignment: CENTER;
+}
+
+/* Scroll Bar Styling */
+.table-view .scroll-bar:horizontal,
+.table-view .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.table-view .scroll-bar:horizontal .thumb,
+.table-view .scroll-bar:vertical .thumb {
+    -fx-background-color: #00796F;
+    -fx-background-insets: 2, 0, 0;
+    -fx-background-radius: 2em;
+}
+
+/* Hover Effects */
+.table-row-cell:hover {
+    -fx-background-color: hsba(175, 100%, 47%, 0.1);
+}
+
+/* Focus Styling */
+.table-view:focused,
+.table-view:focused .table-row-cell:selected {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-table-cell-border-color: transparent;
+}
+
+/* Placeholder Text */
+.table-view .placeholder .label {
+    -fx-text-fill: #00796F;
+    -fx-font-style: italic;
+}
+
+/* Status Column Coloring */
+.table-view .table-cell[text="Active"],
+.table-view .table-cell[text="Enable"] {
+    -fx-text-fill: #0DBC75;
+}
+
+.table-view .table-cell[text="Inactive"],
+.table-view .table-cell[text="Disable"] {
+    -fx-text-fill: #FF3333;
+}

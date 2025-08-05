@@ -63,7 +63,7 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
     @FXML
     private Button btnDecreaseQty;
     @FXML
-    private Button btnViewQty;
+    private TextField btnViewQty;
     @FXML
     private Button btnIncreaseQty;
     @FXML
@@ -124,10 +124,33 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
     public void initialize(URL url, ResourceBundle rb) {
         DefaultAPI.bindTableScroll(invoiceScroller, invoiceScrollContainer, invoiceItemContainer);
         tfItemCode.setTextFormatter(DefaultAPI.createNumericTextFormatter());
+        btnViewQty.setTextFormatter(DefaultAPI.createNumericTextFormatter());
         setEventListener();
         Platform.runLater(() -> {
             tfItemCode.requestFocus();
         });
+
+        btnViewQty.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.isEmpty()) {
+                try {
+                    setItemQty(Double.parseDouble(newValue));
+                    setItemPrice();
+                } catch (NumberFormatException e) {
+                    // Handle invalid input if needed
+                }
+            }
+        });
+
+        btnViewQty.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                System.out.println("Quantity field Enter pressed - isProductLoaded: " + isProductLoaded);
+                if (isProductLoaded) {
+                    addItemToInvoice();
+                    event.consume(); // Prevent the event from bubbling up
+                }
+            }
+        });
+
         salePriceSeparator.setVisible(false);
         salePriceSeparator.setManaged(false);
         labelItemNewPrice.setText("");
@@ -161,6 +184,9 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         if (!tfItemCode.getText().isEmpty()) {
             if (event.getCode() == KeyCode.ENTER) {
                 loadPreviewProduct();
+                btnViewQty.requestFocus();
+                isProductLoaded = true;
+                System.out.println("isProductLoaded: 1 - " + isProductLoaded);
             }
         } else {
             if (event.getCode() == KeyCode.ENTER) {
@@ -197,6 +223,12 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                             String imagePath = findProductImage(this.product.getId());
                             itemImage.setImage(new Image(imagePath));
                             labelItemName.setText(product.getProduct());
+
+                            // Focus and select quantity field
+                            btnViewQty.setText("1");
+                            btnViewQty.requestFocus();
+                            btnViewQty.selectAll();
+
                             if (product.getDiscount() > 0) {
                                 labelItemPrice.setStyle("-fx-strikethrough: true;");
                                 labelItemPrice.setFill(Color.RED);
@@ -235,7 +267,6 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                             setUnitPrice(productPrice);
                             setItemPrice();
                         });
-                        isProductLoaded = true;
                     } else {
                         showPreviewMessage("(CANNOT FIND THE PRODUCT)");
                     }
@@ -281,19 +312,6 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
                         event.consume();
                         event.consume();
                     }
-                    case ENTER -> {
-                        if (!tfItemCode.getText().isEmpty()) {
-                            if (isProductLoaded) {
-                                addItemToInvoice();
-                            } else {
-                                loadPreviewProduct();
-                            }
-                        } else {
-                            openProductView();
-                            isProductLoaded = false;
-                        }
-                        event.consume();
-                    }
                     case DIVIDE -> {
                         if (!invoiceItemList.isEmpty()) {
                             openPaymentPanel();
@@ -313,6 +331,14 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
 
                     }
                 }
+            }
+        });
+
+        btnViewQty.focusedProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal) {
+                Platform.runLater(() -> {
+                    btnViewQty.selectAll();
+                });
             }
         });
     }
@@ -425,6 +451,8 @@ public class CashierInvoiceController implements Initializable, ControllerClose 
         salePriceSeparator.setManaged(false);
         hidePreviewMessage();
         this.product = null;
+
+        tfItemCode.requestFocus();
     }
 
     public void calculateInvoiceSummary() {

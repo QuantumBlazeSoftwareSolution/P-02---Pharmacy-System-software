@@ -277,3 +277,107 @@
     -fx-text-fill: #f1f1f1; /* White text for selected today */
 }
 
+
+
+
+/*table view design*/
+/* Add this to your adminStyle.css file */
+
+/* TableView main styling */
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: #00899B;
+    -fx-border-width: 0.5px;
+    -fx-border-radius: 4px;
+    -fx-padding: 0;
+}
+
+/* Table header styling */
+.table-view .column-header-background {
+    -fx-background-color: rgba(0, 137, 155, 0.75);
+    -fx-background-radius: 4px 4px 0 0;
+    -fx-background-insets: 0 0 0 0;
+    -fx-padding: 0 0 5px 0;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-pref-height: 40px;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #f1f1f1;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 0 0 0 10px;
+}
+
+/* Table row styling */
+.table-view .table-row-cell {
+    -fx-background-color: white;
+    -fx-cell-size: 40px;
+    -fx-border-color: transparent;
+}
+
+.table-view .table-row-cell:odd {
+    -fx-background-color: rgba(0, 137, 155, 0.05);
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: rgba(0, 137, 155, 0.2);
+    -fx-text-fill: #00899B;
+}
+
+/* Table cell styling */
+.table-view .table-cell {
+    -fx-text-fill: #00796F;
+    -fx-border-color: transparent;
+    -fx-padding: 0 10px 0 10px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-font-size: 14px;
+}
+
+/* Scroll bar styling */
+.table-view .scroll-bar:horizontal,
+.table-view .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.table-view .scroll-bar:horizontal .thumb,
+.table-view .scroll-bar:vertical .thumb {
+    -fx-background-color: #00899B;
+    -fx-background-insets: 2, 0, 0;
+    -fx-background-radius: 2em;
+}
+
+/* No focus styling */
+.table-view:focused,
+.table-view:focused .table-row-cell:selected {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-table-cell-border-color: transparent;
+}
+
+/* Hover effect */
+.table-row-cell:hover {
+    -fx-background-color: rgba(0, 137, 155, 0.1);
+}
+
+/* Alignment for specific columns */
+.table-view .table-column {
+    -fx-alignment: CENTER_LEFT;
+}
+
+/* Right align for numeric columns */
+/*.table-view .table-column[text="Cost Price"],
+.table-view .table-column[text="Qty"],
+.table-view .table-column[text="Amount"] {
+    -fx-alignment: CENTER_RIGHT;
+}*/
+
+/* Remove empty table placeholder text color */
+.table-view .placeholder .label {
+    -fx-text-fill: #00899B;
+}

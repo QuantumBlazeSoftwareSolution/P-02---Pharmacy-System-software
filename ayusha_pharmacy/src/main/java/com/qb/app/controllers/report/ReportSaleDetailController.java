@@ -170,10 +170,11 @@ public class ReportSaleDetailController implements Initializable {
             double totalCost = models.stream().mapToDouble(ReportSaleDetailModel::getCost).sum();
             double totalSale = models.stream().mapToDouble(ReportSaleDetailModel::getSale).sum();
             double totalDiscount = models.stream().mapToDouble(ReportSaleDetailModel::getDiscount).sum();
+            totalDiscount += models.stream().mapToDouble(ReportSaleDetailModel::getInvoiceDiscount).sum();
             double totalProfit = models.stream().mapToDouble(ReportSaleDetailModel::getProfit).sum();
 
             TFTotalCost.setText(String.format("Rs. %,.2f", totalCost));
-            TFTotalSale.setText(String.format("Rs. %,.2f", totalSale));
+            TFTotalSale.setText(String.format("Rs. %,.2f", totalSale - totalDiscount));
             TFTotalDiscount.setText(String.format("Rs. %,.2f", totalDiscount));
             TFTotalProfit.setText(String.format("Rs. %,.2f", totalProfit));
         });
@@ -222,16 +223,18 @@ public class ReportSaleDetailController implements Initializable {
                 List<InvoiceItemsBean> beans = new ArrayList<>();
                 double tQty = 0, tAmount = 0, tDisc = 0, tCost = 0, tProfit = 0;
 
+                tDisc += invoice.getBillDiscount();
+
                 for (InvoiceItem item : items) {
                     double qty = item.getQty();
-                    double cost = qty * item.getCostPrice();
-                    double sale = qty * item.getSalePrice();
+                    double cost = item.getCostPrice();
+                    double sale = item.getSalePrice();
                     double discount = qty * item.getDiscount();
-                    double netSale = sale - discount;
-                    double profit = netSale - cost;
+                    double netSale = (qty * item.getSalePrice()) - discount;
+                    double profit = netSale - qty * item.getCostPrice();
 
                     tQty += qty;
-                    tCost += cost;
+                    tCost += qty * item.getCostPrice();
                     tAmount += netSale;
                     tDisc += discount;
                     tProfit += profit;
@@ -255,11 +258,12 @@ public class ReportSaleDetailController implements Initializable {
                                 .format(DateTimeFormatter.ofPattern("MMM dd, yyyy hh:mm a")),
                         String.format("%,.2f", invoice.getBillAmount()),
                         String.format("%,.2f", invoice.getPaidAmount()),
-                        String.format("%,.2f", invoice.getPaidAmount() - invoice.getBillAmount()),
+                        String.format("%,.2f", invoice.getPaidAmount() - (invoice.getBillAmount() - invoice.getBillDiscount())),
                         String.format("%,.2f", tQty),
                         String.format("%,.2f", tDisc),
                         String.format("%,.2f", tAmount),
-                        String.format("%,.2f", tProfit)
+                        String.format("%,.2f", tProfit),
+                        String.format("%,.2f", invoice.getBillDiscount())
                 ));
 
                 totalCost += tCost;
@@ -273,7 +277,7 @@ public class ReportSaleDetailController implements Initializable {
             params.put("Address", CompanyInfo.address);
             params.put("Contact", CompanyInfo.mobile);
             params.put("TotalStockValue", String.format("Rs. %,.2f", totalCost));
-            params.put("TotalSaleValue", String.format("Rs. %,.2f", totalSale));
+            params.put("TotalSaleValue", String.format("Rs. %,.2f", totalSale - totalDiscount));
             params.put("TotalDiscount", String.format("Rs. %,.2f", totalDiscount));
             params.put("TotalProfit", String.format("Rs. %,.2f", totalProfit));
 

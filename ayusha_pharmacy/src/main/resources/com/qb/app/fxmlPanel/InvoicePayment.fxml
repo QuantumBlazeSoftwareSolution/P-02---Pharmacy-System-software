@@ -38,23 +38,139 @@
             </HBox>
          </top>
          <center>
-            <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0" BorderPane.alignment="CENTER">
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
+            <VBox BorderPane.alignment="CENTER">
                <children>
-                  <VBox maxHeight="-Infinity" maxWidth="500.0" minWidth="-Infinity" spacing="10.0" HBox.hgrow="ALWAYS">
+                  <VBox spacing="10.0">
                      <children>
-                        <Label styleClass="primary-text" stylesheets="@../css/style.css" text="Payment Method">
+                        <Label styleClass="primary-text" stylesheets="@../css/style.css" text="Special Discount (Rs)">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <HBox maxHeight="-Infinity" minWidth="400.0" prefHeight="100.0" spacing="6.0">
+                        <TextField fx:id="tfDiscount" maxWidth="200.0" minHeight="40.0" prefHeight="40.0" stylesheets="@../css/style.css">
+                           <styleClass>
+                              <String fx:value="bg-white" />
+                              <String fx:value="primary-border" />
+                           </styleClass>
+                        </TextField>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                     <children>
+                        <VBox maxHeight="-Infinity" maxWidth="500.0" minWidth="-Infinity" spacing="10.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <VBox maxHeight="-Infinity" minWidth="100.0" spacing="6.0" HBox.hgrow="ALWAYS">
+                              <Label styleClass="primary-text" stylesheets="@../css/style.css" text="Payment Method">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <HBox maxHeight="-Infinity" minWidth="400.0" prefHeight="100.0" spacing="6.0">
                                  <children>
-                                    <Button minHeight="40.0" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" stylesheets="@../css/style.css" text="Cash">
+                                    <VBox maxHeight="-Infinity" minWidth="100.0" spacing="6.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Button minHeight="40.0" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" stylesheets="@../css/style.css" text="Cash">
+                                             <padding>
+                                                <Insets left="50.0" right="50.0" />
+                                             </padding>
+                                             <font>
+                                                <Font name="Segoe UI Bold" size="14.0" />
+                                             </font>
+                                             <styleClass>
+                                                <String fx:value="bg-primary" />
+                                                <String fx:value="full-width-button" />
+                                                <String fx:value="primary-white" />
+                                             </styleClass>
+                                          </Button>
+                                          <TextField fx:id="tfCashAmount" minHeight="40.0" onKeyPressed="#handleKeyPressed" prefHeight="40.0" stylesheets="@../css/style.css">
+                                             <styleClass>
+                                                <String fx:value="bg-white" />
+                                                <String fx:value="primary-border" />
+                                             </styleClass>
+                                          </TextField>
+                                       </children>
+                                    </VBox>
+                                    <VBox maxHeight="-Infinity" minWidth="100.0" spacing="6.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Button disable="true" minHeight="40.0" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" stylesheets="@../css/style.css" text="Card">
+                                             <padding>
+                                                <Insets left="50.0" right="50.0" />
+                                             </padding>
+                                             <font>
+                                                <Font name="Segoe UI Bold" size="14.0" />
+                                             </font>
+                                             <styleClass>
+                                                <String fx:value="bg-primary-20" />
+                                                <String fx:value="primary-border" />
+                                                <String fx:value="full-width-button" />
+                                                <String fx:value="primary-text" />
+                                             </styleClass>
+                                          </Button>
+                                          <TextField fx:id="tfCardAmount" disable="true" minHeight="40.0" onKeyPressed="#handleKeyPressed" prefHeight="40.0" stylesheets="@../css/style.css">
+                                             <styleClass>
+                                                <String fx:value="bg-white" />
+                                                <String fx:value="primary-border" />
+                                             </styleClass>
+                                          </TextField>
+                                       </children>
+                                    </VBox>
+                                    <VBox maxHeight="-Infinity" minWidth="100.0" spacing="6.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Button disable="true" minHeight="40.0" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" stylesheets="@../css/style.css" text="Credit">
+                                             <padding>
+                                                <Insets left="50.0" right="50.0" />
+                                             </padding>
+                                             <font>
+                                                <Font name="Segoe UI Bold" size="14.0" />
+                                             </font>
+                                             <styleClass>
+                                                <String fx:value="bg-primary-20" />
+                                                <String fx:value="primary-border" />
+                                                <String fx:value="full-width-button" />
+                                                <String fx:value="primary-text" />
+                                             </styleClass>
+                                          </Button>
+                                          <TextField fx:id="tfCreditAmount" disable="true" minHeight="40.0" onKeyPressed="#handleKeyPressed" prefHeight="40.0" stylesheets="@../css/style.css">
+                                             <styleClass>
+                                                <String fx:value="bg-white" />
+                                                <String fx:value="primary-border" />
+                                             </styleClass>
+                                          </TextField>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Button fx:id="btnAction" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleActionEvent" prefHeight="40.0" stylesheets="@../css/style.css" text="Calculate Invoice">
+                                 <padding>
+                                    <Insets bottom="20.0" left="60.0" right="60.0" top="20.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="Segoe UI Bold" size="18.0" />
+                                 </font>
+                                 <styleClass>
+                                    <String fx:value="bg-primary" />
+                                    <String fx:value="primary-white" />
+                                    <String fx:value="full-width-button" />
+                                 </styleClass>
+                              </Button>
+                           </children>
+                        </VBox>
+                        <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                        <VBox maxWidth="400.0" minWidth="-Infinity" prefHeight="200.0" spacing="10.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label disable="true" minWidth="-Infinity" styleClass="primary-text" stylesheets="@../css/style.css" text="Customer Type">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <VBox spacing="6.0">
+                                 <children>
+                                    <Button disable="true" minHeight="40.0" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" stylesheets="@../css/style.css" text="View Creditor(s)">
                                        <padding>
                                           <Insets left="50.0" right="50.0" />
                                        </padding>
@@ -67,124 +183,30 @@
                                           <String fx:value="primary-white" />
                                        </styleClass>
                                     </Button>
-                                    <TextField fx:id="tfCashAmount" minHeight="40.0" onKeyPressed="#handleKeyPressed" prefHeight="40.0" stylesheets="@../css/style.css">
-                                       <styleClass>
-                                          <String fx:value="bg-white" />
-                                          <String fx:value="primary-border" />
-                                       </styleClass>
-                                    </TextField>
+                                    <HBox spacing="6.0">
+                                       <children>
+                                          <TextField disable="true" minHeight="40.0" prefHeight="40.0" promptText="+94712345678" stylesheets="@../css/style.css" HBox.hgrow="ALWAYS">
+                                             <styleClass>
+                                                <String fx:value="bg-white" />
+                                                <String fx:value="primary-border" />
+                                             </styleClass>
+                                          </TextField>
+                                          <TextField disable="true" minHeight="40.0" prefHeight="40.0" promptText="Rs. 6500.00" stylesheets="@../css/style.css" HBox.hgrow="ALWAYS">
+                                             <styleClass>
+                                                <String fx:value="bg-white" />
+                                                <String fx:value="primary-border" />
+                                             </styleClass>
+                                          </TextField>
+                                       </children>
+                                    </HBox>
                                  </children>
                               </VBox>
-                              <VBox maxHeight="-Infinity" minWidth="100.0" spacing="6.0" HBox.hgrow="ALWAYS">
-                                 <children>
-                                    <Button minHeight="40.0" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" stylesheets="@../css/style.css" text="Card">
-                                       <padding>
-                                          <Insets left="50.0" right="50.0" />
-                                       </padding>
-                                       <font>
-                                          <Font name="Segoe UI Bold" size="14.0" />
-                                       </font>
-                                       <styleClass>
-                                          <String fx:value="bg-primary-20" />
-                                          <String fx:value="primary-border" />
-                                          <String fx:value="full-width-button" />
-                                          <String fx:value="primary-text" />
-                                       </styleClass>
-                                    </Button>
-                                    <TextField fx:id="tfCardAmount" minHeight="40.0" onKeyPressed="#handleKeyPressed" prefHeight="40.0" stylesheets="@../css/style.css">
-                                       <styleClass>
-                                          <String fx:value="bg-white" />
-                                          <String fx:value="primary-border" />
-                                       </styleClass>
-                                    </TextField>
-                                 </children>
-                              </VBox>
-                              <VBox maxHeight="-Infinity" minWidth="100.0" spacing="6.0" HBox.hgrow="ALWAYS">
-                                 <children>
-                                    <Button disable="true" minHeight="40.0" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" stylesheets="@../css/style.css" text="Credit">
-                                       <padding>
-                                          <Insets left="50.0" right="50.0" />
-                                       </padding>
-                                       <font>
-                                          <Font name="Segoe UI Bold" size="14.0" />
-                                       </font>
-                                       <styleClass>
-                                          <String fx:value="bg-primary-20" />
-                                          <String fx:value="primary-border" />
-                                          <String fx:value="full-width-button" />
-                                          <String fx:value="primary-text" />
-                                       </styleClass>
-                                    </Button>
-                                    <TextField fx:id="tfCreditAmount" disable="true" minHeight="40.0" onKeyPressed="#handleKeyPressed" prefHeight="40.0" stylesheets="@../css/style.css">
-                                       <styleClass>
-                                          <String fx:value="bg-white" />
-                                          <String fx:value="primary-border" />
-                                       </styleClass>
-                                    </TextField>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
-                        <Button fx:id="btnAction" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleActionEvent" prefHeight="40.0" stylesheets="@../css/style.css" text="Calculate Invoice">
-                           <padding>
-                              <Insets bottom="20.0" left="60.0" right="60.0" top="20.0" />
-                           </padding>
-                           <font>
-                              <Font name="Segoe UI Bold" size="18.0" />
-                           </font>
-                           <styleClass>
-                              <String fx:value="bg-primary" />
-                              <String fx:value="primary-white" />
-                              <String fx:value="full-width-button" />
-                           </styleClass>
-                        </Button>
-                     </children>
-                  </VBox>
-                  <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                  <VBox maxWidth="400.0" minWidth="-Infinity" prefHeight="200.0" spacing="10.0" HBox.hgrow="ALWAYS">
-                     <children>
-                        <Label disable="true" minWidth="-Infinity" styleClass="primary-text" stylesheets="@../css/style.css" text="Customer Type">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <VBox spacing="6.0">
-                           <children>
-                              <Button disable="true" minHeight="40.0" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" stylesheets="@../css/style.css" text="View Creditor(s)">
-                                 <padding>
-                                    <Insets left="50.0" right="50.0" />
-                                 </padding>
-                                 <font>
-                                    <Font name="Segoe UI Bold" size="14.0" />
-                                 </font>
-                                 <styleClass>
-                                    <String fx:value="bg-primary" />
-                                    <String fx:value="full-width-button" />
-                                    <String fx:value="primary-white" />
-                                 </styleClass>
-                              </Button>
-                              <HBox spacing="6.0">
-                                 <children>
-                                    <TextField disable="true" minHeight="40.0" prefHeight="40.0" promptText="+94712345678" stylesheets="@../css/style.css" HBox.hgrow="ALWAYS">
-                                       <styleClass>
-                                          <String fx:value="bg-white" />
-                                          <String fx:value="primary-border" />
-                                       </styleClass>
-                                    </TextField>
-                                    <TextField disable="true" minHeight="40.0" prefHeight="40.0" promptText="Rs. 6500.00" stylesheets="@../css/style.css" HBox.hgrow="ALWAYS">
-                                       <styleClass>
-                                          <String fx:value="bg-white" />
-                                          <String fx:value="primary-border" />
-                                       </styleClass>
-                                    </TextField>
-                                 </children>
-                              </HBox>
                            </children>
                         </VBox>
                      </children>
-                  </VBox>
+                  </HBox>
                </children>
-            </HBox>
+            </VBox>
          </center>
          <bottom>
             <HBox alignment="CENTER" maxHeight="-Infinity" prefWidth="200.0" spacing="40.0" style="-fx-background-color: #00534C;" styleClass="border-radius" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
@@ -256,6 +278,21 @@
                               </Label>
                               <Region prefWidth="200.0" HBox.hgrow="ALWAYS" />
                               <Label fx:id="invoiceDiscount" minWidth="-Infinity" styleClass="primary-white" stylesheets="@../css/style.css" text="Rs. 0.00">
+                                 <font>
+                                    <Font name="Segoe UI" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox maxHeight="-Infinity" minWidth="350.0">
+                           <children>
+                              <Label minWidth="-Infinity" styleClass="primary-white" stylesheets="@../css/style.css" text="Special Discount:">
+                                 <font>
+                                    <Font name="Segoe UI" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Region prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                              <Label fx:id="invoiceSpecialDiscount" minWidth="-Infinity" styleClass="primary-white" stylesheets="@../css/style.css" text="Rs. 0.00">
                                  <font>
                                     <Font name="Segoe UI" size="14.0" />
                                  </font>

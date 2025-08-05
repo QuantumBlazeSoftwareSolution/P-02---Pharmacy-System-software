@@ -14,10 +14,13 @@ public class ReportSaleDetailModel {
     private final DoubleProperty cost;
     private final DoubleProperty sale;
     private final DoubleProperty discount;
+    private final DoubleProperty billDiscount;
     private final DoubleProperty profit;
     private final DoubleProperty unitPrice;
+    private final double invoiceDiscount;
 
     public ReportSaleDetailModel(Invoice invoice, Product product, InvoiceItem item) {
+        this.invoiceDiscount = invoice.getBillDiscount();
         this.id = new SimpleIntegerProperty(product.getId());
         this.invoiceNo = new SimpleStringProperty(String.format("INV-%06d", invoice.getId()));
         this.product = new SimpleStringProperty(product.getProduct());
@@ -31,6 +34,7 @@ public class ReportSaleDetailModel {
         this.cost = new SimpleDoubleProperty(costVal);
         this.sale = new SimpleDoubleProperty(saleVal);
         this.discount = new SimpleDoubleProperty(discountVal);
+        this.billDiscount = new SimpleDoubleProperty(invoice.getBillDiscount());
         this.profit = new SimpleDoubleProperty(profitVal);
         this.unitPrice = new SimpleDoubleProperty(item.getSalePrice());
     }
@@ -38,6 +42,10 @@ public class ReportSaleDetailModel {
     // ─── Getters (Used Internally or Manually) ──────────────
     public int getId() {
         return id.get();
+    }
+
+    public double getInvoiceDiscount() {
+        return this.invoiceDiscount;
     }
 
     public String getInvoiceNo() {
@@ -66,6 +74,10 @@ public class ReportSaleDetailModel {
 
     public double getProfit() {
         return profit.get();
+    }
+
+    public double getBillDiscount() {
+        return billDiscount.get();
     }
 
     public double getUnitPrice() {
@@ -99,6 +111,10 @@ public class ReportSaleDetailModel {
 
     public DoubleProperty discountProperty() {
         return discount;
+    }
+
+    public DoubleProperty billDiscountProperty() {
+        return billDiscount;
     }
 
     public DoubleProperty profitProperty() {

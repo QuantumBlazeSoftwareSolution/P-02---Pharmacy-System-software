@@ -16,3 +16,7 @@ WARNING: javafx.fxml.LoadException:
 
 Aug 05, 2025 11:26:10 AM com.qb.app.model.JpaUtil <clinit>
 WARNING: org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment] due to: Error calling Driver#connect [null]
+Aug 05, 2025 2:13:38 PM com.qb.app.controllers.InvoicePaymentController createInvoice
+WARNING: net.sf.jasperreports.engine.JRException: Error printing report.
+Aug 05, 2025 4:25:54 PM com.qb.app.controllers.report.ReportSaleDetailController lambda$LoadReportDetails$9
+WARNING: net.sf.jasperreports.engine.JRException: Error retrieving field value from bean: BillDiscount.

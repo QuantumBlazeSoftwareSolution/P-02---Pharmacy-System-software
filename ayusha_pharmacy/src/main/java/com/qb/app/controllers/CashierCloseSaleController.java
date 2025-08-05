@@ -367,7 +367,7 @@ public class CashierCloseSaleController implements Initializable, ControllerClos
         return params;
     }
 
-    private int getSystemBalance() {
+    private double getSystemBalance() {
         return JPATransaction.runInTransaction((em) -> {
             Session session = em.find(Session.class, ApplicationSession.getSession().getId());
 
@@ -380,9 +380,13 @@ public class CashierCloseSaleController implements Initializable, ControllerClos
             List<Invoice> invoices = em.createQuery(cq).getResultList();
 
             this.invoiceCollection = invoices;
-            return (int) invoiceCollection.stream()
-                    .mapToDouble(Invoice::getBillAmount)
+            double totalBalance = invoiceCollection.stream()
+                    .mapToDouble(invoice -> {
+                        return invoice.getBillAmount() - invoice.getBillDiscount();
+                    })
                     .sum();
+
+            return totalBalance;
         });
     }
 
@@ -410,6 +414,8 @@ public class CashierCloseSaleController implements Initializable, ControllerClos
         return JPATransaction.runInTransaction((em) -> {
             int discount = 0;
             for (Invoice invoice : invoiceCollection) {
+
+                discount += invoice.getBillDiscount();
 
                 CriteriaBuilder cb = em.getCriteriaBuilder();
                 CriteriaQuery<InvoiceItem> cq = cb.createQuery(InvoiceItem.class);

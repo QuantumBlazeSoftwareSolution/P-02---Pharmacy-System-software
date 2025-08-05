@@ -85,6 +85,12 @@ public class InvoicePaymentController implements Initializable {
     private boolean isPaymentActive;
     private double invoiceAmount;
     private List<InvoiceItemController> invoiceItemList;
+    @FXML
+    private Label invoiceSpecialDiscount;
+    @FXML
+    private TextField tfDiscount;
+
+    double specialDiscount;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -92,7 +98,25 @@ public class InvoicePaymentController implements Initializable {
         closeIcon.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/close-icon.svg"));
         tfCashAmount.requestFocus();
         Platform.runLater(() -> {
-            tfCashAmount.requestFocus();
+            tfDiscount.requestFocus();
+        });
+
+        tfDiscount.setTextFormatter(DefaultAPI.createNumericTextFormatter());
+
+        tfDiscount.addEventHandler(KeyEvent.KEY_RELEASED, (e) -> {
+            try {
+                specialDiscount = Double.parseDouble(tfDiscount.getText());
+            } catch (NumberFormatException ex) {
+                this.specialDiscount = 0;
+            } finally {
+                if (e.getCode() == KeyCode.ENTER) {
+                    tfDiscount.setDisable(true);
+//                    this.invoiceAmount = this.invoiceAmount - specialDiscount;
+                    btnInvoiceAmount.setText(String.format("Rs. %, .2f", this.invoiceAmount - specialDiscount));
+                    invoiceSpecialDiscount.setText(String.format("Rs. %, .2f", specialDiscount));
+                    tfCashAmount.requestFocus();
+                }
+            }
         });
     }
 
@@ -162,7 +186,7 @@ public class InvoicePaymentController implements Initializable {
                     paidAmount += Double.parseDouble(tfCardAmount.getText());
                 }
                 invoicePaidAmount.setText(String.format("Rs. %, .2f", paidAmount));
-                invoiceBalance.setText(String.format("Rs. %, .2f", cashAmount - invoiceAmount));
+                invoiceBalance.setText(String.format("Rs. %, .2f", cashAmount - (invoiceAmount - this.specialDiscount)));
                 btnAction.setText("Print Invoice");
                 isPaymentActive = true;
             } else {
@@ -228,6 +252,7 @@ public class InvoicePaymentController implements Initializable {
             invoice.setPaidAmount(paidAmount);
             invoice.setCreditAmount(creditAmount);
             invoice.setSessionId(ApplicationSession.getSession());
+            invoice.setBillDiscount(specialDiscount);
             if (!this.controller.panelCashierController.trainingModeToggle.isSelected()) {
                 em.persist(invoice);
                 em.flush();
@@ -330,10 +355,11 @@ public class InvoicePaymentController implements Initializable {
         params.put("Cashier", (ApplicationSession.getEmployee().getName()).split(" ")[0]);
         params.put("SubTotal", String.format("Rs. %, .2f", subTotal));
         params.put("Discount", String.format("Rs. %, .2f", discount));
-        params.put("TotalAmount", String.format("Rs. %, .2f", total));
+        params.put("BillDiscount", String.format("Rs. %, .2f", this.specialDiscount));
+        params.put("TotalAmount", String.format("Rs. %, .2f", total - this.specialDiscount));
         params.put("PaidAmount", String.format("Rs. %, .2f", paidAmount));
         params.put("CreditAmount", String.format("Rs. %, .2f", creditAmount));
-        params.put("Balance", String.format("Rs. %, .2f", ((paidAmount + creditAmount) - total)));
+        params.put("Balance", String.format("Rs. %, .2f", ((paidAmount + creditAmount) - (total - this.specialDiscount))));
         params.put("Address", CompanyInfo.address);
         params.put("Contact", CompanyInfo.mobile);
         return params;

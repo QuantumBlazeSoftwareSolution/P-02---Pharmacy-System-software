@@ -1,4 +1,3 @@
-
 package com.qb.app.controllers.report.beans;
 
 import java.util.HashMap;
@@ -51,6 +50,14 @@ public class InvoiceBean {
         this.paidAmount = paidAmount;
     }
 
+    public String getBillDiscount() {
+        return billDiscount;
+    }
+
+    public void setBillDiscount(String billDiscount) {
+        this.billDiscount = billDiscount;
+    }
+
     public String getBalanceAmount() {
         return balanceAmount;
     }
@@ -66,28 +73,27 @@ public class InvoiceBean {
     public void setSub_report_params(Map<String, Object> sub_report_params) {
         this.sub_report_params = sub_report_params;
     }
-    
+
     private String invoiceNumber;
     private List<InvoiceItemsBean> invoiceItemList;
     private String dateTime;
     private String invoiceAmount;
     private String paidAmount;
+    private String billDiscount;
     private String balanceAmount;
     private Map<String, Object> sub_report_params;
 
     public InvoiceBean(
-            String invNumb, List<InvoiceItemsBean> invoiceItems, 
-            String invdateTime, String invAmount, String invPaid,String invBalance,String TQ, String TD,
-            String TA,String TP
+            String invNumb, List<InvoiceItemsBean> invoiceItems,
+            String invdateTime, String invAmount, String invPaid, String invBalance, String TQ, String TD, String TA, String TP, String billDiscount
     ) {
-        this.invoiceNumber =invNumb ;
-        this.invoiceItemList =invoiceItems ;
-        this.dateTime =invdateTime ;
-        this.invoiceAmount =invAmount ;
+        this.invoiceNumber = invNumb;
+        this.invoiceItemList = invoiceItems;
+        this.dateTime = invdateTime;
+        this.invoiceAmount = invAmount;
         this.paidAmount = invPaid;
-        this.balanceAmount =invBalance ;
-        
-
+        this.billDiscount = billDiscount;
+        this.balanceAmount = invBalance;
 
         Map<String, Object> params = new HashMap<>();
         params.put("TotalQuantity", TQ);
@@ -97,5 +103,5 @@ public class InvoiceBean {
 
         setSub_report_params(params);
     }
-    
+
 }

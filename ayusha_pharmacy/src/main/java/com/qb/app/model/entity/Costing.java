@@ -34,12 +34,12 @@ public class Costing implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @JoinColumn(name = "parent_product", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Product parentProduct;
     @JoinColumn(name = "child_product", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Product childProduct;
+    @JoinColumn(name = "parent_product", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Product parentProduct;
 
     public Costing() {
     }
@@ -56,20 +56,20 @@ public class Costing implements Serializable {
         this.id = id;
     }
 
-    public Product getParentProduct() {
-        return parentProduct;
-    }
-
-    public void setParentProduct(Product parentProduct) {
-        this.parentProduct = parentProduct;
-    }
-
     public Product getChildProduct() {
         return childProduct;
     }
 
     public void setChildProduct(Product childProduct) {
         this.childProduct = childProduct;
+    }
+
+    public Product getParentProduct() {
+        return parentProduct;
+    }
+
+    public void setParentProduct(Product parentProduct) {
+        this.parentProduct = parentProduct;
     }
 
     @Override

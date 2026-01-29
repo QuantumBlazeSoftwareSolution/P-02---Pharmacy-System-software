@@ -90,7 +90,7 @@ public class InvoicePaymentController implements Initializable {
     @FXML
     private TextField tfDiscount;
 
-    double specialDiscount;
+    double specialDiscount=0;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -102,6 +102,8 @@ public class InvoicePaymentController implements Initializable {
         });
 
         tfDiscount.setTextFormatter(DefaultAPI.createNumericTextFormatter());
+        tfCashAmount.setTextFormatter(DefaultAPI.createNumericTextFormatter());
+        tfCardAmount.setTextFormatter(DefaultAPI.createNumericTextFormatter());
 
         tfDiscount.addEventHandler(KeyEvent.KEY_RELEASED, (e) -> {
             try {
@@ -251,6 +253,10 @@ public class InvoicePaymentController implements Initializable {
             invoice.setBillAmount(invoiceAmount);
             invoice.setPaidAmount(paidAmount);
             invoice.setCreditAmount(creditAmount);
+
+            invoice.setCashAmount(DefaultAPI.safeDouble(tfCashAmount));
+            invoice.setCardAmount(DefaultAPI.safeDouble(tfCardAmount));
+
             invoice.setSessionId(ApplicationSession.getSession());
             invoice.setBillDiscount(specialDiscount);
             if (!this.controller.panelCashierController.trainingModeToggle.isSelected()) {
@@ -358,6 +364,10 @@ public class InvoicePaymentController implements Initializable {
         params.put("BillDiscount", String.format("Rs. %, .2f", this.specialDiscount));
         params.put("TotalAmount", String.format("Rs. %, .2f", total - this.specialDiscount));
         params.put("PaidAmount", String.format("Rs. %, .2f", paidAmount));
+
+        params.put("CashAmount", String.format("Rs. %, .2f", DefaultAPI.safeDouble(tfCashAmount)));
+        params.put("CardAmount", String.format("Rs. %, .2f", DefaultAPI.safeDouble(tfCardAmount)));
+
         params.put("CreditAmount", String.format("Rs. %, .2f", creditAmount));
         params.put("Balance", String.format("Rs. %, .2f", ((paidAmount + creditAmount) - (total - this.specialDiscount))));
         params.put("Address", CompanyInfo.address);
@@ -382,7 +392,16 @@ public class InvoicePaymentController implements Initializable {
 
     @FXML
     private void handleKeyPressed(KeyEvent event) {
-        if (event.getCode() == KeyCode.ENTER) {
+        System.out.println("Event Source: " + event.getSource().toString());
+        if (event.getSource() == tfCashAmount) {
+            if (event.getCode() == KeyCode.ENTER) {
+                makeInvoice();
+            } else if (event.getCode() == KeyCode.SHIFT) {
+                tfCardAmount.requestFocus();
+                tfCardAmount.selectAll();
+            }
+        } else if (event.getSource() == tfCardAmount && event.getCode() == KeyCode.ENTER) {
+            System.out.println("Card Payment Enter Triggered.");
             makeInvoice();
         }
     }

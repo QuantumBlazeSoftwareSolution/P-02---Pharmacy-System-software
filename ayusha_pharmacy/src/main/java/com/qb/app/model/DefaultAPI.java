@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -22,6 +23,11 @@ public class DefaultAPI {
             }
             return null;
         });
+    }
+
+    public static double safeDouble(TextField tf) {
+        String text = tf.getText();
+        return (text == null || text.isBlank()) ? 0.0 : Double.parseDouble(text);
     }
 
     public static void bindTableScroll(ScrollBar scrollBar, ScrollPane scrollPane, VBox vBox) {

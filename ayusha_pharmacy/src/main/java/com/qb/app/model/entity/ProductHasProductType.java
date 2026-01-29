@@ -34,12 +34,12 @@ public class ProductHasProductType implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @JoinColumn(name = "product_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Product productId;
     @JoinColumn(name = "reference_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Product referenceId;
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Product productId;
     @JoinColumn(name = "product_type_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private ProductType productTypeId;
@@ -59,20 +59,20 @@ public class ProductHasProductType implements Serializable {
         this.id = id;
     }
 
-    public Product getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Product productId) {
-        this.productId = productId;
-    }
-
     public Product getReferenceId() {
         return referenceId;
     }
 
     public void setReferenceId(Product referenceId) {
         this.referenceId = referenceId;
+    }
+
+    public Product getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Product productId) {
+        this.productId = productId;
     }
 
     public ProductType getProductTypeId() {

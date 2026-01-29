@@ -69,9 +69,9 @@ public class Product implements Serializable {
     private Collection<StockAdjustmentItem> stockAdjustmentItemCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
     private Collection<RefundItem> refundItemCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "parentProduct")
-    private Collection<Costing> costingCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "childProduct")
+    private Collection<Costing> costingCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "parentProduct")
     private Collection<Costing> costingCollection1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
     private Collection<SupplierDamageReturnItem> supplierDamageReturnItemCollection;
@@ -83,9 +83,9 @@ public class Product implements Serializable {
     private Collection<GrnItem> grnItemCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
     private Collection<InvoiceItem> invoiceItemCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
-    private Collection<ProductHasProductType> productHasProductTypeCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "referenceId")
+    private Collection<ProductHasProductType> productHasProductTypeCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
     private Collection<ProductHasProductType> productHasProductTypeCollection1;
     @JoinColumn(name = "brand_id", referencedColumnName = "id")
     @ManyToOne(optional = false)

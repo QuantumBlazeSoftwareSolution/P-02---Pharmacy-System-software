@@ -97,7 +97,7 @@
                                     </VBox>
                                     <VBox maxHeight="-Infinity" minWidth="100.0" spacing="6.0" HBox.hgrow="ALWAYS">
                                        <children>
-                                          <Button disable="true" minHeight="40.0" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" stylesheets="@../css/style.css" text="Card">
+                                          <Button minHeight="40.0" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" stylesheets="@../css/style.css" text="Card">
                                              <padding>
                                                 <Insets left="50.0" right="50.0" />
                                              </padding>
@@ -105,13 +105,13 @@
                                                 <Font name="Segoe UI Bold" size="14.0" />
                                              </font>
                                              <styleClass>
-                                                <String fx:value="bg-primary-20" />
+                                                <String fx:value="bg-primary" />
                                                 <String fx:value="primary-border" />
                                                 <String fx:value="full-width-button" />
-                                                <String fx:value="primary-text" />
+                                                <String fx:value="primary-white" />
                                              </styleClass>
                                           </Button>
-                                          <TextField fx:id="tfCardAmount" disable="true" minHeight="40.0" onKeyPressed="#handleKeyPressed" prefHeight="40.0" stylesheets="@../css/style.css">
+                                          <TextField fx:id="tfCardAmount" minHeight="40.0" onKeyPressed="#handleKeyPressed" prefHeight="40.0" stylesheets="@../css/style.css">
                                              <styleClass>
                                                 <String fx:value="bg-white" />
                                                 <String fx:value="primary-border" />

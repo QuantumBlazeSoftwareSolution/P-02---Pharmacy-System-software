@@ -3,8 +3,10 @@ package com.qb.app.model;
 import static com.qb.app.model.JPATransaction.runInTransaction;
 import com.qb.app.model.entity.Brand;
 import com.qb.app.model.entity.Employee;
+import com.qb.app.model.entity.Invoice;
 import com.qb.app.model.entity.Product;
 import com.qb.app.model.entity.Session;
+import com.qb.app.session.ApplicationSession;
 import com.qb.app.session.CompanyInfo;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
@@ -52,6 +54,57 @@ public class UnitTestingVihanga {
 //        printCloseSale();
 //        testRoundUp();
         System.out.println(String.format("Rs. %,.2f", 15000.45));
+
+        System.out.println("Card Sale: " + getCardSale());
+        System.out.println("Cash Sale: " + getCashSale());
+    }
+
+    private static double getCardSale() {
+        return JPATransaction.runInTransaction((em) -> {
+            Session session = em.find(Session.class, 182);
+
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Invoice> cq = cb.createQuery(Invoice.class);
+            Root<Invoice> invoiceTable = cq.from(Invoice.class);
+
+            cq.where(cb.equal(invoiceTable.get("sessionId"), session));
+
+            List<Invoice> invoices = em.createQuery(cq).getResultList();
+//            this.invoiceCollection = invoices;
+
+            return invoices.stream()
+                    .mapToDouble(invoice
+                            -> invoice.getCardAmount() != null
+                    ? invoice.getCardAmount()
+                    : 0.0
+                    )
+                    .sum();
+        });
+    }
+
+    private static double getCashSale() {
+        return JPATransaction.runInTransaction((em) -> {
+            Session session = em.find(Session.class, 182);
+
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Invoice> cq = cb.createQuery(Invoice.class);
+            Root<Invoice> invoiceTable = cq.from(Invoice.class);
+
+            cq.where(cb.equal(invoiceTable.get("sessionId"), session));
+
+            List<Invoice> invoices = em.createQuery(cq).getResultList();
+//            this.invoiceCollection = invoices;
+
+            return invoices.stream()
+                    .mapToDouble(invoice -> {
+                        double card = invoice.getCardAmount() != null
+                                ? invoice.getCardAmount()
+                                : 0.0;
+                        System.out.println("Bill Amount" + invoice.getBillAmount() + ", Card Amount" + card);
+                        return invoice.getBillAmount() - card;
+                    })
+                    .sum();
+        });
     }
 
     private static void testJPA() {

@@ -20,3 +20,5 @@ Aug 05, 2025 2:13:38 PM com.qb.app.controllers.InvoicePaymentController createIn
 WARNING: net.sf.jasperreports.engine.JRException: Error printing report.
 Aug 05, 2025 4:25:54 PM com.qb.app.controllers.report.ReportSaleDetailController lambda$LoadReportDetails$9
 WARNING: net.sf.jasperreports.engine.JRException: Error retrieving field value from bean: BillDiscount.
+Jan 29, 2026 11:16:02 PM com.qb.app.controllers.CashierCloseSaleController lambda$ActionEvent$0
+WARNING: java.lang.RuntimeException: Transaction error

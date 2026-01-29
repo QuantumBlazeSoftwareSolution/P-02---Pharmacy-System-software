@@ -107,6 +107,8 @@ public class CashierCloseSaleController implements Initializable, ControllerClos
     private double physicalBalance;
     private double systemBalance;
     private Collection<Invoice> invoiceCollection;
+    private double cardSale;
+    private double cashSale;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -327,6 +329,8 @@ public class CashierCloseSaleController implements Initializable, ControllerClos
 
         this.systemBalance = getSystemBalance();
         this.physicalBalance = getPhysicalBalance();
+        this.cardSale = getCardSale();
+        this.cashSale = getCashSale();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d, yyyy hh:mm a");
         String dayInTime = ApplicationSession.getSession().getDayInTime().toInstant().atZone(ZoneId.systemDefault()).format(formatter);
@@ -362,6 +366,10 @@ public class CashierCloseSaleController implements Initializable, ControllerClos
         ));
         params.put("TotalDiscount", String.format("Rs. %,d.00", getTotalDiscount()));
         params.put("TotalSale", String.format("Rs. %,.2f", this.systemBalance));
+
+        params.put("CashSale", String.format("Rs. %,.2f", this.cashSale));
+        params.put("CardSale", String.format("Rs. %,.2f", this.cardSale));
+
         params.put("InvoiceCount", String.valueOf(getInvoiceCount()));
         params.put("TotalCash", String.format("Rs. %,.2f", this.physicalBalance));
         return params;
@@ -387,6 +395,53 @@ public class CashierCloseSaleController implements Initializable, ControllerClos
                     .sum();
 
             return totalBalance;
+        });
+    }
+
+    private double getCardSale() {
+        return JPATransaction.runInTransaction((em) -> {
+            Session session = em.find(Session.class, ApplicationSession.getSession().getId());
+
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Invoice> cq = cb.createQuery(Invoice.class);
+            Root<Invoice> invoiceTable = cq.from(Invoice.class);
+
+            cq.where(cb.equal(invoiceTable.get("sessionId"), session));
+
+            List<Invoice> invoices = em.createQuery(cq).getResultList();
+            this.invoiceCollection = invoices;
+
+            return invoices.stream()
+                    .mapToDouble(invoice
+                            -> invoice.getCardAmount() != null
+                    ? invoice.getCardAmount()
+                    : 0.0
+                    )
+                    .sum();
+        });
+    }
+
+    private double getCashSale() {
+        return JPATransaction.runInTransaction((em) -> {
+            Session session = em.find(Session.class, ApplicationSession.getSession().getId());
+
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<Invoice> cq = cb.createQuery(Invoice.class);
+            Root<Invoice> invoiceTable = cq.from(Invoice.class);
+
+            cq.where(cb.equal(invoiceTable.get("sessionId"), session));
+
+            List<Invoice> invoices = em.createQuery(cq).getResultList();
+            this.invoiceCollection = invoices;
+
+            return invoices.stream()
+                    .mapToDouble(invoice -> {
+                        double card = invoice.getCardAmount() != null
+                                ? invoice.getCardAmount()
+                                : 0.0;
+                        return invoice.getBillAmount() - card;
+                    })
+                    .sum();
         });
     }
 

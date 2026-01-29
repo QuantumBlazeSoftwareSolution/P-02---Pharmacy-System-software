@@ -1,14 +1,24 @@
 package com.qb.app.controllers;
 
 import com.qb.app.model.ControllerClose;
+import com.qb.app.model.JPATransaction;
+import com.qb.app.model.entity.Invoice;
+import com.qb.app.model.entity.Session;
+import com.qb.app.session.ApplicationSession;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.TextStyle;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 /**
@@ -26,6 +36,8 @@ public class CashierDashboardController implements Initializable, ControllerClos
     @FXML
     private Label labelDate;
     // </editor-fold>
+    @FXML
+    private Button btnCashAndCard;
 
     /**
      * Initializes the controller class.
@@ -52,6 +64,10 @@ public class CashierDashboardController implements Initializable, ControllerClos
 
         // Set date (day of month)
         labelDate.setText(String.valueOf(currentDate.getDayOfMonth()));
+    }
+
+    @FXML
+    private void handleActionEvent(ActionEvent event) {
     }
 
 }

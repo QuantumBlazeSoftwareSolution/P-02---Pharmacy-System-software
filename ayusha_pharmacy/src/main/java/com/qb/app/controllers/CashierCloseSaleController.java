@@ -412,11 +412,13 @@ public class CashierCloseSaleController implements Initializable, ControllerClos
             this.invoiceCollection = invoices;
 
             return invoices.stream()
-                    .mapToDouble(invoice
-                            -> invoice.getCardAmount() != null
-                    ? invoice.getCardAmount()
-                    : 0.0
-                    )
+                    .mapToDouble(invoice -> {
+                        PaymentSettlement ps = settleInvoice(
+                                invoice.getBillAmount() - invoice.getBillDiscount(),
+                                invoice.getCardAmount()
+                        );
+                        return ps.card;
+                    })
                     .sum();
         });
     }
@@ -436,10 +438,11 @@ public class CashierCloseSaleController implements Initializable, ControllerClos
 
             return invoices.stream()
                     .mapToDouble(invoice -> {
-                        double card = invoice.getCardAmount() != null
-                                ? invoice.getCardAmount()
-                                : 0.0;
-                        return invoice.getBillAmount() - card;
+                        PaymentSettlement ps = settleInvoice(
+                                invoice.getBillAmount() - invoice.getBillDiscount(),
+                                invoice.getCardAmount()
+                        );
+                        return ps.cash;
                     })
                     .sum();
         });
@@ -492,4 +495,25 @@ public class CashierCloseSaleController implements Initializable, ControllerClos
     private int getInvoiceCount() {
         return this.invoiceCollection.size();
     }
+
+    private PaymentSettlement settleInvoice(double billAmount, Double cardPaid) {
+        double card = cardPaid != null ? cardPaid : 0.0;
+
+        double cardSettled = Math.min(card, billAmount);
+        double cashSettled = billAmount - cardSettled;
+
+        return new PaymentSettlement(cashSettled, cardSettled);
+    }
+
+    private static class PaymentSettlement {
+
+        final double cash;
+        final double card;
+
+        PaymentSettlement(double cash, double card) {
+            this.cash = cash;
+            this.card = card;
+        }
+    }
+
 }

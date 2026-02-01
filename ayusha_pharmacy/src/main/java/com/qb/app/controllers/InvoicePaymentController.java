@@ -90,7 +90,7 @@ public class InvoicePaymentController implements Initializable {
     @FXML
     private TextField tfDiscount;
 
-    double specialDiscount=0;
+    double specialDiscount = 0;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -254,8 +254,15 @@ public class InvoicePaymentController implements Initializable {
             invoice.setPaidAmount(paidAmount);
             invoice.setCreditAmount(creditAmount);
 
-            invoice.setCashAmount(DefaultAPI.safeDouble(tfCashAmount));
-            invoice.setCardAmount(DefaultAPI.safeDouble(tfCardAmount));
+            double cashPaid = DefaultAPI.safeDouble(tfCashAmount);
+            double cardPaid = DefaultAPI.safeDouble(tfCardAmount);
+
+            double netBill = invoiceAmount - specialDiscount;
+
+            double[] settlement = settlePayment(netBill, cashPaid, cardPaid);
+
+            invoice.setCashAmount(settlement[0]); // ONLY what goes to locker
+            invoice.setCardAmount(settlement[1]); // ONLY what goes to bank
 
             invoice.setSessionId(ApplicationSession.getSession());
             invoice.setBillDiscount(specialDiscount);
@@ -430,6 +437,12 @@ public class InvoicePaymentController implements Initializable {
                 System.err.println("No ProductHasProductType found for product ID: " + item.getProduct().getId());
             }
         });
+    }
+
+    private double[] settlePayment(double billAmount, double cashPaid, double cardPaid) {
+        double cardSettled = Math.min(cardPaid, billAmount);
+        double cashSettled = billAmount - cardSettled;
+        return new double[]{cashSettled, cardSettled};
     }
 
 }

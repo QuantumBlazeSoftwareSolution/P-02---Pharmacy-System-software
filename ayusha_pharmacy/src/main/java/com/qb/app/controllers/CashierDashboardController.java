@@ -35,9 +35,6 @@ public class CashierDashboardController implements Initializable, ControllerClos
     private Label labelMonth;
     @FXML
     private Label labelDate;
-    // </editor-fold>
-    @FXML
-    private Button btnCashAndCard;
 
     /**
      * Initializes the controller class.
@@ -66,8 +63,5 @@ public class CashierDashboardController implements Initializable, ControllerClos
         labelDate.setText(String.valueOf(currentDate.getDayOfMonth()));
     }
 
-    @FXML
-    private void handleActionEvent(ActionEvent event) {
-    }
 
 }

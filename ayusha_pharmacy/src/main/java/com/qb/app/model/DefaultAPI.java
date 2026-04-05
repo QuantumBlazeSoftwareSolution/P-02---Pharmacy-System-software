@@ -16,6 +16,9 @@ import javafx.stage.Stage;
 
 public class DefaultAPI {
 
+    public static String currencyFloatFormat = "Rs. %, .2f";
+    public static String currencyDigitFormat = "Rs. %,d.00";
+
     public static TextFormatter<String> createNumericTextFormatter() {
         return new TextFormatter<>(change -> {
             if (change.getControlNewText().matches("\\d*\\.?\\d*")) { // Allows digits and optional decimal point

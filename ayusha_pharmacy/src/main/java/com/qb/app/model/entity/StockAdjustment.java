@@ -33,8 +33,7 @@ import java.util.Date;
 @NamedQueries({
     @NamedQuery(name = "StockAdjustment.findAll", query = "SELECT s FROM StockAdjustment s"),
     @NamedQuery(name = "StockAdjustment.findById", query = "SELECT s FROM StockAdjustment s WHERE s.id = :id"),
-    @NamedQuery(name = "StockAdjustment.findByDateTime", query = "SELECT s FROM StockAdjustment s WHERE s.dateTime = :dateTime"),
-    @NamedQuery(name = "StockAdjustment.findByLocation", query = "SELECT s FROM StockAdjustment s WHERE s.location = :location")})
+    @NamedQuery(name = "StockAdjustment.findByDateTime", query = "SELECT s FROM StockAdjustment s WHERE s.dateTime = :dateTime")})
 public class StockAdjustment implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -47,9 +46,6 @@ public class StockAdjustment implements Serializable {
     @Column(name = "date_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateTime;
-    @Basic(optional = false)
-    @Column(name = "location")
-    private String location;
     @Basic(optional = false)
     @Lob
     @Column(name = "reason")
@@ -67,10 +63,9 @@ public class StockAdjustment implements Serializable {
         this.id = id;
     }
 
-    public StockAdjustment(Integer id, Date dateTime, String location, String reason) {
+    public StockAdjustment(Integer id, Date dateTime, String reason) {
         this.id = id;
         this.dateTime = dateTime;
-        this.location = location;
         this.reason = reason;
     }
 
@@ -88,14 +83,6 @@ public class StockAdjustment implements Serializable {
 
     public void setDateTime(Date dateTime) {
         this.dateTime = dateTime;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
     }
 
     public String getReason() {

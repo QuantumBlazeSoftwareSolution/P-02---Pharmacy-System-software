@@ -129,7 +129,7 @@ public class SytemLoginController implements Initializable {
                             case "developer" ->
                                 App.setRoot("panelDeveloper");
                         }
-                        ApplicationSession.setEmployee(emp); // save in session
+                        ApplicationSession.setEmployee(emp);
                     } catch (IOException e) {
                         getLogger.logger().warning(e.toString());
                     }

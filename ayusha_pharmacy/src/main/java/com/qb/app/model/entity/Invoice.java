@@ -35,10 +35,10 @@ import java.util.Date;
     @NamedQuery(name = "Invoice.findByDateTime", query = "SELECT i FROM Invoice i WHERE i.dateTime = :dateTime"),
     @NamedQuery(name = "Invoice.findByBillAmount", query = "SELECT i FROM Invoice i WHERE i.billAmount = :billAmount"),
     @NamedQuery(name = "Invoice.findByPaidAmount", query = "SELECT i FROM Invoice i WHERE i.paidAmount = :paidAmount"),
-    @NamedQuery(name = "Invoice.findByCardAmount", query = "SELECT i FROM Invoice i WHERE i.cardAmount = :cardAmount"),
-    @NamedQuery(name = "Invoice.findByCashAmount", query = "SELECT i FROM Invoice i WHERE i.cashAmount = :cashAmount"),
     @NamedQuery(name = "Invoice.findByCreditAmount", query = "SELECT i FROM Invoice i WHERE i.creditAmount = :creditAmount"),
-    @NamedQuery(name = "Invoice.findByBillDiscount", query = "SELECT i FROM Invoice i WHERE i.billDiscount = :billDiscount")})
+    @NamedQuery(name = "Invoice.findByBillDiscount", query = "SELECT i FROM Invoice i WHERE i.billDiscount = :billDiscount"),
+    @NamedQuery(name = "Invoice.findByCardAmount", query = "SELECT i FROM Invoice i WHERE i.cardAmount = :cardAmount"),
+    @NamedQuery(name = "Invoice.findByCashAmount", query = "SELECT i FROM Invoice i WHERE i.cashAmount = :cashAmount")})
 public class Invoice implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -57,17 +57,17 @@ public class Invoice implements Serializable {
     @Basic(optional = false)
     @Column(name = "paid_amount")
     private double paidAmount;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "card_amount")
-    private Double cardAmount;
-    @Column(name = "cash_amount")
-    private Double cashAmount;
     @Basic(optional = false)
     @Column(name = "credit_amount")
     private double creditAmount;
     @Basic(optional = false)
     @Column(name = "bill_discount")
     private double billDiscount;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "card_amount")
+    private Double cardAmount;
+    @Column(name = "cash_amount")
+    private Double cashAmount;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoiceId")
     private Collection<InvoiceItem> invoiceItemCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoiceId")
@@ -124,22 +124,6 @@ public class Invoice implements Serializable {
         this.paidAmount = paidAmount;
     }
 
-    public Double getCardAmount() {
-        return cardAmount;
-    }
-
-    public void setCardAmount(Double cardAmount) {
-        this.cardAmount = cardAmount;
-    }
-
-    public Double getCashAmount() {
-        return cashAmount;
-    }
-
-    public void setCashAmount(Double cashAmount) {
-        this.cashAmount = cashAmount;
-    }
-
     public double getCreditAmount() {
         return creditAmount;
     }
@@ -154,6 +138,22 @@ public class Invoice implements Serializable {
 
     public void setBillDiscount(double billDiscount) {
         this.billDiscount = billDiscount;
+    }
+
+    public Double getCardAmount() {
+        return cardAmount;
+    }
+
+    public void setCardAmount(Double cardAmount) {
+        this.cardAmount = cardAmount;
+    }
+
+    public Double getCashAmount() {
+        return cashAmount;
+    }
+
+    public void setCashAmount(Double cashAmount) {
+        this.cashAmount = cashAmount;
     }
 
     public Collection<InvoiceItem> getInvoiceItemCollection() {

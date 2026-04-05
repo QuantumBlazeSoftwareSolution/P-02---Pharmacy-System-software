@@ -121,6 +121,10 @@ public class PanelAdminController implements Initializable {
     private boolean isMenuCollapsed = false;
     private Admin_top_panelController controller;
     // </editor-fold>
+    @FXML
+    private HBox btnInventoryStockAdjustment;
+    @FXML
+    private Group iconInventoryStockAdjustment;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -178,6 +182,7 @@ public class PanelAdminController implements Initializable {
         iconBrandManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/brand-management.svg"));
 
         iconInventoryGrn.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/inventory-grn.svg"));
+        iconInventoryStockAdjustment.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/inventory-stock-adjustment.svg"));
 
         iconCompanyManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/companyManagement.svg"));
         iconSupplierManagement.getChildren().add(new SVGIconGroup("/com/qb/app/assets/icons/supplierManagement.svg"));
@@ -306,6 +311,8 @@ public class PanelAdminController implements Initializable {
             loadCenterPanel("product_registration");
         } else if (event.getSource() == btnInventoryGRN) {
             loadCenterPanel("inventory_grn");
+        } else if (event.getSource() == btnInventoryStockAdjustment) {
+            loadCenterPanel("inventory/inventory_stock_adjustment");
         } else if (event.getSource() == btnSupplyCompanyManagement) {
             loadCenterPanel("supply_company_management");
         } else if (event.getSource() == btnSupplySupplierManagement) {

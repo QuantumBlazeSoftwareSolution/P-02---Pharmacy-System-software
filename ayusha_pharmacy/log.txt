@@ -22,3 +22,7 @@ Aug 05, 2025 4:25:54 PM com.qb.app.controllers.report.ReportSaleDetailController
 WARNING: net.sf.jasperreports.engine.JRException: Error retrieving field value from bean: BillDiscount.
 Jan 29, 2026 11:16:02 PM com.qb.app.controllers.CashierCloseSaleController lambda$ActionEvent$0
 WARNING: java.lang.RuntimeException: Transaction error
+Apr 05, 2026 7:25:49 PM com.qb.app.controllers.PanelAdminController loadCenterPanel
+WARNING: javafx.fxml.LoadException: 
+/E:/Quantum%20Blaze/Projects/Client%20Project/P%2302%20-%20Pharmacy%20System%20software/ayusha_pharmacy/target/classes/com/qb/app/inventory/inventory_stock_adjustment.fxml:18
+

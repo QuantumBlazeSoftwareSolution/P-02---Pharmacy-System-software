@@ -162,7 +162,9 @@ public class Inventory_stock_adjustmentController implements Initializable {
         this.selectedRow = null;
         tfItemName.setText("");
         tfPreviousQty.setText("");
+        tfReason.setText("");
         table2.getItems().clear();
+        table2.refresh();
     }
 
     private void addToList() {

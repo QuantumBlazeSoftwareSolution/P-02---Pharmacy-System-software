@@ -14,8 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="800.0" styleClass="primary-10" stylesheets="@../css/adminStyle.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="com.qb.app.controllers.inventory.Inventory_stock_adjustmentController">
+<AnchorPane id="AnchorPane" prefHeight="640.0" prefWidth="800.0" styleClass="primary-10" stylesheets="@../css/adminStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.qb.app.controllers.inventory.Inventory_stock_adjustmentController">
    <children>
       <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -31,7 +30,7 @@
                         <HBox spacing="10.0">
                            <children>
                               <Label styleClass="text-field-label" text="Available Adjustments for this month:" />
-                              <Label styleClass="text-field-label" text="..." />
+                              <Label fx:id="labelAvailableStockCount" styleClass="text-field-label" />
                            </children>
                         </HBox>
                         <Separator prefWidth="200.0" />
@@ -41,39 +40,12 @@
                      <children>
                         <VBox spacing="6.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <HBox spacing="6.0">
+                              <VBox spacing="6.0">
                                  <children>
-                                    <Button mnemonicParsing="false" prefHeight="35.0" text="Previous">
-                                       <styleClass>
-                                          <String fx:value="button-primary" />
-                                          <String fx:value="primary-white" />
-                                       </styleClass>
-                                       <padding>
-                                          <Insets left="20.0" right="20.0" />
-                                       </padding>
-                                    </Button>
-                                    <Button mnemonicParsing="false" prefHeight="35.0" text="Next">
-                                       <styleClass>
-                                          <String fx:value="button-primary" />
-                                          <String fx:value="primary-white" />
-                                       </styleClass>
-                                       <padding>
-                                          <Insets left="20.0" right="20.0" />
-                                       </padding>
-                                    </Button>
-                                    <Separator orientation="VERTICAL" />
-                                    <TextField prefHeight="35.0" promptText="Search Here..." HBox.hgrow="ALWAYS" />
-                                    <Button mnemonicParsing="false" prefHeight="35.0" text="Search">
-                                       <styleClass>
-                                          <String fx:value="button-primary" />
-                                          <String fx:value="primary-white" />
-                                       </styleClass>
-                                       <padding>
-                                          <Insets left="30.0" right="30.0" />
-                                       </padding>
-                                    </Button>
+                                    <Label styleClass="text-field-label" text="Find Item" />
+                                    <TextField fx:id="tfSearch" prefHeight="35.0" promptText="Search Here..." />
                                  </children>
-                              </HBox>
+                              </VBox>
                               <HBox spacing="10.0">
                                  <children>
                                     <VBox spacing="6.0" HBox.hgrow="ALWAYS">
@@ -103,6 +75,9 @@
                                  </columnResizePolicy>
                               </TableView>
                            </children>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
                         </VBox>
                         <VBox maxWidth="400.0" spacing="10.0" HBox.hgrow="ALWAYS">
                            <children>
@@ -156,7 +131,7 @@
                                           <String fx:value="primary-white" />
                                        </styleClass>
                                     </Button>
-                                    <Button fx:id="btnQuantityChange" maxWidth="1.7976931348623157E308" minHeight="35.0" mnemonicParsing="false" onAction="#handleActionEvent" prefHeight="35.0" text="Change the Quantity" HBox.hgrow="ALWAYS">
+                                    <Button fx:id="btnQuantityChange" maxWidth="1.7976931348623157E308" minHeight="35.0" mnemonicParsing="false" onAction="#handleActionEvent" prefHeight="35.0" text="Update Inventory" HBox.hgrow="ALWAYS">
                                        <styleClass>
                                           <String fx:value="button-primary" />
                                           <String fx:value="primary-white" />
@@ -166,7 +141,7 @@
                               </HBox>
                            </children>
                            <padding>
-                              <Insets left="20.0" right="20.0" />
+                              <Insets left="20.0" right="20.0" top="10.0" />
                            </padding>
                         </VBox>
                      </children>

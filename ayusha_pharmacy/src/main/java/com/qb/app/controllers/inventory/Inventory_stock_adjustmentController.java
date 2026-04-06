@@ -18,6 +18,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -74,17 +77,69 @@ public class Inventory_stock_adjustmentController implements Initializable {
     @FXML
     private TextField tfDateTime;
 
+    private static final int STOCK_ADJUSTMENT_COUNT = 3;
+    private static int thisMonthsAdjustmentCount = 0;
+    private FilteredList<StockAdjustmentTable> filteredData;
+    @FXML
+    private TextField tfSearch;
+    @FXML
+    private Label labelAvailableStockCount;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         interfaceInitializer();
     }
 
+    @FXML
+    private void handleActionEvent(ActionEvent event) {
+        if (event.getSource() == btnAddToList) {
+            addToList();
+        } else if (event.getSource() == btnQuantityChange) {
+            btnQuantityChange.setText("Processing Adjustments...");
+            btnQuantityChange.setDisable(true);
+
+            applyStockAdjustments();
+
+            btnQuantityChange.setText("Update Inventory");
+            btnQuantityChange.setDisable(false);
+        }
+    }
+
     private void interfaceInitializer() {
         refreshPage();
-
         loadStocks();
         configureTable1();
         showCurrentTime();
+        loadCurrentMonthAdjustments();
+    }
+
+    private void loadCurrentMonthAdjustments() {
+        Task<List<StockAdjustment>> task = new Task() {
+            @Override
+            protected List<StockAdjustment> call() throws Exception {
+                return StockAdjustmentCRUD.getThisMonthStockAdjustments();
+            }
+        };
+
+        task.setOnSucceeded((t) -> {
+            List<StockAdjustment> value = task.getValue();
+            Inventory_stock_adjustmentController.thisMonthsAdjustmentCount = value.size();
+            labelAvailableStockCount.setText(String.valueOf(value.size()));
+        });
+
+        task.setOnFailed((t) -> {
+            Throwable ex = task.getException();
+            ex.printStackTrace();
+
+            CustomAlert.showStyledAlert(
+                    table1,
+                    "Unable to retrieve the monthly adjustment history. Please check your connection or try again later.",
+                    "Data Sync Error",
+                    Alert.AlertType.WARNING
+            );
+        });
+
+        new Thread(task).start();
     }
 
     private void loadStocks() {
@@ -104,16 +159,18 @@ public class Inventory_stock_adjustmentController implements Initializable {
         };
 
         stockLoadingTask.setOnSucceeded((t) -> {
-
             List<Stock> stockList = stockLoadingTask.getValue();
+            ObservableList<StockAdjustmentTable> masterData = FXCollections.observableArrayList();
 
-            List<StockAdjustmentTable> list = new ArrayList<>();
             for (Stock stock : stockList) {
-                StockAdjustmentTable row = new StockAdjustmentTable(stock);
-                list.add(row);
+                masterData.add(new StockAdjustmentTable(stock));
             }
 
-            table1.getItems().addAll(list);
+            filteredData = new FilteredList<>(masterData, p -> true);
+
+            table1.setItems(filteredData);
+
+            setupSearch();
         });
 
         stockLoadingTask.setOnFailed((t) -> {
@@ -123,6 +180,26 @@ public class Inventory_stock_adjustmentController implements Initializable {
         });
 
         new Thread(stockLoadingTask).start();
+    }
+
+    private void setupSearch() {
+        tfSearch.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(row -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (row.getItemName().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (row.getStockId().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                }
+
+                return false;
+            });
+        });
     }
 
     private void configureTable1() {
@@ -146,15 +223,6 @@ public class Inventory_stock_adjustmentController implements Initializable {
             this.selectedRow = row;
             tfItemName.setText(row.getItemName());
             tfPreviousQty.setText(row.getQty());
-        }
-    }
-
-    @FXML
-    private void handleActionEvent(ActionEvent event) {
-        if (event.getSource() == btnAddToList) {
-            addToList();
-        } else if (event.getSource() == btnQuantityChange) {
-            applyStockAdjustments();
         }
     }
 
@@ -224,64 +292,36 @@ public class Inventory_stock_adjustmentController implements Initializable {
     }
 
     private void applyStockAdjustments() {
-        Task<List<StockAdjustment>> adjustmentTask = new Task() {
-            @Override
-            protected List<StockAdjustment> call() throws Exception {
-                return StockAdjustmentCRUD.getThisMonthStockAdjustments();
-            }
-        };
-
-        adjustmentTask.setOnSucceeded((t) -> {
-            List<StockAdjustment> list = adjustmentTask.getValue();
-
-            if (list == null) {
-                list = new ArrayList<>();
-            }
-
-            String reason = tfReason.getText();
-            if (reason != null && !reason.trim().isEmpty()) {
-                if (list.size() < 2) {
-                    if (!table2.getItems().isEmpty()) {
-                        List<StockAdjustmentItemTable> adjustmentList = table2.getItems();
-                        updateStockQuantities(adjustmentList, () -> createStockAdjustment(reason));
-                    } else {
-                        CustomAlert.showStyledAlert(
-                                table1,
-                                "No items to process. Please add at least one stock adjustment.",
-                                "Empty Adjustment List",
-                                Alert.AlertType.WARNING
-                        );
-                    }
+        String reason = tfReason.getText();
+        if (reason != null && !reason.trim().isEmpty()) {
+            if (Inventory_stock_adjustmentController.thisMonthsAdjustmentCount < STOCK_ADJUSTMENT_COUNT) {
+                if (!table2.getItems().isEmpty()) {
+                    List<StockAdjustmentItemTable> adjustmentList = table2.getItems();
+                    updateStockQuantities(adjustmentList, () -> createStockAdjustment(reason));
                 } else {
                     CustomAlert.showStyledAlert(
                             table1,
-                            "Stock adjustments for this month have already been completed.",
-                            "Adjustment Limit Reached",
+                            "No items to process. Please add at least one stock adjustment.",
+                            "Empty Adjustment List",
                             Alert.AlertType.WARNING
                     );
                 }
             } else {
                 CustomAlert.showStyledAlert(
                         table1,
-                        "Please enter a reason for this stock adjustment before proceeding.",
-                        "Missing Reason",
+                        "Stock adjustments for this month have already been completed.",
+                        "Adjustment Limit Reached",
                         Alert.AlertType.WARNING
                 );
             }
-        });
-
-        adjustmentTask.setOnFailed((t) -> {
-            adjustmentTask.getException().printStackTrace();
-
+        } else {
             CustomAlert.showStyledAlert(
                     table1,
-                    "Failed to validate stock adjustments. Please try again.",
-                    "System Error",
-                    Alert.AlertType.ERROR
+                    "Please enter a reason for this stock adjustment before proceeding.",
+                    "Missing Reason",
+                    Alert.AlertType.WARNING
             );
-        });
-
-        new Thread(adjustmentTask).start();
+        }
     }
 
     private void updateStockQuantities(List<StockAdjustmentItemTable> adjustmentList, Runnable onSuccessCallback) {
@@ -358,6 +398,7 @@ public class Inventory_stock_adjustmentController implements Initializable {
             );
             refreshPage();
             loadStocks();
+            loadCurrentMonthAdjustments();
         });
 
         task.setOnFailed(e -> {
@@ -378,5 +419,4 @@ public class Inventory_stock_adjustmentController implements Initializable {
         String currentDateTime = sdf.format(new Date());
         tfDateTime.setText(currentDateTime);
     }
-
 }

@@ -22,6 +22,8 @@ module com.qb.app {
     requires jasperreports.fonts;
     requires commons.beanutils;
     requires barbecue;
+    
+    requires flyway.core;
 
     opens com.qb.app to javafx.fxml;
     opens com.qb.app.controllers to javafx.fxml;
@@ -33,6 +35,7 @@ module com.qb.app {
         commons.beanutils;
     opens com.qb.app.model to javafx.fxml, javafx.base;
     opens com.qb.app.model.entity to org.hibernate.orm.core;
+    exports com.qb.app.database;
     exports com.qb.app;
     exports com.qb.app.model;
     exports com.qb.app.controllers.report.beans;

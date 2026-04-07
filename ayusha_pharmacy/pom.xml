@@ -165,6 +165,19 @@
             <artifactId>barbecue</artifactId>
             <version>1.5-beta1</version>
         </dependency>
+        
+        <!-- Flyway database migration dependency -->
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>12.3.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-database-mysql</artifactId>
+            <version>12.3.0</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

@@ -1,5 +1,6 @@
 package com.qb.app;
 
+import com.qb.app.database.DatabaseMigrator;
 import com.qb.app.model.ControllerClose;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -98,6 +99,12 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
+        DatabaseMigrator.migrate(
+                "jdbc:mysql://localhost:3306/pharmacy_system_01",
+                "root",
+                "Vheshan37@37"
+        );
+
         launch();
     }
 }

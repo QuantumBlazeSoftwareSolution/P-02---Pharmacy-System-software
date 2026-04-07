@@ -56,7 +56,7 @@
         <class>com.qb.app.model.entity.Ctrl_1</class>
         <class>com.qb.app.model.entity.ProductHasProductType</class>
         <properties>
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/ayusha_pharmacy?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/pharmacy_system_01?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
             <property name="jakarta.persistence.jdbc.user" value="${DB_USER}"/>
             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
             <property name="jakarta.persistence.jdbc.password" value="${DB_PASSWORD}"/>
